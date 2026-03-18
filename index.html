@@ -1,1 +1,140 @@
-<h1>NeighborBridge Dashboard</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NeighborBridge Dashboard</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Simple config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: "#0ea5e9"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">NeighborBridge Dashboard</h1>
+      <span class="text-sm text-gray-500">Production Prototype</span>
+    </div>
+  </header>
+
+  <!-- Layout -->
+  <div class="max-w-7xl mx-auto px-6 py-6">
+
+    <!-- Top Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+
+      <div class="bg-white p-4 rounded-xl shadow">
+        <p class="text-sm text-gray-500">Status</p>
+        <p class="text-lg font-semibold text-green-600">Active</p>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl shadow">
+        <p class="text-sm text-gray-500">Stakeholders</p>
+        <p class="text-lg font-semibold" id="stakeholder-count">--</p>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl shadow">
+        <p class="text-sm text-gray-500">Tasks</p>
+        <p class="text-lg font-semibold">--</p>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl shadow">
+        <p class="text-sm text-gray-500">Last Update</p>
+        <p class="text-lg font-semibold" id="last-update">--</p>
+      </div>
+
+    </div>
+
+    <!-- Main Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Overview -->
+      <div class="bg-white p-5 rounded-xl shadow col-span-2">
+        <h2 class="text-lg font-semibold mb-3">Overview</h2>
+        <p class="text-gray-600">
+          NeighborBridge operational dashboard. This is the foundation layer.
+        </p>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="bg-white p-5 rounded-xl shadow">
+        <h2 class="text-lg font-semibold mb-3">Quick Actions</h2>
+        <button class="w-full bg-brand text-white py-2 rounded-lg mb-2">Add Stakeholder</button>
+        <button class="w-full bg-gray-200 py-2 rounded-lg">Add Task</button>
+      </div>
+
+      <!-- Stakeholders -->
+      <div class="bg-white p-5 rounded-xl shadow col-span-2">
+        <h2 class="text-lg font-semibold mb-3">Stakeholders</h2>
+        <div id="stakeholder-list" class="space-y-2 text-sm text-gray-700">
+          Loading...
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="bg-white p-5 rounded-xl shadow">
+        <h2 class="text-lg font-semibold mb-3">Notes</h2>
+        <textarea class="w-full border rounded-lg p-2 text-sm" rows="6" placeholder="Write notes..."></textarea>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-8 text-xs text-gray-400 text-center">
+      Deployed via GitHub + Cloudflare • NeighborBridge
+    </div>
+
+  </div>
+
+  <!-- JS (AI can edit this safely) -->
+  <script>
+
+    // Mock data (replace later with Google Sheets / API)
+    const stakeholders = [
+      { name: "Trillium Health", role: "Payer" },
+      { name: "Contentnea Health", role: "FQHC" },
+      { name: "UNC / Duke", role: "Academic" }
+    ];
+
+    function renderStakeholders() {
+      const container = document.getElementById("stakeholder-list");
+      container.innerHTML = "";
+
+      stakeholders.forEach(s => {
+        const div = document.createElement("div");
+        div.className = "p-2 border rounded-lg";
+        div.innerHTML = `<strong>${s.name}</strong> — ${s.role}`;
+        container.appendChild(div);
+      });
+
+      document.getElementById("stakeholder-count").innerText = stakeholders.length;
+    }
+
+    function updateTime() {
+      const now = new Date();
+      document.getElementById("last-update").innerText = now.toLocaleTimeString();
+    }
+
+    // Init
+    renderStakeholders();
+    updateTime();
+
+  </script>
+
+</body>
+</html>
