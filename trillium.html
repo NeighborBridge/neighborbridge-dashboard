@@ -49,6 +49,14 @@
       text-decoration: line-through;
       color: #9ca3af;
     }
+    .ai-suggestion {
+      background-color: #f0f9ff;
+      border-left: 4px solid #0ea5e9;
+    }
+    .human-input {
+      background-color: #fefce8;
+      border-left: 4px solid #f59e0b;
+    }
   </style>
 </head>
 
@@ -74,8 +82,88 @@
     <!-- 【标题】 -->
     <div class="mb-8">
       <h1 class="text-2xl font-bold text-gray-900 mb-2">Trillium Health — 合作推进面板</h1>
-      <p class="text-gray-600">执行导向的操作界面，聚焦下一步行动</p>
+      <p class="text-gray-600">每日执行系统，AI辅助决策</p>
     </div>
+
+    <!-- ==================== -->
+    <!-- DAILY EXECUTION SYSTEM -->
+    <!-- ==================== -->
+
+    <!-- 1. Daily Log (用户输入) -->
+    <div class="mb-6">
+      <div class="bg-white rounded-lg shadow p-5">
+        <h2 class="text-lg font-semibold text-gray-800 mb-3">📝 今日进展</h2>
+        <textarea 
+          id="daily-log" 
+          class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-brand focus:border-transparent" 
+          rows="3" 
+          placeholder="记录今日进展、会议要点、关键决策..."
+        ></textarea>
+        <div class="mt-4 flex justify-end">
+          <button 
+            id="analyze-btn" 
+            class="bg-brand text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition text-sm font-medium"
+          >
+            <i class="fas fa-robot mr-2"></i>更新并分析
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. AI Output (自动生成) -->
+    <div class="mb-6">
+      <div class="ai-suggestion rounded-lg shadow p-5">
+        <h2 class="text-lg font-semibold text-gray-800 mb-3">🤖 AI建议</h2>
+        
+        <div class="mb-4">
+          <p class="text-sm font-medium text-gray-700 mb-1">下一步建议</p>
+          <p id="ai-suggestion-text" class="text-sm text-gray-800">
+            基于当前进展，建议优先重新联系Cindy Ehlers，更新试点提案时间线。
+          </p>
+        </div>
+        
+        <div>
+          <p class="text-sm font-medium text-gray-700 mb-1">Draft Email</p>
+          <textarea 
+            id="draft-email" 
+            class="w-full border rounded-lg p-3 text-sm bg-white focus:ring-2 focus:ring-brand focus:border-transparent" 
+            rows="4"
+          >Hi Cindy,
+
+Hope you're doing well. Following up on our previous discussion about the FASD/ASD screening pilot. We've made progress on the implementation timeline and would like to schedule a 30-minute update call next week.
+
+Would Tuesday or Wednesday work for you?
+
+Best,
+[Your Name]</textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Human Input (用户修正) -->
+    <div class="mb-8">
+      <div class="human-input rounded-lg shadow p-5">
+        <h2 class="text-lg font-semibold text-gray-800 mb-3">👤 我的判断</h2>
+        <textarea 
+          id="human-input" 
+          class="w-full border rounded-lg p-3 text-sm bg-white focus:ring-2 focus:ring-brand focus:border-transparent" 
+          rows="3" 
+          placeholder="添加你的判断、语气调整、关键要点..."
+        ></textarea>
+        <div class="mt-4 flex justify-end">
+          <button 
+            id="update-email-btn" 
+            class="bg-amber-500 text-white px-4 py-2 rounded-lg hover:bg-amber-600 transition text-sm font-medium"
+          >
+            <i class="fas fa-edit mr-2"></i>更新邮件
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== -->
+    <!-- EXISTING EXECUTION PANEL -->
+    <!-- ==================== -->
 
     <!-- 【当前阶段】 -->
     <div class="mb-8">
@@ -292,7 +380,7 @@
   <!-- Footer -->
   <div class="max-w-4xl mx-auto px-6 py-4">
     <div class="text-xs text-gray-400 text-center">
-      执行面板 • 最后更新: <span id="update-time"></span>
+      每日执行系统 • 最后更新: <span id="update-time"></span>
     </div>
   </div>
 
@@ -315,6 +403,114 @@
       });
     });
 
+    // Daily Execution System Logic
+    const dailyLogTextarea = document.getElementById('daily-log');
+    const analyzeBtn = document.getElementById('analyze-btn');
+    const aiSuggestionText = document.getElementById('ai-suggestion-text');
+    const draftEmailTextarea = document.getElementById('draft-email');
+    const humanInputTextarea = document.getElementById('human-input');
+    const updateEmailBtn = document.getElementById('update-email-btn');
+
+    // Mock AI analysis function
+    function analyzeDailyLog(logText) {
+      if (!logText.trim()) {
+        return {
+          suggestion: "请记录今日进展以获取个性化建议。",
+          email: "Hi Cindy,\n\nHope you're doing well. Following up on our previous discussion about the FASD/ASD screening pilot.\n\nBest,\n[Your Name]"
+        };
+      }
+
+      // Simple keyword-based analysis
+      let suggestion = "基于当前进展，建议优先重新联系Cindy Ehlers，更新试点提案时间线。";
+      let email = "Hi Cindy,\n\nHope you're doing well. Following up on our previous discussion about the FASD/ASD screening pilot. We've made progress on the implementation timeline and would like to schedule a 30-minute update call next week.\n\nWould Tuesday or Wednesday work for you?\n\nBest,\n[Your Name]";
+
+      if (logText.includes('联系') || logText.includes('contact')) {
+        suggestion = "已记录联系进展，建议准备具体试点提案细节。";
+        email = "Hi Cindy,\n\nThank you for the recent conversation. As discussed, here are the updated details for the FASD/ASD screening pilot timeline and resource requirements.\n\nBest,\n[Your Name]";
+      }
+
+      if (logText.includes('提案') || logText.includes('proposal')) {
+        suggestion = "提案进展良好，建议整合耶鲁教授身份增强权威性。";
+        email = "Hi Cindy,\n\nFollowing up on the pilot proposal. We've integrated Yale psychiatry expertise into the implementation plan, which should strengthen the clinical validity.\n\nBest,\n[Your Name]";
+      }
+
+      if (logText.includes('会议') || logText.includes('meeting')) {
+        suggestion = "会议记录已更新，建议发送会议纪要并确认下一步。";
+        email = "Hi Cindy,\n\nThank you for the productive meeting yesterday. As discussed, here are the key action items and next steps for the pilot project.\n\nBest,\n[Your Name]";
+      }
+
+      return { suggestion, email };
+    }
+
+    // Update project status based on log
+    function updateProjectStatus(logText) {
+      const statusBadges = document.querySelectorAll('.status-badge');
+      const nextActions = document.querySelectorAll('.execution-card .text-sm.text-gray-800.mt-1');
+      
+      if (logText.includes('联系') && logText.includes('成功')) {
+        // Update first project status
+        if (statusBadges[0]) {
+          statusBadges[0].textContent = "联系完成";
+          statusBadges[0].className = "status-badge bg-green-100 text-green-800";
+        }
+        if (nextActions[0]) {
+          nextActions[0].textContent = "准备试点提案具体细节和资源需求";
+        }
+      }
+    }
+
+    // Analyze Daily Log button click
+    analyzeBtn.addEventListener('click', function() {
+      const logText = dailyLogTextarea.value;
+      const analysis = analyzeDailyLog(logText);
+      
+      // Update AI suggestion
+      aiSuggestionText.textContent = analysis.suggestion;
+      
+      // Update draft email
+      draftEmailTextarea.value = analysis.email;
+      
+      // Update project status
+      updateProjectStatus(logText);
+      
+      // Show success feedback
+      this.innerHTML = '<i class="fas fa-check mr-2"></i>分析完成';
+      this.classList.remove('bg-brand', 'hover:bg-blue-600');
+      this.classList.add('bg-green-500', 'hover:bg-green-600');
+      
+      setTimeout(() => {
+        this.innerHTML = '<i class="fas fa-robot mr-2"></i>更新并分析';
+        this.classList.remove('bg-green-500', 'hover:bg-green-600');
+        this.classList.add('bg-brand', 'hover:bg-blue-600');
+      }, 2000);
+    });
+
+    // Update Email button click
+    updateEmailBtn.addEventListener('click', function() {
+      const humanInput = humanInputTextarea.value;
+      const currentEmail = draftEmailTextarea.value;
+      
+      if (humanInput.trim()) {
+        // Simple refinement: append human input as a paragraph
+        const refinedEmail = currentEmail + "\n\n" + humanInput;
+        draftEmailTextarea.value = refinedEmail;
+        
+        // Clear human input
+        humanInputTextarea.value = '';
+        
+        // Show success feedback
+        this.innerHTML = '<i class="fas fa-check mr-2"></i>邮件已更新';
+        this.classList.remove('bg-amber-500', 'hover:bg-amber-600');
+        this.classList.add('bg-green-500', 'hover:bg-green-600');
+        
+        setTimeout(() => {
+          this.innerHTML = '<i class="fas fa-edit mr-2"></i>更新邮件';
+          this.classList.remove('bg-green-500', 'hover:bg-green-600');
+          this.classList.add('bg-amber-500', 'hover:bg-amber-600');
+        }, 2000);
+      }
+    });
+
     // Execution card hover effects
     document.querySelectorAll('.execution-card').forEach(card => {
       card.addEventListener('mouseenter', function() {
@@ -327,7 +523,3 @@
         this.style.boxShadow = '';
       });
     });
-  </script>
-
-</body>
-</html>
