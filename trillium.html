@@ -92,9 +92,22 @@
   <div class="max-w-6xl mx-auto px-6 py-8">
     
     <!-- 【标题】 -->
-    <div class="mb-8">
-      <h1 class="text-2xl font-bold text-gray-900 mb-2">Trillium Health — 合作推进面板</h1>
-      <p class="text-gray-600">每日执行系统，AI辅助决策，来源验证</p>
+    <div class="mb-8 flex justify-between items-start">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">Trillium Health — 合作推进面板</h1>
+        <p class="text-gray-600">每日执行系统，AI辅助决策，来源验证</p>
+      </div>
+      
+      <!-- PPT Section -->
+      <div class="bg-white rounded-lg shadow p-4">
+        <h3 class="text-sm font-semibold text-gray-800 mb-2">🎯 Trillium 汇报（30分钟）</h3>
+        <button 
+          id="open-ppt-btn"
+          class="w-full bg-brand text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition text-sm font-medium"
+        >
+          <i class="fas fa-presentation-screen mr-2"></i>打开PPT
+        </button>
+      </div>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -703,6 +716,221 @@ Best regards,
         console.warn('⚠️ 无法检查备份文件:', error.message);
         rollbackBtn.classList.add('opacity-50', 'cursor-not-allowed');
         rollbackBtn.title = '无法检查备份文件状态';
+      }
+    });
+  </script>
+
+  <!-- PPT Modal -->
+  <div id="ppt-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+    <div class="absolute inset-0 overflow-y-auto">
+      <div class="min-h-full flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] flex flex-col">
+          
+          <!-- Modal Header -->
+          <div class="flex justify-between items-center p-6 border-b">
+            <div>
+              <h2 class="text-xl font-bold text-gray-900">🎯 Trillium 汇报（30分钟）</h2>
+              <p class="text-sm text-gray-600 mt-1">交互式演示文稿 - 8张幻灯片</p>
+            </div>
+            <button id="close-ppt-btn" class="text-gray-500 hover:text-gray-700">
+              <i class="fas fa-times text-xl"></i>
+            </button>
+          </div>
+          
+          <!-- Modal Content - Slides -->
+          <div class="flex-1 overflow-y-auto p-6">
+            <div class="space-y-12">
+              
+              <!-- Slide 1 -->
+              <div class="slide">
+                <div class="mb-4">
+                  <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Slide 1</span>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">我们是谁</h3>
+                <div class="space-y-4 text-lg text-gray-700">
+                  <p>• <span class="font-semibold">NeighborBridge</span> - 专注于行为健康整合的数字健康解决方案</p>
+                  <p>• <span class="font-semibold">耶鲁大学精神科教授</span> - 临床权威性和研究支持</p>
+                  <p>• <span class="font-semibold">三层IP架构</span> - 政府/FQHC技术咨询服务框架</p>
+                  <p>• <span class="font-semibold">FASD/ASD筛查工具包</span> - 已验证的早期识别解决方案</p>
+                </div>
+              </div>
+              
+              <!-- Slide 2 -->
+              <div class="slide">
+                <div class="mb-4">
+                  <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Slide 2</span>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Trillium当前挑战</h3>
+                <div class="space-y-4 text-lg text-gray-700">
+                  <p>• <span class="font-semibold">高成本服务利用</span> - 晚期诊断导致的高额治疗费用</p>
+                  <p>• <span class="font-semibold">护理碎片化</span> - 缺乏整合的行为健康服务</p>
+                  <p>• <span class="font-semibold">价值医疗转型</span> - 从按服务收费转向基于结果的支付</p>
+                  <p>• <span class="font-semibold">社区覆盖不足</span> - Eastern NC 28个县的资源分配挑战</p>
+                </div>
+              </div>
+              
+              <!-- Slide 3 -->
+              <div class="slide">
+                <div class="mb-4">
+                  <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Slide 3</span>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">机会点</h3>
+                <div class="space-y-4 text-lg text-gray-700">
+                  <p>• <span class="font-semibold">FASD/ASD筛查试点</span> - 早期识别 vs 晚期治疗成本比 1:10</p>
+                  <p>• <span class="font-semibold">学校系统合作</span> - 利用Trillium社区网络扩展覆盖</p>
+                  <p>• <span class="font-semibold">数据驱动干预</span> - 预测模型识别高风险人群</p>
+                  <p>• <span class="font-semibold">价值支付模式</span> - 基于结果的支付，潜在节约15-25%</p>
+                </div>
+              </div>
+              
+              <!-- Slide 4 -->
+              <div class="slide">
+                <div class="mb-4">
+                  <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Slide 4</span>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">我们已有进展</h3>
+                <div class="space-y-4 text-lg text-gray-700">
+                  <p>• <span class="font-semibold">North Carolina学校系统合作</span> - 已建立合作关系</p>
+                  <p>• <span class="font-semibold">耶鲁大学精神科整合</span> - 临床验证和权威性增强</p>
+                  <p>• <span class="font-semibold">详细ROI模型</span> - 成本节约计算框架</p>
+                  <p>• <span class="font-semibold">初步讨论</span> - 与COO Cindy Ehlers方向一致</p>
+                </div>
+              </div>
+              
+              <!-- Slide 5 -->
+              <div class="slide">
+                <div class="mb-4">
+                  <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Slide 5</span>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Pilot方案</h3>
+                <div class="space-y-4 text-lg text-gray-700">
+                  <p>• <span class="font-semibold">范围</span> - 2-3个县，6-9个月实施</p>
+                  <p>• <span class="font-semibold">目标人群</span> - Trillium Medicaid儿童和家庭</p>
+                  <p>• <span class="font-semibold">核心组件</span>:<br>
+                    &nbsp;&nbsp;✓ FASD/ASD筛查工具包<br>
+                    &nbsp;&nbsp;✓ 早期干预支持<br>
+                    &nbsp;&nbsp;✓ 数据集成和报告<br>
+                    &nbsp;&nbsp;✓ 耶鲁教授咨询</p>
+                  <p>• <span class="font-semibold">预算</span> - $50-150k (基于范围和深度)</p>
+                </div>
+              </div>
+              
+              <!-- Slide 6 -->
+              <div class="slide">
+                <div class="mb-4">
+                  <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Slide 6</span>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">ROI逻辑</h3>
+                <div class="space-y-4 text-lg text-gray-700">
+                  <p>• <span class="font-semibold">成本节约</span>:<br>
+                    &nbsp;&nbsp;✓ 减少高成本急诊利用: 15-25%<br>
+                    &nbsp;&nbsp;✓ 降低再入院率: 8-12%<br>
+                    &nbsp;&nbsp;✓ 改善护理连续性: 减少重复服务</p>
+                  <p>• <span class="font-semibold">质量提升</span>:<br>
+                    &nbsp;&nbsp;✓ 早期识别率提高<br>
+                    &nbsp;&nbsp;✓ 干预时间缩短<br>
+                    &nbsp;&nbsp;✓ 患者满意度改善</p>
+                  <p>• <span class="font-semibold">战略价值</span>:<br>
+                    &nbsp;&nbsp;✓ 价值医疗领导地位<br>
+                    &nbsp;&nbsp;✓ 社区影响力增强<br>
+                    &nbsp;&nbsp;✓ 可扩展的解决方案</p>
+                </div>
+              </div>
+              
+              <!-- Slide 7 -->
+              <div class="slide">
+                <div class="mb-4">
+                  <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Slide 7</span>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">为什么是现在</h3>
+                <div class="space-y-4 text-lg text-gray-700">
+                  <p>• <span class="font-semibold">Q2预算规划窗口</span> - 2026年第二季度预算制定期</p>
+                  <p>• <span class="font-semibold">价值医疗转型加速</span> - Medicaid MCO向基于结果支付转型</p>
+                  <p>• <span class="font-semibold">行为健康优先级提升</span> - 疫情后心理健康需求增加</p>
+                  <p>• <span class="font-semibold">竞争窗口期</span> - 其他数字健康解决方案尚未深度渗透</p>
+                  <p>• <span class="font-semibold">耶鲁教授身份强化</span> - 学术权威性增强合作可信度</p>
+                </div>
+              </div>
+              
+              <!-- Slide 8 -->
+              <div class="slide">
+                <div class="mb-4">
+                  <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Slide 8</span>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">下一步行动</h3>
+                <div class="space-y-4 text-lg text-gray-700">
+                  <p>1. <span class="font-semibold">重新联系</span> - 发送更新邮件给Cindy Ehlers (本周)</p>
+                  <p>2. <span class="font-semibold">30分钟更新会议</span> - 讨论进展和试点方案 (下周)</p>
+                  <p>3. <span class="font-semibold">试点提案细化</span> - 2-3个县具体方案 (2周内)</p>
+                  <p>4. <span class="font-semibold">内部利益相关者参与</span> - 建立支持联盟 (3周内)</p>
+                  <p>5. <span class="font-semibold">Q2预算整合</span> - 确保试点资金 (4周内)</p>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          
+          <!-- Modal Footer -->
+          <div class="p-4 border-t bg-gray-50">
+            <div class="flex justify-between items-center">
+              <div class="text-sm text-gray-600">
+                共8张幻灯片 • 建议演示时间: 30分钟
+              </div>
+              <button id="close-ppt-btn-bottom" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition text-sm font-medium">
+                关闭演示
+              </button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .slide {
+      padding-bottom: 3rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .slide:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  </style>
+
+  <script>
+    // PPT Modal functionality
+    const pptModal = document.getElementById('ppt-modal');
+    const openPptBtn = document.getElementById('open-ppt-btn');
+    const closePptBtn = document.getElementById('close-ppt-btn');
+    const closePptBtnBottom = document.getElementById('close-ppt-btn-bottom');
+    
+    // Open modal
+    openPptBtn.addEventListener('click', function() {
+      pptModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    });
+    
+    // Close modal functions
+    function closePptModal() {
+      pptModal.classList.add('hidden');
+      document.body.style.overflow = ''; // Restore scrolling
+    }
+    
+    closePptBtn.addEventListener('click', closePptModal);
+    closePptBtnBottom.addEventListener('click', closePptModal);
+    
+    // Close modal when clicking outside content
+    pptModal.addEventListener('click', function(event) {
+      if (event.target === pptModal) {
+        closePptModal();
+      }
+    });
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape' && !pptModal.classList.contains('hidden')) {
+        closePptModal();
       }
     });
   </script>
