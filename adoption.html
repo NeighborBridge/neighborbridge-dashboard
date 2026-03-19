@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adoption Planning - NeighborBridge Dashboard</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Simple config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: "#0ea5e9"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- Header with Navigation -->
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <h1 class="text-2xl font-bold">NeighborBridge Dashboard</h1>
+        <span class="text-sm text-gray-500">› Adoption Planning</span>
+      </div>
+      <div class="flex space-x-4">
+        <a href="/" class="text-sm text-gray-600 hover:text-brand">Main Dashboard</a>
+        <span class="text-sm text-gray-500">Production Prototype</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="max-w-7xl mx-auto px-6 py-8">
+
+    <!-- Page Header -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Adoption Planning</h1>
+      <p class="text-gray-600">Strategic framework for stakeholder adoption and implementation</p>
+    </div>
+
+    <!-- Grid Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- Left Column -->
+      <div class="space-y-6">
+
+        <!-- Overview Section -->
+        <div class="bg-white p-6 rounded-xl shadow">
+          <h2 class="text-xl font-semibold mb-4 text-gray-800">Overview</h2>
+          <div class="space-y-3 text-gray-700">
+            <p><strong>Purpose:</strong> Define and coordinate the adoption strategy for NeighborBridge solutions across stakeholder groups.</p>
+            <p><strong>Scope:</strong> End-to-end planning from initial engagement to full implementation.</p>
+            <p><strong>Goal:</strong> Ensure seamless integration and maximize value realization for all partners.</p>
+          </div>
+        </div>
+
+        <!-- Stakeholders & Roles -->
+        <div class="bg-white p-6 rounded-xl shadow">
+          <h2 class="text-xl font-semibold mb-4 text-gray-800">Stakeholders & Roles</h2>
+          <div class="space-y-3">
+            <div class="p-3 bg-blue-50 rounded-lg">
+              <h3 class="font-medium text-blue-800">Executive Sponsors</h3>
+              <p class="text-sm text-gray-600">C-level leadership providing strategic direction and resources</p>
+            </div>
+            <div class="p-3 bg-green-50 rounded-lg">
+              <h3 class="font-medium text-green-800">Clinical Champions</h3>
+              <p class="text-sm text-gray-600">Healthcare providers driving clinical adoption and workflow integration</p>
+            </div>
+            <div class="p-3 bg-purple-50 rounded-lg">
+              <h3 class="font-medium text-purple-800">Technical Teams</h3>
+              <p class="text-sm text-gray-600">IT and implementation specialists ensuring technical integration</p>
+            </div>
+            <div class="p-3 bg-yellow-50 rounded-lg">
+              <h3 class="font-medium text-yellow-800">End Users</h3>
+              <p class="text-sm text-gray-600">Frontline staff and patients utilizing the solutions</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Implementation Phases -->
+        <div class="bg-white p-6 rounded-xl shadow">
+          <h2 class="text-xl font-semibold mb-4 text-gray-800">Implementation Phases</h2>
+          <div class="space-y-4">
+            <div class="border-l-4 border-blue-500 pl-4">
+              <h3 class="font-medium text-gray-800">Phase 1: Discovery & Assessment</h3>
+              <p class="text-sm text-gray-600">Stakeholder interviews, needs analysis, and readiness assessment</p>
+            </div>
+            <div class="border-l-4 border-green-500 pl-4">
+              <h3 class="font-medium text-gray-800">Phase 2: Planning & Design</h3>
+              <p class="text-sm text-gray-600">Solution design, workflow mapping, and implementation planning</p>
+            </div>
+            <div class="border-l-4 border-purple-500 pl-4">
+              <h3 class="font-medium text-gray-800">Phase 3: Pilot Implementation</h3>
+              <p class="text-sm text-gray-600">Limited rollout, testing, and feedback collection</p>
+            </div>
+            <div class="border-l-4 border-yellow-500 pl-4">
+              <h3 class="font-medium text-gray-800">Phase 4: Full Deployment</h3>
+              <p class="text-sm text-gray-600">Organization-wide rollout, training, and support</p>
+            </div>
+            <div class="border-l-4 border-gray-500 pl-4">
+              <h3 class="font-medium text-gray-800">Phase 5: Optimization & Scale</h3>
+              <p class="text-sm text-gray-600">Continuous improvement, scaling, and value realization</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-6">
+
+        <!-- Timeline / Milestones -->
+        <div class="bg-white p-6 rounded-xl shadow">
+          <h2 class="text-xl font-semibold mb-4 text-gray-800">Timeline / Milestones</h2>
+          <div class="space-y-4">
+            <div class="flex items-center">
+              <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+              <div>
+                <h3 class="font-medium text-gray-800">Q1 2026: Foundation</h3>
+                <p class="text-sm text-gray-600">Stakeholder identification and initial engagement</p>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <div class="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
+              <div>
+                <h3 class="font-medium text-gray-800">Q2 2026: Planning</h3>
+                <p class="text-sm text-gray-600">Detailed implementation planning and resource allocation</p>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <div class="w-3 h-3 bg-yellow-500 rounded-full mr-3"></div>
+              <div>
+                <h3 class="font-medium text-gray-800">Q3 2026: Pilot Launch</h3>
+                <p class="text-sm text-gray-600">Pilot implementation with selected partners</p>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <div class="w-3 h-3 bg-purple-500 rounded-full mr-3"></div>
+              <div>
+                <h3 class="font-medium text-gray-800">Q4 2026: Evaluation</h3>
+                <p class="text-sm text-gray-600">Pilot evaluation and scaling strategy development</p>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <div class="w-3 h-3 bg-gray-500 rounded-full mr-3"></div>
+              <div>
+                <h3 class="font-medium text-gray-800">2027: Full Scale</h3>
+                <p class="text-sm text-gray-600">Organization-wide deployment and optimization</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Key Tasks / Action Items -->
+        <div class="bg-white p-6 rounded-xl shadow">
+          <h2 class="text-xl font-semibold mb-4 text-gray-800">Key Tasks / Action Items</h2>
+          <div class="space-y-3">
+            <div class="flex items-start">
+              <input type="checkbox" class="mt-1 mr-3" checked>
+              <div>
+                <p class="text-gray-800">Complete stakeholder analysis and mapping</p>
+                <p class="text-xs text-gray-500">Due: 2026-03-31 • Owner: Strategy Team</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <input type="checkbox" class="mt-1 mr-3">
+              <div>
+                <p class="text-gray-800">Develop communication and engagement plan</p>
+                <p class="text-xs text-gray-500">Due: 2026-04-15 • Owner: Comms Team</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <input type="checkbox" class="mt-1 mr-3">
+              <div>
+                <p class="text-gray-800">Design training materials and resources</p>
+                <p class="text-xs text-gray-500">Due: 2026-05-01 • Owner: Training Team</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <input type="checkbox" class="mt-1 mr-3">
+              <div>
+                <p class="text-gray-800">Establish success metrics and KPIs</p>
+                <p class="text-xs text-gray-500">Due: 2026-04-30 • Owner: Analytics Team</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <input type="checkbox" class="mt-1 mr-3">
+              <div>
+                <p class="text-gray-800">Select pilot sites and partners</p>
+                <p class="text-xs text-gray-500">Due: 2026-05-15 • Owner: Partnerships</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notes Section -->
+        <div class="bg-white p-6 rounded-xl shadow">
+          <h2 class="text-xl font-semibold mb-4 text-gray-800">Notes</h2>
+          <textarea 
+            class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-brand focus:border-transparent" 
+            rows="6" 
+            placeholder="Add notes, observations, or updates about the adoption planning process..."
+          ></textarea>
+          <div class="mt-4 flex justify-end">
+            <button class="bg-brand text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">Save Notes</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Back to Dashboard -->
+    <div class="mt-8 pt-6 border-t">
+      <a href="/" class="inline-flex items-center text-brand hover:text-blue-700">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
+        Back to Main Dashboard
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="max-w-7xl mx-auto px-6 py-4">
+    <div class="text-xs text-gray-400 text-center">
+      Adoption Planning • NeighborBridge Dashboard • Updated: <span id="current-date"></span>
+    </div>
+  </div>
+
+  <!-- Simple Script -->
+  <script>
+    // Set current date
+    document.getElementById('current-date').textContent = new Date().toLocaleDateString();
+    
+    // Handle checkbox interactions
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        const taskText = this.nextElementSibling.querySelector('p.text-gray-800');
+        if (this.checked) {
+          taskText.classList.add('line-through', 'text-gray-400');
+        } else {
+          taskText.classList.remove('line-through', 'text-gray-400');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
+HTML && echo "✅ adoption.html 创建成功" && echo "" && echo "2. 验证文件大小..." && wc -l adoption.html && echo "文件大小:" && ls -lh adoption.html
