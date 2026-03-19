@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>采用规划 - NeighborBridge 仪表板</title>
+  <title>Adoption Planning - NeighborBridge 仪表板</title>
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -14,12 +14,51 @@
       theme: {
         extend: {
           colors: {
-            brand: "#0ea5e9"
+            brand: "#0ea5e9",
+            urgent: "#ef4444",
+            warning: "#f59e0b",
+            neutral: "#6b7280",
+            completed: "#10b981"
           }
         }
       }
     }
   </script>
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    .phase-accordion {
+      transition: all 0.3s ease;
+    }
+    .phase-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .phase-accordion.active .phase-content {
+      max-height: 500px;
+    }
+    .progress-bar {
+      transition: width 0.5s ease;
+    }
+    .tag {
+      font-size: 0.75rem;
+      padding: 0.125rem 0.5rem;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .role-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .role-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+  </style>
 </head>
 
 <body class="bg-gray-50 text-gray-900">
@@ -29,7 +68,7 @@
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
       <div class="flex items-center space-x-4">
         <h1 class="text-2xl font-bold">NeighborBridge 仪表板</h1>
-        <span class="text-sm text-gray-500">› 采用规划</span>
+        <span class="text-sm text-gray-500">› <span class="font-medium text-brand">Adoption Planning</span></span>
       </div>
       <div class="flex space-x-4">
         <a href="/" class="text-sm text-gray-600 hover:text-brand">主仪表板</a>
@@ -41,167 +80,350 @@
   <!-- Main Content -->
   <div class="max-w-7xl mx-auto px-6 py-8">
 
-    <!-- Page Header -->
+    <!-- Page Header with Progress Bar -->
     <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900 mb-2">采用规划</h1>
-      <p class="text-gray-600">利益相关者采用和实施的战略框架</p>
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900 mb-2">Adoption Planning</h1>
+          <p class="text-gray-600">采用规划与实施跟踪</p>
+        </div>
+        <div class="text-right">
+          <div class="text-sm text-gray-500 mb-1">当前进度</div>
+          <div class="flex items-center">
+            <div class="w-48 bg-gray-200 rounded-full h-2.5 mr-3">
+              <div class="bg-brand h-2.5 rounded-full progress-bar" style="width: 40%"></div>
+            </div>
+            <span class="text-sm font-medium">阶段 2 / 5</span>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Grid Layout -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Compact Grid Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-      <!-- Left Column -->
-      <div class="space-y-6">
+      <!-- Left Column: Stakeholders & Implementation -->
+      <div class="lg:col-span-2 space-y-6">
 
-        <!-- Stakeholders & Roles -->
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h2 class="text-xl font-semibold mb-4 text-gray-800">利益相关者与角色</h2>
-          <div class="space-y-3">
-            <div class="p-3 bg-blue-50 rounded-lg">
-              <h3 class="font-medium text-blue-800">执行发起人</h3>
-              <p class="text-sm text-gray-600">C级领导层，提供战略方向和资源</p>
+        <!-- Stakeholders & Roles - Horizontal Cards -->
+        <div class="bg-white rounded-xl shadow p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold text-gray-800">利益相关者与角色</h2>
+            <span class="text-sm text-gray-500">4个角色</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div class="role-card bg-white border-l-4 border-blue-500 p-4 rounded-lg border">
+              <div class="flex items-center mb-2">
+                <i class="fas fa-user-tie text-blue-500 mr-2"></i>
+                <h3 class="font-medium text-gray-800">执行层</h3>
+              </div>
+              <p class="text-xs text-gray-600">战略方向与资源</p>
             </div>
-            <div class="p-3 bg-green-50 rounded-lg">
-              <h3 class="font-medium text-green-800">临床倡导者</h3>
-              <p class="text-sm text-gray-600">推动临床采用和工作流整合的医疗提供者</p>
+            <div class="role-card bg-white border-l-4 border-green-500 p-4 rounded-lg border">
+              <div class="flex items-center mb-2">
+                <i class="fas fa-user-md text-green-500 mr-2"></i>
+                <h3 class="font-medium text-gray-800">临床层</h3>
+              </div>
+              <p class="text-xs text-gray-600">临床采用与工作流</p>
             </div>
-            <div class="p-3 bg-purple-50 rounded-lg">
-              <h3 class="font-medium text-purple-800">技术团队</h3>
-              <p class="text-sm text-gray-600">确保技术整合的IT和实施专家</p>
+            <div class="role-card bg-white border-l-4 border-purple-500 p-4 rounded-lg border">
+              <div class="flex items-center mb-2">
+                <i class="fas fa-laptop-code text-purple-500 mr-2"></i>
+                <h3 class="font-medium text-gray-800">技术层</h3>
+              </div>
+              <p class="text-xs text-gray-600">技术整合与实施</p>
             </div>
-            <div class="p-3 bg-yellow-50 rounded-lg">
-              <h3 class="font-medium text-yellow-800">最终用户</h3>
-              <p class="text-sm text-gray-600">使用解决方案的一线工作人员和患者</p>
+            <div class="role-card bg-white border-l-4 border-yellow-500 p-4 rounded-lg border">
+              <div class="flex items-center mb-2">
+                <i class="fas fa-users text-yellow-500 mr-2"></i>
+                <h3 class="font-medium text-gray-800">用户层</h3>
+              </div>
+              <p class="text-xs text-gray-600">一线使用与反馈</p>
             </div>
           </div>
         </div>
 
-        <!-- Implementation Phases -->
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h2 class="text-xl font-semibold mb-4 text-gray-800">实施阶段</h2>
-          <div class="space-y-4">
-            <div class="border-l-4 border-blue-500 pl-4">
-              <h3 class="font-medium text-gray-800">阶段1: 发现与评估</h3>
-              <p class="text-sm text-gray-600">利益相关者访谈、需求分析和准备度评估</p>
+        <!-- Implementation Phases - Collapsible Accordion -->
+        <div class="bg-white rounded-xl shadow">
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-xl font-semibold text-gray-800">实施阶段</h2>
+              <button id="toggle-all-phases" class="text-sm text-brand hover:text-blue-700">
+                <i class="fas fa-chevron-down mr-1"></i>展开全部
+              </button>
             </div>
-            <div class="border-l-4 border-green-500 pl-4">
-              <h3 class="font-medium text-gray-800">阶段2: 规划与设计</h3>
-              <p class="text-sm text-gray-600">解决方案设计、工作流映射和实施规划</p>
-            </div>
-            <div class="border-l-4 border-purple-500 pl-4">
-              <h3 class="font-medium text-gray-800">阶段3: 试点实施</h3>
-              <p class="text-sm text-gray-600">有限范围的推出、测试和反馈收集</p>
-            </div>
-            <div class="border-l-4 border-yellow-500 pl-4">
-              <h3 class="font-medium text-gray-800">阶段4: 全面部署</h3>
-              <p class="text-sm text-gray-600">组织范围内的推出、培训和支持</p>
-            </div>
-            <div class="border-l-4 border-gray-500 pl-4">
-              <h3 class="font-medium text-gray-800">阶段5: 优化与扩展</h3>
-              <p class="text-sm text-gray-600">持续改进、扩展和价值实现</p>
+            
+            <div class="space-y-3">
+              <!-- Phase 1 -->
+              <div class="phase-accordion border rounded-lg overflow-hidden active">
+                <div class="flex justify-between items-center p-4 bg-gray-50 cursor-pointer phase-header">
+                  <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mr-3">
+                      <span class="font-bold">1</span>
+                    </div>
+                    <div>
+                      <h3 class="font-medium text-gray-800">发现与评估</h3>
+                      <div class="flex items-center mt-1">
+                        <span class="tag bg-blue-100 text-blue-800">
+                          <i class="fas fa-calendar-alt text-xs"></i> 2026 Q1
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <i class="fas fa-chevron-up text-gray-400"></i>
+                </div>
+                <div class="phase-content p-4 border-t">
+                  <p class="text-sm text-gray-600 mb-3">利益相关者访谈、需求分析和准备度评估</p>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="tag bg-gray-100 text-gray-800">状态: 已完成</span>
+                    <span class="tag bg-green-100 text-green-800">进度: 100%</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Phase 2 -->
+              <div class="phase-accordion border rounded-lg overflow-hidden active">
+                <div class="flex justify-between items-center p-4 bg-gray-50 cursor-pointer phase-header">
+                  <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3">
+                      <span class="font-bold">2</span>
+                    </div>
+                    <div>
+                      <h3 class="font-medium text-gray-800">规划与设计</h3>
+                      <div class="flex items-center mt-1">
+                        <span class="tag bg-green-100 text-green-800">
+                          <i class="fas fa-calendar-alt text-xs"></i> 2026 Q2
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <i class="fas fa-chevron-up text-gray-400"></i>
+                </div>
+                <div class="phase-content p-4 border-t">
+                  <p class="text-sm text-gray-600 mb-3">解决方案设计、工作流映射和实施规划</p>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="tag bg-blue-100 text-blue-800">状态: 进行中</span>
+                    <span class="tag bg-yellow-100 text-yellow-800">进度: 40%</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Phase 3 -->
+              <div class="phase-accordion border rounded-lg overflow-hidden">
+                <div class="flex justify-between items-center p-4 bg-gray-50 cursor-pointer phase-header">
+                  <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mr-3">
+                      <span class="font-bold">3</span>
+                    </div>
+                    <div>
+                      <h3 class="font-medium text-gray-800">试点实施</h3>
+                      <div class="flex items-center mt-1">
+                        <span class="tag bg-purple-100 text-purple-800">
+                          <i class="fas fa-calendar-alt text-xs"></i> 2026 Q3
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <i class="fas fa-chevron-down text-gray-400"></i>
+                </div>
+                <div class="phase-content p-4 border-t">
+                  <p class="text-sm text-gray-600 mb-3">有限范围的推出、测试和反馈收集</p>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="tag bg-gray-100 text-gray-800">状态: 待开始</span>
+                    <span class="tag bg-gray-100 text-gray-800">进度: 0%</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Phase 4 -->
+              <div class="phase-accordion border rounded-lg overflow-hidden">
+                <div class="flex justify-between items-center p-4 bg-gray-50 cursor-pointer phase-header">
+                  <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center mr-3">
+                      <span class="font-bold">4</span>
+                    </div>
+                    <div>
+                      <h3 class="font-medium text-gray-800">全面部署</h3>
+                      <div class="flex items-center mt-1">
+                        <span class="tag bg-yellow-100 text-yellow-800">
+                          <i class="fas fa-calendar-alt text-xs"></i> 2026 Q4
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <i class="fas fa-chevron-down text-gray-400"></i>
+                </div>
+                <div class="phase-content p-4 border-t">
+                  <p class="text-sm text-gray-600 mb-3">组织范围内的推出、培训和支持</p>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="tag bg-gray-100 text-gray-800">状态: 待开始</span>
+                    <span class="tag bg-gray-100 text-gray-800">进度: 0%</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Phase 5 -->
+              <div class="phase-accordion border rounded-lg overflow-hidden">
+                <div class="flex justify-between items-center p-4 bg-gray-50 cursor-pointer phase-header">
+                  <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center mr-3">
+                      <span class="font-bold">5</span>
+                    </div>
+                    <div>
+                      <h3 class="font-medium text-gray-800">优化与扩展</h3>
+                      <div class="flex items-center mt-1">
+                        <span class="tag bg-gray-100 text-gray-800">
+                          <i class="fas fa-calendar-alt text-xs"></i> 2027
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <i class="fas fa-chevron-down text-gray-400"></i>
+                </div>
+                <div class="phase-content p-4 border-t">
+                  <p class="text-sm text-gray-600 mb-3">持续改进、扩展和价值实现</p>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="tag bg-gray-100 text-gray-800">状态: 待开始</span>
+                    <span class="tag bg-gray-100 text-gray-800">进度: 0%</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
       </div>
 
-      <!-- Right Column -->
+      <!-- Right Column: Tasks & Notes -->
       <div class="space-y-6">
 
-        <!-- Timeline / Milestones -->
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h2 class="text-xl font-semibold mb-4 text-gray-800">时间线 / 里程碑</h2>
-          <div class="space-y-4">
-            <div class="flex items-center">
-              <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
-              <div>
-                <h3 class="font-medium text-gray-800">2026年第一季度: 基础建设</h3>
-                <p class="text-sm text-gray-600">利益相关者识别和初步接触</p>
-              </div>
-            </div>
-            <div class="flex items-center">
-              <div class="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
-              <div>
-                <h3 class="font-medium text-gray-800">2026年第二季度: 规划</h3>
-                <p class="text-sm text-gray-600">详细实施规划和资源分配</p>
-              </div>
-            </div>
-            <div class="flex items-center">
-              <div class="w-3 h-3 bg-yellow-500 rounded-full mr-3"></div>
-              <div>
-                <h3 class="font-medium text-gray-800">2026年第三季度: 试点启动</h3>
-                <p class="text-sm text-gray-600">与选定合作伙伴的试点实施</p>
-              </div>
-            </div>
-            <div class="flex items-center">
-              <div class="w-3 h-3 bg-purple-500 rounded-full mr-3"></div>
-              <div>
-                <h3 class="font-medium text-gray-800">2026年第四季度: 评估</h3>
-                <p class="text-sm text-gray-600">试点评估和扩展策略制定</p>
-              </div>
-            </div>
-            <div class="flex items-center">
-              <div class="w-3 h-3 bg-gray-500 rounded-full mr-3"></div>
-              <div>
-                <h3 class="font-medium text-gray-800">2027年: 全面扩展</h3>
-                <p class="text-sm text-gray-600">组织范围内的部署和优化</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Key Tasks / Action Items -->
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h2 class="text-xl font-semibold mb-4 text-gray-800">关键任务 / 行动项</h2>
-          <div class="space-y-3">
+        <div class="bg-white rounded-xl shadow p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold text-gray-800">关键任务</h2>
+            <span class="text-sm text-gray-500">5个任务</span>
+          </div>
+          
+          <div class="space-y-4">
+            <!-- Task 1 -->
             <div class="flex items-start">
               <input type="checkbox" class="mt-1 mr-3" checked>
-              <div>
+              <div class="flex-1">
                 <p class="text-gray-800">完成利益相关者分析和映射</p>
-                <p class="text-xs text-gray-500">截止: 2026-03-31 • 负责人: 战略团队</p>
+                <div class="flex flex-wrap gap-1 mt-2">
+                  <span class="tag bg-blue-100 text-blue-800">
+                    <i class="fas fa-user text-xs"></i> 战略团队
+                  </span>
+                  <span class="tag bg-green-100 text-green-800">
+                    <i class="fas fa-calendar-check text-xs"></i> 2026-03-31
+                  </span>
+                  <span class="tag bg-completed text-white">
+                    <i class="fas fa-check text-xs"></i> 已完成
+                  </span>
+                </div>
               </div>
             </div>
+
+            <!-- Task 2 -->
             <div class="flex items-start">
               <input type="checkbox" class="mt-1 mr-3">
-              <div>
+              <div class="flex-1">
                 <p class="text-gray-800">制定沟通和参与计划</p>
-                <p class="text-xs text-gray-500">截止: 2026-04-15 • 负责人: 沟通团队</p>
+                <div class="flex flex-wrap gap-1 mt-2">
+                  <span class="tag bg-blue-100 text-blue-800">
+                    <i class="fas fa-user text-xs"></i> 沟通团队
+                  </span>
+                  <span class="tag bg-warning text-white">
+                    <i class="fas fa-calendar-alt text-xs"></i> 2026-04-15
+                  </span>
+                  <span class="tag bg-yellow-100 text-yellow-800">
+                    <i class="fas fa-clock text-xs"></i> 进行中
+                  </span>
+                </div>
               </div>
             </div>
+
+            <!-- Task 3 -->
             <div class="flex items-start">
               <input type="checkbox" class="mt-1 mr-3">
-              <div>
+              <div class="flex-1">
                 <p class="text-gray-800">设计培训材料和资源</p>
-                <p class="text-xs text-gray-500">截止: 2026-05-01 • 负责人: 培训团队</p>
+                <div class="flex flex-wrap gap-1 mt-2">
+                  <span class="tag bg-blue-100 text-blue-800">
+                    <i class="fas fa-user text-xs"></i> 培训团队
+                  </span>
+                  <span class="tag bg-neutral text-white">
+                    <i class="fas fa-calendar-alt text-xs"></i> 2026-05-01
+                  </span>
+                  <span class="tag bg-gray-100 text-gray-800">
+                    <i class="fas fa-clock text-xs"></i> 待开始
+                  </span>
+                </div>
               </div>
             </div>
+
+            <!-- Task 4 -->
             <div class="flex items-start">
               <input type="checkbox" class="mt-1 mr-3">
-              <div>
+              <div class="flex-1">
                 <p class="text-gray-800">建立成功指标和KPI</p>
-                <p class="text-xs text-gray-500">截止: 2026-04-30 • 负责人: 分析团队</p>
+                <div class="flex flex-wrap gap-1 mt-2">
+                  <span class="tag bg-blue-100 text-blue-800">
+                    <i class="fas fa-user text-xs"></i> 分析团队
+                  </span>
+                  <span class="tag bg-warning text-white">
+                    <i class="fas fa-calendar-alt text-xs"></i> 2026-04-30
+                  </span>
+                  <span class="tag bg-yellow-100 text-yellow-800">
+                    <i class="fas fa-clock text-xs"></i> 进行中
+                  </span>
+                </div>
               </div>
             </div>
+
+            <!-- Task 5 -->
             <div class="flex items-start">
               <input type="checkbox" class="mt-1 mr-3">
-              <div>
+              <div class="flex-1">
                 <p class="text-gray-800">选择试点地点和合作伙伴</p>
-                <p class="text-xs text-gray-500">截止: 2026-05-15 • 负责人: 合作伙伴团队</p>
+                <div class="flex flex-wrap gap-1 mt-2">
+                  <span class="tag bg-blue-100 text-blue-800">
+                    <i class="fas fa-user text-xs"></i> 合作伙伴团队
+                  </span>
+                  <span class="tag bg-neutral text-white">
+                    <i class="fas fa-calendar-alt text-xs"></i> 2026-05-15
+                  </span>
+                  <span class="tag bg-gray-100 text-gray-800">
+                    <i class="fas fa-clock text-xs"></i> 待开始
+                  </span>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Notes Section -->
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h2 class="text-xl font-semibold mb-4 text-gray-800">笔记</h2>
-          <textarea 
-            class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-brand focus:border-transparent" 
-            rows="6" 
-            placeholder="添加关于采用规划过程的笔记、观察或更新..."
-          ></textarea>
-          <div class="mt-4 flex justify-end">
-            <button class="bg-brand text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">保存笔记</button>
+        <!-- Notes Section - Collapsible -->
+        <div class="bg-white rounded-xl shadow">
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-xl font-semibold text-gray-800">笔记</h2>
+              <button id="toggle-notes" class="text-sm text-brand hover:text-blue-700">
+                <i class="fas fa-chevron-up mr-1"></i>收起
+              </button>
+            </div>
+            
+            <div id="notes-content">
+              <textarea 
+                class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-brand focus:border-transparent" 
+                rows="6" 
+                placeholder="添加关于采用规划过程的笔记、观察或更新..."
+              ></textarea>
+              <div class="mt-4 flex justify-end">
+                <button class="bg-brand text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+                  <i class="fas fa-save mr-2"></i>保存笔记
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -212,9 +434,7 @@
     <!-- Back to Dashboard -->
     <div class="mt-8 pt-6 border-t">
       <a href="/" class="inline-flex items-center text-brand hover:text-blue-700">
-        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-        </svg>
+        <i class="fas fa-arrow-left mr-2"></i>
         返回主仪表板
       </a>
     </div>
@@ -228,7 +448,7 @@
     </div>
   </div>
 
-  <!-- Simple Script -->
+  <!-- JavaScript for Interactions -->
   <script>
     // Set current date
     document.getElementById('current-date').textContent = new Date().toLocaleDateString('zh-CN');
@@ -237,14 +457,107 @@
     document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
       checkbox.addEventListener('change', function() {
         const taskText = this.nextElementSibling.querySelector('p.text-gray-800');
+        const statusTag = this.nextElementSibling.querySelector('.tag.bg-gray-100, .tag.bg-yellow-100, .tag.bg-green-100');
+        
         if (this.checked) {
           taskText.classList.add('line-through', 'text-gray-400');
+          if (statusTag) {
+            statusTag.className = 'tag bg-completed text-white';
+            statusTag.innerHTML = '<i class="fas fa-check text-xs"></i> 已完成';
+          }
         } else {
           taskText.classList.remove('line-through', 'text-gray-400');
+          if (statusTag) {
+            statusTag.className = 'tag bg-yellow-100 text-yellow-800';
+            statusTag.innerHTML = '<i class="fas fa-clock text-xs"></i> 进行中';
+          }
         }
       });
     });
+
+    // Phase accordion functionality
+    document.querySelectorAll('.phase-header').forEach(header => {
+      header.addEventListener('click', function() {
+        const accordion = this.parentElement;
+        const icon = this.querySelector('i.fa-chevron-up, i.fa-chevron-down');
+        
+        accordion.classList.toggle('active');
+        
+        if (accordion.classList.contains('active')) {
+          icon.className = 'fas fa-chevron-up text-gray-400';
+        } else {
+          icon.className = 'fas fa-chevron-down text-gray-400';
+        }
+      });
+    });
+
+    // Toggle all phases
+    const toggleAllBtn = document.getElementById('toggle-all-phases');
+    let allExpanded = true;
+    
+    toggleAllBtn.addEventListener('click', function() {
+      const accordions = document.querySelectorAll('.phase-accordion');
+      const icon = this.querySelector('i');
+      
+      if (allExpanded) {
+        // Collapse all
+        accordions.forEach(acc => {
+          acc.classList.remove('active');
+          const headerIcon = acc.querySelector('.phase-header i.fa-chevron-up, .phase-header i.fa-chevron-down');
+          if (headerIcon) headerIcon.className = 'fas fa-chevron-down text-gray-400';
+        });
+        icon.className = 'fas fa-chevron-right mr-1';
+        this.innerHTML = '<i class="fas fa-chevron-right mr-1"></i>展开全部';
+        allExpanded = false;
+      } else {
+        // Expand all
+        accordions.forEach(acc => {
+          acc.classList.add('active');
+          const headerIcon = acc.querySelector('.phase-header i.fa-chevron-up, .phase-header i.fa-chevron-down');
+          if (headerIcon) headerIcon.className = 'fas fa-chevron-up text-gray-400';
+        });
+        icon.className = 'fas fa-chevron-down mr-1';
+        this.innerHTML = '<i class="fas fa-chevron-down mr-1"></i>收起全部';
+        allExpanded = true;
+      }
+    });
+
+    // Toggle notes section
+    const toggleNotesBtn = document.getElementById('toggle-notes');
+    const notesContent = document.getElementById('notes-content');
+    let notesExpanded = true;
+    
+    toggleNotesBtn.addEventListener('click', function() {
+      const icon = this.querySelector('i');
+      
+      if (notesExpanded) {
+        notesContent.style.maxHeight = '0';
+        notesContent.style.overflow = 'hidden';
+        notesContent.style.padding = '0';
+        icon.className = 'fas fa-chevron-down mr-1';
+        this.innerHTML = '<i class="fas fa-chevron-down mr-1"></i>展开';
+        notesExpanded = false;
+      } else {
+        notesContent.style.maxHeight = '500px';
+        notesContent.style.overflow = 'visible';
+        notesContent.style.padding = '';
+        icon.className = 'fas fa-chevron-up mr-1';
+        this.innerHTML = '<i class="fas fa-chevron-up mr-1"></i>收起';
+        notesExpanded = true;
+      }
+    });
+
+    // Initialize notes as collapsed
+    setTimeout(() => {
+      notesContent.style.maxHeight = '0';
+      notesContent.style.overflow = 'hidden';
+      notesContent.style.padding = '0';
+      toggleNotesBtn.querySelector('i').className = 'fas fa-chevron-down mr-1';
+      toggleNotesBtn.innerHTML = '<i class="fas fa-chevron-down mr-1"></i>展开';
+      notesExpanded = false;
+    }, 100);
   </script>
 
 </body>
 </html>
+HTML && echo "✅ 现代化版本创建完成"
