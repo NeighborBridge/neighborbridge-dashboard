@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trillium Health — 合作面板</title>
+  <title>Trillium Health — 合作推进面板</title>
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -15,9 +15,10 @@
         extend: {
           colors: {
             brand: "#0ea5e9",
-            completed: "#10b981",
-            inprogress: "#3b82f6",
-            planned: "#6b7280"
+            urgent: "#ef4444",
+            warning: "#f59e0b",
+            neutral: "#6b7280",
+            completed: "#10b981"
           }
         }
       }
@@ -28,19 +29,25 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
-    .card {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    .execution-card {
+      border-left: 4px solid #0ea5e9;
+      transition: all 0.2s ease;
     }
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    .execution-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
-    .phase-indicator {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      display: inline-block;
-      margin-right: 6px;
+    .status-badge {
+      font-size: 0.7rem;
+      padding: 0.1rem 0.5rem;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .action-checkbox:checked + span {
+      text-decoration: line-through;
+      color: #9ca3af;
     }
   </style>
 </head>
@@ -49,15 +56,14 @@
 
   <!-- Header with Navigation -->
   <header class="bg-white shadow-sm border-b">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
       <div class="flex items-center space-x-4">
-        <h1 class="text-2xl font-bold">NeighborBridge 仪表板</h1>
+        <h1 class="text-xl font-bold">NeighborBridge 执行面板</h1>
         <span class="text-sm text-gray-500">› <span class="font-medium text-brand">Trillium Health</span></span>
       </div>
       <div class="flex space-x-4">
         <a href="/" class="text-sm text-gray-600 hover:text-brand">主面板</a>
         <a href="/adoption" class="text-sm text-gray-600 hover:text-brand">采用规划</a>
-        <span class="text-sm text-gray-500">生产原型</span>
       </div>
     </div>
   </header>
@@ -65,209 +71,217 @@
   <!-- Main Content -->
   <div class="max-w-4xl mx-auto px-6 py-8">
 
-    <!-- Page Header -->
-    <div class="mb-8 text-center">
-      <h1 class="text-3xl font-bold text-gray-900 mb-2">Trillium Health — 合作面板</h1>
-      <p class="text-gray-600">支付方合作伙伴关系管理</p>
+    <!-- 【标题】 -->
+    <div class="mb-8">
+      <h1 class="text-2xl font-bold text-gray-900 mb-2">Trillium Health — 合作推进面板</h1>
+      <p class="text-gray-600">执行导向的操作界面，聚焦下一步行动</p>
     </div>
 
-    <!-- MVP Grid Layout -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-      <!-- Left Column -->
-      <div class="space-y-6">
-
-        <!-- 目标 -->
-        <div class="bg-white rounded-xl shadow p-6 card">
-          <h2 class="text-xl font-semibold text-gray-800 mb-4">目标</h2>
-          <p class="text-gray-700">通过价值医疗模式改善行为健康服务，优化成本结构并提升患者治疗效果。</p>
+    <!-- 【当前阶段】 -->
+    <div class="mb-8">
+      <div class="bg-white rounded-lg shadow p-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="text-sm text-gray-500">当前阶段</span>
+            <p class="text-lg font-semibold text-brand">Pilot 准备中</p>
+          </div>
+          <div class="text-sm text-gray-500">
+            最后更新: <span id="current-date"></span>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <!-- 当前阶段 -->
-        <div class="bg-white rounded-xl shadow p-6 card">
-          <h2 class="text-xl font-semibold text-gray-800 mb-4">当前阶段</h2>
-          <div class="space-y-4">
-            <div class="flex items-center">
-              <div class="phase-indicator bg-completed"></div>
-              <div class="flex-1">
-                <span class="font-medium text-gray-800">发现阶段</span>
-                <p class="text-sm text-gray-600">需求评估与利益相关者对齐</p>
-              </div>
-              <span class="text-sm text-green-600 font-medium">已完成</span>
+    <!-- 【优先落地项目（最重要）】 -->
+    <div class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">优先落地项目</h2>
+      
+      <div class="space-y-4">
+        
+        <!-- 项目1 -->
+        <div class="bg-white rounded-lg shadow p-5 execution-card">
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <h3 class="font-bold text-gray-800 text-lg">FASD/ASD筛查试点扩展</h3>
+              <p class="text-sm text-gray-600 mt-1">预防性筛查 vs 晚期诊断治疗成本比 1:10</p>
             </div>
-            <div class="flex items-center">
-              <div class="phase-indicator bg-inprogress"></div>
-              <div class="flex-1">
-                <span class="font-medium text-gray-800">试点阶段</span>
-                <p class="text-sm text-gray-600">有限范围实施与测试</p>
-              </div>
-              <span class="text-sm text-blue-600 font-medium">进行中</span>
-            </div>
-            <div class="flex items-center">
-              <div class="phase-indicator bg-planned"></div>
-              <div class="flex-1">
-                <span class="font-medium text-gray-800">扩展阶段</span>
-                <p class="text-sm text-gray-600">全面部署与优化</p>
-              </div>
-              <span class="text-sm text-gray-600 font-medium">计划中</span>
-            </div>
+            <span class="status-badge bg-blue-100 text-blue-800">进行中</span>
+          </div>
+          <div class="border-t pt-3">
+            <p class="text-sm font-medium text-gray-700">下一步行动</p>
+            <p class="text-sm text-gray-800 mt-1">使用沟通模板重新联系Cindy Ehlers，提议30分钟更新通话</p>
           </div>
         </div>
 
-        <!-- 关键指标 -->
-        <div class="bg-white rounded-xl shadow p-6 card">
-          <h2 class="text-xl font-semibold text-gray-800 mb-4">关键指标</h2>
+        <!-- 项目2 -->
+        <div class="bg-white rounded-lg shadow p-5 execution-card">
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <h3 class="font-bold text-gray-800 text-lg">价值医疗支付模式设计</h3>
+              <p class="text-sm text-gray-600 mt-1">基于结果的支付 vs 按服务收费，潜在节约15-25%</p>
+            </div>
+            <span class="status-badge bg-yellow-100 text-yellow-800">未开始</span>
+          </div>
+          <div class="border-t pt-3">
+            <p class="text-sm font-medium text-gray-700">下一步行动</p>
+            <p class="text-sm text-gray-800 mt-1">基于三层IP白皮书框架制定具体支付模式提案</p>
+          </div>
+        </div>
+
+        <!-- 项目3 -->
+        <div class="bg-white rounded-lg shadow p-5 execution-card">
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <h3 class="font-bold text-gray-800 text-lg">社区整合平台试点</h3>
+              <p class="text-sm text-gray-600 mt-1">减少重复服务和碎片化护理，改善护理连续性</p>
+            </div>
+            <span class="status-badge bg-gray-100 text-gray-800">未开始</span>
+          </div>
+          <div class="border-t pt-3">
+            <p class="text-sm font-medium text-gray-700">下一步行动</p>
+            <p class="text-sm text-gray-800 mt-1">识别2-3个潜在社区合作伙伴进行初步接触</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 【下一步行动（全局）】 -->
+    <div class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">下一步行动</h2>
+      
+      <div class="bg-white rounded-lg shadow p-5">
+        <div class="space-y-3">
+          <div class="flex items-start">
+            <input type="checkbox" class="action-checkbox mt-1 mr-3" id="action1">
+            <label for="action1" class="flex-1">
+              <span class="text-gray-800">发送重新联系邮件给Cindy Ehlers (Trillium COO)</span>
+              <p class="text-xs text-gray-500 mt-1">截止: 2026-03-22 • 负责人: 合作伙伴总监</p>
+            </label>
+          </div>
+          
+          <div class="flex items-start">
+            <input type="checkbox" class="action-checkbox mt-1 mr-3" id="action2">
+            <label for="action2" class="flex-1">
+              <span class="text-gray-800">制定FASD/ASD筛查试点具体提案 (3-4个月时间线)</span>
+              <p class="text-xs text-gray-500 mt-1">截止: 2026-03-26 • 负责人: 临床整合负责人</p>
+            </label>
+          </div>
+          
+          <div class="flex items-start">
+            <input type="checkbox" class="action-checkbox mt-1 mr-3" id="action3">
+            <label for="action3" class="flex-1">
+              <span class="text-gray-800">整合耶鲁教授身份到试点提案中，增强专业权威性</span>
+              <p class="text-xs text-gray-500 mt-1">截止: 2026-03-24 • 负责人: 战略团队</p>
+            </label>
+          </div>
+          
+          <div class="flex items-start">
+            <input type="checkbox" class="action-checkbox mt-1 mr-3" id="action4">
+            <label for="action4" class="flex-1">
+              <span class="text-gray-800">准备试点ROI分析，明确成本节约计算和预期结果</span>
+              <p class="text-xs text-gray-500 mt-1">截止: 2026-03-25 • 负责人: 分析团队</p>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two Column Layout for Metrics and Contacts -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+
+      <!-- 【关键指标（精简）】 -->
+      <div>
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">关键指标</h2>
+        <div class="bg-white rounded-lg shadow p-5">
           <div class="space-y-4">
             <div>
               <div class="flex justify-between items-center mb-1">
-                <span class="text-sm font-medium text-gray-700">成本节约</span>
+                <span class="text-sm font-medium text-gray-700">成本节约潜力</span>
                 <span class="text-sm font-bold text-green-600">12.5%</span>
               </div>
               <div class="w-full bg-gray-200 rounded-full h-2">
                 <div class="bg-green-500 h-2 rounded-full" style="width: 65%"></div>
               </div>
             </div>
+            
             <div>
               <div class="flex justify-between items-center mb-1">
-                <span class="text-sm font-medium text-gray-700">再入院率</span>
+                <span class="text-sm font-medium text-gray-700">再入院率降低</span>
                 <span class="text-sm font-bold text-blue-600">8.2%</span>
               </div>
               <div class="w-full bg-gray-200 rounded-full h-2">
                 <div class="bg-blue-500 h-2 rounded-full" style="width: 45%"></div>
               </div>
             </div>
+            
             <div>
               <div class="flex justify-between items-center mb-1">
-                <span class="text-sm font-medium text-gray-700">患者参与度</span>
-                <span class="text-sm font-bold text-purple-600">78%</span>
+                <span class="text-sm font-medium text-gray-700">试点时间线</span>
+                <span class="text-sm font-bold text-purple-600">3-4个月</span>
               </div>
               <div class="w-full bg-gray-200 rounded-full h-2">
-                <div class="bg-purple-500 h-2 rounded-full" style="width: 78%"></div>
+                <div class="bg-purple-500 h-2 rounded-full" style="width: 30%"></div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
 
-      <!-- Right Column -->
-      <div class="space-y-6">
-
-        <!-- 当前重点 -->
-        <div class="bg-white rounded-xl shadow p-6 card">
-          <h2 class="text-xl font-semibold text-gray-800 mb-4">当前重点</h2>
-          <div class="space-y-4">
-            <div class="flex items-start">
-              <input type="checkbox" class="mt-1 mr-3" checked>
-              <div class="flex-1">
-                <p class="text-gray-800">完成试点FQHC的行为健康整合评估</p>
-                <p class="text-xs text-gray-500 mt-1">截止: 2026-04-15 • 负责人: 临床团队</p>
-              </div>
-            </div>
-            <div class="flex items-start">
-              <input type="checkbox" class="mt-1 mr-3">
-              <div class="flex-1">
-                <p class="text-gray-800">制定价值医疗支付模式方案</p>
-                <p class="text-xs text-gray-500 mt-1">截止: 2026-05-01 • 负责人: 战略团队</p>
-              </div>
-            </div>
-            <div class="flex items-start">
-              <input type="checkbox" class="mt-1 mr-3">
-              <div class="flex-1">
-                <p class="text-gray-800">建立关键绩效指标监控系统</p>
-                <p class="text-xs text-gray-500 mt-1">截止: 2026-05-15 • 负责人: 分析团队</p>
-              </div>
-            </div>
-            <div class="flex items-start">
-              <input type="checkbox" class="mt-1 mr-3">
-              <div class="flex-1">
-                <p class="text-gray-800">协调社区合作伙伴参与计划</p>
-                <p class="text-xs text-gray-500 mt-1">截止: 2026-06-01 • 负责人: 合作伙伴团队</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 关键联系人 -->
-        <div class="bg-white rounded-xl shadow p-6 card">
-          <h2 class="text-xl font-semibold text-gray-800 mb-4">关键联系人</h2>
+      <!-- 【关键联系人】 -->
+      <div>
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">关键联系人</h2>
+        <div class="bg-white rounded-lg shadow p-5">
           
           <!-- Cindy Ehlers -->
-          <div class="mb-6">
-            <div class="flex items-center mb-3">
-              <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mr-3">
-                <i class="fas fa-user text-lg"></i>
+          <div class="mb-4">
+            <div class="flex items-center mb-2">
+              <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mr-3">
+                <i class="fas fa-user text-sm"></i>
               </div>
               <div>
-                <p class="text-lg font-medium text-gray-800">Cindy Ehlers</p>
-                <p class="text-sm text-gray-600">Trillium Health Resources 领导团队</p>
+                <p class="text-sm font-medium text-gray-800">Cindy Ehlers</p>
+                <p class="text-xs text-gray-600">Trillium Health Resources COO</p>
               </div>
             </div>
             
-            <div class="space-y-2 pl-13">
+            <div class="space-y-1 pl-11">
               <a href="https://www.trilliumhealthresources.org/teams-functions" 
                  target="_blank" 
-                 class="flex items-center text-sm text-blue-600 hover:text-blue-800">
-                <i class="fas fa-link mr-2 text-xs"></i>
+                 class="flex items-center text-xs text-blue-600 hover:text-blue-800">
+                <i class="fas fa-external-link-alt mr-1 text-xs"></i>
                 Trillium 团队与职能
               </a>
               <a href="https://www.ncproviderscouncil.org/speakers-2025/cindy-ehlers/" 
                  target="_blank" 
-                 class="flex items-center text-sm text-blue-600 hover:text-blue-800">
-                <i class="fas fa-microphone mr-2 text-xs"></i>
+                 class="flex items-center text-xs text-blue-600 hover:text-blue-800">
+                <i class="fas fa-microphone mr-1 text-xs"></i>
                 NC Providers Council 演讲者资料
               </a>
             </div>
           </div>
 
-          <!-- Internal Team -->
+          <!-- Internal Contact -->
           <div>
-            <h3 class="font-medium text-gray-700 mb-3">内部团队</h3>
-            <div class="space-y-3">
-              <div class="flex items-center">
-                <div class="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center mr-3">
-                  <span class="text-xs font-bold">JD</span>
-                </div>
-                <div>
-                  <p class="text-sm font-medium text-gray-800">Jane Doe</p>
-                  <p class="text-xs text-gray-600">合作伙伴总监</p>
-                </div>
+            <div class="flex items-center">
+              <div class="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center mr-3">
+                <span class="text-xs font-bold">JD</span>
               </div>
-              <div class="flex items-center">
-                <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3">
-                  <span class="text-xs font-bold">MS</span>
-                </div>
-                <div>
-                  <p class="text-sm font-medium text-gray-800">Michael Smith</p>
-                  <p class="text-xs text-gray-600">临床整合负责人</p>
-                </div>
+              <div>
+                <p class="text-sm font-medium text-gray-800">Jane Doe</p>
+                <p class="text-xs text-gray-600">合作伙伴总监</p>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- 快速笔记 -->
-        <div class="bg-white rounded-xl shadow p-6 card">
-          <h2 class="text-xl font-semibold text-gray-800 mb-4">快速笔记</h2>
-          <textarea 
-            class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-brand focus:border-transparent" 
-            rows="4" 
-            placeholder="记录会议要点、决策或更新..."
-          ></textarea>
-          <div class="mt-4 flex justify-end">
-            <button class="bg-brand text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition text-sm">
-              <i class="fas fa-save mr-2"></i>保存笔记
-            </button>
-          </div>
         </div>
-
       </div>
 
     </div>
 
     <!-- Back to Dashboard -->
-    <div class="mt-8 pt-6 border-t">
-      <a href="/" class="inline-flex items-center text-brand hover:text-blue-700">
+    <div class="pt-6 border-t">
+      <a href="/" class="inline-flex items-center text-sm text-gray-600 hover:text-brand">
         <i class="fas fa-arrow-left mr-2"></i>
         返回主面板
       </a>
@@ -278,32 +292,34 @@
   <!-- Footer -->
   <div class="max-w-4xl mx-auto px-6 py-4">
     <div class="text-xs text-gray-400 text-center">
-      Trillium Health 合作面板 • NeighborBridge • 更新于: <span id="current-date"></span>
+      执行面板 • 最后更新: <span id="update-time"></span>
     </div>
   </div>
 
   <!-- JavaScript -->
   <script>
-    // Set current date
-    document.getElementById('current-date').textContent = new Date().toLocaleDateString('zh-CN');
+    // Set current date and time
+    const now = new Date();
+    document.getElementById('current-date').textContent = now.toLocaleDateString('zh-CN');
+    document.getElementById('update-time').textContent = now.toLocaleString('zh-CN');
     
     // Handle checkbox interactions
-    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+    document.querySelectorAll('.action-checkbox').forEach(checkbox => {
       checkbox.addEventListener('change', function() {
-        const taskText = this.nextElementSibling.querySelector('p.text-gray-800');
+        const label = this.nextElementSibling.querySelector('span.text-gray-800');
         if (this.checked) {
-          taskText.classList.add('line-through', 'text-gray-400');
+          label.classList.add('line-through', 'text-gray-400');
         } else {
-          taskText.classList.remove('line-through', 'text-gray-400');
+          label.classList.remove('line-through', 'text-gray-400');
         }
       });
     });
 
-    // Card hover effects
-    document.querySelectorAll('.card').forEach(card => {
+    // Execution card hover effects
+    document.querySelectorAll('.execution-card').forEach(card => {
       card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-2px)';
-        this.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+        this.style.transform = 'translateY(-1px)';
+        this.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.05)';
       });
       
       card.addEventListener('mouseleave', function() {
