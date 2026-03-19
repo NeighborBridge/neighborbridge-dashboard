@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trillium Health Resources — Payer Dashboard</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Simple config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: "#0ea5e9",
+            urgent: "#ef4444",
+            warning: "#f59e0b",
+            neutral: "#6b7280",
+            completed: "#10b981"
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    .phase-accordion {
+      transition: all 0.3s ease;
+    }
+    .phase-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .phase-accordion.active .phase-content {
+      max-height: 500px;
+    }
+    .progress-bar {
+      transition: width 0.5s ease;
+    }
+    .tag {
+      font-size: 0.75rem;
+      padding: 0.125rem 0.5rem;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- Header with Navigation -->
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <h1 class="text-2xl font-bold">NeighborBridge Dashboard</h1>
+        <span class="text-sm text-gray-500">› <span class="font-medium text-brand">Trillium Health Resources</span></span>
+      </div>
+      <div class="flex space-x-4">
+        <a href="/" class="text-sm text-gray-600 hover:text-brand">Main Dashboard</a>
+        <a href="/adoption" class="text-sm text-gray-600 hover:text-brand">Adoption Planning</a>
+        <span class="text-sm text-gray-500">Production Prototype</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="max-w-7xl mx-auto px-6 py-8">
+
+    <!-- Page Header -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Trillium Health Resources — Payer Dashboard</h1>
+      <p class="text-gray-600">Strategic partnership dashboard for payer collaboration and value tracking</p>
+    </div>
+
+    <!-- Grid Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Left Column -->
+      <div class="lg:col-span-2 space-y-6">
+
+        <!-- Overview -->
+        <div class="bg-white rounded-xl shadow p-6 card">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">Overview</h2>
+          <div class="space-y-3 text-gray-700">
+            <p><strong>Partnership Goals:</strong> Collaborative healthcare innovation to improve patient outcomes while optimizing cost structures.</p>
+            <p><strong>Payer Role:</strong> Trillium Health Resources serves as a strategic payer partner, focusing on value-based care models and population health management.</p>
+            <p><strong>Focus Areas:</strong> Behavioral health integration, care coordination, and community-based service delivery.</p>
+          </div>
+        </div>
+
+        <!-- Strategic Priorities -->
+        <div class="bg-white rounded-xl shadow p-6 card">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">Strategic Priorities</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="border-l-4 border-blue-500 pl-4 py-3">
+              <h3 class="font-medium text-gray-800 mb-1">Cost Reduction</h3>
+              <p class="text-sm text-gray-600">Optimize healthcare spending through preventive care and efficient resource allocation</p>
+            </div>
+            <div class="border-l-4 border-green-500 pl-4 py-3">
+              <h3 class="font-medium text-gray-800 mb-1">Care Coordination</h3>
+              <p class="text-sm text-gray-600">Seamless integration across providers, services, and community resources</p>
+            </div>
+            <div class="border-l-4 border-purple-500 pl-4 py-3">
+              <h3 class="font-medium text-gray-800 mb-1">Population Health Outcomes</h3>
+              <p class="text-sm text-gray-600">Improve health metrics for defined populations through targeted interventions</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Programs / Initiatives -->
+        <div class="bg-white rounded-xl shadow p-6 card">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">Programs / Initiatives</h2>
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mr-3 mt-1">
+                <i class="fas fa-flask text-sm"></i>
+              </div>
+              <div>
+                <h3 class="font-medium text-gray-800">Pilot Programs</h3>
+                <p class="text-sm text-gray-600">Behavioral health integration pilot in 3 FQHCs, telepsychiatry expansion</p>
+                <div class="flex flex-wrap gap-2 mt-2">
+                  <span class="tag bg-blue-100 text-blue-800">Status: Active</span>
+                  <span class="tag bg-green-100 text-green-800">Timeline: 6 months</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3 mt-1">
+                <i class="fas fa-handshake text-sm"></i>
+              </div>
+              <div>
+                <h3 class="font-medium text-gray-800">Value-Based Care Initiatives</h3>
+                <p class="text-sm text-gray-600">Alternative payment models, shared savings programs, quality incentives</p>
+                <div class="flex flex-wrap gap-2 mt-2">
+                  <span class="tag bg-yellow-100 text-yellow-800">Status: Planning</span>
+                  <span class="tag bg-neutral text-white">Timeline: 12 months</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mr-3 mt-1">
+                <i class="fas fa-users text-sm"></i>
+              </div>
+              <div>
+                <h3 class="font-medium text-gray-800">Community Partnerships</h3>
+                <p class="text-sm text-gray-600">Collaboration with local organizations for social determinants of health</p>
+                <div class="flex flex-wrap gap-2 mt-2">
+                  <span class="tag bg-blue-100 text-blue-800">Status: Active</span>
+                  <span class="tag bg-green-100 text-green-800">Partners: 5+</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Implementation Status -->
+        <div class="bg-white rounded-xl shadow p-6 card">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">Implementation Status</h2>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3">
+                  <i class="fas fa-check text-sm"></i>
+                </div>
+                <div>
+                  <h3 class="font-medium text-gray-800">Discovery Phase</h3>
+                  <p class="text-sm text-gray-600">Needs assessment and stakeholder alignment</p>
+                </div>
+              </div>
+              <span class="tag bg-completed text-white">Completed</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mr-3">
+                  <span class="font-bold">2</span>
+                </div>
+                <div>
+                  <h3 class="font-medium text-gray-800">Pilot Phase</h3>
+                  <p class="text-sm text-gray-600">Limited implementation and testing</p>
+                </div>
+              </div>
+              <span class="tag bg-blue-100 text-blue-800">In Progress</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center mr-3">
+                  <span class="font-bold">3</span>
+                </div>
+                <div>
+                  <h3 class="font-medium text-gray-800">Scale Phase</h3>
+                  <p class="text-sm text-gray-600">Full deployment and optimization</p>
+                </div>
+              </div>
+              <span class="tag bg-gray-100 text-gray-800">Planned</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-6">
+
+        <!-- KPIs / Metrics -->
+        <div class="bg-white rounded-xl shadow p-6 card">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">KPIs / Metrics</h2>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-sm font-medium text-gray-700">Cost Savings</span>
+                <span class="text-sm font-bold text-green-600">12.5%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-green-500 h-2 rounded-full" style="width: 65%"></div>
+              </div>
+              <p class="text-xs text-gray-500 mt-1">vs. baseline projection</p>
+            </div>
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-sm font-medium text-gray-700">Readmission Rates</span>
+                <span class="text-sm font-bold text-blue-600">8.2%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-blue-500 h-2 rounded-full" style="width: 45%"></div>
+              </div>
+              <p class="text-xs text-gray-500 mt-1">30-day all-cause readmissions</p>
+            </div>
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-sm font-medium text-gray-700">Patient Engagement</span>
+                <span class="text-sm font-bold text-purple-600">78%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-purple-500 h-2 rounded-full" style="width: 78%"></div>
+              </div>
+              <p class="text-xs text-gray-500 mt-1">Active participation in care plans</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Key Contacts -->
+        <div class="bg-white rounded-xl shadow p-6 card">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">Key Contacts</h2>
+          
+          <div class="mb-6">
+            <h3 class="font-medium text-gray-700 mb-3">Internal Team</h3>
+            <div class="space-y-3">
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center mr-3">
+                  <span class="text-xs font-bold">JD</span>
+                </div>
+                <div>
+                  <p class="text-sm font-medium text-gray-800">Jane Doe</p>
+                  <p class="text-xs text-gray-600">Partnership Director</p>
+                </div>
+              </div>
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3">
+                  <span class="text-xs font-bold">MS</span>
+                </div>
+                <div>
+                  <p class="text-sm font-medium text-gray-800">Michael Smith</p>
+                  <p class="text-xs text-gray-600">Clinical Integration Lead</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="font-medium text-gray-700 mb-3">Trillium Stakeholders</h3>
+            <div class="space-y-3">
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mr-3">
+                  <span class="text-xs font-bold">RS</span>
+                </div>
+                <div>
+                  <p class="text-sm font-medium text-gray-800">Robert Johnson</p>
+                  <p class="text-xs text-gray-600">Director of Innovation</p>
+                </div>
+              </div>
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center mr-3">
+                  <span class="text-xs font-bold">LS</span>
+                </div>
+                <div>
+                  <p class="text-sm font-medium text-gray-800">Lisa Chen</p>
+                  <p class="text-xs text-gray-600">Value-Based Care Manager</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notes Section -->
+        <div class="bg-white rounded-xl shadow p-6 card">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">Notes</h2>
+          <textarea 
+            class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-brand focus:border-transparent" 
+            rows="6" 
+            placeholder="Add notes about Trillium partnership, meetings, decisions, or updates..."
+          ></textarea>
+          <div class="mt-4 flex justify-end">
+            <button class="bg-brand text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+              <i class="fas fa-save mr-2"></i>Save Notes
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Back to Dashboard -->
+    <div class="mt-8 pt-6 border-t">
+      <a href="/" class="inline-flex items-center text-brand hover:text-blue-700">
+        <i class="fas fa-arrow-left mr-2"></i>
+        Back to Main Dashboard
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="max-w-7xl mx-auto px-6 py-4">
+    <div class="text-xs text-gray-400 text-center">
+      Trillium Health Resources Dashboard • NeighborBridge • Updated: <span id="current-date"></span>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Set current date
+    document.getElementById('current-date').textContent = new Date().toLocaleDateString();
+    
+    // Card hover effects
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-2px)';
+        this.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = '';
+        this.style.boxShadow = '';
+      });
+    });
+  </script>
+
+</body>
+</html>
