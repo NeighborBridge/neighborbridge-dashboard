@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FQHC — 基础试点面板</title>
+  <title>Stakeholders — 关系网络面板</title>
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -86,16 +86,15 @@
       color: var(--text-primary);
     }
 
-    /* Secondary Text - Orange Accent */
+    /* Secondary Text */
     .text-gray-600, .text-gray-500, .text-gray-400,
-    .text-xs, .meta, .timestamp,
-    .text-gray-700, .text-gray-800, .text-gray-900 {
-      color: #f59e0b !important;
+    .text-xs, .meta, .timestamp {
+      color: var(--text-secondary);
     }
 
-    /* Keep specific colors for status badges */
-    .text-yellow-600, .text-blue-600, .text-green-600, .text-red-600 {
-      color: inherit !important;
+    /* Muted Text */
+    .text-gray-700, .text-gray-800, .text-gray-900 {
+      color: var(--text-muted);
     }
 
     /* Links */
@@ -115,12 +114,12 @@
       border-color: var(--border);
     }
 
-    /* Execution Card */
-    .execution-card {
+    /* Stakeholder Card */
+    .stakeholder-card {
       border-left: 4px solid #0ea5e9;
       transition: all 0.2s ease;
     }
-    .execution-card:hover {
+    .stakeholder-card:hover {
       transform: translateY(-1px);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       background: var(--hover-bg);
@@ -133,6 +132,29 @@
       align-items: center;
       gap: 0.25rem;
     }
+    .priority-badge {
+      font-size: 0.7rem;
+      padding: 0.1rem 0.5rem;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .priority-high {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .priority-medium {
+      background: rgba(245, 158, 11, 0.1);
+      color: #f59e0b;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .priority-low {
+      background: rgba(107, 114, 128, 0.1);
+      color: #6b7280;
+      border: 1px solid rgba(107, 114, 128, 0.3);
+    }
   </style>
 </head>
 
@@ -143,13 +165,13 @@
     <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
       <div class="flex items-center space-x-4">
         <h1 class="text-xl font-bold">NeighborBridge 执行面板</h1>
-        <span class="text-sm text-gray-500">› <span class="font-medium text-brand">FQHC（基础试点）</span></span>
+        <span class="text-sm text-gray-500">› <span class="font-medium text-brand">Stakeholders（关系网络）</span></span>
       </div>
       <div class="flex space-x-4">
         <a href="/" class="text-sm text-gray-600 hover:text-brand">主面板</a>
         <a href="/adoption" class="text-sm text-gray-600 hover:text-brand">采用规划</a>
         <a href="/trillium" class="text-sm text-gray-600 hover:text-brand">Trillium Health</a>
-        <a href="/stakeholders" class="text-sm text-gray-600 hover:text-brand">Stakeholders（关系网络）</a>
+        <a href="/fqhc" class="text-sm text-gray-600 hover:text-brand">FQHC（基础试点）</a>
         <button id="rollback-btn" class="text-sm text-gray-600 hover:text-amber-600 font-medium">
           🔄 回滚到上一版本（Git）
         </button>
@@ -162,124 +184,144 @@
     
     <!-- Title -->
     <div class="mb-8">
-      <h1 class="text-2xl font-bold text-gray-900 mb-2">FQHC — 基础试点面板</h1>
+      <h1 class="text-2xl font-bold text-gray-900 mb-2">Stakeholders — 关系网络面板</h1>
       <p class="text-gray-600">最小化UI，执行导向，无虚假声明</p>
     </div>
 
-    <!-- Grid Layout -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-      <!-- Left Column -->
-      <div class="space-y-6">
-
-        <!-- 1. 当前状态 -->
-        <div class="execution-card bg-card rounded-lg p-5">
-          <div class="flex justify-between items-start mb-3">
-            <div>
-              <h2 class="text-lg font-semibold text-gray-800 mb-2">1. 当前状态</h2>
-            </div>
-            <span class="status-badge bg-yellow-100 text-yellow-800">待对齐</span>
-          </div>
-          <div class="space-y-3">
-            <p class="text-gray-700">未与FQHC leadership正式对齐</p>
-            <div class="text-sm text-gray-600">
-              <p>• 尚未建立正式沟通渠道</p>
-              <p>• 未获得领导层明确支持</p>
-              <p>• 处于初步探索阶段</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 2. 可用资源 -->
-        <div class="execution-card bg-card rounded-lg p-5">
-          <div class="flex justify-between items-start mb-3">
-            <div>
-              <h2 class="text-lg font-semibold text-gray-800 mb-2">2. 可用资源</h2>
-            </div>
-            <span class="status-badge bg-blue-100 text-blue-800">基础具备</span>
-          </div>
-          <div class="space-y-3">
-            <div class="text-gray-700">
-              <p class="font-medium mb-2">现有基础：</p>
-              <ul class="space-y-2 text-sm">
-                <li class="flex items-start">
-                  <span class="text-green-500 mr-2">•</span>
-                  <span>临床触点（当前实践）</span>
-                </li>
-                <li class="flex items-start">
-                  <span class="text-green-500 mr-2">•</span>
-                  <span>FASD识别经验</span>
-                </li>
-                <li class="flex items-start">
-                  <span class="text-green-500 mr-2">•</span>
-                  <span>患者群体基础</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
+    <!-- Stats Overview -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+      <div class="bg-card rounded-lg p-4">
+        <p class="text-sm text-gray-600">总关系数</p>
+        <p class="text-lg font-semibold text-orange-500">1</p>
       </div>
+      <div class="bg-card rounded-lg p-4">
+        <p class="text-sm text-gray-600">高优先级</p>
+        <p class="text-lg font-semibold text-orange-500">0</p>
+      </div>
+      <div class="bg-card rounded-lg p-4">
+        <p class="text-sm text-gray-600">中优先级</p>
+        <p class="text-lg font-semibold text-orange-500">1</p>
+      </div>
+      <div class="bg-card rounded-lg p-4">
+        <p class="text-sm text-gray-600">低优先级</p>
+        <p class="text-lg font-semibold text-orange-500">0</p>
+      </div>
+    </div>
 
-      <!-- Right Column -->
-      <div class="space-y-6">
+    <!-- Stakeholder List -->
+    <div class="space-y-6">
 
-        <!-- 3. 下一步行动 -->
-        <div class="execution-card bg-card rounded-lg p-5">
-          <div class="flex justify-between items-start mb-3">
-            <div>
-              <h2 class="text-lg font-semibold text-gray-800 mb-2">3. 下一步行动</h2>
-            </div>
-            <span class="status-badge bg-green-100 text-green-800">可执行</span>
+      <!-- Stakeholder 1: Vinod Srihari -->
+      <div class="stakeholder-card bg-card rounded-lg p-5">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <h2 class="text-xl font-bold text-gray-800 mb-1">Vinod Srihari</h2>
+            <p class="text-sm text-gray-600">Yale Psychiatry</p>
           </div>
-          <div class="space-y-4">
-            <div class="border-l-4 border-brand pl-4">
-              <p class="font-medium text-gray-800">优先级行动：</p>
-              <ul class="mt-2 space-y-2 text-sm">
-                <li class="flex items-start">
-                  <span class="text-brand mr-2">•</span>
-                  <span>与medical director进行初步沟通</span>
-                </li>
-                <li class="flex items-start">
-                  <span class="text-brand mr-2">•</span>
-                  <span>评估pilot可行性</span>
-                </li>
-                <li class="flex items-start">
-                  <span class="text-brand mr-2">•</span>
-                  <span>确定1个试点入口</span>
-                </li>
-              </ul>
-            </div>
-            <div class="text-xs text-gray-500 mt-4">
-              <p>执行时间：1-2周内启动</p>
-            </div>
+          <div class="flex items-center space-x-2">
+            <span class="priority-badge priority-medium">中优先级</span>
+            <span class="status-badge bg-blue-100 text-blue-800">间接关联</span>
           </div>
         </div>
 
-        <!-- 4. 风险 -->
-        <div class="execution-card bg-card rounded-lg p-5">
-          <div class="flex justify-between items-start mb-3">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          
+          <!-- Left Column -->
+          <div class="space-y-4">
+            
+            <!-- 角色 -->
             <div>
-              <h2 class="text-lg font-semibold text-gray-800 mb-2">4. 风险</h2>
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">角色</h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded">学术支持</span>
+                <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded">临床专家</span>
+              </div>
             </div>
-            <span class="status-badge bg-red-100 text-red-800">需关注</span>
-          </div>
-          <div class="space-y-3">
-            <div class="text-gray-700">
-              <p class="font-medium mb-2">主要风险因素：</p>
-              <ul class="space-y-2 text-sm">
+
+            <!-- 关系状态 -->
+            <div>
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">关系状态</h3>
+              <p class="text-sm text-gray-800">间接关联（Yale network）</p>
+              <p class="text-xs text-gray-600 mt-1">通过耶鲁大学网络间接关联，尚未建立直接联系</p>
+            </div>
+
+            <!-- 潜在价值 -->
+            <div>
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">潜在价值</h3>
+              <ul class="space-y-2 text-sm text-gray-800">
                 <li class="flex items-start">
-                  <span class="text-red-500 mr-2">•</span>
-                  <span>leadership不支持</span>
+                  <span class="text-green-500 mr-2">•</span>
+                  <span>精神科权威背书</span>
                 </li>
                 <li class="flex items-start">
-                  <span class="text-red-500 mr-2">•</span>
-                  <span>workflow负担增加</span>
+                  <span class="text-green-500 mr-2">•</span>
+                  <span>提供临床验证支持</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-green-500 mr-2">•</span>
+                  <span>提高Trillium合作可信度</span>
                 </li>
               </ul>
             </div>
-            <div class="text-xs text-gray-500 mt-4">
-              <p>缓解策略：小规模试点，最小化工作流影响</p>
+
+          </div>
+
+          <!-- Right Column -->
+          <div class="space-y-4">
+            
+            <!-- 可行动作 -->
+            <div>
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">可行动作</h3>
+              <ul class="space-y-2 text-sm text-gray-800">
+                <li class="flex items-start">
+                  <span class="text-brand mr-2">•</span>
+                  <span>评估是否需要引入作为advisor</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-brand mr-2">•</span>
+                  <span>可用于学术支持或项目背书</span>
+                </li>
+              </ul>
+              <div class="mt-3 text-xs text-gray-600">
+                <p>执行时间：1-2周内评估</p>
+              </div>
+            </div>
+
+            <!-- 来源 -->
+            <div>
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">来源</h3>
+              <div class="space-y-1">
+                <a href="https://medicine.yale.edu/profile/vinod-srihari/" target="_blank" class="source-link flex items-center text-sm">
+                  <i class="fas fa-external-link-alt mr-2 text-xs"></i>
+                  Yale Medicine Profile: Vinod Srihari
+                </a>
+                <div class="text-xs text-gray-600 mt-2">
+                  <p>耶鲁大学精神科教授，专业领域：早期精神病干预、社区精神卫生</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 关系网络 -->
+            <div>
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">关系网络</h3>
+              <div class="flex items-center space-x-2">
+                <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">Yale Psychiatry</span>
+                <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">Academic Network</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Last Updated -->
+        <div class="mt-6 pt-4 border-t">
+          <div class="flex justify-between items-center">
+            <div class="text-xs text-gray-600">
+              最后更新: <span id="update-time-1"></span>
+            </div>
+            <div class="text-xs text-gray-600">
+              关系ID: YALE-PSYCH-001
             </div>
           </div>
         </div>
@@ -288,19 +330,15 @@
 
     </div>
 
-    <!-- Key Metrics -->
-    <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="bg-card rounded-lg p-4">
-        <p class="text-sm text-gray-600">试点状态</p>
-        <p class="text-lg font-semibold text-orange-500">准备阶段</p>
-      </div>
-      <div class="bg-card rounded-lg p-4">
-        <p class="text-sm text-gray-600">资源准备度</p>
-        <p class="text-lg font-semibold text-orange-500">70%</p>
-      </div>
-      <div class="bg-card rounded-lg p-4">
-        <p class="text-sm text-gray-600">执行优先级</p>
-        <p class="text-lg font-semibold text-orange-500">高</p>
+    <!-- Empty State (for future entries) -->
+    <div class="mt-8 bg-card rounded-lg p-8 text-center">
+      <div class="max-w-md mx-auto">
+        <i class="fas fa-user-plus text-4xl text-gray-400 mb-4"></i>
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">添加更多关系</h3>
+        <p class="text-sm text-gray-600 mb-4">此面板用于跟踪关键关系网络，支持项目执行</p>
+        <div class="text-xs text-gray-500">
+          <p>建议添加：FQHC领导层、Trillium联系人、学术合作伙伴等</p>
+        </div>
       </div>
     </div>
 
@@ -309,24 +347,27 @@
   <!-- Footer -->
   <div class="max-w-6xl mx-auto px-6 py-4">
     <div class="text-xs text-gray-400 text-center">
-      FQHC基础试点面板 • 最后更新: <span id="update-time"></span>
+      Stakeholders关系网络面板 • 最后更新: <span id="update-time"></span>
       <div class="mt-2 text-xs font-medium text-brand">
-        [FQHC DASHBOARD CREATED]
-      </div>
-      <div class="mt-1 text-xs font-medium text-orange-500">
-        [ORANGE ACCENT APPLIED]
+        [STAKEHOLDER DASHBOARD CREATED]
       </div>
     </div>
   </div>
 
   <script>
     // Set update time
-    document.getElementById('update-time').textContent = new Date().toLocaleDateString('zh-CN', {
+    const now = new Date();
+    document.getElementById('update-time').textContent = now.toLocaleDateString('zh-CN', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit'
+    });
+    document.getElementById('update-time-1').textContent = now.toLocaleDateString('zh-CN', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
     });
 
     // Rollback functionality
