@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FQHC — 基础试点面板</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Simple config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: "#0ea5e9",
+            urgent: "#ef4444",
+            warning: "#f59e0b",
+            neutral: "#6b7280",
+            completed: "#10b981"
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* Global Text Color System */
+    :root {
+      /* Light Mode */
+      --bg: #ffffff;
+      --card: #f5f5f5;
+      --modal: #ffffff;
+      --text-primary: #111111;
+      --text-secondary: #4b5563;
+      --text-muted: #6b7280;
+      --heading: #000000;
+      --link: #0ea5e9;
+      --border: #e5e7eb;
+      --hover-bg: rgba(0, 0, 0, 0.02);
+    }
+
+    /* Dark Mode - Global System */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b0f14;
+        --card: #121821;
+        --modal: #1e2632;
+        --text-primary: #e6edf3;
+        --text-secondary: #9fb0c3;
+        --text-muted: #6e7681;
+        --heading: #f0f6fc;
+        --link: #4ea1ff;
+        --border: #2a3441;
+        --hover-bg: rgba(255, 255, 255, 0.08);
+      }
+    }
+
+    /* Apply Global Text System */
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+    }
+
+    /* Headings */
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--heading);
+    }
+
+    /* Paragraphs and Lists */
+    p, li {
+      color: var(--text-primary);
+    }
+
+    /* Secondary Text */
+    .text-gray-600, .text-gray-500, .text-gray-400,
+    .text-xs, .meta, .timestamp {
+      color: var(--text-secondary);
+    }
+
+    /* Muted Text */
+    .text-gray-700, .text-gray-800, .text-gray-900 {
+      color: var(--text-muted);
+    }
+
+    /* Links */
+    a, .text-blue-600, .hover\\:text-brand:hover,
+    .text-brand {
+      color: var(--link);
+    }
+
+    /* Card and Container Styles */
+    .card, .modal, .bg-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+    }
+
+    /* Borders */
+    .border, .border-b, .border-t {
+      border-color: var(--border);
+    }
+
+    /* Execution Card */
+    .execution-card {
+      border-left: 4px solid #0ea5e9;
+      transition: all 0.2s ease;
+    }
+    .execution-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      background: var(--hover-bg);
+    }
+    .status-badge {
+      font-size: 0.7rem;
+      padding: 0.1rem 0.5rem;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header with Navigation -->
+  <header class="bg-card shadow-sm border-b">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <h1 class="text-xl font-bold">NeighborBridge 执行面板</h1>
+        <span class="text-sm text-gray-500">› <span class="font-medium text-brand">FQHC（基础试点）</span></span>
+      </div>
+      <div class="flex space-x-4">
+        <a href="/" class="text-sm text-gray-600 hover:text-brand">主面板</a>
+        <a href="/adoption" class="text-sm text-gray-600 hover:text-brand">采用规划</a>
+        <a href="/trillium" class="text-sm text-gray-600 hover:text-brand">Trillium Health</a>
+        <button id="rollback-btn" class="text-sm text-gray-600 hover:text-amber-600 font-medium">
+          🔄 回滚到上一版本（Git）
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="max-w-6xl mx-auto px-6 py-8">
+    
+    <!-- Title -->
+    <div class="mb-8">
+      <h1 class="text-2xl font-bold text-gray-900 mb-2">FQHC — 基础试点面板</h1>
+      <p class="text-gray-600">最小化UI，执行导向，无虚假声明</p>
+    </div>
+
+    <!-- Grid Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- Left Column -->
+      <div class="space-y-6">
+
+        <!-- 1. 当前状态 -->
+        <div class="execution-card bg-card rounded-lg p-5">
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <h2 class="text-lg font-semibold text-gray-800 mb-2">1. 当前状态</h2>
+            </div>
+            <span class="status-badge bg-yellow-100 text-yellow-800">待对齐</span>
+          </div>
+          <div class="space-y-3">
+            <p class="text-gray-700">未与FQHC leadership正式对齐</p>
+            <div class="text-sm text-gray-600">
+              <p>• 尚未建立正式沟通渠道</p>
+              <p>• 未获得领导层明确支持</p>
+              <p>• 处于初步探索阶段</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. 可用资源 -->
+        <div class="execution-card bg-card rounded-lg p-5">
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <h2 class="text-lg font-semibold text-gray-800 mb-2">2. 可用资源</h2>
+            </div>
+            <span class="status-badge bg-blue-100 text-blue-800">基础具备</span>
+          </div>
+          <div class="space-y-3">
+            <div class="text-gray-700">
+              <p class="font-medium mb-2">现有基础：</p>
+              <ul class="space-y-2 text-sm">
+                <li class="flex items-start">
+                  <span class="text-green-500 mr-2">•</span>
+                  <span>临床触点（当前实践）</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-green-500 mr-2">•</span>
+                  <span>FASD识别经验</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-green-500 mr-2">•</span>
+                  <span>患者群体基础</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-6">
+
+        <!-- 3. 下一步行动 -->
+        <div class="execution-card bg-card rounded-lg p-5">
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <h2 class="text-lg font-semibold text-gray-800 mb-2">3. 下一步行动</h2>
+            </div>
+            <span class="status-badge bg-green-100 text-green-800">可执行</span>
+          </div>
+          <div class="space-y-4">
+            <div class="border-l-4 border-brand pl-4">
+              <p class="font-medium text-gray-800">优先级行动：</p>
+              <ul class="mt-2 space-y-2 text-sm">
+                <li class="flex items-start">
+                  <span class="text-brand mr-2">•</span>
+                  <span>与medical director进行初步沟通</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-brand mr-2">•</span>
+                  <span>评估pilot可行性</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-brand mr-2">•</span>
+                  <span>确定1个试点入口</span>
+                </li>
+              </ul>
+            </div>
+            <div class="text-xs text-gray-500 mt-4">
+              <p>执行时间：1-2周内启动</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. 风险 -->
+        <div class="execution-card bg-card rounded-lg p-5">
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <h2 class="text-lg font-semibold text-gray-800 mb-2">4. 风险</h2>
+            </div>
+            <span class="status-badge bg-red-100 text-red-800">需关注</span>
+          </div>
+          <div class="space-y-3">
+            <div class="text-gray-700">
+              <p class="font-medium mb-2">主要风险因素：</p>
+              <ul class="space-y-2 text-sm">
+                <li class="flex items-start">
+                  <span class="text-red-500 mr-2">•</span>
+                  <span>leadership不支持</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-red-500 mr-2">•</span>
+                  <span>workflow负担增加</span>
+                </li>
+              </ul>
+            </div>
+            <div class="text-xs text-gray-500 mt-4">
+              <p>缓解策略：小规模试点，最小化工作流影响</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-card rounded-lg p-4">
+        <p class="text-sm text-gray-600">试点状态</p>
+        <p class="text-lg font-semibold text-yellow-600">准备阶段</p>
+      </div>
+      <div class="bg-card rounded-lg p-4">
+        <p class="text-sm text-gray-600">资源准备度</p>
+        <p class="text-lg font-semibold text-blue-600">70%</p>
+      </div>
+      <div class="bg-card rounded-lg p-4">
+        <p class="text-sm text-gray-600">执行优先级</p>
+        <p class="text-lg font-semibold text-green-600">高</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="max-w-6xl mx-auto px-6 py-4">
+    <div class="text-xs text-gray-400 text-center">
+      FQHC基础试点面板 • 最后更新: <span id="update-time"></span>
+      <div class="mt-2 text-xs font-medium text-brand">
+        [FQHC DASHBOARD CREATED]
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Set update time
+    document.getElementById('update-time').textContent = new Date().toLocaleDateString('zh-CN', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+    // Rollback functionality
+    const rollbackBtn = document.getElementById('rollback-btn');
+    
+    rollbackBtn.addEventListener('click', async function() {
+      // Confirmation dialog
+      const confirmed = confirm('确认回滚到上一个版本？此操作不可撤销');
+      
+      if (!confirmed) {
+        return;
+      }
+      
+      // Show loading state
+      const originalText = this.textContent;
+      this.textContent = '⏳ 正在执行Git回滚...';
+      this.disabled = true;
+      
+      try {
+        // Call server-side Git rollback endpoint
+        const response = await fetch('/api/rollback', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ action: 'rollback' })
+        });
+        
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || `回滚失败: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        
+        // Show success message
+        alert(`✅ ${result.message}\n\n页面将在5秒后自动刷新...`);
+        
+        // Add rollback success marker to page
+        const successMarker = document.createElement('div');
+        successMarker.className = 'fixed top-4 right-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg shadow-lg z-50';
+        successMarker.innerHTML = `
+          <div class="font-bold">[ROLLBACK SUCCESSFUL]</div>
+          <div class="text-sm mt-1">${result.message}</div>
+          <div class="text-xs mt-2">页面自动刷新中...</div>
+        `;
+        document.body.appendChild(successMarker);
+        
+        // Auto-refresh after 5 seconds
+        setTimeout(() => {
+          window.location.reload();
+        }, 5000);
+        
+      } catch (error) {
+        // Restore button state
+        this.textContent = originalText;
+        this.disabled = false;
+        
+        // Show error message
+        alert(`❌ Git回滚失败: ${error.message}\n\n请检查服务器配置。`);
+        console.error('Git rollback error:', error);
+      }
+    });
+  </script>
+
+</body>
+</html>
