@@ -32,40 +32,113 @@
     /* Theme Variables */
     :root {
       --bg-color: #ffffff;
-      --text-color: #111111;
       --card-bg: #f5f5f5;
-      --border-color: #e5e7eb;
+      --text-primary: #111111;
+      --text-secondary: #4b5563;
+      --accent: #0ea5e9;
+      --border: #e5e7eb;
       --hover-bg: rgba(0, 0, 0, 0.02);
+      --input-bg: #ffffff;
+      --input-text: #111111;
+      --input-border: #d1d5db;
     }
 
-    /* Dark Mode */
+    /* Dark Mode - High Contrast */
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg-color: #0b0b0b;
-        --text-color: #f5f5f5;
-        --card-bg: #1a1a1a;
-        --border-color: #374151;
+        --bg-color: #0b0f14;
+        --card-bg: #121821;
+        --text-primary: #e6edf3;
+        --text-secondary: #9fb0c3;
+        --accent: #4ea1ff;
+        --border: #2a3441;
         --hover-bg: rgba(255, 255, 255, 0.05);
+        --input-bg: #1a2230;
+        --input-text: #e6edf3;
+        --input-border: #374151;
       }
     }
 
     /* Apply Theme Variables */
     body {
       background: var(--bg-color);
-      color: var(--text-color);
+      color: var(--text-primary);
     }
 
+    /* Card and Container Styles */
     .card, .modal, .ai-suggestion, .human-input, 
-    .bg-card, .execution-card, .slide {
+    .bg-card, .execution-card, .slide,
+    header, .shadow, .shadow-sm, .shadow-xl {
       background: var(--card-bg);
+      border: 1px solid var(--border);
     }
 
-    .border, .border-b, .border-t {
-      border-color: var(--border-color);
+    /* Remove default borders for specific elements */
+    header, .shadow, .shadow-sm, .shadow-xl {
+      border: none;
     }
 
+    /* Text Hierarchy */
+    .text-gray-600, .text-gray-500, .text-gray-400,
+    .text-gray-700, .text-gray-800, .text-gray-900 {
+      color: var(--text-secondary);
+    }
+
+    /* Primary Text */
+    .text-gray-900, h1, h2, h3, h4, h5, h6,
+    .font-bold, .font-semibold, .font-medium {
+      color: var(--text-primary);
+    }
+
+    /* Links */
+    a, .source-link, .text-blue-600, .hover\\:text-brand:hover {
+      color: var(--accent);
+    }
+
+    .source-link:hover {
+      color: var(--accent);
+      opacity: 0.8;
+    }
+
+    /* Borders */
+    .border, .border-b, .border-t, .border-l, .border-r {
+      border-color: var(--border);
+    }
+
+    /* Inputs */
+    textarea, input[type="text"], input[type="email"], 
+    input[type="checkbox"] + span {
+      background: var(--input-bg);
+      color: var(--input-text);
+      border-color: var(--input-border);
+    }
+
+    textarea::placeholder {
+      color: var(--text-secondary);
+      opacity: 0.7;
+    }
+
+    /* Buttons */
+    button, .bg-brand {
+      background-color: var(--accent);
+      color: white;
+    }
+
+    button:hover, .bg-brand:hover {
+      background-color: var(--accent);
+      opacity: 0.9;
+    }
+
+    /* Checkbox Labels */
+    .action-checkbox:checked + span {
+      color: var(--text-secondary);
+    }
+
+    /* Execution Card Hover */
     .execution-card:hover {
       background: var(--hover-bg);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     /* Original Styles */
@@ -549,7 +622,7 @@ Best regards,
     <div class="text-xs text-gray-400 text-center">
       每日执行系统 • 最后更新: <span id="update-time"></span>
       <div class="mt-2 text-xs font-medium text-brand">
-        [THEME TEST ENABLED]
+        [DARK MODE FIXED]
       </div>
     </div>
   </div>
