@@ -21,6 +21,15 @@
             completed: "#10b981",
             orange: {
               500: "#f59e0b"
+            },
+            blue: {
+              500: "#60a5fa"
+            },
+            green: {
+              500: "#34d399"
+            },
+            purple: {
+              500: "#a78bfa"
             }
           }
         }
@@ -47,26 +56,66 @@
       --hover-bg: rgba(0, 0, 0, 0.02);
     }
 
-    /* Dark Mode - Global System */
+    /* Multi-Color Accent System */
+    :root {
+      --accent-orange: #f59e0b;
+      --accent-blue: #60a5fa;
+      --accent-green: #34d399;
+      --accent-purple: #a78bfa;
+    }
+
+    /* Dark Mode - Global System with Multi-Color Accents */
     @media (prefers-color-scheme: dark) {
       :root {
         --bg: #0b0f14;
         --card: #121821;
         --modal: #1e2632;
         --text-primary: #e6edf3;
-        --text-secondary: #f59e0b; /* Orange accent for secondary text */
-        --text-muted: #f59e0b; /* Orange accent for muted text */
+        --text-secondary: #9fb0c3; /* Restore original secondary color */
+        --text-muted: #6e7681; /* Restore original muted color */
         --heading: #f0f6fc;
-        --link: #4ea1ff;
+        --link: var(--accent-blue); /* Use accent-blue for links */
         --border: #2a3441;
         --hover-bg: rgba(255, 255, 255, 0.08);
       }
 
-      /* Force orange accent for all secondary text */
+      /* Apply multi-color accent rules */
+      
+      /* Orange: status, priority labels */
+      .status-badge,
+      .priority-badge,
+      .text-orange-500,
+      .text-yellow-600,
+      .text-warning {
+        color: var(--accent-orange) !important;
+      }
+      
+      /* Blue: links, sources */
+      a, .text-blue-600, .hover\\:text-brand:hover,
+      .text-brand, .source-link,
+      .text-link {
+        color: var(--accent-blue) !important;
+      }
+      
+      /* Green: executable, next actions, readiness */
+      .text-green-600, .text-green-500,
+      .text-completed, .text-executable,
+      .next-action {
+        color: var(--accent-green) !important;
+      }
+      
+      /* Purple: academic references, stakeholders, Yale/Harvard */
+      .text-purple-500, .text-purple-600,
+      .academic-ref, .stakeholder-tag,
+      .yale-mention, .harvard-mention {
+        color: var(--accent-purple) !important;
+      }
+      
+      /* Restore secondary text to original color */
       .text-gray-600, .text-gray-500, .text-gray-400,
       .text-xs, .meta, .timestamp,
       .text-gray-700, .text-gray-800, .text-gray-900 {
-        color: #f59e0b !important;
+        color: var(--text-secondary) !important;
       }
     }
 
@@ -192,7 +241,7 @@
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
       <div class="bg-card rounded-lg p-4">
         <p class="text-sm text-gray-600">总关系数</p>
-        <p class="text-lg font-semibold text-orange-500">1</p>
+        <p class="text-lg font-semibold text-purple-500">1</p>
       </div>
       <div class="bg-card rounded-lg p-4">
         <p class="text-sm text-gray-600">高优先级</p>
@@ -204,7 +253,7 @@
       </div>
       <div class="bg-card rounded-lg p-4">
         <p class="text-sm text-gray-600">低优先级</p>
-        <p class="text-lg font-semibold text-orange-500">0</p>
+        <p class="text-lg font-semibold text-gray-500">0</p>
       </div>
     </div>
 
@@ -219,8 +268,8 @@
             <p class="text-sm text-gray-600">Yale Psychiatry</p>
           </div>
           <div class="flex items-center space-x-2">
-            <span class="priority-badge priority-medium">中优先级</span>
-            <span class="status-badge bg-blue-100 text-blue-800">间接关联</span>
+            <span class="priority-badge priority-medium" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3);">中优先级</span>
+            <span class="status-badge bg-purple-100 text-purple-800">间接关联</span>
           </div>
         </div>
 
@@ -350,6 +399,9 @@
       Stakeholders关系网络面板 • 最后更新: <span id="update-time"></span>
       <div class="mt-2 text-xs font-medium text-brand">
         [STAKEHOLDER DASHBOARD CREATED]
+      </div>
+      <div class="mt-1 text-xs font-medium text-purple-500">
+        [MULTI-COLOR SYSTEM APPLIED]
       </div>
     </div>
   </div>

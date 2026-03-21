@@ -43,15 +43,23 @@
       --input-border: #d1d5db;
     }
 
-    /* Dark Mode - High Contrast */
+    /* Multi-Color Accent System */
+    :root {
+      --accent-orange: #f59e0b;
+      --accent-blue: #60a5fa;
+      --accent-green: #34d399;
+      --accent-purple: #a78bfa;
+    }
+
+    /* Dark Mode - High Contrast with Multi-Color Accents */
     @media (prefers-color-scheme: dark) {
       :root {
         --bg-color: #0b0f14;
         --card-bg: #121821;
         --modal-bg: #1e2632;
         --text-primary: #e6edf3;
-        --text-secondary: #f59e0b; /* Orange accent for secondary text */
-        --accent: #60a5fa;
+        --text-secondary: #9fb0c3; /* Restore original secondary color */
+        --accent: var(--accent-blue); /* Use accent-blue for accent */
         --border: #2a3441;
         --hover-bg: rgba(255, 255, 255, 0.08);
         --input-bg: #1a2230;
@@ -71,10 +79,42 @@
         color: #f0f6fc !important;
       }
 
-      /* Secondary text - Orange accent */
+      /* Apply multi-color accent rules */
+      
+      /* Orange: status, priority labels */
+      .status-badge,
+      .priority-badge,
+      .text-orange-500,
+      .text-yellow-600,
+      .text-warning {
+        color: var(--accent-orange) !important;
+      }
+      
+      /* Blue: links, sources */
+      a, .text-blue-600, .hover\\:text-brand:hover,
+      .text-brand, .source-link,
+      .text-link {
+        color: var(--accent-blue) !important;
+      }
+      
+      /* Green: executable, next actions, readiness */
+      .text-green-600, .text-green-500,
+      .text-completed, .text-executable,
+      .next-action {
+        color: var(--accent-green) !important;
+      }
+      
+      /* Purple: academic references, stakeholders, Yale/Harvard */
+      .text-purple-500, .text-purple-600,
+      .academic-ref, .stakeholder-tag,
+      .yale-mention, .harvard-mention {
+        color: var(--accent-purple) !important;
+      }
+      
+      /* Restore secondary text to original color */
       .text-gray-600, .text-gray-500, .text-gray-400,
       .source-link, [class*="timestamp"], .text-xs {
-        color: #f59e0b !important;
+        color: var(--text-secondary) !important;
       }
 
       /* Links */
@@ -692,8 +732,8 @@ Best regards,
       <div class="mt-1 text-xs font-medium text-blue-600">
         [NON-REAL CONTENT REMOVED]
       </div>
-      <div class="mt-1 text-xs font-medium text-orange-500">
-        [ORANGE ACCENT APPLIED]
+      <div class="mt-1 text-xs font-medium text-purple-500">
+        [MULTI-COLOR SYSTEM APPLIED]
       </div>
     </div>
   </div>

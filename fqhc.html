@@ -21,6 +21,15 @@
             completed: "#10b981",
             orange: {
               500: "#f59e0b"
+            },
+            blue: {
+              500: "#60a5fa"
+            },
+            green: {
+              500: "#34d399"
+            },
+            purple: {
+              500: "#a78bfa"
             }
           }
         }
@@ -47,26 +56,66 @@
       --hover-bg: rgba(0, 0, 0, 0.02);
     }
 
-    /* Dark Mode - Global System */
+    /* Multi-Color Accent System */
+    :root {
+      --accent-orange: #f59e0b;
+      --accent-blue: #60a5fa;
+      --accent-green: #34d399;
+      --accent-purple: #a78bfa;
+    }
+
+    /* Dark Mode - Global System with Multi-Color Accents */
     @media (prefers-color-scheme: dark) {
       :root {
         --bg: #0b0f14;
         --card: #121821;
         --modal: #1e2632;
         --text-primary: #e6edf3;
-        --text-secondary: #f59e0b; /* Orange accent for secondary text */
-        --text-muted: #f59e0b; /* Orange accent for muted text */
+        --text-secondary: #9fb0c3; /* Restore original secondary color */
+        --text-muted: #6e7681; /* Restore original muted color */
         --heading: #f0f6fc;
-        --link: #4ea1ff;
+        --link: var(--accent-blue); /* Use accent-blue for links */
         --border: #2a3441;
         --hover-bg: rgba(255, 255, 255, 0.08);
       }
 
-      /* Force orange accent for all secondary text */
+      /* Apply multi-color accent rules */
+      
+      /* Orange: status, priority labels */
+      .status-badge,
+      .priority-badge,
+      .text-orange-500,
+      .text-yellow-600,
+      .text-warning {
+        color: var(--accent-orange) !important;
+      }
+      
+      /* Blue: links, sources */
+      a, .text-blue-600, .hover\\:text-brand:hover,
+      .text-brand, .source-link,
+      .text-link {
+        color: var(--accent-blue) !important;
+      }
+      
+      /* Green: executable, next actions, readiness */
+      .text-green-600, .text-green-500,
+      .text-completed, .text-executable,
+      .next-action {
+        color: var(--accent-green) !important;
+      }
+      
+      /* Purple: academic references, stakeholders, Yale/Harvard */
+      .text-purple-500, .text-purple-600,
+      .academic-ref, .stakeholder-tag,
+      .yale-mention, .harvard-mention {
+        color: var(--accent-purple) !important;
+      }
+      
+      /* Restore secondary text to original color */
       .text-gray-600, .text-gray-500, .text-gray-400,
       .text-xs, .meta, .timestamp,
       .text-gray-700, .text-gray-800, .text-gray-900 {
-        color: #f59e0b !important;
+        color: var(--text-secondary) !important;
       }
     }
 
@@ -178,7 +227,7 @@
             <div>
               <h2 class="text-lg font-semibold text-gray-800 mb-2">1. 当前状态</h2>
             </div>
-            <span class="status-badge bg-yellow-100 text-yellow-800">待对齐</span>
+            <span class="status-badge bg-orange-100 text-orange-800">待对齐</span>
           </div>
           <div class="space-y-3">
             <p class="text-gray-700">未与FQHC leadership正式对齐</p>
@@ -196,7 +245,7 @@
             <div>
               <h2 class="text-lg font-semibold text-gray-800 mb-2">2. 可用资源</h2>
             </div>
-            <span class="status-badge bg-blue-100 text-blue-800">基础具备</span>
+            <span class="status-badge bg-green-100 text-green-800">基础具备</span>
           </div>
           <div class="space-y-3">
             <div class="text-gray-700">
@@ -262,7 +311,7 @@
             <div>
               <h2 class="text-lg font-semibold text-gray-800 mb-2">4. 风险</h2>
             </div>
-            <span class="status-badge bg-red-100 text-red-800">需关注</span>
+            <span class="status-badge bg-orange-100 text-orange-800">需关注</span>
           </div>
           <div class="space-y-3">
             <div class="text-gray-700">
@@ -296,7 +345,7 @@
       </div>
       <div class="bg-card rounded-lg p-4">
         <p class="text-sm text-gray-600">资源准备度</p>
-        <p class="text-lg font-semibold text-orange-500">70%</p>
+        <p class="text-lg font-semibold text-green-500">70%</p>
       </div>
       <div class="bg-card rounded-lg p-4">
         <p class="text-sm text-gray-600">执行优先级</p>
@@ -313,8 +362,8 @@
       <div class="mt-2 text-xs font-medium text-brand">
         [FQHC DASHBOARD CREATED]
       </div>
-      <div class="mt-1 text-xs font-medium text-orange-500">
-        [ORANGE ACCENT APPLIED]
+      <div class="mt-1 text-xs font-medium text-purple-500">
+        [MULTI-COLOR SYSTEM APPLIED]
       </div>
     </div>
   </div>
