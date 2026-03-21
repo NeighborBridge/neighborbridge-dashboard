@@ -59,20 +59,25 @@
         --input-border: #475569;
       }
 
-      /* Force all main content text to white */
-      body, p, li, div, span, h1, h2, h3, h4, h5, h6,
+      /* Main text - softer contrast */
+      body, p, li, div, span {
+        color: #e6edf3 !important;
+      }
+
+      /* Headings - brighter contrast */
+      h1, h2, h3, h4, h5, h6,
       .text-gray-900, .text-gray-800, .text-gray-700,
       .font-bold, .font-semibold, .font-medium {
-        color: #ffffff !important;
+        color: #f0f6fc !important;
       }
 
-      /* Only allow gray for secondary info */
+      /* Secondary text */
       .text-gray-600, .text-gray-500, .text-gray-400,
       .source-link, [class*="timestamp"], .text-xs {
-        color: #aab4c0 !important;
+        color: #9fb0c3 !important;
       }
 
-      /* Fix links */
+      /* Links */
       a, .text-blue-600, .hover\\:text-brand:hover,
       .source-link, .text-brand {
         color: #4ea1ff !important;
@@ -83,9 +88,14 @@
         background: var(--modal-bg) !important;
       }
 
-      /* Ensure PPT modal text is fully white */
+      /* PPT modal text - softer contrast */
       .slide, .slide * {
-        color: #ffffff !important;
+        color: #e6edf3 !important;
+      }
+
+      .slide h1, .slide h2, .slide h3,
+      .slide h4, .slide h5, .slide h6 {
+        color: #f0f6fc !important;
       }
 
       /* Ensure body stays dark */
