@@ -221,9 +221,6 @@
         <a href="/adoption" class="text-sm text-gray-600 hover:text-brand">采用规划</a>
         <a href="/trillium" class="text-sm text-gray-600 hover:text-brand">Trillium Health</a>
         <a href="/fqhc" class="text-sm text-gray-600 hover:text-brand">FQHC（基础试点）</a>
-        <button id="rollback-btn" class="text-sm text-gray-600 hover:text-amber-600 font-medium">
-          🔄 回滚到上一版本（Git）
-        </button>
       </div>
     </div>
   </header>
@@ -403,6 +400,9 @@
       <div class="mt-1 text-xs font-medium text-purple-500">
         [MULTI-COLOR SYSTEM APPLIED]
       </div>
+      <div class="mt-1 text-xs font-medium text-gray-500">
+        [GIT ROLLBACK DISABLED]
+      </div>
     </div>
   </div>
 
@@ -422,67 +422,7 @@
       day: 'numeric'
     });
 
-    // Rollback functionality
-    const rollbackBtn = document.getElementById('rollback-btn');
-    
-    rollbackBtn.addEventListener('click', async function() {
-      // Confirmation dialog
-      const confirmed = confirm('确认回滚到上一个版本？此操作不可撤销');
-      
-      if (!confirmed) {
-        return;
-      }
-      
-      // Show loading state
-      const originalText = this.textContent;
-      this.textContent = '⏳ 正在执行Git回滚...';
-      this.disabled = true;
-      
-      try {
-        // Call server-side Git rollback endpoint
-        const response = await fetch('/api/rollback', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ action: 'rollback' })
-        });
-        
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || `回滚失败: ${response.status}`);
-        }
-        
-        const result = await response.json();
-        
-        // Show success message
-        alert(`✅ ${result.message}\n\n页面将在5秒后自动刷新...`);
-        
-        // Add rollback success marker to page
-        const successMarker = document.createElement('div');
-        successMarker.className = 'fixed top-4 right-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg shadow-lg z-50';
-        successMarker.innerHTML = `
-          <div class="font-bold">[ROLLBACK SUCCESSFUL]</div>
-          <div class="text-sm mt-1">${result.message}</div>
-          <div class="text-xs mt-2">页面自动刷新中...</div>
-        `;
-        document.body.appendChild(successMarker);
-        
-        // Auto-refresh after 5 seconds
-        setTimeout(() => {
-          window.location.reload();
-        }, 5000);
-        
-      } catch (error) {
-        // Restore button state
-        this.textContent = originalText;
-        this.disabled = false;
-        
-        // Show error message
-        alert(`❌ Git回滚失败: ${error.message}\n\n请检查服务器配置。`);
-        console.error('Git rollback error:', error);
-      }
-    });
+
   </script>
 
 </body>
