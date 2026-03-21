@@ -20,12 +20,48 @@
       }
     }
   </script>
+
+  <style>
+    /* Theme Variables */
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #111111;
+      --card-bg: #f5f5f5;
+      --border-color: #e5e7eb;
+      --hover-bg: rgba(0, 0, 0, 0.02);
+    }
+
+    /* Dark Mode */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #0b0b0b;
+        --text-color: #f5f5f5;
+        --card-bg: #1a1a1a;
+        --border-color: #374151;
+        --hover-bg: rgba(255, 255, 255, 0.05);
+      }
+    }
+
+    /* Apply Theme Variables */
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    .card, .modal, .bg-card {
+      background: var(--card-bg);
+    }
+
+    .border, .border-b, .border-t {
+      border-color: var(--border-color);
+    }
+  </style>
 </head>
 
-<body class="bg-gray-50 text-gray-900">
+<body>
 
   <!-- Header -->
-  <header class="bg-white shadow-sm border-b">
+  <header class="bg-card shadow-sm border-b">
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
       <h1 class="text-2xl font-bold">NeighborBridge Dashboard</h1>
       <div class="flex space-x-4">
@@ -42,22 +78,22 @@
     <!-- Top Cards -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
 
-      <div class="bg-white p-4 rounded-xl shadow">
+      <div class="bg-card p-4 rounded-xl shadow">
         <p class="text-sm text-gray-500">Status</p>
         <p class="text-lg font-semibold text-green-600">Active</p>
       </div>
 
-      <div class="bg-white p-4 rounded-xl shadow">
+      <div class="bg-card p-4 rounded-xl shadow">
         <p class="text-sm text-gray-500">Stakeholders</p>
         <p class="text-lg font-semibold" id="stakeholder-count">--</p>
       </div>
 
-      <div class="bg-white p-4 rounded-xl shadow">
+      <div class="bg-card p-4 rounded-xl shadow">
         <p class="text-sm text-gray-500">Tasks</p>
         <p class="text-lg font-semibold">--</p>
       </div>
 
-      <div class="bg-white p-4 rounded-xl shadow">
+      <div class="bg-card p-4 rounded-xl shadow">
         <p class="text-sm text-gray-500">Last Update</p>
         <p class="text-lg font-semibold" id="last-update">--</p>
       </div>
@@ -68,14 +104,14 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
       <!-- Quick Actions -->
-      <div class="bg-white p-5 rounded-xl shadow">
+      <div class="bg-card p-5 rounded-xl shadow">
         <h2 class="text-lg font-semibold mb-3">Quick Actions</h2>
         <button class="w-full bg-brand text-white py-2 rounded-lg mb-2">Add Stakeholder</button>
         <button class="w-full bg-gray-200 py-2 rounded-lg">Add Task</button>
       </div>
 
       <!-- Stakeholders -->
-      <div class="bg-white p-5 rounded-xl shadow col-span-2">
+      <div class="bg-card p-5 rounded-xl shadow col-span-2">
         <h2 class="text-lg font-semibold mb-3">Stakeholders</h2>
         <div id="stakeholder-list" class="space-y-2 text-sm text-gray-700">
           Loading...
@@ -83,7 +119,7 @@
       </div>
 
       <!-- Notes -->
-      <div class="bg-white p-5 rounded-xl shadow">
+      <div class="bg-card p-5 rounded-xl shadow">
         <h2 class="text-lg font-semibold mb-3">Notes</h2>
         <textarea class="w-full border rounded-lg p-2 text-sm" rows="6" placeholder="Write notes..."></textarea>
       </div>
@@ -93,6 +129,9 @@
     <!-- Footer -->
     <div class="mt-8 text-xs text-gray-400 text-center">
       Deployed via GitHub + Cloudflare • NeighborBridge
+      <div class="mt-2 text-xs font-medium text-brand">
+        [THEME TEST ENABLED]
+      </div>
     </div>
 
   </div>
