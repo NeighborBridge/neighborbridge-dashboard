@@ -104,17 +104,26 @@
     <!-- Stakeholder List -->
     <div class="space-y-6">
 
-      <!-- Stakeholder 1: Vinod Srihari -->
+      <!-- Stakeholder 1: Vinod Srihari - Strategic Academic Node -->
       <div class="dashboard-card bg-card rounded-lg p-5">
         <div class="flex justify-between items-start mb-4">
           <div>
             <h2 class="text-xl font-bold text-gray-800 mb-1">Vinod Srihari</h2>
-            <p class="text-sm text-gray-600">Yale Psychiatry</p>
+            <p class="text-sm text-gray-600">Yale Psychiatry • Strategic Academic Node</p>
           </div>
           <div class="flex items-center space-x-2">
-            <span class="priority-badge priority-medium" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3);">中优先级</span>
-            <span class="status-badge bg-purple-100 text-purple-800">间接关联</span>
+            <span class="priority-badge priority-high" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3);">潜在高优先级</span>
+            <span class="status-badge bg-purple-100 text-purple-800">战略学术伙伴</span>
+            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">Strategic Academic Node</span>
           </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="px-2 py-1 bg-purple-50 text-purple-700 text-xs rounded">#EarlyPsychosis</span>
+          <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded">#Yale</span>
+          <span class="px-2 py-1 bg-green-50 text-green-700 text-xs rounded">#ImplementationScience</span>
+          <span class="px-2 py-1 bg-orange-50 text-orange-700 text-xs rounded">#HighLeverage</span>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -122,39 +131,105 @@
           <!-- Left Column -->
           <div class="space-y-4">
             
-            <!-- 角色 -->
+            <!-- 1. CORE CLASSIFICATION -->
             <div>
-              <h3 class="text-sm font-semibold text-gray-700 mb-2">角色</h3>
-              <div class="flex flex-wrap gap-2">
-                <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded">学术支持</span>
-                <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded">临床专家</span>
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">核心分类</h3>
+              <div class="space-y-2">
+                <div class="flex items-center">
+                  <span class="text-xs font-medium text-gray-600 mr-2">战略类型:</span>
+                  <span class="text-sm text-gray-800">Academic Clinical Partner (Early Psychosis / Implementation Science)</span>
+                </div>
+                <div class="flex items-center">
+                  <span class="text-xs font-medium text-gray-600 mr-2">参与潜力:</span>
+                  <span class="text-sm text-green-600 font-medium">高 (if aligned with clinical pathway, not business framing)</span>
+                </div>
+                <div class="flex items-center">
+                  <span class="text-xs font-medium text-gray-600 mr-2">优先级:</span>
+                  <span class="text-sm text-orange-600 font-medium">中 → 潜在高 (conditional on alignment)</span>
+                </div>
               </div>
             </div>
 
-            <!-- 关系状态 -->
+            <!-- 2. STRATEGIC ALIGNMENT -->
             <div>
-              <h3 class="text-sm font-semibold text-gray-700 mb-2">关系状态</h3>
-              <p class="text-sm text-gray-800">间接关联（Yale network）</p>
-              <p class="text-xs text-gray-600 mt-1">通过耶鲁大学网络间接关联，尚未建立直接联系</p>
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">战略对齐</h3>
+              
+              <div class="space-y-3">
+                <div>
+                  <div class="text-xs font-medium text-gray-600 mb-1">领域:</div>
+                  <ul class="space-y-1 text-sm text-gray-800">
+                    <li class="flex items-start">
+                      <span class="text-blue-500 mr-2">•</span>
+                      <span>Early Psychosis (FEP, CSC model)</span>
+                    </li>
+                    <li class="flex items-start">
+                      <span class="text-blue-500 mr-2">•</span>
+                      <span>Community-based identification</span>
+                    </li>
+                    <li class="flex items-start">
+                      <span class="text-blue-500 mr-2">•</span>
+                      <span>Implementation science</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <div class="text-xs font-medium text-gray-600 mb-1">与NeighborBridge对齐:</div>
+                  <ul class="space-y-1 text-sm text-gray-800">
+                    <li class="flex items-start">
+                      <span class="text-green-500 mr-2">•</span>
+                      <span>FQHC-embedded early identification pathways</span>
+                    </li>
+                    <li class="flex items-start">
+                      <span class="text-green-500 mr-2">•</span>
+                      <span>CHW-based upstream detection</span>
+                    </li>
+                    <li class="flex items-start">
+                      <span class="text-green-500 mr-2">•</span>
+                      <span>Rural Medicaid population access</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <div class="text-xs font-medium text-gray-600 mb-1">关键转换层:</div>
+                  <div class="text-sm text-gray-800 bg-gray-50 p-2 rounded">
+                    Convert current work (ADHD/FASD/behavioral) → prodromal signals • early risk detection • functional decline markers
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <!-- 潜在价值 -->
+            <!-- 3. ENGAGEMENT STRATEGY -->
             <div>
-              <h3 class="text-sm font-semibold text-gray-700 mb-2">潜在价值</h3>
-              <ul class="space-y-2 text-sm text-gray-800">
-                <li class="flex items-start">
-                  <span class="text-green-500 mr-2">•</span>
-                  <span>精神科权威背书</span>
-                </li>
-                <li class="flex items-start">
-                  <span class="text-green-500 mr-2">•</span>
-                  <span>提供临床验证支持</span>
-                </li>
-                <li class="flex items-start">
-                  <span class="text-green-500 mr-2">•</span>
-                  <span>提高Trillium合作可信度</span>
-                </li>
-              </ul>
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">参与策略</h3>
+              
+              <div class="space-y-2">
+                <div>
+                  <div class="text-xs font-medium text-gray-600 mb-1">定位规则:</div>
+                  <div class="text-sm text-gray-800">
+                    • Frame as clinical pathway development<br>
+                    • Avoid: AI / platform / business language
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="text-xs font-medium text-gray-600 mb-1">进入角度:</div>
+                  <div class="text-sm text-gray-800">
+                    • "Community-embedded early identification"<br>
+                    • "FQHC adaptation of early psychosis models"
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="text-xs font-medium text-gray-600 mb-1">对话目标:</div>
+                  <div class="text-sm text-gray-800">
+                    • Validate early signals<br>
+                    • Explore adaptation into FQHC<br>
+                    • Define what constitutes meaningful real-world data
+                  </div>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -162,44 +237,179 @@
           <!-- Right Column -->
           <div class="space-y-4">
             
-            <!-- 可行动作 -->
-            <div>
-              <h3 class="text-sm font-semibold text-gray-700 mb-2">可行动作</h3>
-              <ul class="space-y-2 text-sm text-gray-800">
-                <li class="flex items-start">
-                  <span class="text-brand mr-2">•</span>
-                  <span>评估是否需要引入作为advisor</span>
-                </li>
-                <li class="flex items-start">
-                  <span class="text-brand mr-2">•</span>
-                  <span>可用于学术支持或项目背书</span>
-                </li>
-              </ul>
-              <div class="mt-3 text-xs text-gray-600">
-                <p>执行时间：1-2周内评估</p>
-              </div>
-            </div>
-
-            <!-- 来源 -->
-            <div>
-              <h3 class="text-sm font-semibold text-gray-700 mb-2">来源</h3>
-              <div class="space-y-1">
-                <a href="https://medicine.yale.edu/profile/vinod-srihari/" target="_blank" class="source-link flex items-center text-sm">
-                  <i class="fas fa-external-link-alt mr-2 text-xs"></i>
-                  Yale Medicine Profile: Vinod Srihari
-                </a>
-                <div class="text-xs text-gray-600 mt-2">
-                  <p>耶鲁大学精神科教授，专业领域：早期精神病干预、社区精神卫生</p>
+            <!-- 4. CALL PREP MODULE -->
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">📞 通话准备模块</h3>
+              
+              <div class="space-y-3">
+                <div>
+                  <div class="flex items-center">
+                    <span class="text-xs font-medium text-gray-600 mr-2">状态:</span>
+                    <span class="text-sm text-orange-600 font-medium">计划通话 (2–3周)</span>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="text-xs font-medium text-gray-600 mb-1">谈话要点:</div>
+                  <ol class="space-y-1 text-sm text-gray-800 ml-4">
+                    <li class="list-decimal">Early identification in community settings</li>
+                    <li class="list-decimal">FQHC + CHW integration</li>
+                    <li class="list-decimal">Rural access gap</li>
+                  </ol>
+                </div>
+                
+                <div>
+                  <div class="text-xs font-medium text-gray-600 mb-1">关键问题:</div>
+                  <ul class="space-y-1 text-sm text-gray-800">
+                    <li class="flex items-start">
+                      <span class="text-blue-500 mr-2">•</span>
+                      <span>What early signals should not be missed?</span>
+                    </li>
+                    <li class="flex items-start">
+                      <span class="text-blue-500 mr-2">•</span>
+                      <span>How to adapt CSC model to FQHC?</span>
+                    </li>
+                    <li class="flex items-start">
+                      <span class="text-blue-500 mr-2">•</span>
+                      <span>What data is academically meaningful?</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <div class="text-xs font-medium text-gray-600 mb-1">成功标准:</div>
+                  <div class="text-sm text-gray-800">
+                    • Signals validation obtained<br>
+                    • Conceptual alignment achieved<br>
+                    • Soft openness to future involvement
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- 关系网络 -->
+            <!-- 5. RISK CONTROL -->
             <div>
-              <h3 class="text-sm font-semibold text-gray-700 mb-2">关系网络</h3>
-              <div class="flex items-center space-x-2">
-                <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">Yale Psychiatry</span>
-                <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">Academic Network</span>
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">⚠️ 风险控制</h3>
+              
+              <div class="space-y-2">
+                <div>
+                  <div class="text-xs font-medium text-gray-600 mb-1">错位风险:</div>
+                  <ul class="space-y-1 text-sm text-gray-800">
+                    <li class="flex items-start">
+                      <span class="text-red-500 mr-2">•</span>
+                      <span>Over-emphasis on AI/platform</span>
+                    </li>
+                    <li class="flex items-start">
+                      <span class="text-red-500 mr-2">•</span>
+                      <span>Commercial framing</span>
+                    </li>
+                    <li class="flex items-start">
+                      <span class="text-red-500 mr-2">•</span>
+                      <span>Lack of clinical specificity</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <div class="text-xs font-medium text-gray-600 mb-1">缓解措施:</div>
+                  <div class="text-sm text-gray-800">
+                    • Anchor discussion in clinical pathways<br>
+                    • Use academic + implementation language
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. NEXT ACTION ENGINE -->
+            <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">🚀 下一步行动引擎</h3>
+              
+              <div class="space-y-3">
+                <div>
+                  <div class="text-xs font-medium text-gray-600 mb-1">通话前:</div>
+                  <ul class="space-y-1 text-sm text-gray-800">
+                    <li class="flex items-start">
+                      <input type="checkbox" class="mr-2 mt-0.5" id="prep1">
+                      <label for="prep1">Refine language → early psychosis framing</label>
+                    </li>
+                    <li class="flex items-start">
+                      <input type="checkbox" class="mr-2 mt-0.5" id="prep2">
+                      <label for="prep2">Prepare 1-paragraph positioning</label>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <div class="text-xs font-medium text-gray-600 mb-1">通话中:</div>
+                  <ul class="space-y-1 text-sm text-gray-800">
+                    <li class="flex items-start">
+                      <input type="checkbox" class="mr-2 mt-0.5" id="during1">
+                      <label for="during1">Ask 3 core questions</label>
+                    </li>
+                    <li class="flex items-start">
+                      <input type="checkbox" class="mr-2 mt-0.5" id="during2">
+                      <label for="during2">Avoid pitching</label>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <div class="text-xs font-medium text-gray-600 mb-1">通话后:</div>
+                  <ul class="space-y-1 text-sm text-gray-800">
+                    <li class="flex items-start">
+                      <input type="checkbox" class="mr-2 mt-0.5" id="post1">
+                      <label for="post1">Send concise follow-up</label>
+                    </li>
+                    <li class="flex items-start">
+                      <input type="checkbox" class="mr-2 mt-0.5" id="post2">
+                      <label for="post2">Capture key insights</label>
+                    </li>
+                    <li class="flex items-start">
+                      <input type="checkbox" class="mr-2 mt-0.5" id="post3">
+                      <label for="post3">Evaluate advisor potential</label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- 7. UPGRADE PATHWAY -->
+            <div>
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">📈 升级路径</h3>
+              
+              <div class="space-y-3">
+                <div class="space-y-2">
+                  <div class="flex items-center">
+                    <span class="text-xs font-medium text-gray-600 mr-2">阶段1:</span>
+                    <span class="text-sm text-gray-800">Informal clinical input</span>
+                  </div>
+                  <div class="flex items-center">
+                    <span class="text-xs font-medium text-gray-600 mr-2">阶段2:</span>
+                    <span class="text-sm text-gray-800">Occasional advisor (non-formal)</span>
+                  </div>
+                  <div class="flex items-center">
+                    <span class="text-xs font-medium text-gray-600 mr-2">阶段3:</span>
+                    <span class="text-sm text-gray-800">Academic collaborator (grant/paper)</span>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="text-xs font-medium text-gray-600 mb-1">触发条件:</div>
+                  <ul class="space-y-1 text-sm text-gray-800">
+                    <li class="flex items-start">
+                      <span class="text-green-500 mr-2">•</span>
+                      <span>Repeated engagement</span>
+                    </li>
+                    <li class="flex items-start">
+                      <span class="text-green-500 mr-2">•</span>
+                      <span>Demonstrated data pipeline</span>
+                    </li>
+                    <li class="flex items-start">
+                      <span class="text-green-500 mr-2">•</span>
+                      <span>Clinical alignment confirmed</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
 
@@ -214,16 +424,12 @@
               最后更新: <span id="update-time-1"></span>
             </div>
             <div class="text-xs text-gray-600">
-              关系ID: YALE-PSYCH-001
+              关系ID: YALE-PSYCH-001 • [STRATEGIC ASSET REBUILT]
             </div>
           </div>
         </div>
 
-      </div>
-
-    </div>
-
-    <!-- Empty State (for future entries) -->
+      </div>    <!-- Empty State (for future entries) -->
     <div class="mt-8 bg-card rounded-lg p-8 text-center">
       <div class="max-w-md mx-auto">
         <i class="fas fa-user-plus text-4xl text-gray-400 mb-4"></i>
