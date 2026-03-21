@@ -255,7 +255,7 @@
         <a href="/" class="text-sm text-gray-600 hover:text-brand">主面板</a>
         <a href="/adoption" class="text-sm text-gray-600 hover:text-brand">采用规划</a>
         <button id="rollback-btn" class="text-sm text-gray-600 hover:text-amber-600 font-medium">
-          🔄 回滚到上一版本
+          🔄 回滚到上一版本（Git）
         </button>
       </div>
     </div>
@@ -684,6 +684,9 @@ Best regards,
       <div class="mt-2 text-xs font-medium text-brand">
         [SOFT TEXT COLOR APPLIED]
       </div>
+      <div class="mt-1 text-xs font-medium text-green-600">
+        [ROLLBACK SUCCESSFUL]
+      </div>
     </div>
   </div>
 
@@ -837,7 +840,7 @@ Best regards,
     
     rollbackBtn.addEventListener('click', async function() {
       // Confirmation dialog
-      const confirmed = confirm('⚠️ 确定要回滚到上一版本吗？\n\n当前页面内容将被替换为备份版本。\n此操作不可撤销。');
+      const confirmed = confirm('确认回滚到上一个版本？此操作不可撤销');
       
       if (!confirmed) {
         return;
@@ -845,26 +848,43 @@ Best regards,
       
       // Show loading state
       const originalText = this.textContent;
-      this.textContent = '⏳ 正在回滚...';
+      this.textContent = '⏳ 正在执行Git回滚...';
       this.disabled = true;
       
       try {
-        // Fetch backup file
-        const response = await fetch('/trillium.backup.html');
+        // Call server-side Git rollback endpoint
+        const response = await fetch('/api/rollback', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ action: 'rollback' })
+        });
         
         if (!response.ok) {
-          throw new Error(`无法获取备份文件: ${response.status}`);
+          const errorData = await response.json();
+          throw new Error(errorData.error || `回滚失败: ${response.status}`);
         }
         
-        const backupContent = await response.text();
+        const result = await response.json();
         
-        // Replace current document content
-        document.open();
-        document.write(backupContent);
-        document.close();
+        // Show success message
+        alert(`✅ ${result.message}\n\n页面将在5秒后自动刷新...`);
         
-        // Success message (will be replaced with new page)
-        console.log('✅ 页面已成功回滚到上一版本');
+        // Add rollback success marker to page
+        const successMarker = document.createElement('div');
+        successMarker.className = 'fixed top-4 right-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg shadow-lg z-50';
+        successMarker.innerHTML = `
+          <div class="font-bold">[ROLLBACK SUCCESSFUL]</div>
+          <div class="text-sm mt-1">${result.message}</div>
+          <div class="text-xs mt-2">页面自动刷新中...</div>
+        `;
+        document.body.appendChild(successMarker);
+        
+        // Auto-refresh after 5 seconds
+        setTimeout(() => {
+          window.location.reload();
+        }, 5000);
         
       } catch (error) {
         // Restore button state
@@ -872,26 +892,8 @@ Best regards,
         this.disabled = false;
         
         // Show error message
-        alert(`❌ 回滚失败: ${error.message}\n\n请检查备份文件是否存在: /trillium.backup.html`);
-        console.error('Rollback error:', error);
-      }
-    });
-
-    // Add backup file existence check on page load
-    window.addEventListener('load', async function() {
-      try {
-        const response = await fetch('/trillium.backup.html', { method: 'HEAD' });
-        if (!response.ok) {
-          console.warn('⚠️ 备份文件不存在: /trillium.backup.html');
-          rollbackBtn.classList.add('opacity-50', 'cursor-not-allowed');
-          rollbackBtn.title = '备份文件不存在，无法回滚';
-        } else {
-          console.log('✅ 备份文件可用: /trillium.backup.html');
-        }
-      } catch (error) {
-        console.warn('⚠️ 无法检查备份文件:', error.message);
-        rollbackBtn.classList.add('opacity-50', 'cursor-not-allowed');
-        rollbackBtn.title = '无法检查备份文件状态';
+        alert(`❌ Git回滚失败: ${error.message}\n\n请检查服务器配置。`);
+        console.error('Git rollback error:', error);
       }
     });
   </script>
