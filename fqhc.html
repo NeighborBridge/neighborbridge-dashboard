@@ -279,7 +279,7 @@
             <div>
               <h2 class="text-lg font-semibold text-gray-800 mb-2">3. 下一步行动</h2>
             </div>
-            <span class="status-badge bg-green-100 text-green-800">可执行</span>
+            <span class="status-badge bg-orange-100 text-orange-800">需进行Risk对齐（CEO / Medical Director）</span>
           </div>
           <div class="space-y-4">
             <div class="border-l-4 border-brand pl-4">
@@ -353,6 +353,122 @@
       </div>
     </div>
 
+    <!-- Risk Analysis -->
+    <div class="mt-8">
+      <div class="execution-card bg-card rounded-lg p-5">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <h2 class="text-lg font-semibold text-gray-800 mb-2">Risk Analysis（CEO / Medical Director视角）</h2>
+            <p class="text-sm text-gray-600">基于领导层关注点的风险分析</p>
+          </div>
+          <span class="status-badge bg-red-100 text-red-800">关键评估</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          
+          <!-- Left Column -->
+          <div class="space-y-4">
+            
+            <!-- 1. 临床风险 -->
+            <div>
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">1. 临床风险</h3>
+              <div class="pl-4">
+                <p class="text-sm text-gray-800 mb-1">是否触及诊断边界</p>
+                <p class="text-xs text-gray-600">→ 必须限定为screening + referral</p>
+                <div class="mt-2 text-xs text-gray-500">
+                  <p>• 避免任何诊断性语言</p>
+                  <p>• 明确转介路径和标准</p>
+                  <p>• 保持筛查工具的中立性</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. 合规风险 -->
+            <div>
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">2. 合规风险</h3>
+              <div class="pl-4">
+                <p class="text-sm text-gray-800 mb-1">数据与责任边界</p>
+                <p class="text-xs text-gray-600">→ 嵌入现有workflow</p>
+                <div class="mt-2 text-xs text-gray-500">
+                  <p>• 使用现有数据收集系统</p>
+                  <p>• 明确数据所有权和责任</p>
+                  <p>• 符合HIPAA和机构政策</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. 运营风险 -->
+            <div>
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">3. 运营风险</h3>
+              <div class="pl-4">
+                <p class="text-sm text-gray-800 mb-1">是否增加staff负担</p>
+                <p class="text-xs text-gray-600">→ 控制在最小（≤5分钟）</p>
+                <div class="mt-2 text-xs text-gray-500">
+                  <p>• 简化筛查流程</p>
+                  <p>• 提供明确的操作指南</p>
+                  <p>• 最小化额外培训需求</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column -->
+          <div class="space-y-4">
+            
+            <!-- 4. 财务风险 -->
+            <div>
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">4. 财务风险</h3>
+              <div class="pl-4">
+                <p class="text-sm text-gray-800 mb-1">reimbursement路径是否明确</p>
+                <p class="text-xs text-gray-600">→ 对接CHW机制</p>
+                <div class="mt-2 text-xs text-gray-500">
+                  <p>• 明确CHW服务的报销代码</p>
+                  <p>• 建立可持续的财务模型</p>
+                  <p>• 考虑Medicaid/Medicare覆盖</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. 声誉风险 -->
+            <div>
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">5. 声誉风险</h3>
+              <div class="pl-4">
+                <p class="text-sm text-gray-800 mb-1">是否被视为experimental</p>
+                <p class="text-xs text-gray-600">→ 定义为quality improvement pilot</p>
+                <div class="mt-2 text-xs text-gray-500">
+                  <p>• 强调基于证据的实践</p>
+                  <p>• 定位为质量改进项目</p>
+                  <p>• 建立明确的成功指标</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Risk Mitigation Summary -->
+            <div class="mt-4 pt-4 border-t">
+              <h3 class="text-sm font-semibold text-gray-700 mb-2">风险缓解策略</h3>
+              <div class="text-xs text-gray-600">
+                <p class="mb-1">• 小规模试点验证所有风险假设</p>
+                <p class="mb-1">• 定期与领导层沟通进展和挑战</p>
+                <p class="mb-1">• 建立明确的退出机制和评估标准</p>
+                <p>• 确保所有利益相关者参与决策过程</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Last Updated -->
+        <div class="mt-6 pt-4 border-t">
+          <div class="text-xs text-gray-600">
+            风险评估时间: <span id="risk-assessment-time"></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 
   <!-- Footer -->
@@ -365,17 +481,28 @@
       <div class="mt-1 text-xs font-medium text-purple-500">
         [MULTI-COLOR SYSTEM APPLIED]
       </div>
+      <div class="mt-1 text-xs font-medium text-red-500">
+        [RISK ANALYSIS ADDED]
+      </div>
     </div>
   </div>
 
   <script>
     // Set update time
-    document.getElementById('update-time').textContent = new Date().toLocaleDateString('zh-CN', {
+    const now = new Date();
+    document.getElementById('update-time').textContent = now.toLocaleDateString('zh-CN', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit'
+    });
+
+    // Set risk assessment time
+    document.getElementById('risk-assessment-time').textContent = now.toLocaleDateString('zh-CN', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
     });
 
     // Rollback functionality
