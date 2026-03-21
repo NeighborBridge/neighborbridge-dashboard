@@ -59,14 +59,33 @@
         --input-border: #475569;
       }
 
+      /* Force all main content text to white */
+      body, p, li, div, span, h1, h2, h3, h4, h5, h6,
+      .text-gray-900, .text-gray-800, .text-gray-700,
+      .font-bold, .font-semibold, .font-medium {
+        color: #ffffff !important;
+      }
+
+      /* Only allow gray for secondary info */
+      .text-gray-600, .text-gray-500, .text-gray-400,
+      .source-link, [class*="timestamp"], .text-xs {
+        color: #aab4c0 !important;
+      }
+
+      /* Fix links */
+      a, .text-blue-600, .hover\\:text-brand:hover,
+      .source-link, .text-brand {
+        color: #4ea1ff !important;
+      }
+
       /* Force high contrast for modal */
       .modal, #ppt-modal .bg-white {
         background: var(--modal-bg) !important;
       }
 
-      /* Force high contrast text in slides */
+      /* Ensure PPT modal text is fully white */
       .slide, .slide * {
-        color: var(--text-primary) !important;
+        color: #ffffff !important;
       }
 
       /* Ensure body stays dark */
@@ -644,7 +663,7 @@ Best regards,
     <div class="text-xs text-gray-400 text-center">
       每日执行系统 • 最后更新: <span id="update-time"></span>
       <div class="mt-2 text-xs font-medium text-brand">
-        [DARK MODE CONTRAST FIXED]
+        [DARK TEXT FIX APPLIED]
       </div>
     </div>
   </div>
