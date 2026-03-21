@@ -18,7 +18,10 @@
             urgent: "#ef4444",
             warning: "#f59e0b",
             neutral: "#6b7280",
-            completed: "#10b981"
+            completed: "#10b981",
+            orange: {
+              500: "#f59e0b"
+            }
           }
         }
       }
@@ -51,12 +54,19 @@
         --card: #121821;
         --modal: #1e2632;
         --text-primary: #e6edf3;
-        --text-secondary: #9fb0c3;
-        --text-muted: #6e7681;
+        --text-secondary: #f59e0b; /* Orange accent for secondary text */
+        --text-muted: #f59e0b; /* Orange accent for muted text */
         --heading: #f0f6fc;
         --link: #4ea1ff;
         --border: #2a3441;
         --hover-bg: rgba(255, 255, 255, 0.08);
+      }
+
+      /* Force orange accent for all secondary text */
+      .text-gray-600, .text-gray-500, .text-gray-400,
+      .text-xs, .meta, .timestamp,
+      .text-gray-700, .text-gray-800, .text-gray-900 {
+        color: #f59e0b !important;
       }
     }
 
@@ -76,15 +86,16 @@
       color: var(--text-primary);
     }
 
-    /* Secondary Text */
+    /* Secondary Text - Orange Accent */
     .text-gray-600, .text-gray-500, .text-gray-400,
-    .text-xs, .meta, .timestamp {
-      color: var(--text-secondary);
+    .text-xs, .meta, .timestamp,
+    .text-gray-700, .text-gray-800, .text-gray-900 {
+      color: #f59e0b !important;
     }
 
-    /* Muted Text */
-    .text-gray-700, .text-gray-800, .text-gray-900 {
-      color: var(--text-muted);
+    /* Keep specific colors for status badges */
+    .text-yellow-600, .text-blue-600, .text-green-600, .text-red-600 {
+      color: inherit !important;
     }
 
     /* Links */
@@ -280,15 +291,15 @@
     <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
       <div class="bg-card rounded-lg p-4">
         <p class="text-sm text-gray-600">试点状态</p>
-        <p class="text-lg font-semibold text-yellow-600">准备阶段</p>
+        <p class="text-lg font-semibold text-orange-500">准备阶段</p>
       </div>
       <div class="bg-card rounded-lg p-4">
         <p class="text-sm text-gray-600">资源准备度</p>
-        <p class="text-lg font-semibold text-blue-600">70%</p>
+        <p class="text-lg font-semibold text-orange-500">70%</p>
       </div>
       <div class="bg-card rounded-lg p-4">
         <p class="text-sm text-gray-600">执行优先级</p>
-        <p class="text-lg font-semibold text-green-600">高</p>
+        <p class="text-lg font-semibold text-orange-500">高</p>
       </div>
     </div>
 
@@ -300,6 +311,9 @@
       FQHC基础试点面板 • 最后更新: <span id="update-time"></span>
       <div class="mt-2 text-xs font-medium text-brand">
         [FQHC DASHBOARD CREATED]
+      </div>
+      <div class="mt-1 text-xs font-medium text-orange-500">
+        [ORANGE ACCENT APPLIED]
       </div>
     </div>
   </div>
