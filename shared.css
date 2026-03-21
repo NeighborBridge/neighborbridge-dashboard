@@ -1,0 +1,298 @@
+/* Shared Design System - Single Source of Truth */
+/* Used by: stakeholders.html, fqhc.html, and other dashboard pages */
+
+/* Global Text Color System */
+:root {
+  /* Light Mode */
+  --bg: #ffffff;
+  --card: #f5f5f5;
+  --modal: #ffffff;
+  --text-primary: #111111;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --heading: #000000;
+  --link: #0ea5e9;
+  --border: #e5e7eb;
+  --hover-bg: rgba(0, 0, 0, 0.02);
+}
+
+/* Multi-Color Accent System */
+:root {
+  --accent-orange: #f59e0b;
+  --accent-blue: #60a5fa;
+  --accent-green: #34d399;
+  --accent-purple: #a78bfa;
+}
+
+/* Dark Mode - Global System with Multi-Color Accents */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b0f14;
+    --card: #121821;
+    --modal: #1e2632;
+    --text-primary: #e6edf3;
+    --text-secondary: #9fb0c3; /* Restore original secondary color */
+    --text-muted: #6e7681; /* Restore original muted color */
+    --heading: #f0f6fc;
+    --link: var(--accent-blue); /* Use accent-blue for links */
+    --border: #2a3441;
+    --hover-bg: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Apply multi-color accent rules */
+  
+  /* Orange: status, priority labels */
+  .status-badge,
+  .priority-badge,
+  .text-orange-500,
+  .text-yellow-600,
+  .text-warning {
+    color: var(--accent-orange) !important;
+  }
+  
+  /* Blue: links, sources */
+  a, .text-blue-600, .hover\\:text-brand:hover,
+  .text-brand, .source-link,
+  .text-link {
+    color: var(--accent-blue) !important;
+  }
+  
+  /* Green: executable, next actions, readiness */
+  .text-green-600, .text-green-500,
+  .text-completed, .text-executable,
+  .next-action {
+    color: var(--accent-green) !important;
+  }
+  
+  /* Purple: academic references, stakeholders, Yale/Harvard */
+  .text-purple-500, .text-purple-600,
+  .academic-ref, .stakeholder-tag,
+  .yale-mention, .harvard-mention {
+    color: var(--accent-purple) !important;
+  }
+  
+  /* Restore secondary text to original color */
+  .text-gray-600, .text-gray-500, .text-gray-400,
+  .text-xs, .meta, .timestamp,
+  .text-gray-700, .text-gray-800, .text-gray-900 {
+    color: var(--text-secondary) !important;
+  }
+}
+
+/* Apply Global Text System */
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading);
+}
+
+/* Paragraphs and Lists */
+p, li {
+  color: var(--text-primary);
+}
+
+/* Secondary Text */
+.text-gray-600, .text-gray-500, .text-gray-400,
+.text-xs, .meta, .timestamp {
+  color: var(--text-secondary);
+}
+
+/* Muted Text */
+.text-gray-700, .text-gray-800, .text-gray-900 {
+  color: var(--text-muted);
+}
+
+/* Links */
+a, .text-blue-600, .hover\\:text-brand:hover,
+.text-brand {
+  color: var(--link);
+}
+
+/* Card and Container Styles */
+.card, .modal, .bg-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+
+/* Borders */
+.border, .border-b, .border-t {
+  border-color: var(--border);
+}
+
+/* Dashboard Card - Unified for all dashboards */
+.dashboard-card {
+  border-left: 4px solid #0ea5e9;
+  transition: all 0.2s ease;
+}
+.dashboard-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background: var(--hover-bg);
+}
+
+/* Status Badge - Unified styling */
+.status-badge {
+  font-size: 0.7rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Priority Badge - Unified styling */
+.priority-badge {
+  font-size: 0.7rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Priority Colors */
+.priority-high {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+.priority-medium {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+.priority-low {
+  background: rgba(107, 114, 128, 0.1);
+  color: #6b7280;
+  border: 1px solid rgba(107, 114, 128, 0.3);
+}
+
+/* Execution Status Colors */
+.status-pending {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+.status-critical {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+.status-executable {
+  background: rgba(52, 211, 153, 0.1);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+.status-info {
+  background: rgba(96, 165, 250, 0.1);
+  color: #60a5fa;
+  border: 1px solid rgba(96, 165, 250, 0.3);
+}
+
+/* Typography and Spacing */
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+.font-bold {
+  font-weight: 700;
+}
+.font-semibold {
+  font-weight: 600;
+}
+.font-medium {
+  font-weight: 500;
+}
+
+/* Spacing Utilities */
+.space-y-6 > * + * {
+  margin-top: 1.5rem;
+}
+.space-x-2 > * + * {
+  margin-left: 0.5rem;
+}
+.p-5 {
+  padding: 1.25rem;
+}
+.p-4 {
+  padding: 1rem;
+}
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.mb-4 {
+  margin-bottom: 1rem;
+}
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+.mt-2 {
+  margin-top: 0.5rem;
+}
+.mt-4 {
+  margin-top: 1rem;
+}
+
+/* Layout */
+.max-w-6xl {
+  max-width: 72rem;
+}
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+.shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Flexbox */
+.flex {
+  display: flex;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.items-start {
+  align-items: flex-start;
+}
+.items-center {
+  align-items: center;
+}
+.flex-col {
+  flex-direction: column;
+}
+.gap-4 {
+  gap: 1rem;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+}
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+@media (min-width: 768px) {
+  .md\\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

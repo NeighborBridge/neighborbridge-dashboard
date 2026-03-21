@@ -40,147 +40,23 @@
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
+  <!-- Shared Design System - Single Source of Truth -->
+  <link rel="stylesheet" href="shared.css">
+  
   <style>
-    /* Global Text Color System */
-    :root {
-      /* Light Mode */
-      --bg: #ffffff;
-      --card: #f5f5f5;
-      --modal: #ffffff;
-      --text-primary: #111111;
-      --text-secondary: #4b5563;
-      --text-muted: #6b7280;
-      --heading: #000000;
-      --link: #0ea5e9;
-      --border: #e5e7eb;
-      --hover-bg: rgba(0, 0, 0, 0.02);
+    /* [DESIGN SYSTEM UNIFIED] - FQHC now uses shared design system from stakeholders.html */
+    /* All custom color definitions removed - using shared.css only */
+    
+    /* Page-specific styles (non-color related) */
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
     }
-
-    /* Multi-Color Accent System */
-    :root {
-      --accent-orange: #f59e0b;
-      --accent-blue: #60a5fa;
-      --accent-green: #34d399;
-      --accent-purple: #a78bfa;
-    }
-
-    /* Dark Mode - Global System with Multi-Color Accents */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0b0f14;
-        --card: #121821;
-        --modal: #1e2632;
-        --text-primary: #e6edf3;
-        --text-secondary: #9fb0c3; /* Restore original secondary color */
-        --text-muted: #6e7681; /* Restore original muted color */
-        --heading: #f0f6fc;
-        --link: var(--accent-blue); /* Use accent-blue for links */
-        --border: #2a3441;
-        --hover-bg: rgba(255, 255, 255, 0.08);
-      }
-
-      /* Apply multi-color accent rules */
-      
-      /* Orange: status, priority labels */
-      .status-badge,
-      .priority-badge,
-      .text-orange-500,
-      .text-yellow-600,
-      .text-warning {
-        color: var(--accent-orange) !important;
-      }
-      
-      /* Blue: links, sources */
-      a, .text-blue-600, .hover\\:text-brand:hover,
-      .text-brand, .source-link,
-      .text-link {
-        color: var(--accent-blue) !important;
-      }
-      
-      /* Green: executable, next actions, readiness */
-      .text-green-600, .text-green-500,
-      .text-completed, .text-executable,
-      .next-action {
-        color: var(--accent-green) !important;
-      }
-      
-      /* Purple: academic references, stakeholders, Yale/Harvard */
-      .text-purple-500, .text-purple-600,
-      .academic-ref, .stakeholder-tag,
-      .yale-mention, .harvard-mention {
-        color: var(--accent-purple) !important;
-      }
-      
-      /* Restore secondary text to original color */
-      .text-gray-600, .text-gray-500, .text-gray-400,
-      .text-xs, .meta, .timestamp,
-      .text-gray-700, .text-gray-800, .text-gray-900 {
-        color: var(--text-secondary) !important;
-      }
-    }
-
-    /* Apply Global Text System */
-    body {
-      background: var(--bg);
-      color: var(--text-primary);
-    }
-
-    /* Headings */
-    h1, h2, h3, h4, h5, h6 {
-      color: var(--heading);
-    }
-
-    /* Paragraphs and Lists */
-    p, li {
-      color: var(--text-primary);
-    }
-
-    /* Secondary Text - Orange Accent */
-    .text-gray-600, .text-gray-500, .text-gray-400,
-    .text-xs, .meta, .timestamp,
-    .text-gray-700, .text-gray-800, .text-gray-900 {
-      color: #f59e0b !important;
-    }
-
-    /* Keep specific colors for status badges */
-    .text-yellow-600, .text-blue-600, .text-green-600, .text-red-600 {
-      color: inherit !important;
-    }
-
-    /* Links */
-    a, .text-blue-600, .hover\\:text-brand:hover,
-    .text-brand {
-      color: var(--link);
-    }
-
-    /* Card and Container Styles */
-    .card, .modal, .bg-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-    }
-
-    /* Borders */
-    .border, .border-b, .border-t {
-      border-color: var(--border);
-    }
-
-    /* Execution Card */
+    
+    /* Ensure consistent card styling */
     .execution-card {
-      border-left: 4px solid #0ea5e9;
-      transition: all 0.2s ease;
-    }
-    .execution-card:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      background: var(--hover-bg);
-    }
-    .status-badge {
-      font-size: 0.7rem;
-      padding: 0.1rem 0.5rem;
-      border-radius: 9999px;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
+      composes: dashboard-card from shared.css;
     }
   </style>
 </head>
@@ -216,12 +92,12 @@
     <div class="space-y-6">
 
       <!-- 1. 当前状态 -->
-      <div class="execution-card bg-card rounded-lg p-5">
+      <div class="dashboard-card bg-card rounded-lg p-5">
         <div class="flex justify-between items-start mb-4">
           <div>
             <h2 class="text-lg font-semibold text-gray-800 mb-2">当前状态</h2>
           </div>
-          <span class="status-badge bg-orange-100 text-orange-800">待对齐</span>
+          <span class="status-badge status-pending">待对齐</span>
         </div>
         <div class="space-y-3">
           <p class="text-gray-700 text-lg">未与FQHC leadership对齐</p>
@@ -229,12 +105,12 @@
       </div>
 
       <!-- 2. 核心风险（需对齐） -->
-      <div class="execution-card bg-card rounded-lg p-5">
+      <div class="dashboard-card bg-card rounded-lg p-5">
         <div class="flex justify-between items-start mb-4">
           <div>
             <h2 class="text-lg font-semibold text-gray-800 mb-2">核心风险（需对齐）</h2>
           </div>
-          <span class="status-badge bg-orange-100 text-orange-800">关键</span>
+          <span class="status-badge status-critical">关键</span>
         </div>
         <div class="space-y-3">
           <div class="text-gray-700">
@@ -255,12 +131,12 @@
       </div>
 
       <!-- 3. 下一步（1–2周） -->
-      <div class="execution-card bg-card rounded-lg p-5">
+      <div class="dashboard-card bg-card rounded-lg p-5">
         <div class="flex justify-between items-start mb-4">
           <div>
             <h2 class="text-lg font-semibold text-gray-800 mb-2">下一步（1–2周）</h2>
           </div>
-          <span class="status-badge bg-green-100 text-green-800">可执行</span>
+          <span class="status-badge status-executable">可执行</span>
         </div>
         <div class="space-y-3">
           <div class="text-gray-700">
@@ -281,12 +157,12 @@
       </div>
 
       <!-- 4. 试点状态 -->
-      <div class="execution-card bg-card rounded-lg p-5">
+      <div class="dashboard-card bg-card rounded-lg p-5">
         <div class="flex justify-between items-start mb-4">
           <div>
             <h2 class="text-lg font-semibold text-gray-800 mb-2">试点状态</h2>
           </div>
-          <span class="status-badge bg-blue-100 text-blue-800">信息</span>
+          <span class="status-badge status-info">信息</span>
         </div>
         <div class="space-y-3">
           <div class="text-gray-700">

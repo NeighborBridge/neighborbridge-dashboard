@@ -40,169 +40,16 @@
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
+  <!-- Shared Design System - Single Source of Truth -->
+  <link rel="stylesheet" href="shared.css">
+  
   <style>
-    /* Global Text Color System */
-    :root {
-      /* Light Mode */
-      --bg: #ffffff;
-      --card: #f5f5f5;
-      --modal: #ffffff;
-      --text-primary: #111111;
-      --text-secondary: #4b5563;
-      --text-muted: #6b7280;
-      --heading: #000000;
-      --link: #0ea5e9;
-      --border: #e5e7eb;
-      --hover-bg: rgba(0, 0, 0, 0.02);
-    }
-
-    /* Multi-Color Accent System */
-    :root {
-      --accent-orange: #f59e0b;
-      --accent-blue: #60a5fa;
-      --accent-green: #34d399;
-      --accent-purple: #a78bfa;
-    }
-
-    /* Dark Mode - Global System with Multi-Color Accents */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0b0f14;
-        --card: #121821;
-        --modal: #1e2632;
-        --text-primary: #e6edf3;
-        --text-secondary: #9fb0c3; /* Restore original secondary color */
-        --text-muted: #6e7681; /* Restore original muted color */
-        --heading: #f0f6fc;
-        --link: var(--accent-blue); /* Use accent-blue for links */
-        --border: #2a3441;
-        --hover-bg: rgba(255, 255, 255, 0.08);
-      }
-
-      /* Apply multi-color accent rules */
-      
-      /* Orange: status, priority labels */
-      .status-badge,
-      .priority-badge,
-      .text-orange-500,
-      .text-yellow-600,
-      .text-warning {
-        color: var(--accent-orange) !important;
-      }
-      
-      /* Blue: links, sources */
-      a, .text-blue-600, .hover\\:text-brand:hover,
-      .text-brand, .source-link,
-      .text-link {
-        color: var(--accent-blue) !important;
-      }
-      
-      /* Green: executable, next actions, readiness */
-      .text-green-600, .text-green-500,
-      .text-completed, .text-executable,
-      .next-action {
-        color: var(--accent-green) !important;
-      }
-      
-      /* Purple: academic references, stakeholders, Yale/Harvard */
-      .text-purple-500, .text-purple-600,
-      .academic-ref, .stakeholder-tag,
-      .yale-mention, .harvard-mention {
-        color: var(--accent-purple) !important;
-      }
-      
-      /* Restore secondary text to original color */
-      .text-gray-600, .text-gray-500, .text-gray-400,
-      .text-xs, .meta, .timestamp,
-      .text-gray-700, .text-gray-800, .text-gray-900 {
-        color: var(--text-secondary) !important;
-      }
-    }
-
-    /* Apply Global Text System */
-    body {
-      background: var(--bg);
-      color: var(--text-primary);
-    }
-
-    /* Headings */
-    h1, h2, h3, h4, h5, h6 {
-      color: var(--heading);
-    }
-
-    /* Paragraphs and Lists */
-    p, li {
-      color: var(--text-primary);
-    }
-
-    /* Secondary Text */
-    .text-gray-600, .text-gray-500, .text-gray-400,
-    .text-xs, .meta, .timestamp {
-      color: var(--text-secondary);
-    }
-
-    /* Muted Text */
-    .text-gray-700, .text-gray-800, .text-gray-900 {
-      color: var(--text-muted);
-    }
-
-    /* Links */
-    a, .text-blue-600, .hover\\:text-brand:hover,
-    .text-brand {
-      color: var(--link);
-    }
-
-    /* Card and Container Styles */
-    .card, .modal, .bg-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-    }
-
-    /* Borders */
-    .border, .border-b, .border-t {
-      border-color: var(--border);
-    }
-
-    /* Stakeholder Card */
+    /* [DESIGN SYSTEM UNIFIED] - Stakeholders uses shared design system */
+    /* All color definitions moved to shared.css */
+    
+    /* Page-specific styles (non-color related) */
     .stakeholder-card {
-      border-left: 4px solid #0ea5e9;
-      transition: all 0.2s ease;
-    }
-    .stakeholder-card:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      background: var(--hover-bg);
-    }
-    .status-badge {
-      font-size: 0.7rem;
-      padding: 0.1rem 0.5rem;
-      border-radius: 9999px;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-    .priority-badge {
-      font-size: 0.7rem;
-      padding: 0.1rem 0.5rem;
-      border-radius: 9999px;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-    .priority-high {
-      background: rgba(239, 68, 68, 0.1);
-      color: #ef4444;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-    .priority-medium {
-      background: rgba(245, 158, 11, 0.1);
-      color: #f59e0b;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-    }
-    .priority-low {
-      background: rgba(107, 114, 128, 0.1);
-      color: #6b7280;
-      border: 1px solid rgba(107, 114, 128, 0.3);
+      composes: dashboard-card from shared.css;
     }
   </style>
 </head>
@@ -258,7 +105,7 @@
     <div class="space-y-6">
 
       <!-- Stakeholder 1: Vinod Srihari -->
-      <div class="stakeholder-card bg-card rounded-lg p-5">
+      <div class="dashboard-card bg-card rounded-lg p-5">
         <div class="flex justify-between items-start mb-4">
           <div>
             <h2 class="text-xl font-bold text-gray-800 mb-1">Vinod Srihari</h2>
