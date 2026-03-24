@@ -132,6 +132,221 @@
       <p class="text-sm text-gray-600">聚合所有子仪表板信号，提供可执行洞察</p>
     </div>
 
+    <!-- 🚀 可执行模块（Execution Panel） -->
+    <div class="dashboard-card bg-card rounded-lg p-5 mb-6 border border-gray-300">
+      <div class="flex justify-between items-start mb-4">
+        <div>
+          <h2 class="text-xl font-bold text-gray-800 mb-1">🚀 可执行模块（Execution Panel）</h2>
+          <p class="text-sm text-gray-600">决策 → 行动 → 反馈 → 下一步行动循环</p>
+        </div>
+        <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">Human-in-the-Loop</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- 1. 沟通（Communication） -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-semibold text-gray-800 mb-3">📧 沟通（Communication）</h3>
+          
+          <!-- Email Template -->
+          <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
+            <div class="flex justify-between items-center mb-3">
+              <h4 class="text-sm font-semibold text-gray-700">AI Generated Email Template</h4>
+              <span class="text-xs text-gray-500">可编辑</span>
+            </div>
+            
+            <textarea id="email-template" class="w-full h-32 p-3 text-sm border border-gray-300 rounded mb-3" placeholder="AI将生成邮件模板...">
+Subject: Following up on our conversation about early identification in FQHC
+
+Hi [Name],
+
+I wanted to follow up on our discussion about embedding early identification pathways in FQHC settings. Based on our conversation, I've refined the clinical logic and would appreciate your perspective on whether this makes sense from an implementation standpoint.
+
+The core idea remains: identifying patients upstream before they reach specialty care, using CHW workflows within primary care.
+
+Would you be open to a brief call next week to discuss?
+
+Best,
+Richard</textarea>
+            
+            <div class="flex space-x-2">
+              <button class="flex-1 px-3 py-2 bg-blue-100 text-blue-700 text-sm font-medium rounded hover:bg-blue-200 transition" onclick="copyEmail()">
+                <i class="fas fa-copy mr-1"></i> 复制
+              </button>
+              <button class="flex-1 px-3 py-2 bg-green-100 text-green-700 text-sm font-medium rounded hover:bg-green-200 transition" onclick="markSent()">
+                <i class="fas fa-check mr-1"></i> 标记已发送
+              </button>
+              <button class="flex-1 px-3 py-2 bg-purple-100 text-purple-700 text-sm font-medium rounded hover:bg-purple-200 transition" onclick="optimizeEmail()">
+                <i class="fas fa-magic mr-1"></i> 让AI优化
+              </button>
+            </div>
+          </div>
+          
+          <!-- 🧠 我的判断 -->
+          <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-300">
+            <h4 class="text-sm font-semibold text-gray-700 mb-3">🧠 我的判断</h4>
+            
+            <textarea id="human-judgment" class="w-full h-24 p-3 text-sm border border-gray-300 rounded mb-3" placeholder="输入您的判断：为什么延迟、担忧、偏好..."></textarea>
+            
+            <button class="w-full px-4 py-2 bg-yellow-100 text-yellow-800 text-sm font-medium rounded hover:bg-yellow-200 transition" onclick="regenerateBasedOnJudgment()">
+              <i class="fas fa-sync-alt mr-1"></i> 基于我的判断重新生成
+            </button>
+            
+            <div class="mt-2 text-xs text-gray-600">
+              AI将：重新评估时机、重写邮件、调整语气/策略
+            </div>
+          </div>
+        </div>
+        
+        <!-- 2. 决策（Decision） -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-semibold text-gray-800 mb-3">🎯 决策（Decision）</h3>
+          
+          <!-- AI建议 -->
+          <div class="bg-green-50 p-4 rounded-lg border border-green-300">
+            <h4 class="text-sm font-semibold text-gray-700 mb-3">AI建议</h4>
+            
+            <div class="mb-4 p-3 bg-white rounded border border-gray-300">
+              <div class="text-sm font-medium text-gray-800 mb-1">建议立即联系 Vinod Srihari</div>
+              <div class="text-xs text-gray-600">
+                理由：75天未联系 + Q2合作窗口 + Trillium汇报前校准机会
+              </div>
+            </div>
+            
+            <div class="flex space-x-3">
+              <button class="flex-1 px-4 py-2 bg-green-100 text-green-800 text-sm font-medium rounded hover:bg-green-200 transition" onclick="agreeDecision()">
+                <i class="fas fa-thumbs-up mr-1"></i> 同意
+              </button>
+              <button class="flex-1 px-4 py-2 bg-red-100 text-red-800 text-sm font-medium rounded hover:bg-red-200 transition" onclick="disagreeDecision()">
+                <i class="fas fa-thumbs-down mr-1"></i> 不同意
+              </button>
+            </div>
+            
+            <!-- 不同意时的理由输入 -->
+            <div id="disagree-reason" class="mt-4 hidden">
+              <textarea class="w-full h-20 p-3 text-sm border border-gray-300 rounded mb-2" placeholder="请说明不同意的理由..."></textarea>
+              <button class="w-full px-4 py-2 bg-blue-100 text-blue-800 text-sm font-medium rounded hover:bg-blue-200 transition" onclick="submitDisagreeReason()">
+                <i class="fas fa-paper-plane mr-1"></i> 提交理由
+              </button>
+            </div>
+          </div>
+          
+          <!-- 其他可执行项 -->
+          <div class="space-y-3">
+            <div class="bg-white p-3 rounded border border-gray-300">
+              <div class="flex justify-between items-center">
+                <div>
+                  <div class="text-sm font-medium text-gray-800">📞 Call script generator</div>
+                  <div class="text-xs text-gray-600">为Vinod通话生成脚本</div>
+                </div>
+                <button class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded hover:bg-blue-200 transition" onclick="generateCallScript()">
+                  执行
+                </button>
+              </div>
+            </div>
+            
+            <div class="bg-white p-3 rounded border border-gray-300">
+              <div class="flex justify-between items-center">
+                <div>
+                  <div class="text-sm font-medium text-gray-800">📄 PPT refinement suggestion</div>
+                  <div class="text-xs text-gray-600">基于最新反馈优化Trillium PPT</div>
+                </div>
+                <button class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded hover:bg-blue-200 transition" onclick="refinePPT()">
+                  执行
+                </button>
+              </div>
+            </div>
+            
+            <div class="bg-white p-3 rounded border border-gray-300">
+              <div class="flex justify-between items-center">
+                <div>
+                  <div class="text-sm font-medium text-gray-800">👥 Stakeholder prioritization</div>
+                  <div class="text-xs text-gray-600">基于Q2目标重新排序</div>
+                </div>
+                <button class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded hover:bg-blue-200 transition" onclick="prioritizeStakeholders()">
+                  执行
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 3. 执行（Action） -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-semibold text-gray-800 mb-3">✅ 执行（Action）</h3>
+          
+          <!-- 行动清单 -->
+          <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
+            <h4 class="text-sm font-semibold text-gray-700 mb-3">行动清单</h4>
+            
+            <div class="space-y-3">
+              <div class="flex items-center">
+                <input type="checkbox" id="action1" class="mr-3">
+                <label for="action1" class="text-sm text-gray-800 flex-1">
+                  发送邮件给 Vinod Srihari
+                  <div class="text-xs text-gray-500" id="timestamp1"></div>
+                </label>
+              </div>
+              
+              <div class="flex items-center">
+                <input type="checkbox" id="action2" class="mr-3">
+                <label for="action2" class="text-sm text-gray-800 flex-1">
+                  安排与 Vinod 的会议
+                  <div class="text-xs text-gray-500" id="timestamp2"></div>
+                </label>
+              </div>
+              
+              <div class="flex items-center">
+                <input type="checkbox" id="action3" class="mr-3">
+                <label for="action3" class="text-sm text-gray-800 flex-1">
+                  更新 Trillium PPT
+                  <div class="text-xs text-gray-500" id="timestamp3"></div>
+                </label>
+              </div>
+              
+              <div class="flex items-center">
+                <input type="checkbox" id="action4" class="mr-3">
+                <label for="action4" class="text-sm text-gray-800 flex-1">
+                  联系其他 stakeholder
+                  <div class="text-xs text-gray-500" id="timestamp4"></div>
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 反馈循环 -->
+          <div class="bg-purple-50 p-4 rounded-lg border border-purple-300">
+            <h4 class="text-sm font-semibold text-gray-700 mb-3">🔄 反馈循环</h4>
+            
+            <div class="mb-3">
+              <div class="text-xs font-medium text-gray-600 mb-2">行动结果:</div>
+              <div class="flex space-x-2">
+                <button class="flex-1 px-3 py-2 bg-gray-100 text-gray-700 text-sm rounded hover:bg-gray-200 transition" onclick="recordResult('no-response')">
+                  无回复
+                </button>
+                <button class="flex-1 px-3 py-2 bg-blue-100 text-blue-700 text-sm rounded hover:bg-blue-200 transition" onclick="recordResult('replied')">
+                  已回复
+                </button>
+                <button class="flex-1 px-3 py-2 bg-green-100 text-green-700 text-sm rounded hover:bg-green-200 transition" onclick="recordResult('meeting-scheduled')">
+                  会议已安排
+                </button>
+              </div>
+            </div>
+            
+            <div id="next-step-suggestion" class="p-3 bg-white rounded border border-gray-300">
+              <div class="text-xs font-medium text-gray-600 mb-1">AI下一步建议:</div>
+              <div class="text-sm text-gray-800">等待用户选择行动结果...</div>
+            </div>
+            
+            <div class="mt-3 text-xs text-gray-600">
+              AI将更新：下一步建议、紧急程度
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
     <!-- Command Center Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
@@ -446,6 +661,180 @@
     setInterval(updateTime, 60000);
 
     // [COMMAND CENTER ENABLED]
+
+    // ==================================================
+    // 🚀 执行引擎函数 (Execution Engine Functions)
+    // ==================================================
+
+    // 1. 沟通模块函数
+    function copyEmail() {
+      const emailText = document.getElementById('email-template').value;
+      navigator.clipboard.writeText(emailText).then(() => {
+        alert('邮件内容已复制到剪贴板！');
+      }).catch(err => {
+        console.error('复制失败:', err);
+        alert('复制失败，请手动选择并复制。');
+      });
+    }
+
+    function markSent() {
+      const emailText = document.getElementById('email-template').value;
+      alert('邮件已标记为已发送！\n\n内容已保存到本地。');
+      // 在实际应用中，这里会保存到localStorage或发送到后端
+      localStorage.setItem('lastSentEmail', emailText);
+      localStorage.setItem('lastSentTime', new Date().toISOString());
+    }
+
+    function optimizeEmail() {
+      const currentEmail = document.getElementById('email-template').value;
+      // 模拟AI优化
+      const optimizedEmail = currentEmail.replace(
+        'Would you be open to a brief call next week to discuss?',
+        'Given your expertise in early psychosis and FQHC implementation, I\'d value your perspective on whether this clinical pathway makes sense. Would you be available for a 20-minute call next week?'
+      );
+      document.getElementById('email-template').value = optimizedEmail;
+      alert('AI已优化邮件语气和具体性！');
+    }
+
+    function regenerateBasedOnJudgment() {
+      const judgment = document.getElementById('human-judgment').value;
+      if (!judgment.trim()) {
+        alert('请先输入您的判断！');
+        return;
+      }
+
+      // 基于用户判断重新生成邮件
+      let newEmail = 'Subject: Following up - with adjusted timing based on your input\n\n';
+      newEmail += 'Hi [Name],\n\n';
+      
+      if (judgment.includes('延迟') || judgment.includes('delay')) {
+        newEmail += 'I understand timing may not be ideal right now. ';
+        newEmail += 'I wanted to keep this on your radar for when the timing is better.\n\n';
+      } else {
+        newEmail += 'I wanted to follow up on our discussion about early identification pathways.\n\n';
+      }
+      
+      newEmail += 'Based on your feedback, I\'ve adjusted the approach to better align with your concerns.\n\n';
+      newEmail += 'Would you be open to connecting when the timing works better for you?\n\n';
+      newEmail += 'Best,\nRichard';
+      
+      document.getElementById('email-template').value = newEmail;
+      alert('已基于您的判断重新生成邮件！');
+    }
+
+    // 2. 决策模块函数
+    function agreeDecision() {
+      alert('已同意AI建议！\n\n下一步：发送邮件给 Vinod Srihari。');
+      document.getElementById('action1').checked = true;
+      updateActionTimestamp('timestamp1');
+    }
+
+    function disagreeDecision() {
+      document.getElementById('disagree-reason').classList.remove('hidden');
+      alert('请说明不同意的理由。');
+    }
+
+    function submitDisagreeReason() {
+      const reason = document.querySelector('#disagree-reason textarea').value;
+      if (!reason.trim()) {
+        alert('请先输入理由！');
+        return;
+      }
+      
+      alert('理由已提交！AI将重新评估建议。\n\n理由：' + reason);
+      document.getElementById('disagree-reason').classList.add('hidden');
+      document.querySelector('#disagree-reason textarea').value = '';
+      
+      // 更新AI建议
+      const suggestionDiv = document.querySelector('.bg-green-50 .bg-white');
+      suggestionDiv.innerHTML = `
+        <div class="text-sm font-medium text-gray-800 mb-1">建议：等待1周后联系</div>
+        <div class="text-xs text-gray-600">
+          基于您的理由重新评估：${reason.substring(0, 50)}...
+        </div>
+      `;
+    }
+
+    // 3. 其他可执行项函数
+    function generateCallScript() {
+      alert('正在生成通话脚本...\n\n已创建Vinod Srihari通话脚本，包含：\n• 开场白\n• 3个核心问题\n• 应对策略\n• 结束语');
+      // 在实际应用中，这里会打开一个新窗口或显示脚本
+    }
+
+    function refinePPT() {
+      alert('正在分析Trillium PPT...\n\n建议优化：\n1. 加强临床路径框架\n2. 添加具体FQHC工作流示例\n3. 优化ROI计算展示');
+      // 在实际应用中，这里会链接到Trillium页面
+    }
+
+    function prioritizeStakeholders() {
+      alert('正在重新排序利益相关者...\n\n新优先级：\n1. Vinod Srihari (学术校准)\n2. FQHC Medical Director (试点对齐)\n3. Trillium联系人 (支付方关系)');
+      // 在实际应用中，这里会更新Stakeholders页面
+    }
+
+    // 4. 行动清单函数
+    function updateActionTimestamp(timestampId) {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+      document.getElementById(timestampId).textContent = `完成于 ${timeStr}`;
+    }
+
+    // 监听行动清单的复选框变化
+    document.querySelectorAll('#action1, #action2, #action3, #action4').forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        const id = this.id;
+        const timestampId = 'timestamp' + id.replace('action', '');
+        if (this.checked) {
+          updateActionTimestamp(timestampId);
+        } else {
+          document.getElementById(timestampId).textContent = '';
+        }
+      });
+    });
+
+    // 5. 反馈循环函数
+    function recordResult(result) {
+      const nextStepDiv = document.getElementById('next-step-suggestion');
+      let suggestion = '';
+      let urgency = '';
+
+      switch(result) {
+        case 'no-response':
+          suggestion = '建议：等待3天后发送跟进邮件，同时联系其他stakeholder保持动量。';
+          urgency = '中等';
+          break;
+        case 'replied':
+          suggestion = '建议：24小时内回复，提议具体会议时间，准备简短的议程。';
+          urgency = '高';
+          break;
+        case 'meeting-scheduled':
+          suggestion = '建议：准备会议材料，更新相关仪表板，安排后续行动项。';
+          urgency = '高';
+          break;
+      }
+
+      nextStepDiv.innerHTML = `
+        <div class="text-xs font-medium text-gray-600 mb-1">AI下一步建议:</div>
+        <div class="text-sm text-gray-800 mb-1">${suggestion}</div>
+        <div class="text-xs text-gray-500">紧急程度: <span class="font-medium">${urgency}</span></div>
+      `;
+
+      alert(`已记录结果：${result}\n\nAI已更新下一步建议。`);
+    }
+
+    // ==================================================
+    // 初始化执行引擎
+    // ==================================================
+    document.addEventListener('DOMContentLoaded', function() {
+      // 初始化时间戳
+      updateTime();
+      updateActionCompletion();
+      
+      // 设置自动刷新
+      setInterval(updateTime, 60000);
+      
+      console.log('🚀 执行引擎已加载！');
+      console.log('功能：决策 → 行动 → 反馈 → 下一步行动循环');
+    });
 
   </script>
 
