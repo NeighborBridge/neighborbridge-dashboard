@@ -119,7 +119,18 @@
         <a href="/fqhc" class="text-sm text-gray-600 hover:text-brand font-medium">FQHC（基础试点）</a>
         <a href="/stakeholders" class="text-sm text-gray-600 hover:text-brand font-medium">Stakeholders（关系网络）</a>
       </div>
-      <span class="text-sm text-gray-500">Production Prototype</span>
+      <div class="flex items-center space-x-3">
+        <!-- Version Control UI -->
+        <div class="flex space-x-2">
+          <button id="rollback-btn" class="px-3 py-1 bg-red-100 text-red-700 text-sm font-medium rounded hover:bg-red-200 transition" onclick="showRollbackOptions()">
+            <i class="fas fa-undo mr-1"></i> 恢复上一个版本
+          </button>
+          <button id="history-btn" class="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded hover:bg-blue-200 transition" onclick="showVersionHistory()">
+            <i class="fas fa-history mr-1"></i> 查看历史版本
+          </button>
+        </div>
+        <span class="text-sm text-gray-500">v<span id="current-version">1</span></span>
+      </div>
     </div>
   </header>
 
@@ -130,6 +141,80 @@
     <div class="mb-6">
       <h1 class="text-2xl font-bold text-gray-800 mb-2">NeighborBridge Command Center</h1>
       <p class="text-sm text-gray-600">聚合所有子仪表板信号，提供可执行洞察</p>
+    </div>
+
+    <!-- 🛡️ 版本控制面板 (隐藏) -->
+    <div id="version-control-panel" class="dashboard-card bg-card rounded-lg p-5 mb-6 border border-gray-300 hidden">
+      <div class="flex justify-between items-start mb-4">
+        <div>
+          <h2 class="text-xl font-bold text-gray-800 mb-1">🛡️ 版本控制系统</h2>
+          <p class="text-sm text-gray-600">快速 + 精确 + 安全的版本回滚</p>
+        </div>
+        <button class="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded hover:bg-gray-200 transition" onclick="hideVersionControl()">
+          <i class="fas fa-times mr-1"></i> 关闭
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- 版本历史 -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-semibold text-gray-800 mb-3">📜 版本历史</h3>
+          
+          <div id="version-history-list" class="space-y-3 max-h-64 overflow-y-auto p-2">
+            <!-- 版本历史将通过JavaScript动态生成 -->
+            <div class="text-sm text-gray-500 text-center py-4">
+              正在加载版本历史...
+            </div>
+          </div>
+          
+          <div class="text-xs text-gray-500">
+            每次更新自动保存快照：内容 + 结构 + 模块
+          </div>
+        </div>
+        
+        <!-- 恢复选项 -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-semibold text-gray-800 mb-3">🔄 恢复选项</h3>
+          
+          <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-300">
+            <h4 class="text-sm font-semibold text-gray-700 mb-3">当前选择版本</h4>
+            
+            <div id="selected-version-info" class="mb-4 p-3 bg-white rounded border border-gray-300">
+              <div class="text-sm text-gray-500 text-center">
+                请从左侧选择版本
+              </div>
+            </div>
+            
+            <div class="space-y-3">
+              <button id="restore-btn" class="w-full px-4 py-2 bg-red-100 text-red-800 text-sm font-medium rounded hover:bg-red-200 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled onclick="restoreSelectedVersion()">
+                <i class="fas fa-undo mr-1"></i> 恢复到此版本
+              </button>
+              
+              <div class="text-xs text-gray-600">
+                <div class="font-medium mb-1">恢复保证：</div>
+                <ul class="space-y-1">
+                  <li>• 精确恢复（无AI重写）</li>
+                  <li>• 无部分重新生成</li>
+                  <li>• 不依赖AI推理</li>
+                  <li>• 确定性恢复</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-gray-50 p-3 rounded border border-gray-300">
+            <h4 class="text-sm font-semibold text-gray-700 mb-2">系统状态</h4>
+            <div class="text-xs text-gray-600 space-y-1">
+              <div>• 当前版本: <span id="status-current-version" class="font-medium">v1</span></div>
+              <div>• 总版本数: <span id="status-total-versions" class="font-medium">1</span></div>
+              <div>• 最后保存: <span id="status-last-save" class="font-medium">刚刚</span></div>
+              <div>• 自动版本: <span class="text-green-600 font-medium">启用</span></div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
     </div>
 
     <!-- 🚀 可执行模块（Execution Panel） -->
@@ -832,9 +917,412 @@ Richard</textarea>
       // 设置自动刷新
       setInterval(updateTime, 60000);
       
+      // 初始化版本控制系统
+      initializeVersionControl();
+      
       console.log('🚀 执行引擎已加载！');
       console.log('功能：决策 → 行动 → 反馈 → 下一步行动循环');
     });
+
+    // ==================================================
+    // 🛡️ 版本控制系统 (Version Control System)
+    // ==================================================
+
+    // 版本存储键
+    const VERSION_STORAGE_KEY = 'dashboard_versions';
+    const CURRENT_VERSION_KEY = 'current_version';
+
+    // 版本数据结构
+    class DashboardVersion {
+      constructor(versionNumber, content, timestamp, changeSummary) {
+        this.version = versionNumber;
+        this.content = content; // 完整的HTML内容
+        this.timestamp = timestamp;
+        this.changeSummary = changeSummary;
+        this.id = `v${versionNumber}_${timestamp.getTime()}`;
+      }
+    }
+
+    // 版本管理器
+    class VersionManager {
+      constructor() {
+        this.versions = this.loadVersions();
+        this.currentVersion = this.loadCurrentVersion();
+      }
+
+      // 加载版本历史
+      loadVersions() {
+        try {
+          const stored = localStorage.getItem(VERSION_STORAGE_KEY);
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            // 恢复时间戳为Date对象
+            return parsed.map(v => new DashboardVersion(
+              v.version,
+              v.content,
+              new Date(v.timestamp),
+              v.changeSummary
+            ));
+          }
+        } catch (e) {
+          console.error('加载版本历史失败:', e);
+        }
+        return [];
+      }
+
+      // 加载当前版本
+      loadCurrentVersion() {
+        const stored = localStorage.getItem(CURRENT_VERSION_KEY);
+        return stored ? parseInt(stored) : 1;
+      }
+
+      // 保存版本历史
+      saveVersions() {
+        try {
+          // 转换为可序列化的格式
+          const serializable = this.versions.map(v => ({
+            version: v.version,
+            content: v.content,
+            timestamp: v.timestamp.toISOString(),
+            changeSummary: v.changeSummary,
+            id: v.id
+          }));
+          localStorage.setItem(VERSION_STORAGE_KEY, JSON.stringify(serializable));
+        } catch (e) {
+          console.error('保存版本历史失败:', e);
+        }
+      }
+
+      // 保存当前版本
+      saveCurrentVersion() {
+        localStorage.setItem(CURRENT_VERSION_KEY, this.currentVersion.toString());
+      }
+
+      // 创建新版本
+      createVersion(changeSummary = '自动保存') {
+        // 获取当前仪表板内容
+        const content = document.documentElement.outerHTML;
+        const timestamp = new Date();
+        
+        // 创建新版本
+        const newVersion = new DashboardVersion(
+          this.versions.length + 1,
+          content,
+          timestamp,
+          changeSummary
+        );
+
+        // 添加到版本历史
+        this.versions.push(newVersion);
+        
+        // 更新当前版本
+        this.currentVersion = newVersion.version;
+        
+        // 保存到本地存储
+        this.saveVersions();
+        this.saveCurrentVersion();
+        
+        // 更新UI
+        this.updateUI();
+        
+        console.log(`✅ 版本 v${newVersion.version} 已保存`, {
+          timestamp: timestamp.toLocaleString(),
+          summary: changeSummary,
+          size: `${(content.length / 1024).toFixed(1)} KB`
+        });
+
+        return newVersion;
+      }
+
+      // 恢复到指定版本
+      restoreVersion(versionNumber) {
+        const version = this.versions.find(v => v.version === versionNumber);
+        if (!version) {
+          alert(`版本 v${versionNumber} 不存在！`);
+          return false;
+        }
+
+        // 确认恢复
+        if (!confirm(`确定要恢复到版本 v${versionNumber} 吗？\n\n时间: ${version.timestamp.toLocaleString()}\n摘要: ${version.changeSummary}\n\n当前更改将会丢失。`)) {
+          return false;
+        }
+
+        try {
+          // 精确恢复：直接替换整个文档
+          document.open();
+          document.write(version.content);
+          document.close();
+          
+          // 更新当前版本
+          this.currentVersion = versionNumber;
+          this.saveCurrentVersion();
+          
+          console.log(`✅ 已恢复到版本 v${versionNumber}`);
+          alert(`✅ 已成功恢复到版本 v${versionNumber}！\n页面将重新加载。`);
+          
+          return true;
+        } catch (e) {
+          console.error('恢复版本失败:', e);
+          alert(`恢复版本失败: ${e.message}`);
+          return false;
+        }
+      }
+
+      // 恢复到上一个版本
+      restorePreviousVersion() {
+        if (this.versions.length < 2) {
+          alert('没有可恢复的上一个版本！');
+          return false;
+        }
+
+        const previousVersion = this.currentVersion - 1;
+        if (previousVersion < 1) {
+          alert('已经是第一个版本！');
+          return false;
+        }
+
+        return this.restoreVersion(previousVersion);
+      }
+
+      // 获取版本历史
+      getVersionHistory() {
+        return [...this.versions].reverse(); // 最新的在前
+      }
+
+      // 更新UI显示
+      updateUI() {
+        // 更新当前版本显示
+        document.getElementById('current-version').textContent = this.currentVersion;
+        document.getElementById('status-current-version').textContent = `v${this.currentVersion}`;
+        document.getElementById('status-total-versions').textContent = this.versions.length;
+        
+        // 更新最后保存时间
+        if (this.versions.length > 0) {
+          const lastVersion = this.versions[this.versions.length - 1];
+          const timeDiff = Math.floor((new Date() - lastVersion.timestamp) / 1000);
+          let timeText = '刚刚';
+          
+          if (timeDiff > 60) {
+            const minutes = Math.floor(timeDiff / 60);
+            timeText = `${minutes}分钟前`;
+          }
+          
+          document.getElementById('status-last-save').textContent = timeText;
+        }
+      }
+
+      // 渲染版本历史列表
+      renderVersionHistory() {
+        const container = document.getElementById('version-history-list');
+        if (!container) return;
+
+        const history = this.getVersionHistory();
+        
+        if (history.length === 0) {
+          container.innerHTML = `
+            <div class="text-sm text-gray-500 text-center py-4">
+              暂无版本历史
+            </div>
+          `;
+          return;
+        }
+
+        let html = '';
+        history.forEach(version => {
+          const isCurrent = version.version === this.currentVersion;
+          const timeStr = version.timestamp.toLocaleString('zh-CN', {
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          });
+
+          html += `
+            <div class="version-item p-3 rounded border ${isCurrent ? 'bg-blue-50 border-blue-200' : 'bg-white border-gray-300'} hover:bg-gray-50 cursor-pointer transition" 
+                 onclick="selectVersion(${version.version})"
+                 data-version="${version.version}">
+              <div class="flex justify-between items-start">
+                <div>
+                  <div class="flex items-center">
+                    <span class="text-sm font-medium text-gray-800">v${version.version}</span>
+                    ${isCurrent ? '<span class="ml-2 px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded">当前</span>' : ''}
+                  </div>
+                  <div class="text-xs text-gray-600 mt-1">${timeStr}</div>
+                </div>
+                <div class="text-xs text-gray-500">
+                  ${(version.content.length / 1024).toFixed(1)} KB
+                </div>
+              </div>
+              <div class="mt-2 text-xs text-gray-700">
+                ${version.changeSummary}
+              </div>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+      }
+    }
+
+    // 全局版本管理器实例
+    let versionManager;
+
+    // 初始化版本控制
+    function initializeVersionControl() {
+      versionManager = new VersionManager();
+      
+      // 如果是第一次访问，创建初始版本
+      if (versionManager.versions.length === 0) {
+        versionManager.createVersion('初始版本');
+      }
+      
+      // 更新UI
+      versionManager.updateUI();
+      
+      console.log('🛡️ 版本控制系统已初始化');
+      console.log(`当前版本: v${versionManager.currentVersion}, 总版本数: ${versionManager.versions.length}`);
+    }
+
+    // UI控制函数
+    function showRollbackOptions() {
+      // 显示版本控制面板
+      document.getElementById('version-control-panel').classList.remove('hidden');
+      
+      // 加载版本历史
+      versionManager.renderVersionHistory();
+      
+      // 默认选择上一个版本
+      if (versionManager.versions.length > 1) {
+        const previousVersion = versionManager.currentVersion - 1;
+        selectVersion(previousVersion);
+      }
+    }
+
+    function showVersionHistory() {
+      // 显示版本控制面板
+      document.getElementById('version-control-panel').classList.remove('hidden');
+      
+      // 加载版本历史
+      versionManager.renderVersionHistory();
+      
+      // 默认选择当前版本
+      selectVersion(versionManager.currentVersion);
+    }
+
+    function hideVersionControl() {
+      document.getElementById('version-control-panel').classList.add('hidden');
+    }
+
+    // 选择版本
+    let selectedVersion = null;
+
+    function selectVersion(versionNumber) {
+      selectedVersion = versionNumber;
+      const version = versionManager.versions.find(v => v.version === versionNumber);
+      
+      if (!version) return;
+
+      // 更新选中状态
+      document.querySelectorAll('.version-item').forEach(item => {
+        const itemVersion = parseInt(item.dataset.version);
+        if (itemVersion === versionNumber) {
+          item.classList.add('bg-yellow-50', 'border-yellow-300');
+          item.classList.remove('bg-white', 'bg-blue-50', 'border-gray-300', 'border-blue-200');
+        } else {
+          item.classList.remove('bg-yellow-50', 'border-yellow-300');
+          const isCurrent = itemVersion === versionManager.currentVersion;
+          item.classList.add(isCurrent ? 'bg-blue-50 border-blue-200' : 'bg-white border-gray-300');
+        }
+      });
+
+      // 更新版本信息显示
+      const timeStr = version.timestamp.toLocaleString('zh-CN', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+
+      document.getElementById('selected-version-info').innerHTML = `
+        <div class="text-sm font-medium text-gray-800 mb-1">v${version.version}</div>
+        <div class="text-xs text-gray-600 mb-2">${timeStr}</div>
+        <div class="text-xs text-gray-700 bg-gray-50 p-2 rounded">
+          ${version.changeSummary}
+        </div>
+        <div class="mt-2 text-xs text-gray-500">
+          大小: ${(version.content.length / 1024).toFixed(1)} KB
+        </div>
+      `;
+
+      // 启用/禁用恢复按钮
+      const restoreBtn = document.getElementById('restore-btn');
+      if (versionNumber === versionManager.currentVersion) {
+        restoreBtn.disabled = true;
+        restoreBtn.textContent = '当前版本';
+      } else {
+        restoreBtn.disabled = false;
+        restoreBtn.innerHTML = '<i class="fas fa-undo mr-1"></i> 恢复到此版本';
+      }
+    }
+
+    // 恢复选中的版本
+    function restoreSelectedVersion() {
+      if (!selectedVersion) {
+        alert('请先选择一个版本！');
+        return;
+      }
+
+      versionManager.restoreVersion(selectedVersion);
+    }
+
+    // 自动版本保存（模拟每次更新时调用）
+    function autoSaveVersion(changeSummary) {
+      if (!versionManager) return;
+      
+      // 在实际应用中，这里会在每次重要更新时调用
+      // 例如：邮件发送、行动完成、决策变更等
+      versionManager.createVersion(changeSummary);
+    }
+
+    // 模拟一些自动保存的触发器
+    document.addEventListener('DOMContentLoaded', function() {
+      // 监听邮件发送
+      const emailTextarea = document.getElementById('email-template');
+      if (emailTextarea) {
+        let lastEmailValue = emailTextarea.value;
+        emailTextarea.addEventListener('blur', function() {
+          if (this.value !== lastEmailValue) {
+            autoSaveVersion('邮件内容更新');
+            lastEmailValue = this.value;
+          }
+        });
+      }
+
+      // 监听行动清单变化
+      document.querySelectorAll('#action1, #action2, #action3, #action4').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          if (this.checked) {
+            autoSaveVersion(`行动完成: ${this.nextElementSibling.textContent.trim()}`);
+          }
+        });
+      });
+    });
+
+    // 手动保存版本（用于测试）
+    function manualSaveVersion() {
+      const summary = prompt('请输入版本摘要:', '手动保存');
+      if (summary) {
+        autoSaveVersion(summary);
+        alert(`✅ 版本 v${versionManager.currentVersion} 已保存！`);
+      }
+    }
+
+    // 添加手动保存按钮到控制台（仅用于开发）
+    console.log('💾 版本控制命令:');
+    console.log('• manualSaveVersion() - 手动保存当前版本');
+    console.log('• versionManager.restorePreviousVersion() - 恢复到上一个版本');
+    console.log('• versionManager.getVersionHistory() - 查看版本历史');
 
   </script>
 
