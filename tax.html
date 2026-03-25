@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tax Strategy Dashboard - NeighborBridge</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Simple config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: "#0ea5e9",
+            urgent: "#ef4444",
+            warning: "#f59e0b",
+            neutral: "#6b7280",
+            completed: "#10b981",
+            tax: {
+              income: "#10b981",
+              expense: "#ef4444",
+              trading: "#8b5cf6",
+              retirement: "#f59e0b",
+              crossborder: "#3b82f6"
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Shared Design System -->
+  <link rel="stylesheet" href="shared.css">
+  
+  <style>
+    /* Tax-specific styles */
+    .tax-card {
+      border-radius: 0.75rem;
+      border: 1px solid #e5e7eb;
+      transition: all 0.2s ease;
+    }
+    
+    .tax-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    .kpi-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+    
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #d1d5db;
+      transition: .4s;
+      border-radius: 24px;
+    }
+    
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .toggle-slider {
+      background-color: #10b981;
+    }
+    
+    input:checked + .toggle-slider:before {
+      transform: translateX(20px);
+    }
+    
+    .email-template {
+      font-family: 'Courier New', monospace;
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+    
+    /* Dark mode optimizations */
+    @media (prefers-color-scheme: dark) {
+      .tax-card {
+        background-color: #1f2937;
+        border-color: #374151;
+      }
+      
+      .email-template {
+        background-color: #111827;
+        color: #d1d5db;
+      }
+      
+      .kpi-value {
+        color: #f3f4f6;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50">
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <a href="/" class="text-sm text-gray-600 hover:text-brand font-medium">
+          <i class="fas fa-arrow-left mr-1"></i> Main Dashboard
+        </a>
+        <h1 class="text-2xl font-bold">Tax Strategy Dashboard</h1>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span class="text-sm text-gray-500" id="last-updated">Last updated: Just now</span>
+        <button class="px-4 py-2 bg-blue-100 text-blue-700 text-sm font-medium rounded hover:bg-blue-200 transition" onclick="refreshDashboard()">
+          <i class="fas fa-sync-alt mr-1"></i> Refresh
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Layout -->
+  <div class="max-w-7xl mx-auto px-6 py-6">
+
+    <!-- Dashboard Header -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-800 mb-2">Tax Strategy Command Center</h1>
+      <p class="text-gray-600">Actionable tax insights within 30 seconds. Updated daily at 6 AM UTC.</p>
+    </div>
+
+    <!-- Two-Column Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+      <!-- Left Column: Actions -->
+      <div class="space-y-8">
+
+        <!-- 1. Today Action (max 3 actionable items) -->
+        <div class="tax-card bg-white p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-gray-800">
+              <i class="fas fa-bolt text-yellow-500 mr-2"></i> Today's Actions
+            </h2>
+            <span class="text-sm text-gray-500">Max 3 items</span>
+          </div>
+          
+          <div class="space-y-4">
+            <!-- Action 1 -->
+            <div class="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
+              <div class="flex-1">
+                <div class="flex items-center mb-1">
+                  <div class="toggle-switch mr-3">
+                    <input type="checkbox" id="action1" onchange="toggleAction(1)">
+                    <span class="toggle-slider"></span>
+                  </div>
+                  <h3 class="font-medium text-gray-800">Review Q1 estimated tax payment</h3>
+                </div>
+                <p class="text-sm text-gray-600 ml-12">Due: April 15 | Amount: $8,500</p>
+              </div>
+              <span class="kpi-badge bg-blue-100 text-blue-800">High Priority</span>
+            </div>
+            
+            <!-- Action 2 -->
+            <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg">
+              <div class="flex-1">
+                <div class="flex items-center mb-1">
+                  <div class="toggle-switch mr-3">
+                    <input type="checkbox" id="action2" onchange="toggleAction(2)">
+                    <span class="toggle-slider"></span>
+                  </div>
+                  <h3 class="font-medium text-gray-800">Send accountant quarterly update</h3>
+                </div>
+                <p class="text-sm text-gray-600 ml-12">Template ready | Attach: LLC financials</p>
+              </div>
+              <span class="kpi-badge bg-green-100 text-green-800">Medium</span>
+            </div>
+            
+            <!-- Action 3 -->
+            <div class="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
+              <div class="flex-1">
+                <div class="flex items-center mb-1">
+                  <div class="toggle-switch mr-3">
+                    <input type="checkbox" id="action3" onchange="toggleAction(3)">
+                    <span class="toggle-slider"></span>
+                  </div>
+                  <h3 class="font-medium text-gray-800">Document cross-border tax implications</h3>
+                </div>
+                <p class="text-sm text-gray-600 ml-12">US-China | Research: 30 minutes</p>
+              </div>
+              <span class="kpi-badge bg-purple-100 text-purple-800">Research</span>
+            </div>
+          </div>
+          
+          <div class="mt-6 pt-4 border-t border-gray-200">
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-600">Completion:</span>
+              <span class="font-medium" id="completion-rate">0%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div id="progress-bar" class="bg-green-500 h-2 rounded-full" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Priority Tracker (5 blocks) -->
+        <div class="tax-card bg-white p-6">
+          <h2 class="text-xl font-bold text-gray-800 mb-6">
+            <i class="fas fa-chart-line text-green-500 mr-2"></i> Priority Tracker
+          </h2>
+          
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <!-- Income -->
+            <div class="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center mr-2">
+                  <i class="fas fa-money-bill-wave text-white text-sm"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800">Income</h3>
+              </div>
+              <div class="text-2xl font-bold text-gray-800 mb-1" id="income-kpi">$185K</div>
+              <div class="text-xs text-gray-600">YTD Projection</div>
+              <div class="mt-2 text-xs">
+                <span class="text-green-600 font-medium">+12% vs LY</span>
+              </div>
+            </div>
+            
+            <!-- Expenses -->
+            <div class="bg-gradient-to-br from-red-50 to-red-100 p-4 rounded-lg">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center mr-2">
+                  <i class="fas fa-receipt text-white text-sm"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800">Expenses</h3>
+              </div>
+              <div class="text-2xl font-bold text-gray-800 mb-1" id="expense-kpi">$42K</div>
+              <div class="text-xs text-gray-600">YTD Actual</div>
+              <div class="mt-2 text-xs">
+                <span class="text-red-600 font-medium">-8% vs Budget</span>
+              </div>
+            </div>
+            
+            <!-- Trading -->
+            <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center mr-2">
+                  <i class="fas fa-chart-candlestick text-white text-sm"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800">Trading</h3>
+              </div>
+              <div class="text-2xl font-bold text-gray-800 mb-1" id="trading-kpi">$28K</div>
+              <div class="text-xs text-gray-600">Realized Gains</div>
+              <div class="mt-2 text-xs">
+                <span class="text-purple-600 font-medium">Tax: $4.2K</span>
+              </div>
+            </div>
+            
+            <!-- Retirement -->
+            <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-4 rounded-lg">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center mr-2">
+                  <i class="fas fa-piggy-bank text-white text-sm"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800">Retirement</h3>
+              </div>
+              <div class="text-2xl font-bold text-gray-800 mb-1" id="retirement-kpi">$65K</div>
+              <div class="text-xs text-gray-600">401k + IRA</div>
+              <div class="mt-2 text-xs">
+                <span class="text-yellow-600 font-medium">Max: $23K</span>
+              </div>
+            </div>
+            
+            <!-- Cross-border -->
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-2">
+                  <i class="fas fa-globe-americas text-white text-sm"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800">Cross-border</h3>
+              </div>
+              <div class="text-2xl font-bold text-gray-800 mb-1" id="crossborder-kpi">$15K</div>
+              <div class="text-xs text-gray-600">Foreign Income</div>
+              <div class="mt-2 text-xs">
+                <span class="text-blue-600 font-medium">FTC: $2.1K</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-6 pt-4 border-t border-gray-200">
+            <div class="text-sm text-gray-600">
+              <i class="fas fa-info-circle mr-1"></i> 
+              Priority order: Tax liability optimization → Retirement max → Cross-border compliance
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Risk / Blockers -->
+        <div class="tax-card bg-white p-6">
+          <h2 class="text-xl font-bold text-gray-800 mb-6">
+            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i> Risk / Blockers
+          </h2>
+          
+          <div class="space-y-4">
+            <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
+              <div class="flex items-start">
+                <div class="flex-shrink-0">
+                  <i class="fas fa-times-circle text-red-500 mt-1"></i>
+                </div>
+                <div class="ml-3">
+                  <h3 class="font-medium text-red-800">Missing: Q1 estimated tax documentation</h3>
+                  <p class="text-sm text-red-600 mt-1">Need receipts for $8,500 payment by April 10</p>
+                  <div class="mt-2 flex items-center text-xs">
+                    <span class="text-red-700 font-medium">Blocked</span>
+                    <span class="mx-2">•</span>
+                    <span>Due in 15 days</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <div class="flex items-start">
+                <div class="flex-shrink-0">
+                  <i class="fas fa-exclamation-circle text-yellow-500 mt-1"></i>
+                </div>
+                <div class="ml-3">
+                  <h3 class="font-medium text-yellow-800">Pending: Foreign tax credit calculation</h3>
+                  <p class="text-sm text-yellow-600 mt-1">Need Form 1116 for China-sourced income</p>
+                  <div class="mt-2 flex items-center text-xs">
+                    <span class="text-yellow-700 font-medium">At Risk</span>
+                    <span class="mx-2">•</span>
+                    <span>Research needed</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <div class="flex items-start">
+                <div class="flex-shrink-0">
+                  <i class="fas fa-info-circle text-blue-500 mt-1"></i>
+                </div>
+                <div class="ml-3">
+                  <h3 class="font-medium text-blue-800">Monitor: LLC profit distribution timing</h3>
+                  <p class="text-sm text-blue-600 mt-1">Optimize for Q2 estimated tax vs. annual planning</p>
+                  <div class="mt-2 flex items-center text-xs">
+                    <span class="text-blue-700 font-medium">Watch</span>
+                    <span class="mx-2">•</span>
+                    <span>Next review: May 1</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Weekly Workflow checklist -->
+        <div class="tax-card bg-white p-6">
+          <h2 class="text-xl font-bold text-gray-800 mb-6">
+            <i class="fas fa-tasks text-green-500 mr-2"></i> Weekly Workflow
+          </h2>
+          
+          <div class="space-y-3">
+            <div class="flex items-center">
+              <input type="checkbox" id="weekly1" class="mr-3 h-5 w-5 text-blue-600 rounded">
+              <label for="weekly1" class="text-gray-800">Review trading activity for tax lots</label>
+            </div>
+            
+            <div class="flex items-center">
+              <input type="checkbox" id="weekly2" class="mr-3 h-5 w-5 text-blue-600 rounded">
+              <label for="weekly2" class="text-gray-800">Update expense tracking spreadsheet</label>
+            </div>
+            
+            <div class="flex items-center">
+              <input type="checkbox" id="weekly3" class="mr-3 h-5 w-5 text-blue-600 rounded">
+              <label for="weekly3" class="text-gray-800">Check estimated tax payment schedule</label>
+            </div>
+            
+            <div class="flex items-center">
+              <input type="checkbox" id="weekly4" class="mr-3 h-5 w-5 text-blue-600 rounded">
+              <label for="weekly4" class="text-gray-800">Document any cross-border transactions</label>
+            </div>
+            
+            <div class="flex items-center">
+              <input type="checkbox" id="weekly5" class="mr-3 h-5 w-5 text-blue-600 rounded">
+              <label for="weekly5" class="text-gray-800">Review retirement contribution progress</label>
+            </div>
+          </div>
+          
+          <div class="mt-6 pt-4 border-t border-gray-200">
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-600">Week 13 of 52</span>
+              <button class="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded hover:bg-gray-200 transition" onclick="resetWeeklyChecklist()">
+                <i class="fas fa-redo mr-1"></i> Reset for next week
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: KPIs and Documentation -->
+      <div class="space-y-8">
+
+        <!-- 3. KPI Panel (JSON-driven) -->
+        <div class="tax-card bg-white p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-gray-800">
+              <i class="fas fa-chart-bar text-blue-500 mr-2"></i> KPI Panel
+            </h2>
+            <button class="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded hover:bg-blue-200 transition" onclick="loadKPIData()">
+              <i class="fas fa-sync-alt mr-1"></i> Refresh Data
+            </button>
+          </div>
+          
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <div class="p-4 bg-gray-50 rounded-lg">
+              <div class="text-sm text-gray-600 mb-1">Effective Tax Rate</div>
+              <div class="text-2xl font-bold text-gray-800" id="effective-tax-rate">22.4%</div>
+              <div class="text-xs text-gray-500">Target: ≤25%</div>
+            </div>
+            
+            <div class="p-4 bg-gray-50 rounded-lg">
+              <div class="text-sm text-gray-600 mb-1">Tax Liability YTD</div>
+              <div class="text-2xl font-bold text-gray-800" id="tax-liability">$41,500</div>
+              <div class="text-xs text-gray-500">Paid: $33,000</div>
+            </div>
+            
+            <div class="p-4 bg-gray-50 rounded-lg">
+              <div class="text-sm text-gray-600 mb-1">Retirement Savings Rate</div>
+              <div class="text-2xl font-bold text-gray-800" id="retirement-rate">18%</div>
+              <div class="text-xs text-gray-500">Goal: 20%</div>
+            </div>
+            
+            <div class="p-4 bg-gray-50 rounded-lg">
+              <div class="text-sm text-gray-600 mb-1">Quarterly Compliance</div>
+              <div class="text-2xl font-bold text-gray-800" id="compliance-score">92%</div>
+              <div class="text-xs text-gray-500">On track</div>
+            </div>
+          </div>
+          
+          <!-- JSON Data Display -->
+          <div class="mt-4">
+            <h3 class="text-sm font-semibold text-gray-700 mb-2">Raw KPI Data (JSON)</h3>
+            <pre id="kpi-json" class="text-xs bg-gray-900 text-gray-100 p-3 rounded-lg overflow-x-auto max-h-40">
+{
+  "effective_tax_rate": 22.4,
+  "tax_liability_ytd": 41500,
+  "tax_paid_ytd": 33000,
+  "retirement_savings_rate": 18,
+  "compliance_score": 92,
+  "estimated_tax_due": 8500,
+  "foreign_tax_credit": 2100,
+  "llc_distribution_timing": "Q2",
+  "last_updated": "2026-03-25T13:13:00Z"
+}</pre>
+          </div>
+        </div>
+
+        <!-- 5. Documentation Status -->
+        <div class="tax-card bg-white p-6">
+          <h2 class="text-xl font-bold text-gray-800 mb-6">
+            <i class="fas fa-folder-open text-purple-500 mr-2"></i> Documentation Status
+          </h2>
+          
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-check text-green-600 text-sm"></i>
+                </div>
+                <div>
+                  <h3 class="font-medium text-gray-800">2025 Tax Return</h3>
+                  <p class="text-sm text-gray-600">Filed: April 15, 2025</p>
+                </div>
+              </div>
+              <span class="kpi-badge bg-green-100 text-green-800">Complete</span>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-clock text-yellow-600 text-sm"></i>
+                </div>
+                <div>
+                  <h3 class="font-medium text-gray-800">Q1 2026 Estimated Tax</h3>
+                  <p class="text-sm text-gray-600">Due: April 15, 2026</p>
+                </div>
+              </div>
+              <span class="kpi-badge bg-yellow-100 text-yellow-800">Pending</span>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-file-invoice text-blue-600 text-sm"></i>
+                </div>
+                <div>
+                  <h3 class="font-medium text-gray-800">LLC Financial Statements</h3>
+                  <p class="text-sm text-gray-600">Q1 2026 ready</p>
+                </div>
+              </div>
+              <span class="kpi-badge bg-blue-100 text-blue-800">Ready</span>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-exclamation text-red-600 text-sm"></i>
+                </div>
+                <div>
+                  <h3 class="font-medium text-gray-800">Foreign Income Documentation</h3>
+                  <p class="text-sm text-gray-600">Form 1116 needed</p>
+                </div>
+              </div>
+              <span class="kpi-badge bg-red-100 text-red-800">Missing</span>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-calendar text-gray-600 text-sm"></i>
+                </div>
+                <div>
+                  <h3 class="font-medium text-gray-800">Retirement Contribution Log</h3>
+                  <p class="text-sm text-gray-600">Updated monthly</p>
+                </div>
+              </div>
+              <span class="kpi-badge bg-gray-100 text-gray-800">Current</span>
+            </div>
+          </div>
+          
+          <div class="mt-6 pt-4 border-t border-gray-200">
+            <div class="text-sm text-gray-600">
+              <i class="fas fa-paperclip mr-1"></i> 
+              All documents stored in: Tax/2026/ folder
+            </div>
+          </div>
+        </div>
+
+        <!-- Editable email template block for accountant / payroll -->
+        <div class="tax-card bg-white p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-gray-800">
+              <i class="fas fa-envelope text-blue-500 mr-2"></i> Accountant Email Template
+            </h2>
+            <button class="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded hover:bg-blue-200 transition" onclick="copyEmailTemplate()">
+              <i class="fas fa-copy mr-1"></i> Copy
+            </button>
+          </div>
+          
+          <div class="mb-4">
+            <textarea id="email-template" class="email-template w-full h-48 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+Subject: Q1 2026 Tax Update - Richard Hu
+
+Hi [Accountant Name],
+
+Here's my Q1 2026 tax update for your review:
+
+INCOME:
+- LLC consulting: $85,000 (YTD)
+- Trading gains: $28,000 (realized)
+- Foreign income: $15,000 (China-sourced)
+
+EXPENSES:
+- Business expenses: $42,000 (YTD)
+- Home office: $6,000
+- Professional development: $3,500
+
+TAX PAYMENTS:
+- Estimated tax paid: $33,000
+- Q1 estimated due: $8,500 (April 15)
+- Foreign tax credit available: ~$2,100
+
+RETIREMENT:
+- 401k contributions: $15,000 (YTD)
+- IRA: $8,000
+- Target: Max out by December
+
+ACTION ITEMS:
+1. Review Q1 estimated tax calculation
+2. Optimize LLC distribution timing for Q2
+3. Foreign tax credit calculation (Form 1116)
+4. Retirement contribution strategy
+
+Attached:
+- LLC Q1 financial statements
+- Trading activity report
+- Expense receipts
+
+Let me know if you need anything else.
+
+Best regards,
+Richard Hu</textarea>
+          </div>
+          
+          <div class="flex space-x-3">
+            <button class="flex-1 px-4 py-2 bg-green-100 text-green-800 text-sm font-medium rounded hover:bg-green-200 transition" onclick="saveEmailTemplate()">
+              <i class="fas fa-save mr-1"></i> Save Template
+            </button>
+            <button class="flex-1 px-4 py-2 bg-blue-100 text-blue-800 text-sm font-medium rounded hover:bg-blue-200 transition" onclick="sendTestEmail()">
+              <i class="fas fa-paper-plane mr-1"></i> Send Test
+            </button>
+            <button class="flex-1 px-4 py-2 bg-gray-100 text-gray-800 text-sm font-medium rounded hover:bg-gray-200 transition" onclick="resetEmailTemplate()">
+              <i class="fas fa-redo mr-1"></i> Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- 7. Strategy Notes (static) -->
+        <div class="tax-card bg-white p-6">
+          <h2 class="text-xl font-bold text-gray-800 mb-6">
+            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i> Strategy Notes
+          </h2>
+          
+          <div class="space-y-4">
+            <div class="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <h3 class="font-medium text-yellow-800 mb-2">Tax Optimization Priority</h3>
+              <p class="text-sm text-yellow-700">1. Max retirement contributions first (401k + IRA) → 2. Harvest trading losses → 3. Time LLC distributions for optimal tax brackets</p>
+            </div>
+            
+            <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <h3 class="font-medium text-blue-800 mb-2">Cross-border Strategy</h3>
+              <p class="text-sm text-blue-700">Use Foreign Tax Credit (Form 1116) for China-sourced income. Maintain separate documentation for US and China tax purposes.</p>
+            </div>
+            
+            <div class="p-4 bg-green-50 border border-green-200 rounded-lg">
+              <h3 class="font-medium text-green-800 mb-2">Quarterly Rhythm</h3>
+              <p class="text-sm text-green-700">Review tax position quarterly (Jan, Apr, Jul, Oct). Adjust estimated payments based on actual income vs. projections.</p>
+            </div>
+            
+            <div class="p-4 bg-purple-50 border border-purple-200 rounded-lg">
+              <h3 class="font-medium text-purple-800 mb-2">LLC Tax Efficiency</h3>
+              <p class="text-sm text-purple-700">Distribute profits in quarters with lower personal income. Consider S-election if tax rates favor pass-through.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-12 pt-8 border-t border-gray-200">
+      <div class="flex justify-between items-center">
+        <div class="text-sm text-gray-600">
+          <p>Tax Strategy Dashboard • Updated daily at 6 AM UTC</p>
+          <p class="mt-1">Goal: Actionable within 30 seconds of viewing</p>
+        </div>
+        <div class="text-sm text-gray-500">
+          <p>NeighborBridge Tax System • v1.0</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Tax Dashboard JavaScript
+    
+    // Initialize dashboard
+    document.addEventListener('DOMContentLoaded', function() {
+      updateLastUpdated();
+      calculateCompletionRate();
+      loadKPIData();
+      
+      // Set up daily refresh logic
+      setupDailyRefresh();
+    });
+    
+    // Update last updated timestamp
+    function updateLastUpdated() {
+      const now = new Date();
+      const options = { 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZoneName: 'short'
+      };
+      const formatted = now.toLocaleString('en-US', options);
+      document.getElementById('last-updated').textContent = `Last updated: ${formatted}`;
+    }
+    
+    // Refresh dashboard
+    function refreshDashboard() {
+      // Show loading state
+      const refreshBtn = document.querySelector('button[onclick="refreshDashboard()"]');
+      const originalText = refreshBtn.innerHTML;
+      refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Refreshing...';
+      refreshBtn.disabled = true;
+      
+      // Simulate API call
+      setTimeout(() => {
+        updateLastUpdated();
+        calculateCompletionRate();
+        loadKPIData();
+        
+        // Restore button
+        refreshBtn.innerHTML = originalText;
+        refreshBtn.disabled = false;
+        
+        // Show success message
+        showNotification('Dashboard refreshed successfully', 'success');
+      }, 1000);
+    }
+    
+    // Toggle action status
+    function toggleAction(actionNumber) {
+      const checkbox = document.getElementById(`action${actionNumber}`);
+      const actionDiv = checkbox.closest('.flex.items-center.justify-between');
+      
+      if (checkbox.checked) {
+        actionDiv.classList.add('opacity-60');
+        // Update completion rate
+        calculateCompletionRate();
+        showNotification(`Action ${actionNumber} marked as done`, 'success');
+      } else {
+        actionDiv.classList.remove('opacity-60');
+        calculateCompletionRate();
+      }
+    }
+    
+    // Calculate completion rate
+    function calculateCompletionRate() {
+      const actions = [
+        document.getElementById('action1'),
+        document.getElementById('action2'),
+        document.getElementById('action3')
+      ];
+      
+      const completed = actions.filter(action => action.checked).length;
+      const total = actions.length;
+      const percentage = Math.round((completed / total) * 100);
+      
+      document.getElementById('completion-rate').textContent = `${percentage}%`;
+      document.getElementById('progress-bar').style.width = `${percentage}%`;
+      
+      // Update progress bar color based on percentage
+      const progressBar = document.getElementById('progress-bar');
+      if (percentage < 33) {
+        progressBar.className = 'bg-red-500 h-2 rounded-full';
+      } else if (percentage < 66) {
+        progressBar.className = 'bg-yellow-500 h-2 rounded-full';
+      } else {
+        progressBar.className = 'bg-green-500 h-2 rounded-full';
+      }
+    }
+    
+    // Load KPI data (simulated JSON API)
+    function loadKPIData() {
+      // In a real implementation, this would fetch from an API
+      const kpiData = {
+        effective_tax_rate: 22.4,
+        tax_liability_ytd: 41500,
+        tax_paid_ytd: 33000,
+        retirement_savings_rate: 18,
+        compliance_score: 92,
+        estimated_tax_due: 8500,
+        foreign_tax_credit: 2100,
+        llc_distribution_timing: "Q2",
+        last_updated: new Date().toISOString()
+      };
+      
+      // Update KPI displays
+      document.getElementById('effective-tax-rate').textContent = `${kpiData.effective_tax_rate}%`;
+      document.getElementById('tax-liability').textContent = `$${kpiData.tax_liability_ytd.toLocaleString()}`;
+      document.getElementById('retirement-rate').textContent = `${kpiData.retirement_savings_rate}%`;
+      document.getElementById('compliance-score').textContent = `${kpiData.compliance_score}%`;
+      
+      // Update priority tracker
+      document.getElementById('income-kpi').textContent = '$185K';
+      document.getElementById('expense-kpi').textContent = '$42K';
+      document.getElementById('trading-kpi').textContent = '$28K';
+      document.getElementById('retirement-kpi').textContent = '$65K';
+      document.getElementById('crossborder-kpi').textContent = '$15K';
+      
+      // Update JSON display
+      document.getElementById('kpi-json').textContent = JSON.stringify(kpiData, null, 2);
+      
+      showNotification('KPI data loaded successfully', 'success');
+    }
+    
+    // Copy email template to clipboard
+    function copyEmailTemplate() {
+      const emailText = document.getElementById('email-template').value;
+      navigator.clipboard.writeText(emailText).then(() => {
+        showNotification('Email template copied to clipboard', 'success');
+      }).catch(err => {
+        showNotification('Failed to copy template', 'error');
+        console.error('Copy failed:', err);
+      });
+    }
+    
+    // Save email template to localStorage
+    function saveEmailTemplate() {
+      const emailText = document.getElementById('email-template').value;
+      localStorage.setItem('tax_email_template', emailText);
+      showNotification('Email template saved locally', 'success');
+    }
+    
+    // Send test email (simulated)
+    function sendTestEmail() {
+      const emailText = document.getElementById('email-template').value;
+      // In a real implementation, this would call an email API
+      console.log('Test email content:', emailText);
+      showNotification('Test email sent (simulated)', 'success');
+    }
+    
+    // Reset email template to default
+    function resetEmailTemplate() {
+      const defaultTemplate = `Subject: Q1 2026 Tax Update - Richard Hu
+
+Hi [Accountant Name],
+
+Here's my Q1 2026 tax update for your review:
+
+INCOME:
+- LLC consulting: $85,000 (YTD)
+- Trading gains: $28,000 (realized)
+- Foreign income: $15,000 (China-sourced)
+
+EXPENSES:
+- Business expenses: $42,000 (YTD)
+- Home office: $6,000
+- Professional development: $3,500
+
+TAX PAYMENTS:
+- Estimated tax paid: $33,000
+- Q1 estimated due: $8,500 (April 15)
+- Foreign tax credit available: ~$2,100
+
+RETIREMENT:
+- 401k contributions: $15,000 (YTD)
+- IRA: $8,000
+- Target: Max out by December
+
+ACTION ITEMS:
+1. Review Q1 estimated tax calculation
+2. Optimize LLC distribution timing for Q2
+3. Foreign tax credit calculation (Form 1116)
+4. Retirement contribution strategy
+
+Attached:
+- LLC Q1 financial statements
+- Trading activity report
+- Expense receipts
+
+Let me know if you need anything else.
+
+Best regards,
+Richard Hu`;
+      
+      document.getElementById('email-template').value = defaultTemplate;
+      showNotification('Email template reset to default', 'info');
+    }
+    
+    // Reset weekly checklist
+    function resetWeeklyChecklist() {
+      const checkboxes = [
+        'weekly1', 'weekly2', 'weekly3', 'weekly4', 'weekly5'
+      ];
+      
+      checkboxes.forEach(id => {
+        const checkbox = document.getElementById(id);
+        if (checkbox) checkbox.checked = false;
+      });
+      
+      showNotification('Weekly checklist reset for next week', 'info');
+    }
+    
+    // Set up daily refresh logic
+    function setupDailyRefresh() {
+      // Check if it's time for daily refresh (6 AM UTC)
+      const now = new Date();
+      const utcHours = now.getUTCHours();
+      
+      // If it's after 6 AM UTC and we haven't refreshed today
+      if (utcHours >= 6) {
+        const lastRefresh = localStorage.getItem('tax_dashboard_last_refresh');
+        const today = now.toDateString();
+        
+        if (lastRefresh !== today) {
+          // Auto-refresh once per day
+          setTimeout(() => {
+            refreshDashboard();
+            localStorage.setItem('tax_dashboard_last_refresh', today);
+          }, 2000); // Wait 2 seconds after page load
+        }
+      }
+    }
+    
+    // Show notification
+    function showNotification(message, type = 'info') {
+      // Remove existing notification
+      const existingNotification = document.getElementById('tax-notification');
+      if (existingNotification) {
+        existingNotification.remove();
+      }
+      
+      // Create notification
+      const notification = document.createElement('div');
+      notification.id = 'tax-notification';
+      notification.className = `fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg z-50 transform transition-transform duration-300 translate-y-0`;
+      
+      // Set color based on type
+      if (type === 'success') {
+        notification.className += ' bg-green-100 text-green-800 border border-green-200';
+      } else if (type === 'error') {
+        notification.className += ' bg-red-100 text-red-800 border border-red-200';
+      } else if (type === 'warning') {
+        notification.className += ' bg-yellow-100 text-yellow-800 border border-yellow-200';
+      } else {
+        notification.className += ' bg-blue-100 text-blue-800 border border-blue-200';
+      }
+      
+      notification.innerHTML = `
+        <div class="flex items-center">
+          <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'} mr-2"></i>
+          <span>${message}</span>
+          <button class="ml-4 text-gray-500 hover:text-gray-700" onclick="this.parentElement.parentElement.remove()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      `;
+      
+      document.body.appendChild(notification);
+      
+      // Auto-remove after 5 seconds
+      setTimeout(() => {
+        if (notification.parentElement) {
+          notification.style.transform = 'translateY(-100px)';
+          setTimeout(() => notification.remove(), 300);
+        }
+      }, 5000);
+    }
+    
+    // Load saved email template from localStorage
+    function loadSavedTemplate() {
+      const savedTemplate = localStorage.getItem('tax_email_template');
+      if (savedTemplate) {
+        document.getElementById('email-template').value = savedTemplate;
+      }
+    }
+    
+    // Initialize saved data
+    loadSavedTemplate();
+    
+    // Add keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      // Ctrl/Cmd + R to refresh
+      if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
+        e.preventDefault();
+        refreshDashboard();
+      }
+      
+      // Ctrl/Cmd + S to save email template
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        saveEmailTemplate();
+      }
+      
+      // Ctrl/Cmd + C to copy email template
+      if ((e.ctrlKey || e.metaKey) && e.key === 'c' && e.shiftKey) {
+        e.preventDefault();
+        copyEmailTemplate();
+      }
+    });
+    
+    // Export dashboard data
+    function exportDashboardData() {
+      const data = {
+        timestamp: new Date().toISOString(),
+        actions: {
+          action1: document.getElementById('action1').checked,
+          action2: document.getElementById('action2').checked,
+          action3: document.getElementById('action3').checked
+        },
+        kpis: {
+          effective_tax_rate: document.getElementById('effective-tax-rate').textContent,
+          tax_liability: document.getElementById('tax-liability').textContent,
+          retirement_rate: document.getElementById('retirement-rate').textContent,
+          compliance_score: document.getElementById('compliance-score').textContent
+        },
+        email_template: document.getElementById('email-template').value
+      };
+      
+      const dataStr = JSON.stringify(data, null, 2);
+      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+      
+      const exportFileDefaultName = `tax-dashboard-export-${new Date().toISOString().split('T')[0]}.json`;
+      
+      const linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
+      linkElement.click();
+      
+      showNotification('Dashboard data exported', 'success');
+    }
+    
+    // Add export button to header
+    document.addEventListener('DOMContentLoaded', function() {
+      const header = document.querySelector('header .flex.items-center.space-x-4');
+      if (header) {
+        const exportBtn = document.createElement('button');
+        exportBtn.className = 'px-4 py-2 bg-green-100 text-green-700 text-sm font-medium rounded hover:bg-green-200 transition';
+        exportBtn.innerHTML = '<i class="fas fa-download mr-1"></i> Export';
+        exportBtn.onclick = exportDashboardData;
+        header.insertBefore(exportBtn, header.firstChild);
+      }
+    });
+    
+  </script>
+
+</body>
+</html>
