@@ -286,12 +286,12 @@
         
         <!-- 1. 沟通（Communication） -->
         <div class="space-y-4">
-          <h3 class="text-lg font-semibold text-gray-800 mb-3">📧 沟通（Communication）</h3>
+          <h3 class="text-lg font-semibold text-gray-800 mb-3">📧 邮件草稿（双语）</h3>
           
           <!-- Stakeholder-Specific Email Generator -->
           <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
             <div class="flex justify-between items-center mb-3">
-              <h4 class="text-sm font-semibold text-gray-700">AI Generated Email (Context-Aware)</h4>
+              <h4 class="text-sm font-semibold text-gray-700">🇺🇸 English (Send Version)</h4>
               <span class="text-xs text-gray-500" id="email-context-indicator">请先选择对象</span>
             </div>
             
@@ -303,7 +303,7 @@
             <textarea id="email-template" class="w-full h-32 p-3 text-sm border border-gray-300 rounded mb-3" placeholder="请先选择利益相关者对象...">
 请从上方选择利益相关者对象，系统将自动生成上下文感知的邮件模板。</textarea>
             
-            <div class="flex space-x-2">
+            <div class="flex space-x-2 mb-4">
               <button class="flex-1 px-3 py-2 bg-blue-100 text-blue-700 text-sm font-medium rounded hover:bg-blue-200 transition" onclick="copyEmail()">
                 <i class="fas fa-copy mr-1"></i> 复制
               </button>
@@ -316,6 +316,44 @@
               <button class="flex-1 px-3 py-2 bg-yellow-100 text-yellow-700 text-sm font-medium rounded hover:bg-yellow-200 transition" onclick="regenerateEmail()">
                 <i class="fas fa-sync-alt mr-1"></i> 重新生成
               </button>
+            </div>
+            
+            <!-- 🇨🇳 中文理解（Internal） - Collapsible Section -->
+            <div class="border-t border-gray-300 pt-4">
+              <div class="flex justify-between items-center mb-3 cursor-pointer" onclick="toggleChineseExplanation()">
+                <h4 class="text-sm font-semibold text-gray-700">🇨🇳 中文理解（Internal）</h4>
+                <span id="chinese-toggle-icon" class="text-xs text-gray-500">
+                  <i class="fas fa-chevron-down"></i> 展开
+                </span>
+              </div>
+              
+              <div id="chinese-explanation" class="hidden">
+                <div class="bg-blue-50 p-3 rounded-lg border border-blue-200 mb-3">
+                  <div class="text-xs font-medium text-blue-700 mb-1">📋 邮件要点</div>
+                  <div id="chinese-summary" class="text-xs text-blue-800">
+                    请先选择利益相关者对象，系统将生成中文理解摘要。
+                  </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+                  <div class="bg-white p-2 rounded border border-gray-200">
+                    <div class="text-xs font-medium text-gray-600 mb-1">🎯 核心请求</div>
+                    <div id="chinese-request" class="text-xs text-gray-700">-</div>
+                  </div>
+                  <div class="bg-white p-2 rounded border border-gray-200">
+                    <div class="text-xs font-medium text-gray-600 mb-1">🎭 语气风格</div>
+                    <div id="chinese-tone" class="text-xs text-gray-700">-</div>
+                  </div>
+                  <div class="bg-white p-2 rounded border border-gray-200">
+                    <div class="text-xs font-medium text-gray-600 mb-1">🧭 战略意图</div>
+                    <div id="chinese-intent" class="text-xs text-gray-700">-</div>
+                  </div>
+                </div>
+                
+                <div class="text-xs text-gray-500 italic">
+                  💡 提示：这不是逐字翻译，而是对邮件语气、意图和战略重点的内部理解。
+                </div>
+              </div>
             </div>
           </div>
           
@@ -841,7 +879,20 @@
         'Given your expertise in early psychosis and FQHC implementation, I\'d value your perspective on whether this clinical pathway makes sense. Would you be available for a 20-minute call next week?'
       );
       document.getElementById('email-template').value = optimizedEmail;
-      alert('AI已优化邮件语气和具体性！');
+      
+      // 更新中文解释
+      if (currentStakeholder) {
+        const context = stakeholderContexts[currentStakeholder];
+        if (context) {
+          let summary = document.getElementById('chinese-summary').textContent;
+          if (!summary.includes('(AI优化)')) {
+            document.getElementById('chinese-summary').textContent = summary + ' (AI优化)';
+            document.getElementById('chinese-tone').textContent = '专业语气、具体明确、价值导向';
+          }
+        }
+      }
+      
+      alert('AI已优化邮件语气和具体性！中文解释已同步更新。');
     }
 
     function regenerateBasedOnJudgment() {
@@ -1553,6 +1604,9 @@ Richard Hu`,
       document.getElementById('email-strategy-summary').textContent = `策略: ${context.strategy} • 阶段: ${context.stage}`;
       document.getElementById('email-template').value = context.emailTemplate;
       
+      // 更新中文解释
+      updateChineseExplanation(context);
+      
       // 更新通话脚本目标
       document.getElementById('call-script-target').textContent = `为${context.name}生成通话脚本`;
       
@@ -1652,10 +1706,73 @@ Best,
 Richard`;
 
       document.getElementById('email-template').value = newEmail;
-      alert(`✅ 已为${context.name}重新生成邮件！\n\n基于: ${context.strategy}`);
+      
+      // 更新中文解释
+      updateChineseExplanation(context);
+      
+      alert(`✅ 已为${context.name}重新生成双语邮件！\n\n基于: ${context.strategy}`);
     }
 
     // 增强的通话脚本生成器
+    // 更新中文解释
+    function updateChineseExplanation(context) {
+      if (!context) return;
+      
+      let summary = '';
+      let request = '';
+      let tone = '';
+      let intent = '';
+      
+      // 根据利益相关者类型生成中文解释
+      switch(context.name) {
+        case 'Vinod Srihari':
+          summary = '跟进FQHC早期识别路径的学术讨论，寻求实施视角的反馈';
+          request = '请求15分钟通话，讨论临床逻辑在FQHC实施中的可行性';
+          tone = '学术语气、探索性、无商业语言、校准框架';
+          intent = '学术校准 + 战略对齐，为Trillium汇报做准备';
+          break;
+        case 'Trillium (Cindy)':
+          summary = '跟进Trillium试点机会，讨论ROI和实施时间线';
+          request = '请求跟进会议，讨论试点启动的下一步行动';
+          tone = '商业语气、ROI重点、紧迫性框架、试点导向';
+          intent = '试点合作 + ROI展示，推动支付方合作';
+          break;
+        case 'FQHC Medical Director':
+          summary = '讨论在FQHC实施早期识别路径的可能性，重点临床安全和报销';
+          request = '请求风险评估对话，了解临床边界和工作流整合';
+          tone = '临床语气、风险重点、实施框架、务实导向';
+          intent = '风险对齐 + 工作流整合，为试点实施铺平道路';
+          break;
+        default:
+          summary = '跟进之前的讨论，寻求进一步对话机会';
+          request = '请求简短通话，讨论下一步合作可能性';
+          tone = '温和语气、跟进性、开放式';
+          intent = '关系维护 + 机会探索';
+      }
+      
+      // 更新UI
+      document.getElementById('chinese-summary').textContent = summary;
+      document.getElementById('chinese-request').textContent = request;
+      document.getElementById('chinese-tone').textContent = tone;
+      document.getElementById('chinese-intent').textContent = intent;
+      
+      console.log(`✅ 已更新中文解释: ${summary}`);
+    }
+
+    // 切换中文解释显示/隐藏
+    function toggleChineseExplanation() {
+      const explanationDiv = document.getElementById('chinese-explanation');
+      const toggleIcon = document.getElementById('chinese-toggle-icon');
+      
+      if (explanationDiv.classList.contains('hidden')) {
+        explanationDiv.classList.remove('hidden');
+        toggleIcon.innerHTML = '<i class="fas fa-chevron-up"></i> 收起';
+      } else {
+        explanationDiv.classList.add('hidden');
+        toggleIcon.innerHTML = '<i class="fas fa-chevron-down"></i> 展开';
+      }
+    }
+
     function generateCallScript() {
       if (!currentStakeholder) {
         alert('请先选择利益相关者对象！');
@@ -1728,10 +1845,57 @@ Richard`;
       
       document.getElementById('email-template').value = newEmail;
       
+      // 更新中文解释基于用户判断
+      updateChineseExplanationBasedOnJudgment(context, judgment);
+      
       // 更新AI建议基于用户判断
       updateAIRecommendationBasedOnJudgment(judgment);
       
-      alert(`✅ 已基于您的判断为${context.name}重新生成邮件！\n\n判断: "${judgment.substring(0, 50)}..."`);
+      alert(`✅ 已基于您的判断为${context.name}重新生成双语邮件！\n\n判断: "${judgment.substring(0, 50)}..."`);
+    }
+
+    // 基于用户判断更新中文解释
+    function updateChineseExplanationBasedOnJudgment(context, judgment) {
+      if (!context || !judgment) return;
+      
+      let summary = document.getElementById('chinese-summary').textContent;
+      let request = document.getElementById('chinese-request').textContent;
+      let tone = document.getElementById('chinese-tone').textContent;
+      let intent = document.getElementById('chinese-intent').textContent;
+      
+      // 基于用户判断调整中文解释
+      if (judgment.includes('延迟') || judgment.includes('delay') || judgment.includes('wait')) {
+        summary += ' (基于您的延迟判断，语气更温和)';
+        tone = '温和语气、无压力、时机灵活';
+        intent += '，等待更好时机';
+      } else if (judgment.includes('紧急') || judgment.includes('urgent') || judgment.includes('尽快')) {
+        summary += ' (基于您的紧急判断，增加紧迫性)';
+        tone = '紧迫语气、时间敏感、行动导向';
+        intent += '，加速推进';
+      }
+      
+      if (judgment.includes('学术') || judgment.includes('academic')) {
+        summary += ' (学术重点增强)';
+        intent += '，强调学术价值';
+      }
+      
+      if (judgment.includes('商业') || judgment.includes('business') || judgment.includes('ROI')) {
+        summary += ' (商业重点增强)';
+        intent += '，强调商业价值';
+      }
+      
+      if (judgment.includes('临床') || judgment.includes('clinical') || judgment.includes('安全')) {
+        summary += ' (临床重点增强)';
+        intent += '，强调临床安全';
+      }
+      
+      // 更新UI
+      document.getElementById('chinese-summary').textContent = summary;
+      document.getElementById('chinese-request').textContent = request;
+      document.getElementById('chinese-tone').textContent = tone;
+      document.getElementById('chinese-intent').textContent = intent;
+      
+      console.log(`✅ 已基于判断更新中文解释: ${summary}`);
     }
 
     // 基于用户判断更新AI建议
