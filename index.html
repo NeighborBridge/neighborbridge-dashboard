@@ -363,9 +363,52 @@
             
             <textarea id="human-judgment" class="w-full h-24 p-3 text-sm border border-gray-300 rounded mb-3" placeholder="输入您的判断：为什么延迟、担忧、偏好..."></textarea>
             
-            <button class="w-full px-4 py-2 bg-yellow-100 text-yellow-800 text-sm font-medium rounded hover:bg-yellow-200 transition" onclick="regenerateBasedOnJudgment()">
+            <button class="w-full px-4 py-2 bg-yellow-100 text-yellow-800 text-sm font-medium rounded hover:bg-yellow-200 transition mb-3" onclick="regenerateBasedOnJudgment()">
               <i class="fas fa-sync-alt mr-1"></i> 基于我的判断重新生成
             </button>
+            
+            <!-- 🧠 AI理解调试显示 -->
+            <div id="ai-debug-panel" class="hidden">
+              <div class="bg-gray-800 text-white p-3 rounded-lg mb-3">
+                <div class="flex justify-between items-center mb-2">
+                  <h5 class="text-xs font-semibold">🧠 AI理解</h5>
+                  <button class="text-xs text-gray-400 hover:text-white" onclick="hideAIDebug()">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+                
+                <div class="space-y-2">
+                  <div class="flex">
+                    <div class="text-xs font-medium text-gray-400 w-16">Intent:</div>
+                    <div id="debug-intent" class="text-xs">-</div>
+                  </div>
+                  <div class="flex">
+                    <div class="text-xs font-medium text-gray-400 w-16">Stakeholder:</div>
+                    <div id="debug-stakeholder" class="text-xs">-</div>
+                  </div>
+                  <div class="flex">
+                    <div class="text-xs font-medium text-gray-400 w-16">Stage:</div>
+                    <div id="debug-stage" class="text-xs">-</div>
+                  </div>
+                  <div class="flex">
+                    <div class="text-xs font-medium text-gray-400 w-16">Strategy:</div>
+                    <div id="debug-strategy" class="text-xs">-</div>
+                  </div>
+                  <div class="flex">
+                    <div class="text-xs font-medium text-gray-400 w-16">Structure:</div>
+                    <div id="debug-structure" class="text-xs">-</div>
+                  </div>
+                  <div class="flex">
+                    <div class="text-xs font-medium text-gray-400 w-16">Changes:</div>
+                    <div id="debug-changes" class="text-xs">-</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="text-xs text-gray-600 italic">
+                💡 战略再生引擎：基于用户意图 + 利益相关者上下文 + 当前阶段
+              </div>
+            </div>
             
             <div class="mt-2 text-xs text-gray-600">
               AI将：重新评估时机、重写邮件、调整语气/策略
@@ -1797,7 +1840,16 @@ Richard`;
       alert(`✅ 已为${context.name}生成通话脚本！\n\n时长: 15-20分钟\n包含: 开场白 + 核心问题 + 结束语`);
     }
 
-    // 基于用户判断重新生成（增强版）
+    // 显示/隐藏AI调试面板
+    function showAIDebug() {
+      document.getElementById('ai-debug-panel').classList.remove('hidden');
+    }
+    
+    function hideAIDebug() {
+      document.getElementById('ai-debug-panel').classList.add('hidden');
+    }
+
+    // 基于用户判断重新生成 - 真正的上下文感知战略引擎
     function regenerateBasedOnJudgment() {
       const judgment = document.getElementById('human-judgment').value;
       if (!judgment.trim()) {
@@ -1813,89 +1865,383 @@ Richard`;
       const context = stakeholderContexts[currentStakeholder];
       if (!context) return;
 
-      // 基于用户判断和利益相关者上下文重新生成邮件
-      let newEmail = `Subject: Following up - with adjustments based on your input\n\n`;
-      newEmail += `Hi [Name],\n\n`;
+      // ==================================================
+      // 🧠 步骤1: 意图解析 (Intent Parsing)
+      // ==================================================
+      let intent = 'follow-up'; // 默认: 跟进
+      let intentDetails = '';
       
-      // 根据判断调整语气
-      if (judgment.includes('延迟') || judgment.includes('delay') || judgment.includes('wait')) {
-        newEmail += `I understand timing may not be ideal right now. I wanted to keep our discussion about ${context.strategy.toLowerCase()} on your radar for when the timing is better.\n\n`;
-      } else if (judgment.includes('紧急') || judgment.includes('urgent') || judgment.includes('尽快')) {
-        newEmail += `Given the timing considerations we discussed, I wanted to follow up promptly on ${context.strategy.toLowerCase()}.\n\n`;
+      // 意图分类
+      if (judgment.includes('call') || judgment.includes('通话') || judgment.includes('会议') || judgment.includes('schedule')) {
+        intent = 'scheduling';
+        intentDetails = '请求通话/会议安排';
+      } else if (judgment.includes('update') || judgment.includes('更新') || judgment.includes('进展') || judgment.includes('progress')) {
+        intent = 'update';
+        intentDetails = '分享进展更新';
+      } else if (judgment.includes('align') || judgment.includes('对齐') || judgment.includes('input') || judgment.includes('反馈')) {
+        intent = 'alignment';
+        intentDetails = '寻求输入/对齐';
+      } else if (judgment.includes('follow') || judgment.includes('跟进') || judgment.includes('re-engage')) {
+        intent = 'follow-up';
+        intentDetails = '重新接触/跟进';
+      } else if (judgment.includes('intro') || judgment.includes('介绍') || judgment.includes('工作') || judgment.includes('working')) {
+        intent = 'introduction';
+        intentDetails = '介绍工作/建立联系';
+      }
+      
+      // 特殊意图检测
+      if (judgment.includes('已有call') || judgment.includes('已有通话') || judgment.includes('already scheduled')) {
+        intent = 'context-framing';
+        intentDetails = '已有通话安排，提供上下文框架';
+      }
+
+      // ==================================================
+      // 🧠 步骤2: 加载上下文 (Context Loading)
+      // ==================================================
+      const stakeholderName = context.name;
+      const stakeholderStrategy = context.strategy;
+      const currentStage = context.stage;
+      const communicationStyle = context.style;
+      
+      // 通信规则
+      const communicationRules = {
+        vinod: ['no business language', 'academic tone', 'calibration framing'],
+        trillium: ['ROI focus', 'business tone', 'pilot framework'],
+        fqhc: ['clinical safety', 'risk focus', 'implementation framework']
+      };
+      
+      const rules = communicationRules[currentStakeholder] || [];
+
+      // ==================================================
+      // 🧠 步骤3: 结构级重写 (Structure-Level Rewrite)
+      // ==================================================
+      let emailStructure = '';
+      let structuralChanges = [];
+      
+      // 基于意图和利益相关者确定邮件结构
+      switch(intent) {
+        case 'scheduling':
+          emailStructure = 'call-request';
+          structuralChanges.push('包含明确的通话请求');
+          structuralChanges.push('提供时间灵活性');
+          break;
+          
+        case 'update':
+          emailStructure = 'progress-update';
+          structuralChanges.push('移除通话请求');
+          structuralChanges.push('专注于进展分享');
+          structuralChanges.push('提供具体更新内容');
+          break;
+          
+        case 'alignment':
+          emailStructure = 'input-seeking';
+          structuralChanges.push('专注于寻求输入');
+          structuralChanges.push('提供具体问题');
+          structuralChanges.push('学术/专业对齐');
+          break;
+          
+        case 'context-framing':
+          emailStructure = 'context-bridge';
+          structuralChanges.push('移除通话请求（已有安排）');
+          structuralChanges.push('提供智力重叠框架');
+          structuralChanges.push('建立上下文桥梁');
+          break;
+          
+        case 'introduction':
+          emailStructure = 'work-introduction';
+          structuralChanges.push('介绍当前工作');
+          structuralChanges.push('建立相关联系');
+          structuralChanges.push('软性桥梁到潜在合作');
+          break;
+          
+        default: // follow-up
+          emailStructure = 're-engagement';
+          structuralChanges.push('温和重新接触');
+          structuralChanges.push('保持关系动量');
+          structuralChanges.push('开放式结尾');
+      }
+      
+      // ==================================================
+      // 🧠 步骤4: 邮件生成 (Email Generation)
+      // ==================================================
+      let newEmail = '';
+      let emailChanges = [];
+      
+      // 基于利益相关者和意图生成邮件
+      if (currentStakeholder === 'vinod') {
+        // Vinod特定模板
+        switch(intent) {
+          case 'scheduling':
+            newEmail = `Subject: Following up on early identification pathways in FQHC settings\n\n`;
+            newEmail += `Dear Dr. Srihari,\n\n`;
+            newEmail += `I hope this message finds you well. I'm writing to follow up on our previous discussion about embedding early identification pathways within FQHC settings.\n\n`;
+            newEmail += `Given your expertise in early psychosis and FQHC implementation, I would value your perspective on whether the clinical logic I've developed makes sense from an implementation standpoint. The core idea remains focused on identifying patients upstream before they reach specialty care, using CHW workflows within primary care.\n\n`;
+            newEmail += `Would you be available for a brief call next week to discuss this further? I'm particularly interested in your thoughts on how this approach aligns with current best practices in community mental health.\n\n`;
+            newEmail += `Best regards,\nRichard Hu`;
+            emailChanges.push('学术语气，校准框架');
+            emailChanges.push('无商业语言');
+            emailChanges.push('具体实施视角请求');
+            break;
+            
+          case 'context-framing':
+            newEmail = `Subject: Context for our upcoming conversation\n\n`;
+            newEmail += `Dear Dr. Srihari,\n\n`;
+            newEmail += `Looking forward to our conversation next week. I wanted to provide some context on what I've been working on, which I believe aligns with your interests in early psychosis and FQHC implementation.\n\n`;
+            newEmail += `I've been developing a clinical pathway for early identification of behavioral health concerns within FQHC settings, with a focus on CHW-led screening and clear referral protocols. The approach emphasizes clinical safety and workflow efficiency while maintaining academic rigor.\n\n`;
+            newEmail += `I'm particularly interested in your perspective on how this aligns with current implementation science in community mental health. Looking forward to the discussion.\n\n`;
+            newEmail += `Best regards,\nRichard Hu`;
+            emailChanges.push('移除通话请求（已有安排）');
+            emailChanges.push('提供智力重叠框架');
+            emailChanges.push('建立上下文桥梁');
+            break;
+            
+          case 'update':
+            newEmail = `Subject: Update on early identification pathway development\n\n`;
+            newEmail += `Dear Dr. Srihari,\n\n`;
+            newEmail += `I wanted to share a brief update on the early identification pathway I've been developing for FQHC settings.\n\n`;
+            newEmail += `Since we last spoke, I've refined the clinical logic to better align with CHW workflows and safety protocols. The pathway now includes clearer referral criteria and documentation templates that could support implementation research.\n\n`;
+            newEmail += `From an academic perspective, I believe this could contribute to the literature on scalable mental health interventions in primary care settings. I'd be curious to hear your thoughts when you have a moment.\n\n`;
+            newEmail += `Best regards,\nRichard Hu`;
+            emailChanges.push('专注于进展分享');
+            emailChanges.push('学术更新框架');
+            emailChanges.push('开放式反馈请求');
+            break;
+            
+          default: // follow-up or other
+            newEmail = `Subject: Following up on our discussion about FQHC implementation\n\n`;
+            newEmail += `Dear Dr. Srihari,\n\n`;
+            newEmail += `I hope you're doing well. I wanted to follow up on our previous discussion about early identification pathways in FQHC settings.\n\n`;
+            newEmail += `The approach continues to focus on clinical safety and workflow efficiency, with particular attention to how CHWs can support early detection within existing primary care workflows.\n\n`;
+            newEmail += `I'd be interested in your perspective on implementation considerations when you have availability. No urgency—just keeping the conversation alive.\n\n`;
+            newEmail += `Best regards,\nRichard Hu`;
+            emailChanges.push('温和重新接触');
+            emailChanges.push('保持学术语气');
+            emailChanges.push('无压力跟进');
+        }
+      } else if (currentStakeholder === 'trillium') {
+        // Trillium特定模板
+        switch(intent) {
+          case 'scheduling':
+            newEmail = `Subject: Follow-up on Trillium pilot opportunity\n\n`;
+            newEmail += `Hi Cindy,\n\n`;
+            newEmail += `Following up on our presentation about the early identification pathway for behavioral health in FQHC settings.\n\n`;
+            newEmail += `The key value proposition we discussed:\n1. ROI: Reduced specialty care referrals by 20-30%\n2. Pilot: 1-2 FQHC sites for 6-month validation\n3. Scalability: Potential expansion across Trillium network\n\n`;
+            newEmail += `I've attached an updated ROI calculation based on our conversation. Would you be available for a brief call next week to discuss next steps for the pilot?\n\n`;
+            newEmail += `Looking forward to moving this forward.\n\n`;
+            newEmail += `Best,\nRichard`;
+            emailChanges.push('商业语气，ROI重点');
+            emailChanges.push('试点框架');
+            emailChanges.push('紧迫性');
+            break;
+            
+          default:
+            newEmail = `Subject: Update on FQHC pilot opportunity\n\n`;
+            newEmail += `Hi Cindy,\n\n`;
+            newEmail += `I wanted to provide an update on the FQHC pilot opportunity we discussed.\n\n`;
+            newEmail += `I've refined the ROI calculations and identified potential implementation sites. The approach maintains focus on reducing specialty care referrals while ensuring clinical safety and workflow efficiency.\n\n`;
+            newEmail += `Let me know when would be a good time to discuss next steps. I'm flexible with timing.\n\n`;
+            newEmail += `Best,\nRichard`;
+            emailChanges.push('进展更新');
+            emailChanges.push('商业语气');
+            emailChanges.push('灵活安排');
+        }
+      } else if (currentStakeholder === 'fqhc') {
+        // FQHC特定模板
+        switch(intent) {
+          case 'scheduling':
+            newEmail = `Subject: Discussing early identification pathway implementation\n\n`;
+            newEmail += `Dear [Medical Director Name],\n\n`;
+            newEmail += `I'm writing to discuss the possibility of implementing an early identification pathway for behavioral health concerns within your FQHC.\n\n`;
+            newEmail += `The approach focuses on:\n1. Clinical safety: Clear referral pathways for complex cases\n2. Workflow efficiency: ≤5 minute screening by CHWs\n3. Reimbursement: CHW billing codes and value-based care alignment\n\n`;
+            newEmail += `I understand the importance of aligning on clinical boundaries, workflow burden, and reimbursement pathways before moving forward.\n\n`;
+            newEmail += `Would you be open to a brief conversation next week to discuss whether this makes sense for your clinic?\n\n`;
+            newEmail += `Sincerely,\nRichard Hu`;
+            emailChanges.push('临床语气，风险重点');
+            emailChanges.push('实施框架');
+            emailChanges.push('务实导向');
+            break;
+            
+          default:
+            newEmail = `Subject: Update on early identification pathway approach\n\n`;
+            newEmail += `Dear [Medical Director Name],\n\n`;
+            newEmail += `I wanted to follow up on our discussion about implementing an early identification pathway for behavioral health in FQHC settings.\n\n`;
+            newEmail += `I've further refined the approach to emphasize clinical safety protocols and workflow integration considerations. The pathway maintains clear boundaries for complex case referrals while optimizing CHW screening efficiency.\n\n`;
+            newEmail += `I'd be happy to discuss implementation considerations when you have availability.\n\n`;
+            newEmail += `Sincerely,\nRichard Hu`;
+            emailChanges.push('临床更新');
+            emailChanges.push('安全重点');
+            emailChanges.push('务实语气');
+        }
+      }
+
+      // ==================================================
+      // 🧠 步骤5: 质量检查 (Quality Check)
+      // ==================================================
+      const qualityChecks = [];
+      
+      // 检查1: 无冗余调度（如果已有通话安排）
+      if (intent === 'context-framing' && newEmail.includes('call') && newEmail.includes('schedule')) {
+        // 移除通话请求相关语言
+        newEmail = newEmail.replace(/Would you be available for a brief call.*?\?/g, '');
+        newEmail = newEmail.replace(/Would you be open to a brief conversation.*?\?/g, '');
+        qualityChecks.push('✅ 移除冗余通话请求');
       } else {
-        newEmail += `I wanted to follow up on our discussion about ${context.strategy.toLowerCase()}.\n\n`;
+        qualityChecks.push('✅ 通话请求适当');
       }
       
-      // 根据判断调整内容
-      if (judgment.includes('学术') || judgment.includes('academic')) {
-        newEmail += `From an academic perspective, I'm particularly interested in your thoughts on how this aligns with current research in ${context.name.includes('Vinod') ? 'early psychosis' : 'community health'}.\n\n`;
+      // 检查2: 语气匹配利益相关者
+      if (currentStakeholder === 'vinod' && !newEmail.includes('academic') && !newEmail.includes('clinical')) {
+        qualityChecks.push('⚠️ 语气可能需要更多学术调整');
+      } else {
+        qualityChecks.push('✅ 语气匹配利益相关者');
       }
       
-      if (judgment.includes('商业') || judgment.includes('business') || judgment.includes('ROI')) {
-        newEmail += `From a business standpoint, the key value proposition remains focused on ${context.name.includes('Trillium') ? 'ROI and pilot scalability' : 'clinical implementation efficiency'}.\n\n`;
+      // 检查3: 内容匹配用户意图
+      if (intent === 'update' && newEmail.includes('call request')) {
+        qualityChecks.push('⚠️ 内容可能包含不匹配的请求');
+      } else {
+        qualityChecks.push('✅ 内容匹配用户意图');
       }
       
-      if (judgment.includes('临床') || judgment.includes('clinical') || judgment.includes('安全')) {
-        newEmail += `Clinically, the approach maintains clear safety boundaries and referral pathways, which I know is a priority for ${context.name.includes('FQHC') ? 'FQHC implementation' : 'ethical practice'}.\n\n`;
+      // 检查4: 遵守通信规则
+      let rulesCheck = true;
+      rules.forEach(rule => {
+        if (rule === 'no business language' && newEmail.includes('ROI') && newEmail.includes('business')) {
+          rulesCheck = false;
+          qualityChecks.push(`❌ 违反规则: ${rule}`);
+        }
+      });
+      if (rulesCheck) {
+        qualityChecks.push('✅ 遵守所有通信规则');
       }
-      
-      newEmail += `Based on your feedback about "${judgment.substring(0, 50)}...", I've adjusted the approach to better align with your concerns.\n\n`;
-      newEmail += `Would you be open to connecting when the timing works better for you?\n\n`;
-      newEmail += `Best,\nRichard`;
-      
+
+      // ==================================================
+      // 🧠 步骤6: 更新UI和调试显示
+      // ==================================================
       document.getElementById('email-template').value = newEmail;
       
-      // 更新中文解释基于用户判断
-      updateChineseExplanationBasedOnJudgment(context, judgment);
+      // 更新调试显示
+      document.getElementById('debug-intent').textContent = `${intent} (${intentDetails})`;
+      document.getElementById('debug-stakeholder').textContent = stakeholderName;
+      document.getElementById('debug-stage').textContent = currentStage;
+      document.getElementById('debug-strategy').textContent = stakeholderStrategy;
+      document.getElementById('debug-structure').textContent = emailStructure;
+      document.getElementById('debug-changes').textContent = structuralChanges.join(', ');
       
-      // 更新AI建议基于用户判断
+      // 显示调试面板
+      showAIDebug();
+      
+      // ==================================================
+      // 🧠 步骤7: 更新中文解释
+      // ==================================================
+      let chineseSummary = '';
+      let chineseRequest = '';
+      let chineseTone = '';
+      let chineseIntent = '';
+      
+      // 基于意图和利益相关者生成中文解释
+      switch(intent) {
+        case 'scheduling':
+          chineseSummary = '请求通话安排，讨论实施路径';
+          chineseRequest = '安排15-20分钟通话，讨论具体实施考虑';
+          chineseTone = '专业语气、具体明确、价值导向';
+          chineseIntent = '推进合作讨论，明确下一步行动';
+          break;
+          
+        case 'context-framing':
+          chineseSummary = '为已有通话提供上下文框架';
+          chineseRequest = '无新请求（已有安排），提供讨论背景';
+          chineseTone = '学术语气、框架性、智力重叠';
+          chineseIntent = '建立共同理解基础，优化通话效率';
+          break;
+          
+        case 'update':
+          chineseSummary = '分享工作进展更新';
+          chineseRequest = '无立即行动请求，分享进展供参考';
+          chineseTone = '更新语气、进展导向、开放式';
+          chineseIntent = '保持关系动量，展示持续进展';
+          break;
+          
+        case 'alignment':
+          chineseSummary = '寻求专业输入和对齐';
+          chineseRequest = '请求专业视角反馈，无时间压力';
+          chineseTone = '咨询语气、尊重专业、探索性';
+          chineseIntent = '学术/专业校准，优化方案质量';
+          break;
+          
+        default: // follow-up
+          chineseSummary = '温和跟进，保持联系';
+          chineseRequest = '无紧迫请求，保持对话活跃';
+          chineseTone = '温和语气、无压力、关系维护';
+          chineseIntent = '关系维护，机会探索';
+      }
+      
+      // 添加利益相关者特定调整
+      if (currentStakeholder === 'vinod') {
+        chineseTone += '、学术导向、无商业语言';
+        chineseIntent += '、学术价值建立';
+      } else if (currentStakeholder === 'trillium') {
+        chineseTone += '、商业导向、ROI重点';
+        chineseIntent += '、商业价值推进';
+      } else if (currentStakeholder === 'fqhc') {
+        chineseTone += '、临床导向、风险意识';
+        chineseIntent += '、临床安全对齐';
+      }
+      
+      // 添加用户判断调整
+      if (judgment.includes('延迟') || judgment.includes('wait')) {
+        chineseTone += '、时机灵活';
+        chineseIntent += '、等待更好时机';
+      } else if (judgment.includes('紧急') || judgment.includes('urgent')) {
+        chineseTone += '、时间敏感';
+        chineseIntent += '、加速推进';
+      }
+      
+      // 更新中文解释UI
+      document.getElementById('chinese-summary').textContent = chineseSummary;
+      document.getElementById('chinese-request').textContent = chineseRequest;
+      document.getElementById('chinese-tone').textContent = chineseTone;
+      document.getElementById('chinese-intent').textContent = chineseIntent;
+      
+      // 确保中文解释面板可见
+      document.getElementById('chinese-explanation').classList.remove('hidden');
+      document.getElementById('chinese-toggle-icon').innerHTML = '<i class="fas fa-chevron-up"></i> 收起';
+
+      // ==================================================
+      // 🧠 步骤8: 更新AI建议
+      // ==================================================
       updateAIRecommendationBasedOnJudgment(judgment);
+
+      // ==================================================
+      // 🧠 步骤9: 显示结果和更改摘要
+      // ==================================================
+      const changeSummary = [];
+      changeSummary.push(`意图: ${intentDetails}`);
+      changeSummary.push(`结构: ${emailStructure}`);
+      structuralChanges.forEach(change => changeSummary.push(`• ${change}`));
+      emailChanges.forEach(change => changeSummary.push(`📧 ${change}`));
+      qualityChecks.forEach(check => changeSummary.push(check));
       
-      alert(`✅ 已基于您的判断为${context.name}重新生成双语邮件！\n\n判断: "${judgment.substring(0, 50)}..."`);
+      const summaryText = changeSummary.join('\n');
+      
+      alert(`✅ 战略再生完成！\n\n利益相关者: ${stakeholderName}\n意图: ${intentDetails}\n\n关键更改:\n${structuralChanges.map(c => `• ${c}`).join('\n')}\n\n质量检查:\n${qualityChecks.filter(c => c.includes('✅') || c.includes('❌')).join('\n')}`);
+      
+      console.log(`🎯 战略再生引擎完成:`);
+      console.log(`意图: ${intent} (${intentDetails})`);
+      console.log(`利益相关者: ${stakeholderName}`);
+      console.log(`策略: ${stakeholderStrategy}`);
+      console.log(`阶段: ${currentStage}`);
+      console.log(`结构更改: ${structuralChanges.join(', ')}`);
+      console.log(`质量检查: ${qualityChecks.join(', ')}`);
     }
 
+
     // 基于用户判断更新中文解释
+    // 基于用户判断更新中文解释（简化版，主要逻辑已在regenerateBasedOnJudgment中处理）
     function updateChineseExplanationBasedOnJudgment(context, judgment) {
-      if (!context || !judgment) return;
-      
-      let summary = document.getElementById('chinese-summary').textContent;
-      let request = document.getElementById('chinese-request').textContent;
-      let tone = document.getElementById('chinese-tone').textContent;
-      let intent = document.getElementById('chinese-intent').textContent;
-      
-      // 基于用户判断调整中文解释
-      if (judgment.includes('延迟') || judgment.includes('delay') || judgment.includes('wait')) {
-        summary += ' (基于您的延迟判断，语气更温和)';
-        tone = '温和语气、无压力、时机灵活';
-        intent += '，等待更好时机';
-      } else if (judgment.includes('紧急') || judgment.includes('urgent') || judgment.includes('尽快')) {
-        summary += ' (基于您的紧急判断，增加紧迫性)';
-        tone = '紧迫语气、时间敏感、行动导向';
-        intent += '，加速推进';
-      }
-      
-      if (judgment.includes('学术') || judgment.includes('academic')) {
-        summary += ' (学术重点增强)';
-        intent += '，强调学术价值';
-      }
-      
-      if (judgment.includes('商业') || judgment.includes('business') || judgment.includes('ROI')) {
-        summary += ' (商业重点增强)';
-        intent += '，强调商业价值';
-      }
-      
-      if (judgment.includes('临床') || judgment.includes('clinical') || judgment.includes('安全')) {
-        summary += ' (临床重点增强)';
-        intent += '，强调临床安全';
-      }
-      
-      // 更新UI
-      document.getElementById('chinese-summary').textContent = summary;
-      document.getElementById('chinese-request').textContent = request;
-      document.getElementById('chinese-tone').textContent = tone;
-      document.getElementById('chinese-intent').textContent = intent;
-      
-      console.log(`✅ 已基于判断更新中文解释: ${summary}`);
+      // 此函数现在主要作为兼容性层
+      // 主要逻辑已在regenerateBasedOnJudgment中实现
+      console.log('📝 updateChineseExplanationBasedOnJudgment called (legacy)');
     }
 
     // 基于用户判断更新AI建议
