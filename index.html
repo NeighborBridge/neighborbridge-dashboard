@@ -217,14 +217,69 @@
       </div>
     </div>
 
-    <!-- 🚀 可执行模块（Execution Panel） -->
+    <!-- 🚀 可执行模块（Execution Panel） - 升级为利益相关者感知行动引擎 -->
     <div class="dashboard-card bg-card rounded-lg p-5 mb-6 border border-gray-300">
       <div class="flex justify-between items-start mb-4">
         <div>
           <h2 class="text-xl font-bold text-gray-800 mb-1">🚀 可执行模块（Execution Panel）</h2>
-          <p class="text-sm text-gray-600">决策 → 行动 → 反馈 → 下一步行动循环</p>
+          <p class="text-sm text-gray-600">利益相关者感知行动引擎 • Right message → right person → right timing</p>
         </div>
-        <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">Human-in-the-Loop</span>
+        <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">Stakeholder-Aware</span>
+      </div>
+
+      <!-- 利益相关者选择器 -->
+      <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-300">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h3 class="text-sm font-semibold text-gray-700 mb-2">🎯 选择沟通对象</h3>
+            <p class="text-xs text-gray-600">系统将自动加载对应策略、阶段和沟通风格</p>
+          </div>
+          
+          <div class="flex flex-col md:flex-row gap-3">
+            <!-- 利益相关者选择下拉框 -->
+            <div class="relative">
+              <select id="stakeholder-selector" class="w-full md:w-48 px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" onchange="loadStakeholderContext(this.value)">
+                <option value="" disabled selected>选择对象 ▼</option>
+                <option value="vinod">Vinod Srihari (耶鲁精神科教授)</option>
+                <option value="trillium">Trillium (Cindy - 支付方联系人)</option>
+                <option value="fqhc">FQHC stakeholders (Medical Director)</option>
+                <option value="academic">学术合作伙伴</option>
+                <option value="government">政府/FQHC技术咨询</option>
+              </select>
+            </div>
+            
+            <!-- 快速切换按钮 -->
+            <div class="flex space-x-2">
+              <button class="px-3 py-2 bg-blue-100 text-blue-700 text-sm font-medium rounded hover:bg-blue-200 transition flex items-center" onclick="quickSwitchStakeholder('vinod')">
+                <i class="fas fa-user-tie mr-1"></i> Vinod
+              </button>
+              <button class="px-3 py-2 bg-green-100 text-green-700 text-sm font-medium rounded hover:bg-green-200 transition flex items-center" onclick="quickSwitchStakeholder('trillium')">
+                <i class="fas fa-building mr-1"></i> Trillium
+              </button>
+              <button class="px-3 py-2 bg-orange-100 text-orange-700 text-sm font-medium rounded hover:bg-orange-200 transition flex items-center" onclick="quickSwitchStakeholder('fqhc')">
+                <i class="fas fa-hospital mr-1"></i> FQHC
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 上下文信息显示 -->
+        <div id="stakeholder-context" class="mt-4 p-3 bg-white rounded border border-gray-300 hidden">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div class="text-center">
+              <div class="text-xs font-medium text-gray-600">策略</div>
+              <div id="context-strategy" class="text-sm font-medium text-gray-800 mt-1">加载中...</div>
+            </div>
+            <div class="text-center">
+              <div class="text-xs font-medium text-gray-600">当前阶段</div>
+              <div id="context-stage" class="text-sm font-medium text-gray-800 mt-1">加载中...</div>
+            </div>
+            <div class="text-center">
+              <div class="text-xs font-medium text-gray-600">沟通风格</div>
+              <div id="context-style" class="text-sm font-medium text-gray-800 mt-1">加载中...</div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -233,26 +288,20 @@
         <div class="space-y-4">
           <h3 class="text-lg font-semibold text-gray-800 mb-3">📧 沟通（Communication）</h3>
           
-          <!-- Email Template -->
+          <!-- Stakeholder-Specific Email Generator -->
           <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
             <div class="flex justify-between items-center mb-3">
-              <h4 class="text-sm font-semibold text-gray-700">AI Generated Email Template</h4>
-              <span class="text-xs text-gray-500">可编辑</span>
+              <h4 class="text-sm font-semibold text-gray-700">AI Generated Email (Context-Aware)</h4>
+              <span class="text-xs text-gray-500" id="email-context-indicator">请先选择对象</span>
             </div>
             
-            <textarea id="email-template" class="w-full h-32 p-3 text-sm border border-gray-300 rounded mb-3" placeholder="AI将生成邮件模板...">
-Subject: Following up on our conversation about early identification in FQHC
-
-Hi [Name],
-
-I wanted to follow up on our discussion about embedding early identification pathways in FQHC settings. Based on our conversation, I've refined the clinical logic and would appreciate your perspective on whether this makes sense from an implementation standpoint.
-
-The core idea remains: identifying patients upstream before they reach specialty care, using CHW workflows within primary care.
-
-Would you be open to a brief call next week to discuss?
-
-Best,
-Richard</textarea>
+            <div class="mb-3">
+              <div class="text-xs font-medium text-gray-600 mb-1">当前对象: <span id="current-stakeholder" class="font-semibold">未选择</span></div>
+              <div class="text-xs text-gray-500" id="email-strategy-summary">选择对象后，系统将加载对应策略和沟通风格</div>
+            </div>
+            
+            <textarea id="email-template" class="w-full h-32 p-3 text-sm border border-gray-300 rounded mb-3" placeholder="请先选择利益相关者对象...">
+请从上方选择利益相关者对象，系统将自动生成上下文感知的邮件模板。</textarea>
             
             <div class="flex space-x-2">
               <button class="flex-1 px-3 py-2 bg-blue-100 text-blue-700 text-sm font-medium rounded hover:bg-blue-200 transition" onclick="copyEmail()">
@@ -263,6 +312,9 @@ Richard</textarea>
               </button>
               <button class="flex-1 px-3 py-2 bg-purple-100 text-purple-700 text-sm font-medium rounded hover:bg-purple-200 transition" onclick="optimizeEmail()">
                 <i class="fas fa-magic mr-1"></i> 让AI优化
+              </button>
+              <button class="flex-1 px-3 py-2 bg-yellow-100 text-yellow-700 text-sm font-medium rounded hover:bg-yellow-200 transition" onclick="regenerateEmail()">
+                <i class="fas fa-sync-alt mr-1"></i> 重新生成
               </button>
             </div>
           </div>
@@ -318,15 +370,23 @@ Richard</textarea>
           
           <!-- 其他可执行项 -->
           <div class="space-y-3">
+            <!-- 通话脚本生成器 -->
             <div class="bg-white p-3 rounded border border-gray-300">
               <div class="flex justify-between items-center">
                 <div>
                   <div class="text-sm font-medium text-gray-800">📞 Call script generator</div>
-                  <div class="text-xs text-gray-600">为Vinod通话生成脚本</div>
+                  <div class="text-xs text-gray-600" id="call-script-target">为当前对象生成通话脚本</div>
                 </div>
                 <button class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded hover:bg-blue-200 transition" onclick="generateCallScript()">
                   执行
                 </button>
+              </div>
+              <!-- 通话脚本预览 -->
+              <div id="call-script-preview" class="mt-2 hidden">
+                <div class="text-xs font-medium text-gray-600 mb-1">通话脚本预览:</div>
+                <div class="text-xs text-gray-700 bg-gray-50 p-2 rounded border border-gray-300 max-h-24 overflow-y-auto">
+                  <div id="call-script-content">选择对象后生成...</div>
+                </div>
               </div>
             </div>
             
@@ -362,13 +422,16 @@ Richard</textarea>
           
           <!-- 行动清单 -->
           <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
-            <h4 class="text-sm font-semibold text-gray-700 mb-3">行动清单</h4>
+            <div class="flex justify-between items-center mb-3">
+              <h4 class="text-sm font-semibold text-gray-700">行动清单</h4>
+              <span class="text-xs text-gray-500" id="action-list-context">通用</span>
+            </div>
             
             <div class="space-y-3">
               <div class="flex items-center">
                 <input type="checkbox" id="action1" class="mr-3">
                 <label for="action1" class="text-sm text-gray-800 flex-1">
-                  发送邮件给 Vinod Srihari
+                  <span id="action1-text">发送邮件</span>
                   <div class="text-xs text-gray-500" id="timestamp1"></div>
                 </label>
               </div>
@@ -376,7 +439,7 @@ Richard</textarea>
               <div class="flex items-center">
                 <input type="checkbox" id="action2" class="mr-3">
                 <label for="action2" class="text-sm text-gray-800 flex-1">
-                  安排与 Vinod 的会议
+                  <span id="action2-text">安排会议</span>
                   <div class="text-xs text-gray-500" id="timestamp2"></div>
                 </label>
               </div>
@@ -384,7 +447,7 @@ Richard</textarea>
               <div class="flex items-center">
                 <input type="checkbox" id="action3" class="mr-3">
                 <label for="action3" class="text-sm text-gray-800 flex-1">
-                  更新 Trillium PPT
+                  <span id="action3-text">更新相关材料</span>
                   <div class="text-xs text-gray-500" id="timestamp3"></div>
                 </label>
               </div>
@@ -392,7 +455,7 @@ Richard</textarea>
               <div class="flex items-center">
                 <input type="checkbox" id="action4" class="mr-3">
                 <label for="action4" class="text-sm text-gray-800 flex-1">
-                  联系其他 stakeholder
+                  <span id="action4-text">准备后续步骤</span>
                   <div class="text-xs text-gray-500" id="timestamp4"></div>
                 </label>
               </div>
@@ -1323,6 +1386,403 @@ Richard</textarea>
     console.log('• manualSaveVersion() - 手动保存当前版本');
     console.log('• versionManager.restorePreviousVersion() - 恢复到上一个版本');
     console.log('• versionManager.getVersionHistory() - 查看版本历史');
+
+    // ==================================================
+    // 🎯 利益相关者感知行动引擎 (Stakeholder-Aware Action Engine)
+    // ==================================================
+
+    // 当前选择的利益相关者
+    let currentStakeholder = null;
+
+    // 利益相关者上下文数据
+    const stakeholderContexts = {
+      vinod: {
+        name: 'Vinod Srihari',
+        title: '耶鲁精神科教授',
+        strategy: '学术校准 + 战略对齐',
+        stage: 'pre-call (75天未联系)',
+        style: '学术语气，无商业语言，校准框架',
+        emailTemplate: `Subject: Following up on early identification pathways in FQHC settings
+
+Dear Dr. Srihari,
+
+I hope this message finds you well. I'm writing to follow up on our previous discussion about embedding early identification pathways within FQHC settings.
+
+Given your expertise in early psychosis and FQHC implementation, I would value your perspective on whether the clinical logic I've developed makes sense from an implementation standpoint. The core idea remains focused on identifying patients upstream before they reach specialty care, using CHW workflows within primary care.
+
+Would you be available for a brief call next week to discuss this further? I'm particularly interested in your thoughts on how this approach aligns with current best practices in community mental health.
+
+Best regards,
+Richard Hu`,
+        callScript: `📞 Vinod Srihari 通话脚本 (15分钟)
+
+开场白 (2分钟):
+1. "感谢您抽出时间，Srihari医生"
+2. "我想请教您关于在FQHC中实施早期识别路径的想法"
+3. "特别是从学术和临床实施的角度"
+
+核心问题 (10分钟):
+1. "从您的经验看，在FQHC中识别早期行为健康问题的最大挑战是什么？"
+2. "CHW在初级护理中的角色如何优化才能支持这种识别？"
+3. "学术研究如何最好地支持这种社区实施？"
+
+结束语 (3分钟):
+1. "感谢您的宝贵见解"
+2. "下一步：我会根据您的反馈完善方案"
+3. "保持联系，期待未来合作机会"`,
+        actions: [
+          '发送邮件给 Vinod Srihari',
+          '安排学术校准会议',
+          '准备临床路径讨论材料',
+          '更新学术合作提案'
+        ]
+      },
+      trillium: {
+        name: 'Trillium (Cindy)',
+        title: '支付方联系人',
+        strategy: '试点合作 + ROI展示',
+        stage: 'post-presentation follow-up',
+        style: '商业语气，ROI重点，试点框架',
+        emailTemplate: `Subject: Follow-up on Trillium pilot opportunity
+
+Hi Cindy,
+
+Following up on our presentation about the early identification pathway for behavioral health in FQHC settings.
+
+The key value proposition we discussed:
+1. ROI: Reduced specialty care referrals by 20-30%
+2. Pilot: 1-2 FQHC sites for 6-month validation
+3. Scalability: Potential expansion across Trillium network
+
+I've attached an updated ROI calculation based on our conversation. Would you be available for a brief call next week to discuss next steps for the pilot?
+
+Looking forward to moving this forward.
+
+Best,
+Richard`,
+        callScript: `📞 Trillium (Cindy) 通话脚本 (15分钟)
+
+开场白 (2分钟):
+1. "感谢您的时间，Cindy"
+2. "跟进我们关于FQHC试点机会的讨论"
+3. "重点讨论ROI和试点实施路径"
+
+核心问题 (10分钟):
+1. "从支付方角度看，这个试点最重要的成功指标是什么？"
+2. "试点的时间线和预算考虑是什么？"
+3. "我们需要哪些内部对齐才能启动？"
+
+结束语 (3分钟):
+1. "明确下一步行动项"
+2. "确定试点启动时间线"
+3. "安排下次跟进会议"`,
+        actions: [
+          '发送ROI更新给 Trillium',
+          '安排试点规划会议',
+          '更新试点提案文档',
+          '准备内部对齐材料'
+        ]
+      },
+      fqhc: {
+        name: 'FQHC Medical Director',
+        title: '试点站点领导',
+        strategy: '风险对齐 + 工作流整合',
+        stage: 'pre-engagement risk assessment',
+        style: '临床语气，风险重点，实施框架',
+        emailTemplate: `Subject: Discussing early identification pathway implementation
+
+Dear [Medical Director Name],
+
+I'm writing to discuss the possibility of implementing an early identification pathway for behavioral health concerns within your FQHC.
+
+The approach focuses on:
+1. Clinical safety: Clear referral pathways for complex cases
+2. Workflow efficiency: ≤5 minute screening by CHWs
+3. Reimbursement: CHW billing codes and value-based care alignment
+
+I understand the importance of aligning on clinical boundaries, workflow burden, and reimbursement pathways before moving forward.
+
+Would you be open to a brief conversation next week to discuss whether this makes sense for your clinic?
+
+Sincerely,
+Richard Hu`,
+        callScript: `📞 FQHC Medical Director 通话脚本 (20分钟)
+
+开场白 (3分钟):
+1. "感谢您的时间，医生"
+2. "讨论在您诊所实施早期识别路径的可能性"
+3. "重点：临床安全、工作流效率、报销路径"
+
+核心问题 (14分钟):
+1. "从临床角度看，最大的风险边界是什么？"
+2. "现有工作流中，哪里可以嵌入5分钟筛查？"
+3. "报销方面，CHW billing codes的可行性如何？"
+
+结束语 (3分钟):
+1. "总结风险对齐点"
+2. "确定下一步评估步骤"
+3. "安排临床团队讨论"`,
+        actions: [
+          '发送风险评估邮件',
+          '安排临床对齐会议',
+          '准备工作流分析',
+          '更新报销路径文档'
+        ]
+      }
+    };
+
+    // 加载利益相关者上下文
+    function loadStakeholderContext(stakeholderId) {
+      const context = stakeholderContexts[stakeholderId];
+      if (!context) {
+        alert('未找到该利益相关者的上下文信息');
+        return;
+      }
+
+      currentStakeholder = stakeholderId;
+      
+      // 更新上下文显示
+      document.getElementById('stakeholder-context').classList.remove('hidden');
+      document.getElementById('context-strategy').textContent = context.strategy;
+      document.getElementById('context-stage').textContent = context.stage;
+      document.getElementById('context-style').textContent = context.style;
+      
+      // 更新邮件模板
+      document.getElementById('current-stakeholder').textContent = context.name;
+      document.getElementById('email-context-indicator').textContent = context.style;
+      document.getElementById('email-strategy-summary').textContent = `策略: ${context.strategy} • 阶段: ${context.stage}`;
+      document.getElementById('email-template').value = context.emailTemplate;
+      
+      // 更新通话脚本目标
+      document.getElementById('call-script-target').textContent = `为${context.name}生成通话脚本`;
+      
+      // 更新行动清单
+      document.getElementById('action-list-context').textContent = context.name;
+      document.getElementById('action1-text').textContent = context.actions[0];
+      document.getElementById('action2-text').textContent = context.actions[1];
+      document.getElementById('action3-text').textContent = context.actions[2];
+      document.getElementById('action4-text').textContent = context.actions[3];
+      
+      // 更新AI建议
+      updateAIRecommendation(stakeholderId);
+      
+      // 自动保存版本
+      if (versionManager) {
+        versionManager.createVersion(`切换到利益相关者: ${context.name}`);
+      }
+      
+      console.log(`✅ 已加载利益相关者: ${context.name}`);
+      console.log(`策略: ${context.strategy}, 阶段: ${context.stage}, 风格: ${context.style}`);
+    }
+
+    // 快速切换利益相关者
+    function quickSwitchStakeholder(stakeholderId) {
+      // 更新下拉框选择
+      document.getElementById('stakeholder-selector').value = stakeholderId;
+      
+      // 加载上下文
+      loadStakeholderContext(stakeholderId);
+      
+      // 显示成功消息
+      const context = stakeholderContexts[stakeholderId];
+      alert(`✅ 已切换到: ${context.name}\n\n系统已自动更新:\n• 邮件模板\n• 通话脚本\n• 行动清单\n• AI建议`);
+    }
+
+    // 更新AI建议
+    function updateAIRecommendation(stakeholderId) {
+      const context = stakeholderContexts[stakeholderId];
+      if (!context) return;
+
+      let recommendation = '';
+      let reason = '';
+
+      switch(stakeholderId) {
+        case 'vinod':
+          recommendation = '建议立即联系 Vinod Srihari';
+          reason = '理由：75天未联系 + Q2合作窗口 + Trillium汇报前校准机会';
+          break;
+        case 'trillium':
+          recommendation = '建议本周内跟进 Trillium';
+          reason = '理由：演示后关键窗口 + 试点启动时间压力 + Q2预算周期';
+          break;
+        case 'fqhc':
+          recommendation = '建议风险评估对齐';
+          reason = '理由：试点启动前提条件 + 临床安全必须前置对齐';
+          break;
+        default:
+          recommendation = '建议保持联系节奏';
+          reason = '理由：维持关系动量，避免过冷';
+      }
+
+      const suggestionDiv = document.querySelector('.bg-green-50 .bg-white');
+      if (suggestionDiv) {
+        suggestionDiv.innerHTML = `
+          <div class="text-sm font-medium text-gray-800 mb-1">${recommendation}</div>
+          <div class="text-xs text-gray-600">${reason}</div>
+        `;
+      }
+    }
+
+    // 重新生成邮件
+    function regenerateEmail() {
+      if (!currentStakeholder) {
+        alert('请先选择利益相关者对象！');
+        return;
+      }
+
+      const context = stakeholderContexts[currentStakeholder];
+      if (!context) return;
+
+      // 基于当前上下文重新生成邮件
+      const newEmail = `Subject: Follow-up - ${context.name}
+
+Hi [Name],
+
+Following up on our previous discussion about ${context.strategy.toLowerCase()}.
+
+Based on our conversation, I've refined the approach to better align with ${context.stage.toLowerCase()}.
+
+Key points:
+• ${context.strategy.split(' + ')[0]}
+• ${context.strategy.split(' + ')[1] || 'Implementation readiness'}
+
+Would you be available for a brief call next week to discuss next steps?
+
+Best,
+Richard`;
+
+      document.getElementById('email-template').value = newEmail;
+      alert(`✅ 已为${context.name}重新生成邮件！\n\n基于: ${context.strategy}`);
+    }
+
+    // 增强的通话脚本生成器
+    function generateCallScript() {
+      if (!currentStakeholder) {
+        alert('请先选择利益相关者对象！');
+        return;
+      }
+
+      const context = stakeholderContexts[currentStakeholder];
+      if (!context) return;
+
+      // 显示通话脚本预览
+      const previewDiv = document.getElementById('call-script-preview');
+      const contentDiv = document.getElementById('call-script-content');
+      
+      contentDiv.innerHTML = context.callScript.replace(/\n/g, '<br>');
+      previewDiv.classList.remove('hidden');
+      
+      // 自动保存版本
+      if (versionManager) {
+        versionManager.createVersion(`生成通话脚本: ${context.name}`);
+      }
+      
+      alert(`✅ 已为${context.name}生成通话脚本！\n\n时长: 15-20分钟\n包含: 开场白 + 核心问题 + 结束语`);
+    }
+
+    // 基于用户判断重新生成（增强版）
+    function regenerateBasedOnJudgment() {
+      const judgment = document.getElementById('human-judgment').value;
+      if (!judgment.trim()) {
+        alert('请先输入您的判断！');
+        return;
+      }
+
+      if (!currentStakeholder) {
+        alert('请先选择利益相关者对象！');
+        return;
+      }
+
+      const context = stakeholderContexts[currentStakeholder];
+      if (!context) return;
+
+      // 基于用户判断和利益相关者上下文重新生成邮件
+      let newEmail = `Subject: Following up - with adjustments based on your input\n\n`;
+      newEmail += `Hi [Name],\n\n`;
+      
+      // 根据判断调整语气
+      if (judgment.includes('延迟') || judgment.includes('delay') || judgment.includes('wait')) {
+        newEmail += `I understand timing may not be ideal right now. I wanted to keep our discussion about ${context.strategy.toLowerCase()} on your radar for when the timing is better.\n\n`;
+      } else if (judgment.includes('紧急') || judgment.includes('urgent') || judgment.includes('尽快')) {
+        newEmail += `Given the timing considerations we discussed, I wanted to follow up promptly on ${context.strategy.toLowerCase()}.\n\n`;
+      } else {
+        newEmail += `I wanted to follow up on our discussion about ${context.strategy.toLowerCase()}.\n\n`;
+      }
+      
+      // 根据判断调整内容
+      if (judgment.includes('学术') || judgment.includes('academic')) {
+        newEmail += `From an academic perspective, I'm particularly interested in your thoughts on how this aligns with current research in ${context.name.includes('Vinod') ? 'early psychosis' : 'community health'}.\n\n`;
+      }
+      
+      if (judgment.includes('商业') || judgment.includes('business') || judgment.includes('ROI')) {
+        newEmail += `From a business standpoint, the key value proposition remains focused on ${context.name.includes('Trillium') ? 'ROI and pilot scalability' : 'clinical implementation efficiency'}.\n\n`;
+      }
+      
+      if (judgment.includes('临床') || judgment.includes('clinical') || judgment.includes('安全')) {
+        newEmail += `Clinically, the approach maintains clear safety boundaries and referral pathways, which I know is a priority for ${context.name.includes('FQHC') ? 'FQHC implementation' : 'ethical practice'}.\n\n`;
+      }
+      
+      newEmail += `Based on your feedback about "${judgment.substring(0, 50)}...", I've adjusted the approach to better align with your concerns.\n\n`;
+      newEmail += `Would you be open to connecting when the timing works better for you?\n\n`;
+      newEmail += `Best,\nRichard`;
+      
+      document.getElementById('email-template').value = newEmail;
+      
+      // 更新AI建议基于用户判断
+      updateAIRecommendationBasedOnJudgment(judgment);
+      
+      alert(`✅ 已基于您的判断为${context.name}重新生成邮件！\n\n判断: "${judgment.substring(0, 50)}..."`);
+    }
+
+    // 基于用户判断更新AI建议
+    function updateAIRecommendationBasedOnJudgment(judgment) {
+      if (!currentStakeholder) return;
+
+      let recommendation = '';
+      let reason = '';
+
+      if (judgment.includes('延迟') || judgment.includes('wait')) {
+        recommendation = '建议等待1-2周后联系';
+        reason = `基于您的判断: "${judgment.substring(0, 30)}..."`;
+      } else if (judgment.includes('紧急') || judgment.includes('urgent')) {
+        recommendation = '建议24小时内联系';
+        reason = `基于您的判断: "${judgment.substring(0, 30)}..."`;
+      } else {
+        recommendation = '建议按原计划联系';
+        reason = `基于您的判断: "${judgment.substring(0, 30)}..."`;
+      }
+
+      const suggestionDiv = document.querySelector('.bg-green-50 .bg-white');
+      if (suggestionDiv) {
+        suggestionDiv.innerHTML = `
+          <div class="text-sm font-medium text-gray-800 mb-1">${recommendation}</div>
+          <div class="text-xs text-gray-600">${reason}</div>
+        `;
+      }
+    }
+
+    // 初始化利益相关者感知引擎
+    function initializeStakeholderEngine() {
+      // 默认选择第一个利益相关者
+      const defaultStakeholder = 'vinod';
+      document.getElementById('stakeholder-selector').value = defaultStakeholder;
+      loadStakeholderContext(defaultStakeholder);
+      
+      console.log('🎯 利益相关者感知行动引擎已初始化');
+      console.log(`默认选择: ${stakeholderContexts[defaultStakeholder].name}`);
+    }
+
+    // 在DOM加载完成后初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      // 初始化利益相关者感知引擎
+      initializeStakeholderEngine();
+      
+      console.log('🚀 利益相关者感知行动引擎功能:');
+      console.log('• loadStakeholderContext(id) - 加载利益相关者上下文');
+      console.log('• quickSwitchStakeholder(id) - 快速切换利益相关者');
+      console.log('• regenerateEmail() - 重新生成邮件');
+      console.log('• generateCallScript() - 生成通话脚本');
+    });
 
   </script>
 
