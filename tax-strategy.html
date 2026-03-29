@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tax Strategy & Optimization - NeighborBridge</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Simple config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: "#0ea5e9",
+            urgent: "#ef4444",
+            warning: "#f59e0b",
+            neutral: "#6b7280",
+            completed: "#10b981",
+            tax: {
+              travel: "#3b82f6",
+              homeoffice: "#8b5cf6",
+              communication: "#06b6d4",
+              software: "#10b981",
+              professional: "#f59e0b",
+              startup: "#ef4444"
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Shared Design System -->
+  <link rel="stylesheet" href="shared.css">
+  
+  <style>
+    /* Tax Strategy specific styles */
+    .tax-strategy-card {
+      border-radius: 0.75rem;
+      border: 1px solid #e5e7eb;
+      transition: all 0.2s ease;
+      background: white;
+    }
+    
+    .tax-strategy-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    .progress-ring {
+      transform: rotate(-90deg);
+    }
+    
+    .progress-ring-circle {
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.5s ease;
+    }
+    
+    .category-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .alert-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .transaction-row {
+      transition: all 0.2s ease;
+    }
+    
+    .transaction-row:hover {
+      background-color: #f9fafb;
+    }
+    
+    .deduction-suggestion {
+      border-left: 4px solid;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+    
+    .receipt-upload-area {
+      border: 2px dashed #d1d5db;
+      border-radius: 0.5rem;
+      transition: all 0.2s ease;
+    }
+    
+    .receipt-upload-area:hover {
+      border-color: #0ea5e9;
+      background-color: #f0f9ff;
+    }
+    
+    .receipt-upload-area.dragover {
+      border-color: #10b981;
+      background-color: #f0fdf4;
+    }
+    
+    /* Dark mode optimizations */
+    @media (prefers-color-scheme: dark) {
+      .tax-strategy-card {
+        background-color: #1f2937;
+        border-color: #374151;
+      }
+      
+      .transaction-row:hover {
+        background-color: #374151;
+      }
+      
+      .receipt-upload-area {
+        border-color: #4b5563;
+        background-color: #111827;
+      }
+      
+      .receipt-upload-area:hover {
+        border-color: #0ea5e9;
+        background-color: #1e3a8a;
+      }
+    }
+    
+    /* Two-column layout */
+    .two-col-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    @media (min-width: 1024px) {
+      .two-col-layout {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50">
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <a href="/" class="text-sm text-gray-600 hover:text-brand font-medium">
+          <i class="fas fa-arrow-left mr-1"></i> Main Dashboard
+        </a>
+        <h1 class="text-2xl font-bold">Tax Strategy & Optimization</h1>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span class="text-sm text-gray-500" id="last-updated">Last updated: Just now</span>
+        <button class="px-4 py-2 bg-blue-100 text-blue-700 text-sm font-medium rounded hover:bg-blue-200 transition" onclick="refreshDashboard()">
+          <i class="fas fa-sync-alt mr-1"></i> Refresh
+        </button>
+        <button class="px-4 py-2 bg-green-100 text-green-700 text-sm font-medium rounded hover:bg-green-200 transition" onclick="exportAllData()">
+          <i class="fas fa-download mr-1"></i> Export
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Layout -->
+  <div class="max-w-7xl mx-auto px-6 py-6">
+
+    <!-- Dashboard Header -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-800 mb-2">Proactive Tax Strategy & Business Expense Optimization</h1>
+      <p class="text-gray-600">Real-time tracking, deduction intelligence, and audit-safe documentation. Updated weekly.</p>
+    </div>
+
+    <!-- Two-Column Layout -->
+    <div class="two-col-layout">
+
+      <!-- Left Column -->
+      <div class="space-y-6">
+
+        <!-- MODULE A: Weekly Tax Execution Panel (CRITICAL) -->
+        <div class="tax-strategy-card p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-gray-800">
+              <i class="fas fa-calendar-check text-green-500 mr-2"></i> Weekly Tax Execution Panel
+            </h2>
+            <span class="text-sm text-gray-500">Week 13 of 52</span>
+          </div>
+          
+          <!-- Progress -->
+          <div class="mb-6">
+            <div class="flex justify-between text-sm mb-2">
+              <span class="text-gray-600">Weekly Completion:</span>
+              <span class="font-medium" id="weekly-completion">0%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div id="weekly-progress-bar" class="bg-green-500 h-2 rounded-full" style="width: 0%"></div>
+            </div>
+          </div>
+          
+          <!-- Checklist -->
+          <div class="space-y-4">
+            <!-- Item 1 -->
+            <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+              <input type="checkbox" id="weekly-item-1" class="h-5 w-5 text-blue-600 rounded mr-3" onchange="updateWeeklyProgress()">
+              <div class="flex-1">
+                <label for="weekly-item-1" class="font-medium text-gray-800 cursor-pointer">
+                  1. Reconcile all accounts (business + personal used for biz)
+                </label>
+                <p class="text-sm text-gray-600 mt-1">Check: Business checking, Credit cards, PayPal</p>
+              </div>
+            </div>
+            
+            <!-- Item 2 -->
+            <div class="flex items-center p-3 bg-purple-50 rounded-lg">
+              <input type="checkbox" id="weekly-item-2" class="h-5 w-5 text-purple-600 rounded mr-3" onchange="updateWeeklyProgress()">
+              <div class="flex-1">
+                <label for="weekly-item-2" class="font-medium text-gray-800 cursor-pointer">
+                  2. Categorize transactions (auto-suggest categories)
+                </label>
+                <p class="text-sm text-gray-600 mt-1">Use deduction intelligence below</p>
+              </div>
+            </div>
+            
+            <!-- Item 3 -->
+            <div class="flex items-center p-3 bg-green-50 rounded-lg">
+              <input type="checkbox" id="weekly-item-3" class="h-5 w-5 text-green-600 rounded mr-3" onchange="updateWeeklyProgress()">
+              <div class="flex-1">
+                <label for="weekly-item-3" class="font-medium text-gray-800 cursor-pointer">
+                  3. Identify deductible items
+                </label>
+                <div class="text-sm text-gray-600 mt-1 space-y-1">
+                  <div class="flex items-center">
+                    <i class="fas fa-home text-gray-400 mr-2 text-xs"></i>
+                    <span>Home office</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-phone text-gray-400 mr-2 text-xs"></i>
+                    <span>Phone / Internet %</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-plane text-gray-400 mr-2 text-xs"></i>
+                    <span>Travel (with logs)</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-laptop-code text-gray-400 mr-2 text-xs"></i>
+                    <span>Software / subscriptions</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-graduation-cap text-gray-400 mr-2 text-xs"></i>
+                    <span>CME / conferences</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Item 4 -->
+            <div class="flex items-center p-3 bg-yellow-50 rounded-lg">
+              <input type="checkbox" id="weekly-item-4" class="h-5 w-5 text-yellow-600 rounded mr-3" onchange="updateWeeklyProgress()">
+              <div class="flex-1">
+                <label for="weekly-item-4" class="font-medium text-gray-800 cursor-pointer">
+                  4. Flag "uncategorized expenses"
+                </label>
+                <p class="text-sm text-gray-600 mt-1">Review flagged items below</p>
+              </div>
+            </div>
+            
+            <!-- Item 5 -->
+            <div class="flex items-center p-3 bg-red-50 rounded-lg">
+              <input type="checkbox" id="weekly-item-5" class="h-5 w-5 text-red-600 rounded mr-3" onchange="updateWeeklyProgress()">
+              <div class="flex-1">
+                <label for="weekly-item-5" class="font-medium text-gray-800 cursor-pointer">
+                  5. Upload receipts / documentation
+                </label>
+                <p class="text-sm text-gray-600 mt-1">Use Audit Defense Vault below</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Complete Week Button -->
+          <div class="mt-6 pt-4 border-t border-gray-200">
+            <button id="complete-week-btn" class="w-full px-4 py-3 bg-green-500 text-white font-medium rounded-lg hover:bg-green-600 transition disabled:opacity-50 disabled:cursor-not-allowed" onclick="completeWeeklyChecklist()" disabled>
+              <i class="fas fa-check-circle mr-2"></i> Complete Week
+            </button>
+            <p class="text-xs text-gray-500 text-center mt-2">
+              Available when all items are checked
+            </p>
+          </div>
+        </div>
+
+        <!-- MODULE B: Deduction Intelligence Engine -->
+        <div class="tax-strategy-card p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-gray-800">
+              <i class="fas fa-brain text-purple-500 mr-2"></i> Deduction Intelligence Engine
+            </h2>
+            <button class="px-3 py-1 bg-purple-100 text-purple-700 text-sm font-medium rounded hover:bg-purple-200 transition" onclick="scanForDeductions()">
+              <i class="fas fa-search mr-1"></i> Scan
+            </button>
+          </div>
+          
+          <!-- Manual Entry -->
+          <div class="mb-6">
+            <h3 class="text-sm font-semibold text-gray-700 mb-3">Add Transaction</h3>
+            <div class="flex space-x-2">
+              <input type="text" id="transaction-desc" placeholder="Description (e.g., Uber ride)" class="flex-1 px-3 py-2 border border-gray-300 rounded text-sm">
+              <input type="number" id="transaction-amount" placeholder="Amount" class="w-24 px-3 py-2 border border-gray-300 rounded text-sm">
+              <button class="px-3 py-2 bg-blue-100 text-blue-700 text-sm font-medium rounded hover:bg-blue-200 transition" onclick="addTransaction()">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+            <p class="text-xs text-gray-500 mt-2">
+              Future: CSV import & Plaid API integration ready
+            </p>
+          </div>
+          
+          <!-- Suggested Classification -->
+          <div class="mb-6">
+            <h3 class="text-sm font-semibold text-gray-700 mb-3">Suggested Classification</h3>
+            <div class="grid grid-cols-3 gap-2">
+              <div class="text-center p-3 bg-green-50 rounded-lg">
+                <div class="text-lg font-bold text-green-700" id="business-count">0</div>
+                <div class="text-xs text-green-600">Business ✔</div>
+              </div>
+              <div class="text-center p-3 bg-yellow-50 rounded-lg">
+                <div class="text-lg font-bold text-yellow-700" id="review-count">0</div>
+                <div class="text-xs text-yellow-600">Review ⚠️</div>
+              </div>
+              <div class="text-center p-3 bg-red-50 rounded-lg">
+                <div class="text-lg font-bold text-red-700" id="personal-count">0</div>
+                <div class="text-xs text-red-600">Personal ❌</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Missed Deduction Opportunities -->
+          <div>
+            <h3 class="text-sm font-semibold text-gray-700 mb-3">Missed Deduction Opportunities</h3>
+            <div id="deduction-suggestions" class="space-y-2">
+              <!-- Suggestions will be dynamically added here -->
+              <div class="text-sm text-gray-500 text-center py-4">
+                No suggestions yet. Add transactions to see deduction opportunities.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODULE D: Audit Defense Vault -->
+        <div class="tax-strategy-card p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-gray-800">
+              <i class="fas fa-shield-alt text-blue-500 mr-2"></i> Audit Defense Vault
+            </h2>
+            <div class="flex items-center">
+              <span class="text-sm font-medium mr-3">Readiness:</span>
+              <span class="text-lg font-bold text-green-600" id="audit-score">85%</span>
+            </div>
+          </div>
+          
+          <!-- Receipt Upload -->
+          <div class="mb-6">
+            <h3 class="text-sm font-semibold text-gray-700 mb-3">Upload Receipts</h3>
+            <div id="receipt-upload-area" class="receipt-upload-area p-6 text-center cursor-pointer" onclick="document.getElementById('receipt-file').click()">
+              <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-3"></i>
+              <p class="text-sm text-gray-600">Drag & drop receipts or click to upload</p>
+              <p class="text-xs text-gray-500 mt-1">Supports: JPG, PNG, PDF (max 10MB)</p>
+              <input type="file" id="receipt-file" class="hidden" accept=".jpg,.jpeg,.png,.pdf" multiple onchange="handleReceiptUpload(this.files)">
+            </div>
+          </div>
+          
+          <!-- Tagging Form -->
+          <div class="mb-6">
+            <h3 class="text-sm font-semibold text-gray-700 mb-3">Tag Receipt</h3>
+            <div class="space-y-3">
+              <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">Category</label>
+                <select id="receipt-category" class="w-full px-3 py-2 border border-gray-300 rounded text-sm">
+                  <option value="travel">Travel</option>
+                  <option value="homeoffice">Home Office</option>
+                  <option value="communication">Communication</option>
+                  <option value="software">Software / Tools</option>
+                  <option value="professional">Professional (CME, licenses)</option>
+                  <option value="startup">Startup Costs</option>
+                </select>
+              </div>
+              
+              <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">Date</label>
+                <input type="date" id="receipt-date" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" value="2026-03-29">
+              </div>
+              
+              <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">Business Purpose <span class="text-red-500">*</span></label>
+                <textarea id="receipt-purpose" class="w-full px-3 py-2 border border-gray-300 rounded text-sm" rows="2" placeholder="Required for IRS documentation"></textarea>
+              </div>
+              
+              <button class="w-full px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded hover:bg-blue-600 transition" onclick="tagReceipt()">
+                <i class="fas fa-tag mr-1"></i> Tag & Save
+              </button>
+            </div>
+          </div>
+          
+          <!-- Structure Info -->
+          <div>
+            <h3 class="text-sm font-semibold text-gray-700 mb-2">Document Structure</h3>
+            <div class="text-xs text-gray-600 bg-gray-50 p-3 rounded">
+              <div class="font-medium mb-1">Organized by:</div>
+              <div class="font-mono">
+                /year/month/category/<br>
+                Example: /2026/03/travel/
+              </div>
+              <div class="mt-2 text-gray-500">
+                <i class="fas fa-info-circle mr-1"></i>
+                IRS-safe documentation structure
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODULE G: 30-Min Build Block Scheduler -->
+        <div class="tax-strategy-card p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-gray-800">
+              <i class="fas fa-clock text-purple-500 mr-2"></i> 30-Min Build Block Scheduler
+            </h2>
+            <span class="text-sm text-gray-500" id="next-slot">Today, 2 PM</span>
+          </div>
+          
+          <div class="text-center mb-6">
+            <div class="text-4xl font-bold text-gray-800 mb-2">30:00</div>
+            <div class="text-sm text-gray-600">Focused tax optimization session</div>
+          </div>
+          
+          <button class="w-full px-4 py-3 bg-purple-500 text-white font-medium rounded-lg hover:bg-purple-600 transition mb-4" onclick="startOptimizationSession()">
+            <i class="fas fa-play-circle mr-2"></i> Start 30-min Tax Optimization Session
+          </button>
+          
+          <!-- Auto-log -->
+          <div>
+            <h3 class="text-sm font-semibold text-gray-700 mb-3">Session Log</h3>
+            <div id="session-log" class="space-y-2 max-h-40 overflow-y-auto">
+              <div class="text-sm text-gray-500 text-center py-4">
+                No sessions logged yet
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-6">
+
+        <!-- MODULE C: Expense Categories Dashboard -->
+        <div class="tax-strategy-card p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-gray-800">
+              <i class="fas fa-chart-pie text-blue-500 mr-2"></i> Expense Categories Dashboard
+            </h2>
+            <div class="flex items-center">
+              <span class="text-sm text-gray-600 mr-2">YTD:</span>
+              <span class="text-lg font-bold text-gray-800" id="ytd-total">$0</span>
+            </div>
+          </div>
+          
+          <!-- Category Breakdown -->
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <!-- Travel -->
+            <div class="p-4 rounded-lg" style="background-color: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6;">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-2">
+                  <i class="fas fa-plane text-white text-sm"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800">Travel</h3>
+              </div>
+              <div class="text-2xl font-bold text-gray-800 mb-1" id="travel-total">$0</div>
+              <div class="text-xs text-gray-600">
+                <span id="travel-deductible">0%</span> deductible
+              </div>
+            </div>
+            
+            <!-- Home Office -->
+            <div class="p-4 rounded-lg" style="background-color: rgba(139, 92, 246, 0.1); border-left: 4px solid #8b5cf6;">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center mr-2">
+                  <i class="fas fa-home text-white text-sm"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800">Home Office</h3>
+              </div>
+              <div class="text-2xl font-bold text-gray-800 mb-1" id="homeoffice-total">$0</div>
+              <div class="text-xs text-gray-600">
+                <span id="homeoffice-deductible">0%</span> deductible
+              </div>
+            </div>
+            
+            <!-- Communication -->
+            <div class="p-4 rounded-lg" style="background-color: rgba(6, 182, 212, 0.1); border-left: 4px solid #06b6d4;">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center mr-2">
+                  <i class="fas fa-phone text-white text-sm"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800">Communication</h3>
+              </div>
+              <div class="text-2xl font-bold text-gray-800 mb-1" id="communication-total">$0</div>
+              <div class="text-xs text-gray-600">
+                <span id="communication-deductible">0%</span> deductible
+              </div>
+            </div>
+            
+            <!-- Software -->
+            <div class="p-4 rounded-lg" style="background-color: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981;">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center mr-2">
+                  <i class="fas fa-laptop-code text-white text-sm"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800">Software</h3>
+              </div>
+              <div class="text-2xl font-bold text-gray-800 mb-1" id="software-total">$0</div>
+              <div class="text-xs text-gray-600">
+                <span id="software-deductible">0%</span> deductible
+              </div>
+            </div>
+            
+            <!-- Professional -->
+            <div class="p-4 rounded-lg" style="background-color: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b;">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center mr-2">
+                  <i class="fas fa-graduation-cap text-white text-sm"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800">Professional</h3>
+              </div>
+              <div class="text-2xl font-bold text-gray-800 mb-1" id="professional-total">$0</div>
+              <div class="text-xs text-gray-600">
+                <span id="professional-deductible">0%</span> deductible
+              </div>
+            </div>
+            
+            <!-- Startup -->
+            <div class="p-4 rounded-lg" style="background-color: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444;">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center mr-2">
+                  <i class="fas fa-rocket text-white text-sm"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800">Startup</h3>
+              </div>
+              <div class="text-2xl font-bold text-gray-800 mb-1" id="startup-total">$0</div>
+              <div class="text-xs text-gray-600">
+                <span id="startup-deductible">0%</span> deductible
+              </div>
+            </div>
+          </div>
+          
+          <!-- Monthly vs YTD -->
+          <div>
+            <h3 class="text-sm font-semibold text-gray-700 mb-3">Monthly vs YTD</h3>
+            <div class="flex items-center justify-between text-sm">
+              <div>
+                <div class="text-gray-600">March 2026</div>
+                <div class="font-medium text-gray-800" id="monthly-total">$0</div>
+              </div>
+              <div class="text-gray-400">|</div>
+              <div>
+                <div class="text-gray-600">Year to Date</div>
+                <div class="font-medium text-gray-800" id="ytd-total-display">$0</div>
+              </div>
+              <div class="text-gray-400">|</div>
+              <div>
+                <div class="text-gray-600">% Deductible</div>
+                <div class="font-medium text-green-600" id="deductible-percentage">0%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODULE E: Tax Opportunity Alerts -->
+        <div class="tax-strategy-card p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-gray-800">
+              <i class="fas fa-bell text-red-500 mr-2"></i> Tax Opportunity Alerts
+            </h2>
+            <span class="text-sm text-gray-500" id="alert-count">0 alerts</span>
+          </div>
+          
+          <!-- Alerts Container -->
+          <div id="alerts-container" class="space-y-4">
+            <!-- Alerts will be dynamically added here -->
+            <div class="text-sm text-gray-500 text-center py-4">
+              No alerts at the moment. Add transactions to see opportunities.
+            </div>
+          </div>
+          
+          <!-- Alert Logic Info -->
+          <div class="mt-6 pt-4 border-t border-gray-200">
+            <h3 class="text-sm font-semibold text-gray-700 mb-2">Alert Logic</h3>
+            <div class="text-xs text-gray-600 space-y-1">
+              <div class="flex items-center">
+                <i class="fas fa-circle text-red-500 mr-2 text-xs"></i>
+                <span>High: Uncategorized expenses > $500</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-circle text-yellow-500 mr-2 text-xs"></i>
+                <span>Medium: Home office not updated this month</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-circle text-blue-500 mr-2 text-xs"></i>
+                <span>Low: No travel logs detected</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODULE F: Strategy Layer (HIGH VALUE) -->
+        <div class="tax-strategy-card p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-gray-800">
+              <i class="fas fa-chess-king text-yellow-500 mr-2"></i> Strategy Layer
+            </h2>
+            <span class="text-sm text-gray-500">High Value</span>
+          </div>
+          
+          <!-- Strategy Sections -->
+          <div class="space-y-4">
+            <!-- Home Office Optimization -->
+            <div class="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <h3 class="font-medium text-yellow-800 mb-2">1. Home Office Optimization</h3>
+              <p class="text-sm text-yellow-700">
+                • Square footage method vs. simplified method<br>
+                • Deduct: Mortgage interest, utilities, repairs, depreciation<br>
+                • Required: Exclusive and regular use for business
+              </p>
+            </div>
+            
+            <!-- Accountable Plan -->
+            <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <h3 class="font-medium text-blue-800 mb-2">2. Accountable Plan (future S-corp ready)</h3>
+              <p class="text-sm text-blue-700">
+                • Reimbursements not taxable income<br>
+                • Requirements: Business connection, substantiation, return of excess<br>
+                • Future: S-corp shareholder-employee structure
+              </p>
+            </div>
+            
+            <!-- Travel Structuring -->
+            <div class="p-4 bg-green-50 border border-green-200 rounded-lg">
+              <h3 class="font-medium text-green-800 mb-2">3. Travel Structuring (multi-purpose trips)</h3>
+              <p class="text-sm text-green-700">
+                • Business portion deductible, personal portion not<br>
+                • Keep detailed logs: Date, purpose, attendees, outcomes<br>
+                • Mix business with pleasure: Only business days deductible
+              </p>
+            </div>
+            
+            <!-- Timing Strategy -->
+            <div class="p-4 bg-purple-50 border border-purple-200 rounded-lg">
+              <h3 class="font-medium text-purple-800 mb-2">4. Timing Strategy</h3>
+              <p class="text-sm text-purple-700">
+                • <strong>Accelerate expenses</strong>: Prepay subscriptions, stock up supplies<br>
+                • <strong>Defer income</strong>: Invoice timing, payment terms<br>
+                • Cash vs. accrual method optimization
+              </p>
+            </div>
+            
+            <!-- Retirement -->
+            <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
+              <h3 class="font-medium text-red-800 mb-2">5. Retirement</h3>
+              <p class="text-sm text-red-700">
+                • <strong>Solo 401k</strong>: Up to $69,000 (2026)<br>
+                • <strong>Backdoor Roth</strong>: No income limits, tax-free growth<br>
+                • <strong>SEP IRA</strong>: Simpler, lower limits
+              </p>
+            </div>
+          </div>
+          
+          <!-- Dynamic Guidance -->
+          <div class="mt-6 pt-4 border-t border-gray-200">
+            <h3 class="text-sm font-semibold text-gray-700 mb-2">Dynamic Guidance</h3>
+            <div id="dynamic-guidance" class="text-sm text-gray-600">
+              Based on your current data, focus on: <span class="font-medium text-blue-600">categorizing existing transactions</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Structure Display -->
+        <div class="tax-strategy-card p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-gray-800">
+              <i class="fas fa-database text-gray-500 mr-2"></i> Data Structure
+            </h2>
+            <button class="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded hover:bg-gray-200 transition" onclick="toggleDataView()">
+              <i class="fas fa-eye mr-1"></i> View
+            </button>
+          </div>
+          
+          <div id="data-structure-view" class="hidden">
+            <pre id="json-data" class="text-xs bg-gray-900 text-gray-100 p-3 rounded-lg overflow-x-auto max-h-60">
+{
+  "transactions": [],
+  "categories": [
+    "travel",
+    "homeoffice", 
+    "communication",
+    "software",
+    "professional",
+    "startup"
+  ],
+  "receipts": [],
+  "weekly_status": {
+    "current_week": 13,
+    "completed_items": 0,
+    "total_items": 5
+  },
+  "alerts": [],
+  "audit_score": 85,
+  "last_updated": "2026-03-29T10:04:00Z"
+}</pre>
+            
+            <div class="mt-4 text-xs text-gray-600">
+              <i class="fas fa-code mr-1"></i>
+              JSON-based storage ready for future integrations
+            </div>
+          </div>
+          
+          <!-- Future Integration Hooks -->
+          <div class="mt-4">
+            <h3 class="text-sm font-semibold text-gray-700 mb-2">Future Integration Hooks</h3>
+            <div class="text-xs text-gray-600 space-y-1">
+              <div class="flex items-center">
+                <i class="fas fa-plug text-gray-400 mr-2"></i>
+                <span>Plaid API (bank sync)</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-cloud text-gray-400 mr-2"></i>
+                <span>Google Drive / S3 (receipt storage)</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-table text-gray-400 mr-2"></i>
+                <span>AppSheet / Sheets (KPI sync)</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-chart-line text-gray-400 mr-2"></i>
+                <span>Grafana (visualization)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Success Metrics -->
+    <div class="mt-8 tax-strategy-card p-6">
+      <h2 class="text-xl font-bold text-gray-800 mb-6">
+        <i class="fas fa-trophy text-green-500 mr-2"></i> Success Metrics
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="text-center p-4 bg-green-50 rounded-lg">
+          <div class="text-2xl font-bold text-green-700" id="weekly-completion-metric">0%</div>
+          <div class="text-sm text-green-600">Weekly Completion Rate</div>
+          <div class="text-xs text-gray-500 mt-1">Target: 100%</div>
+        </div>
+        
+        <div class="text-center p-4 bg-blue-50 rounded-lg">
+          <div class="text-2xl font-bold text-blue-700" id="uncategorized-metric">0%</div>
+          <div class="text-sm text-blue-600">Uncategorized Expenses</div>
+          <div class="text-xs text-gray-500 mt-1">Target: <5%</div>
+        </div>
+        
+        <div class="text-center p-4 bg-purple-50 rounded-lg">
+          <div class="text-2xl font-bold text-purple-700" id="deductions-captured">0</div>
+          <div class="text-sm text-purple-600">Major Deductions Captured</div>
+          <div class="text-xs text-gray-500 mt-1">Target: All</div>
+        </div>
+        
+        <div class="text-center p-4 bg-yellow-50 rounded-lg">
+          <div class="text-2xl font-bold text-yellow-700" id="audit-metric">85%</div>
+          <div class="text-sm text-yellow-600">Audit Readiness Score</div>
+          <div class="text-xs text-gray-500 mt-1">Target: 100%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-8 pt-8 border-t border-gray-200">
+      <div class="flex justify-between items-center">
+        <div class="text-sm text-gray-600">
+          <p>Tax Strategy & Optimization Dashboard • Proactive tax management</p>
+          <p class="mt-1">Phase 1 MVP: Weekly Panel, Expense Categorization, Manual Entry, Basic Alerts</p>
+        </div>
+        <div class="text-sm text-gray-500">
+          <p>NeighborBridge Tax System • v2.0</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- JavaScript -->
+  <script src="/tax-strategy.js"></script>
+</body>
+</html>
