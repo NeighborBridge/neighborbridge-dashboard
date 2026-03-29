@@ -845,3 +845,392 @@ function showNotification(message, type = 'info') {
 
 // Initialize on load
 window.addEventListener('DOMContentLoaded', initDashboard);
+
+// ============================================
+// TAX REDUCTION EXECUTION ENGINE FUNCTIONS
+// ============================================
+
+// Initialize tax reduction engine
+function initTaxReductionEngine() {
+  loadTaxReductionData();
+  renderWeeklyActions();
+  renderExpenseCategories();
+  renderExpenseTable();
+  renderTaxAlerts();
+  updateWeeklyCompletion();
+}
+
+// Load tax reduction data from localStorage
+function loadTaxReductionData() {
+  const saved = localStorage.getItem('taxReductionData');
+  if (saved) {
+    try {
+      taxData.taxReduction = JSON.parse(saved);
+    } catch (e) {
+      console.error('Error loading tax reduction data:', e);
+      initializeTaxReductionData();
+    }
+  } else {
+    initializeTaxReductionData();
+  }
+}
+
+// Initialize tax reduction data structure
+function initializeTaxReductionData() {
+  taxData.taxReduction = {
+    weeklyActions: [
+      { id: 1, text: "Log all business-related expenses from last 7 days", completed: false, timestamp: null },
+      { id: 2, text: "Tag personal vs business transactions", completed: false, timestamp: null },
+      { id: 3, text: "Identify any deductible travel or networking activity", completed: false, timestamp: null },
+      { id: 4, text: "Review subscriptions that qualify as business expense", completed: false, timestamp: null },
+      { id: 5, text: "Estimate current YTD business expenses", completed: false, timestamp: null }
+    ],
+    expenses: [
+      { id: 1, category: 'travel', description: 'Business trip to conference', amount: 450, date: '2026-03-25', deductible: true },
+      { id: 2, category: 'software', description: 'Project management tool subscription', amount: 29, date: '2026-03-20', deductible: true },
+      { id: 3, category: 'communication', description: 'Business phone line', amount: 45, date: '2026-03-15', deductible: true },
+      { id: 4, category: 'professional', description: 'Online course for business skills', amount: 199, date: '2026-03-10', deductible: true },
+      { id: 5, category: 'education', description: 'Industry certification', amount: 350, date: '2026-03-05', deductible: true }
+    ],
+    expenseCategories: [
+      { id: 'travel', name: 'Travel', color: '#3b82f6', total: 450, target: 2000 },
+      { id: 'phone', name: 'Phone/Internet', color: '#06b6d4', total: 45, target: 1200 },
+      { id: 'software', name: 'Software/Subscriptions', color: '#10b981', total: 29, target: 1000 },
+      { id: 'education', name: 'Education', color: '#8b5cf6', total: 350, target: 1500 },
+      { id: 'professional', name: 'Professional services', color: '#f59e0b', total: 199, target: 2000 }
+    ],
+    lastUpdated: new Date().toISOString()
+  };
+  
+  saveTaxReductionData();
+}
+
+// Save tax reduction data to localStorage
+function saveTaxReductionData() {
+  localStorage.setItem('taxReductionData', JSON.stringify(taxData.taxReduction));
+}
+
+// Render weekly actions
+function renderWeeklyActions() {
+  const container = document.getElementById('weekly-actions-list');
+  if (!container) return;
+  
+  container.innerHTML = '';
+  
+  taxData.taxReduction.weeklyActions.forEach(action => {
+    const actionElement = document.createElement('div');
+    actionElement.className = 'flex items-center justify-between p-3 bg-gray-50 rounded-lg';
+    actionElement.innerHTML = `
+      <div class="flex items-center">
+        <input type="checkbox" id="action-${action.id}" ${action.completed ? 'checked' : ''} 
+               onchange="toggleWeeklyAction(${action.id})" 
+               class="h-4 w-4 text-blue-600 rounded focus:ring-blue-500">
+        <label for="action-${action.id}" class="ml-3 text-sm ${action.completed ? 'text-gray-500 line-through' : 'text-gray-700'}">
+          ${action.text}
+        </label>
+      </div>
+      ${action.completed ? `
+        <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
+          <i class="fas fa-check mr-1"></i>${action.timestamp ? new Date(action.timestamp).toLocaleDateString() : 'Done'}
+        </span>
+      ` : `
+        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Pending</span>
+      `}
+    `;
+    container.appendChild(actionElement);
+  });
+}
+
+// Toggle weekly action completion
+function toggleWeeklyAction(actionId) {
+  const action = taxData.taxReduction.weeklyActions.find(a => a.id === actionId);
+  if (action) {
+    action.completed = !action.completed;
+    action.timestamp = action.completed ? new Date().toISOString() : null;
+    saveTaxReductionData();
+    renderWeeklyActions();
+    updateWeeklyCompletion();
+    renderTaxAlerts();
+  }
+}
+
+// Update weekly completion progress
+function updateWeeklyCompletion() {
+  const completed = taxData.taxReduction.weeklyActions.filter(a => a.completed).length;
+  const total = taxData.taxReduction.weeklyActions.length;
+  const percentage = Math.round((completed / total) * 100);
+  
+  const completionElement = document.getElementById('weekly-completion');
+  const progressBar = document.getElementById('weekly-progress-bar');
+  
+  if (completionElement) {
+    completionElement.textContent = `${completed}/${total}`;
+  }
+  
+  if (progressBar) {
+    progressBar.style.width = `${percentage}%`;
+    progressBar.className = `h-2 rounded-full ${percentage === 100 ? 'bg-green-500' : percentage >= 50 ? 'bg-yellow-500' : 'bg-red-500'}`;
+  }
+}
+
+// Calculate ROI
+function calculateROI() {
+  const input = document.getElementById('deduction-input');
+  if (!input) return;
+  
+  const deduction = parseFloat(input.value) || 1000;
+  const taxSaved = deduction * 0.30; // 30% bracket
+  
+  const resultElement = document.getElementById('roi-result');
+  if (resultElement) {
+    resultElement.innerHTML = `
+      <div class="flex items-center">
+        <i class="fas fa-chart-line text-green-600 text-xl mr-3"></i>
+        <div>
+          <p class="font-bold text-gray-800 text-lg">You save ~$${taxSaved.toFixed(0)} for every $${deduction.toFixed(0)} of deductions</p>
+          <p class="text-sm text-gray-600 mt-1">Formula: deduction × 0.30 (30% bracket)</p>
+          <p class="text-xs text-gray-500 mt-2">Estimated annual savings: $${(taxSaved * 12).toFixed(0)}</p>
+        </div>
+      </div>
+    `;
+  }
+}
+
+// Render expense categories
+function renderExpenseCategories() {
+  const container = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-5.gap-4.mb-4');
+  if (!container) return;
+  
+  container.innerHTML = '';
+  
+  taxData.taxReduction.expenseCategories.forEach(category => {
+    const percentage = Math.min(Math.round((category.total / category.target) * 100), 100);
+    const isLowUtilization = percentage < 30;
+    
+    const categoryElement = document.createElement('div');
+    categoryElement.className = `p-4 rounded-lg border ${isLowUtilization ? 'border-red-200 bg-red-50' : 'border-gray-200 bg-white'}`;
+    categoryElement.innerHTML = `
+      <div class="flex justify-between items-center mb-2">
+        <span class="font-medium text-gray-800">${category.name}</span>
+        <span class="text-xs px-2 py-1 rounded-full" style="background-color: ${category.color}20; color: ${category.color}">
+          ${percentage}%
+        </span>
+      </div>
+      <div class="text-2xl font-bold text-gray-800">$${category.total}</div>
+      <div class="text-sm text-gray-500 mt-1">Target: $${category.target}</div>
+      <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+        <div class="h-2 rounded-full" style="width: ${percentage}%; background-color: ${category.color}"></div>
+      </div>
+      ${isLowUtilization ? `
+        <div class="mt-2 text-xs text-red-600">
+          <i class="fas fa-exclamation-triangle mr-1"></i>Low utilization
+        </div>
+      ` : ''}
+    `;
+    container.appendChild(categoryElement);
+  });
+}
+
+// Render expense table
+function renderExpenseTable() {
+  const container = document.getElementById('expense-table');
+  if (!container) return;
+  
+  if (taxData.taxReduction.expenses.length === 0) {
+    container.innerHTML = `
+      <div class="text-center py-8 text-gray-500">
+        <i class="fas fa-receipt text-3xl mb-3"></i>
+        <p>No expenses logged yet</p>
+        <p class="text-sm mt-2">Click "Add Expense" to get started</p>
+      </div>
+    `;
+    return;
+  }
+  
+  let html = `
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead>
+        <tr>
+          <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+          <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+          <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+          <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+          <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+  `;
+  
+  taxData.taxReduction.expenses.forEach(expense => {
+    const category = taxData.taxReduction.expenseCategories.find(c => c.id === expense.category);
+    html += `
+      <tr class="hover:bg-gray-50">
+        <td class="px-4 py-3 text-sm text-gray-700">${expense.date}</td>
+        <td class="px-4 py-3 text-sm text-gray-800">${expense.description}</td>
+        <td class="px-4 py-3 text-sm">
+          <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium" 
+                style="background-color: ${category?.color || '#6b7280'}20; color: ${category?.color || '#6b7280'}">
+            ${category?.name || expense.category}
+          </span>
+        </td>
+        <td class="px-4 py-3 text-sm font-medium text-gray-900">$${expense.amount}</td>
+        <td class="px-4 py-3 text-sm">
+          <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+            <i class="fas fa-check mr-1"></i>Deductible
+          </span>
+        </td>
+      </tr>
+    `;
+  });
+  
+  html += `
+      </tbody>
+    </table>
+  `;
+  
+  container.innerHTML = html;
+}
+
+// Add new expense
+function addExpense() {
+  // For MVP, add a sample expense
+  const newExpense = {
+    id: taxData.taxReduction.expenses.length + 1,
+    category: 'professional',
+    description: 'Business consultation fee',
+    amount: 150,
+    date: new Date().toISOString().split('T')[0],
+    deductible: true
+  };
+  
+  taxData.taxReduction.expenses.unshift(newExpense);
+  
+  // Update category total
+  const category = taxData.taxReduction.expenseCategories.find(c => c.id === newExpense.category);
+  if (category) {
+    category.total += newExpense.amount;
+  }
+  
+  saveTaxReductionData();
+  renderExpenseCategories();
+  renderExpenseTable();
+  renderTaxAlerts();
+  
+  showNotification('Expense added successfully!', 'success');
+}
+
+// Render tax alerts
+function renderTaxAlerts() {
+  const container = document.getElementById('tax-alerts');
+  if (!container) return;
+  
+  const alerts = [];
+  
+  // Check for no expenses this week
+  const today = new Date();
+  const oneWeekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+  const recentExpenses = taxData.taxReduction.expenses.filter(expense => {
+    const expenseDate = new Date(expense.date);
+    return expenseDate >= oneWeekAgo;
+  });
+  
+  if (recentExpenses.length === 0) {
+    alerts.push({
+      type: 'warning',
+      icon: 'fa-exclamation-triangle',
+      text: 'No expenses logged this week',
+      details: 'Log at least 3 business expenses to maintain tax leverage'
+    });
+  }
+  
+  // Check for low business activity
+  const totalExpenses = taxData.taxReduction.expenses.reduce((sum, exp) => sum + exp.amount, 0);
+  if (totalExpenses < 1000) {
+    alerts.push({
+      type: 'warning',
+      icon: 'fa-chart-line',
+      text: 'Business activity too low to generate tax leverage',
+      details: 'Consider increasing deductible activities'
+    });
+  }
+  
+  // Check for incomplete weekly actions
+  const completedActions = taxData.taxReduction.weeklyActions.filter(a => a.completed).length;
+  if (completedActions < 2) {
+    alerts.push({
+      type: 'info',
+      icon: 'fa-tasks',
+      text: 'Weekly tax actions incomplete',
+      details: `${completedActions}/5 actions completed this week`
+    });
+  }
+  
+  // Check for low utilization categories
+  const lowUtilizationCategories = taxData.taxReduction.expenseCategories.filter(c => {
+    const percentage = Math.round((c.total / c.target) * 100);
+    return percentage < 30;
+  });
+  
+  if (lowUtilizationCategories.length > 0) {
+    alerts.push({
+      type: 'info',
+      icon: 'fa-chart-pie',
+      text: `${lowUtilizationCategories.length} categories underutilized`,
+      details: 'Consider increasing expenses in these categories'
+    });
+  }
+  
+  // If no alerts, show positive message
+  if (alerts.length === 0) {
+    alerts.push({
+      type: 'success',
+      icon: 'fa-check-circle',
+      text: 'Tax strategy on track',
+      details: 'All systems operational'
+    });
+  }
+  
+  container.innerHTML = '';
+  alerts.forEach(alert => {
+    const alertElement = document.createElement('div');
+    alertElement.className = `flex items-start p-3 rounded-lg ${
+      alert.type === 'warning' ? 'bg-yellow-50 border border-yellow-200' :
+      alert.type === 'info' ? 'bg-blue-50 border border-blue-200' :
+      'bg-green-50 border border-green-200'
+    }`;
+    alertElement.innerHTML = `
+      <i class="fas ${alert.icon} mt-1 mr-3 ${
+        alert.type === 'warning' ? 'text-yellow-600' :
+        alert.type === 'info' ? 'text-blue-600' :
+        'text-green-600'
+      }"></i>
+      <div>
+        <p class="font-medium text-gray-800">${alert.text}</p>
+        <p class="text-sm text-gray-600 mt-1">${alert.details}</p>
+      </div>
+    `;
+    container.appendChild(alertElement);
+  });
+}
+
+// Initialize tax reduction engine on dashboard load
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize main dashboard
+  initDashboard();
+  
+  // Initialize tax reduction engine
+  initTaxReductionEngine();
+  
+  // Set week number
+  const weekNumberElement = document.getElementById('week-number');
+  if (weekNumberElement) {
+    const today = new Date();
+    const start = new Date(today.getFullYear(), 0, 1);
+    const days = Math.floor((today - start) / (24 * 60 * 60 * 1000));
+    const weekNumber = Math.ceil((days + 1) / 7);
+    weekNumberElement.textContent = `Week ${weekNumber}`;
+  }
+  
+  // Initialize ROI calculator
+  calculateROI();
+});
