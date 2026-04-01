@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>家庭应急保障 - NeighborBridge</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Simple config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: "#0ea5e9",
+            urgent: "#ef4444",
+            warning: "#f59e0b",
+            neutral: "#6b7280",
+            completed: "#10b981",
+            emergency: {
+              critical: "#ef4444",
+              important: "#f59e0b",
+              normal: "#3b82f6",
+              support: "#10b981"
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Shared Design System -->
+  <link rel="stylesheet" href="shared.css">
+  
+  <style>
+    /* Emergency Plan specific styles */
+    .emergency-card {
+      border-radius: 0.75rem;
+      border: 1px solid #e5e7eb;
+      transition: all 0.2s ease;
+      background: white;
+    }
+    
+    .emergency-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .contact-card {
+      transition: all 0.2s ease;
+      border-left: 4px solid;
+    }
+    
+    .contact-card:hover {
+      background-color: #f9fafb;
+    }
+    
+    .print-optimized {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    
+    .emergency-instruction {
+      border-left: 4px solid #ef4444;
+      background-color: #fef2f2;
+    }
+    
+    .action-button {
+      transition: all 0.2s ease;
+    }
+    
+    .action-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .progress-ring {
+      transform: rotate(-90deg);
+    }
+    
+    .progress-ring-circle {
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.5s ease;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 print:bg-white">
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b print:hidden">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <a href="/" class="text-sm text-gray-600 hover:text-brand font-medium">
+          <i class="fas fa-arrow-left mr-1"></i> 主仪表板
+        </a>
+        <h1 class="text-2xl font-bold">🛡️ 家庭应急保障</h1>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span class="text-sm text-gray-500" id="last-updated">最后更新: 刚刚</span>
+        <button class="px-4 py-2 bg-blue-100 text-blue-700 text-sm font-medium rounded hover:bg-blue-200 transition" onclick="refreshDashboard()">
+          <i class="fas fa-sync-alt mr-1"></i> 刷新
+        </button>
+        <button class="px-4 py-2 bg-green-100 text-green-700 text-sm font-medium rounded hover:bg-green-200 transition" onclick="window.print()">
+          <i class="fas fa-print mr-1"></i> 打印
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Layout -->
+  <div class="max-w-7xl mx-auto px-6 py-6 print:px-0 print:py-4">
+
+    <!-- Dashboard Header -->
+    <div class="mb-8 print:mb-4">
+      <h1 class="text-3xl font-bold text-gray-800 mb-2">🛡️ 家庭应急保障系统</h1>
+      <p class="text-gray-600">为非英语移民母亲设计的紧急情况保护系统。简洁、可执行、可打印。</p>
+    </div>
+
+    <!-- Status Tracker -->
+    <div class="emergency-card p-6 mb-8 border-2 border-blue-200 bg-gradient-to-r from-blue-50 to-white print:break-inside-avoid">
+      <h2 class="text-xl font-bold text-gray-800 mb-4">
+        <i class="fas fa-chart-line text-blue-600 mr-2"></i> 应急准备进度
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Legal Setup -->
+        <div>
+          <div class="flex justify-between items-center mb-2">
+            <span class="font-medium text-gray-700">法律与授权</span>
+            <span class="text-lg font-bold text-gray-800" id="legal-progress">40%</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-3">
+            <div id="legal-progress-bar" class="bg-red-500 h-3 rounded-full" style="width: 40%"></div>
+          </div>
+          <p class="text-sm text-gray-500 mt-1">5项中完成2项</p>
+        </div>
+        
+        <!-- Contact Setup -->
+        <div>
+          <div class="flex justify-between items-center mb-2">
+            <span class="font-medium text-gray-700">紧急联系人</span>
+            <span class="text-lg font-bold text-gray-800" id="contact-progress">60%</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-3">
+            <div id="contact-progress-bar" class="bg-yellow-500 h-3 rounded-full" style="width: 60%"></div>
+          </div>
+          <p class="text-sm text-gray-500 mt-1">3项中完成2项</p>
+        </div>
+        
+        <!-- Financial Setup -->
+        <div>
+          <div class="flex justify-between items-center mb-2">
+            <span class="font-medium text-gray-700">财务与账户</span>
+            <span class="text-lg font-bold text-gray-800" id="financial-progress">30%</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-3">
+            <div id="financial-progress-bar" class="bg-blue-500 h-3 rounded-full" style="width: 30%"></div>
+          </div>
+          <p class="text-sm text-gray-500 mt-1">4项中完成1项</p>
+        </div>
+      </div>
+      
+      <div class="mt-6 pt-6 border-t">
+        <div class="flex items-center text-sm text-gray-600">
+          <i class="fas fa-bell text-yellow-500 mr-2"></i>
+          <span>下次检查: <span id="next-check">2026-07-01</span> (每3个月)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two-Column Layout -->
+    <div class="two-col-layout print:block">
+
+      <!-- Left Column -->
+      <div class="space-y-6 print:space-y-4">
+
+        <!-- A. 紧急联系人（CRITICAL） -->
+        <div class="emergency-card p-6 print:break-inside-avoid">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold text-gray-800">
+              <i class="fas fa-phone-alt text-red-600 mr-2"></i> 🚨 紧急联系人（CRITICAL）
+            </h2>
+            <button onclick="editContacts()" class="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded hover:bg-gray-200">
+              <i class="fas fa-edit mr-1"></i> 编辑
+            </button>
+          </div>
+          
+          <!-- Primary Contact -->
+          <div class="mb-6">
+            <h3 class="font-bold text-gray-700 mb-3">主要联系人 (1-2人)</h3>
+            <div class="space-y-4">
+              <div class="contact-card p-4 border-l-4 border-red-500 bg-red-50">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <p class="font-bold text-gray-800">张明</p>
+                    <p class="text-sm text-gray-600">关系: 朋友 / 决策者</p>
+                    <p class="text-sm text-gray-600">电话: (555) 123-4567</p>
+                  </div>
+                  <span class="status-badge bg-red-100 text-red-800">
+                    <i class="fas fa-star mr-1"></i>首要联系人
+                  </span>
+                </div>
+              </div>
+              
+              <div class="contact-card p-4 border-l-4 border-orange-500 bg-orange-50">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <p class="font-bold text-gray-800">李华</p>
+                    <p class="text-sm text-gray-600">关系: 表亲 / 协助者</p>
+                    <p class="text-sm text-gray-600">电话: (555) 987-6543</p>
+                  </div>
+                  <span class="status-badge bg-orange-100 text-orange-800">
+                    <i class="fas fa-user-check mr-1"></i>次要联系人
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Instructions -->
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h3 class="font-bold text-gray-700 mb-2">紧急情况指示</h3>
+            <ul class="space-y-2 text-sm text-gray-600">
+              <li class="flex items-start">
+                <i class="fas fa-arrow-right text-red-500 mt-1 mr-2"></i>
+                <span><strong>首先联系谁</strong>: 张明 (首要决策者)</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-arrow-right text-red-500 mt-1 mr-2"></i>
+                <span><strong>医疗紧急情况</strong>: 先打911，然后联系李华</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-arrow-right text-red-500 mt-1 mr-2"></i>
+                <span><strong>财务紧急情况</strong>: 联系张明处理授权事宜</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- B. 法律与授权（LEGAL） -->
+        <div class="emergency-card p-6 print:break-inside-avoid">
+          <h2 class="text-xl font-bold text-gray-800 mb-4">
+            <i class="fas fa-file-contract text-purple-600 mr-2"></i> 📄 法律与授权（LEGAL）
+          </h2>
+          
+          <div class="space-y-4">
+            <!-- Durable Power of Attorney -->
+            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div class="flex items-center">
+                <input type="checkbox" id="legal-1" class="h-4 w-4 text-purple-600 rounded focus:ring-purple-500">
+                <label for="legal-1" class="ml-3">
+                  <span class="font-medium text-gray-700">Durable Power of Attorney（财务授权）</span>
+                  <p class="text-sm text-gray-500">授权处理财务事务的法律文件</p>
+                </label>
+              </div>
+              <span class="status-badge bg-yellow-100 text-yellow-800">进行中</span>
+            </div>
+            
+            <!-- Healthcare Proxy -->
+            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div class="flex items-center">
+                <input type="checkbox" id="legal-2" checked class="h-4 w-4 text-green-600 rounded focus:ring-green-500">
+                <label for="legal-2" class="ml-3">
+                  <span class="font-medium text-gray-700">Healthcare Proxy（医疗代理）</span>
+                  <p class="text-sm text-gray-500">医疗决策授权</p>
+                </label>
+              </div>
+              <span class="status-badge bg-green-100 text-green-800">已完成</span>
+            </div>
+            
+            <!-- HIPAA Authorization -->
+            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div class="flex items-center">
+                <input type="checkbox" id="legal-3" class="h-4 w-4 text-purple-600 rounded focus:ring-purple-500">
+                <label for="legal-3" class="ml-3">
+                  <span class="font-medium text-gray-700">HIPAA Authorization</span>
+                  <p class="text-sm text-gray-500">医疗信息访问授权</p>
+                </label>
+              </div>
+              <span class="status-badge bg-gray-100 text-gray-800">未完成</span>
+            </div>
+            
+            <!-- Will -->
+            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div class="flex items-center">
+                <input type="checkbox" id="legal-4" checked class="h-4 w-4 text-green-600 rounded focus:ring-green-500">
+                <label for="legal-4" class="ml-3">
+                  <span class="font-medium text-gray-700">Will（简单遗嘱）</span>
+                  <p class="text-sm text-gray-500">资产分配指示</p>
+                </label>
+              </div>
+              <span class="status-badge bg-green-100 text-green-800">已完成</span>
+            </div>
+            
+            <!-- Emergency letter -->
+            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div class="flex items-center">
+                <input type="checkbox" id="legal-5" class="h-4 w-4 text-purple-600 rounded focus:ring-purple-500">
+                <label for="legal-5" class="ml-3">
+                  <span class="font-medium text-gray-700">Emergency letter (给母亲的说明信，中文)</span>
+                  <p class="text-sm text-gray-500">紧急情况操作指南</p>
+                </label>
+              </div>
+              <span class="status-badge bg-gray-100 text-gray-800">未完成</span>
+            </div>
+          </div>
+          
+          <div class="mt-6 pt-6 border-t">
+            <p class="text-sm text-gray-600">
+              <i class="fas fa-info-circle text-blue-500 mr-1"></i>
+              建议咨询律师完成所有法律文件。此清单仅为提醒。
+            </p>
+          </div>
+        </div>
+
+        <!-- E. 给母亲的说明（中文模块） -->
+        <div class="emergency-card p-6 print:break-inside-avoid">
+          <h2 class="text-xl font-bold text-gray-800 mb-4">
+            <i class="fas fa-comment-alt text-green-600 mr-2"></i> 🧠 给母亲的说明（中文）
+          </h2>
+          
+          <div class="emergency-instruction p-5 rounded-lg">
+            <h3 class="text-lg font-bold text-gray-800 mb-3">如果发生紧急情况，请这样做：</h3>
+            
+            <div class="space-y-4 text-gray-700">
+              <div>
+                <p class="font-medium mb-1">1. 首先打电话给谁：</p>
+                <ul class="list-disc pl-5 space-y-1">
+                  <li><strong>张明</strong>: (555) 123-4567（首要联系人）</li>
+                  <li><strong>李华</strong>: (555) 987-6543（备用联系人）</li>
+                </ul>
+              </div>
+              
+              <div>
+                <p class="font-medium mb-1">2. 医疗紧急情况：</p>
+                <ul class="list-disc pl-5 space-y-1">
+                  <li>先打 <strong>911</strong>（紧急医疗服务）</li>
+                  <li>然后联系张明或李华</li>
+                  <li>去最近的医院：<strong>社区医疗中心</strong></li>
+                </ul>
+              </div>
+              
+              <div>
+                <p class="font-medium mb-1">3. 日常生活需要帮助：</p>
+                <ul class="list-disc pl-5 space-y-1">
+                  <li>联系邻居：<strong>王阿姨</strong>（隔壁）</li>
+                  <li>教会朋友：<strong>陈姐妹</strong></li>
+                  <li>日常购物：<strong>李叔叔</strong>可以帮忙</li>
+                </ul>
+              </div>
+              
+              <div>
+                <p class="font-medium mb-1">4. 重要文件在哪里：</p>
+                <ul class="list-disc pl-5 space-y-1">
+                  <li>保险文件：<strong>书桌抽屉</strong></li>
+                  <li>医疗记录：<strong>蓝色文件夹</strong></li>
+                  <li>身份证件：<strong>保险柜</strong></li>
+                </ul>
+              </div>
+              
+              <div>
+                <p class="font-medium mb-1">5. 不需要担心：</p>
+                <ul class="list-disc pl-5 space-y-1">
+                  <li>不需要理解复杂系统</li>
+                  <li>只需要打电话给上面的人</li>
+                  <li>他们会帮你处理一切</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded">
+              <p class="text-sm text-blue-800">
+                <i class="fas fa-lightbulb mr-2"></i>
+                这份说明应该打印出来放在母亲容易看到的地方（如冰箱门）。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-6 print:space-y-4">
+
+        <!-- C. 财务与账户（FINANCIAL） -->
+        <div class="emergency-card p-6 print:break-inside-avoid">
+          <h2 class="text-xl font-bold text-gray-800 mb-4">
+            <i class="fas fa-piggy-bank text-green-600 mr-2"></i> 💰 财务与账户（FINANCIAL）
+          </h2>
+          
+          <div class="space-y-6">
+            <!-- Bank Accounts -->
+            <div>
+              <h3 class="font-bold text-gray-700 mb-3">银行账户（仅说明）</h3>
+              <div class="space-y-3">
+                <div class="p-3 bg-gray-50 rounded-lg">
+                  <p class="font-medium text-gray-800">主要支票账户</p>
+                  <p class="text-sm text-gray-600">银行: 本地信用合作社</p>
+                  <p class="text-sm text-gray-600">设置: 联名账户 (joint account)</p>
+                </div>
+                
+                <div class="p-3 bg-gray-50 rounded-lg">
+                  <p class="font-medium text-gray-800">储蓄账户</p>
+                  <p class="text-sm text-gray-600">银行: 全国性银行</p>
+                  <p class="text-sm text-gray-600">设置: 受益人指定 (beneficiary)</p>
+                </div>
+                
+                <div class="p-3 bg-gray-50 rounded-lg">
+                  <p class="font-medium text-gray-800">投资账户</p>
+                  <p class="text-sm text-gray-600">机构: 在线投资平台</p>
+                  <p class="text-sm text-gray-600">设置: 待完成</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Key Institutions -->
+            <div>
+              <h3 class="font-bold text-gray-700 mb-3">关键机构联系方式</h3>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                  <span class="text-gray-600">主要银行</span>
+                  <span class="font-medium">(555) 222-3333</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">保险公司</span>
+                  <span class="font-medium">(555) 444-5555</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">社会保障局</span>
+                  <span class="font-medium">1-800-772-1213</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Monthly Expenses -->
+            <div>
+              <h3 class="font-bold text-gray-700 mb-3">每月基本开支</h3>
+              <div class="space-y-2">
+                <div class="flex justify-between">
+                  <span class="text-gray-600">房租</span>
+                  <span class="font-medium">$1,200</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">水电费</span>
+                  <span class="font-medium">$150-200</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">医疗/药物</span>
+                  <span class="font-medium">$100-300</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">食品/生活用品</span>
+                  <span class="font-medium">$400-500</span>
+                </div>
+              </div>
+              <div class="mt-3 pt-3 border-t">
+                <div class="flex justify-between font-bold">
+                  <span>每月总计</span>
+                  <span>$1,850-2,200</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-6 pt-6 border-t">
+            <p class="text-sm text-gray-600">
+              <i class="fas fa-shield-alt text-green-500 mr-1"></i>
+              注意：不存储完整账号信息。仅作为提醒和说明。
+            </p>
+          </div>
+        </div>
+
+        <!-- D. 日常生活支持（LIFE SUPPORT） -->
+        <div class="emergency-card p-6 print:break-inside-avoid">
+          <h2 class="text-xl font-bold text-gray-800 mb-4">
+            <i class="fas fa-home text-blue-600 mr-2"></i> 🏠 日常生活支持（LIFE SUPPORT）
+          </h2>
+          
+          <div class="space-y-6">
+            <!-- Address -->
+            <div>
+              <h3 class="font-bold text-gray-700 mb-2">住址信息</h3>
+              <div class="p-3 bg-gray-50 rounded-lg">
+                <p class="font-medium text-gray-800">主要住址</p>
+                <p class="text-sm text-gray-600">123 Main Street, Apt 4B</p>
+                <p class="text-sm text-gray-600">城市, 州 12345</p>
+              </div>
+            </div>
+            
+            <!-- Medical System -->
+            <div>
+              <h3 class="font-bold text-gray-700 mb-2">医疗系统</h3>
+              <div class="space-y-3">
+                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                  <p class="font-medium text-gray-800">主要医疗中心 (FQHC)</p>
+                  <p class="text-sm text-gray-600">社区健康中心</p>
+                  <p class="text-sm text-gray-600">电话: (555) 777-8888</p>
+                </div>
+                
+                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                  <p class="font-medium text-gray-800">紧急医院</p>
+                  <p class="text-sm text-gray-600">城市综合医院</p>
+                  <p class="text-sm text-gray-600">电话: (555) 999-0000</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Medications -->
+            <div>
+              <h3 class="font-bold text-gray-700 mb-2">常用药物（如有）</h3>
+              <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                <p class="text-sm text-gray-600">高血压药物 (每日)</p>
+                <p class="text-sm text-gray-600">药房: 本地CVS</p>
+                <p class="text-sm text-gray-600">医生: 王医生</p>
+              </div>
+            </div>
+            
+            <!-- Daily Contacts -->
+            <div>
+              <h3 class="font-bold text-gray-700 mb-2">日常联系人</h3>
+              <div class="space-y-2">
+                <div class="flex justify-between">
+                  <span class="text-gray-600">邻居 (王阿姨)</span>
+                  <span class="font-medium">(555) 111-2222</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">教会朋友 (陈姐妹)</span>
+                  <span class="font-medium">(555) 333-4444</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">社区中心</span>
+                  <span class="font-medium">(555) 555-6666</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- F. 一键行动（ACTION PANEL） -->
+        <div class="emergency-card p-6 print:break-inside-avoid">
+          <h2 class="text-xl font-bold text-gray-800 mb-4">
+            <i class="fas fa-bolt text-purple-600 mr-2"></i> 📞 一键行动（ACTION PANEL）
+          </h2>
+          
+          <div class="space-y-4">
+            <!-- Generate Emergency Letter -->
+            <button onclick="generateEmergencyLetter()" 
+                    class="action-button w-full flex items-center justify-between p-4 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-envelope text-red-600"></i>
+                </div>
+                <div>
+                  <p class="font-bold text-gray-800">生成紧急说明信（中文）</p>
+                  <p class="text-sm text-gray-600">为母亲创建可打印的紧急指南</p>
+                </div>
+              </div>
+              <i class="fas fa-chevron-right text-gray-400"></i>
+            </button>
+            
+            <!-- Generate Notification Email -->
+            <button onclick="generateNotificationEmail()" 
+                    class="action-button w-full flex items-center justify-between p-4 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-mail-bulk text-blue-600"></i>
+                </div>
+                <div>
+                  <p class="font-bold text-gray-800">生成给朋友/联系人通知邮件</p>
+                  <p class="text-sm text-gray-600">创建紧急情况通知模板</p>
+                </div>
+              </div>
+              <i class="fas fa-chevron-right text-gray-400"></i>
+            </button>
+            
+            <!-- Generate Legal Checklist -->
+            <button onclick="generateLegalChecklist()" 
+                    class="action-button w-full flex items-center justify-between p-4 bg-green-50 border border-green-200 rounded-lg hover:bg-green-100 transition">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-tasks text-green-600"></i>
+                </div>
+                <div>
+                  <p class="font-bold text-gray-800">生成法律文件清单</p>
+                  <p class="text-sm text-gray-600">创建待办法律文件清单</p>
+                </div>
+              </div>
+              <i class="fas fa-chevron-right text-gray-400"></i>
+            </button>
+            
+            <!-- Export All Data -->
+            <button onclick="exportAllData()" 
+                    class="action-button w-full flex items-center justify-between p-4 bg-purple-50 border border-purple-200 rounded-lg hover:bg-purple-100 transition">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-download text-purple-600"></i>
+                </div>
+                <div>
+                  <p class="font-bold text-gray-800">导出所有数据</p>
+                  <p class="text-sm text-gray-600">备份所有应急计划信息</p>
+                </div>
+              </div>
+              <i class="fas fa-chevron-right text-gray-400"></i>
+            </button>
+          </div>
+          
+          <div class="mt-6 pt-6 border-t">
+            <div class="flex items-center text-sm text-gray-600">
+              <i class="fas fa-clock text-blue-500 mr-2"></i>
+              <span>最后提醒设置: <span id="last-reminder">2026-04-01</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reminder System -->
+    <div class="emergency-card p-6 mt-8 print:hidden">
+      <h2 class="text-xl font-bold text-gray-800 mb-4">
+        <i class="fas fa-bell text-yellow-600 mr-2"></i> 提醒系统
+      </h2>
+      
+      <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+        <div class="flex items-start">
+          <i class="fas fa-exclamation-triangle text-yellow-600 mt-1 mr-3"></i>
+          <div>
+            <p class="font-medium text-gray-800">每3个月检查一次应急计划</p>
+            <p class="text-sm text-gray-600 mt-1">下次检查: <span class="font-medium">2026-07-01</span></p>
+            <p class="text-sm text-gray-600 mt-2">若未完成关键模块（法律授权、紧急联系人），系统将显示高优先级提示。</p>
+          </div>
+        </div>
+        
+        <div class="mt-4 flex space-x-3">
+          <button onclick="setReminder()" class="px-4 py-2 bg-yellow-100 text-yellow-800 text-sm font-medium rounded hover:bg-yellow-200">
+            <i class="fas fa-calendar-plus mr-1"></i> 设置提醒
+          </button>
+          <button onclick="markAsReviewed()" class="px-4 py-2 bg-green-100 text-green-800 text-sm font-medium rounded hover:bg-green-200">
+            <i class="fas fa-check mr-1"></i> 标记为已检查
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Print Notice -->
+    <div class="hidden print:block mt-8 p-4 border-t">
+      <p class="text-sm text-gray-500 text-center">
+        家庭应急保障计划 - 打印日期: <span id="print-date">2026-04-01</span> | 
+        建议每3个月更新一次 | 将本文件放在母亲容易看到的地方
+      </p>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Emergency Plan Dashboard JavaScript
+    
+    // Data structure
+    let emergencyData = {
+      contacts: {
+        primary: [
+          { name: "张明", phone: "(555) 123-4567", relationship: "朋友", role: "决策者", priority: 1 },
+          { name: "李华", phone: "(555) 987-6543", relationship: "表亲", role: "协助者", priority: 2 }
+        ],
+        secondary: [],
+        instructions: [
+          "首先联系谁: 张明 (首要决策者)",
+          "医疗紧急情况: 先打911，然后联系李华",
+          "财务紧急情况: 联系张明处理授权事宜"
+        ]
+      },
+      legal: [
+        { id: 1, name: "Durable Power of Attorney（财务授权）", status: "in-progress", completed: false },
+        { id: 2, name: "Healthcare Proxy（医疗代理）", status: "completed", completed: true },
+        { id: 3, name: "HIPAA Authorization", status: "not-started", completed: false },
+        { id: 4, name: "Will（简单遗嘱）", status: "completed", completed: true },
+        { id: 5, name: "Emergency letter (给母亲的说明信，中文)", status: "not-started", completed: false }
+      ],
+      financial: {
+        accounts: [
+          { name: "主要支票账户", institution: "本地信用合作社", type: "joint" },
+          { name: "储蓄账户", institution: "全国性银行", type: "beneficiary" },
+          { name: "投资账户", institution: "在线投资平台", type: "pending" }
+        ],
+        institutions: [
+          { name: "主要银行", contact: "(555) 222-3333" },
+          { name: "保险公司", contact: "(555) 444-5555" },
+          { name: "社会保障局", contact: "1-800-772-1213" }
+        ],
+        expenses: [
+          { category: "房租", amount: 1200 },
+          { category: "水电费", amount: "150-200" },
+          { category: "医疗/药物", amount: "100-300" },
+          { category: "食品/生活用品", amount: "400-500" }
+        ]
+      },
+      lifeSupport: {
+        address: "123 Main Street, Apt 4B, 城市, 州 12345",
+        medical: [
+          { name: "社区健康中心 (FQHC)", contact: "(555) 777-8888", type: "primary" },
+          { name: "城市综合医院", contact: "(555) 999-0000", type: "emergency" }
+        ],
+        medications: [
+          { name: "高血压药物", pharmacy: "本地CVS", doctor: "王医生", frequency: "每日" }
+        ],
+        dailyContacts: [
+          { name: "邻居 (王阿姨)", contact: "(555) 111-2222" },
+          { name: "教会朋友 (陈姐妹)", contact: "(555) 333-4444" },
+          { name: "社区中心", contact: "(555) 555-6666" }
+        ]
+      },
+      reminders: {
+        lastCheck: "2026-04-01",
+        nextCheck: "2026-07-01",
+        frequency: "3 months"
+      },
+      lastUpdated: new Date().toISOString()
+    };
+
+    // Initialize dashboard
+    function initDashboard() {
+      updateLastUpdated();
+      loadFromLocalStorage();
+      updateProgressBars();
+      setupEventListeners();
+      updatePrintDate();
+    }
+
+    // Update last updated timestamp
+    function updateLastUpdated() {
+      const now = new Date();
+      const options = { 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      };
+      
+      const formatted = now.toLocaleDateString('zh-CN', options);
+      const element = document.getElementById('last-updated');
+      if (element) {
+        element.textContent = `最后更新: ${formatted}`;
+      }
+    }
+
+    // Update print date
+    function updatePrintDate() {
+      const now = new Date();
+      const formatted = now.toISOString().split('T')[0];
+      const element = document.getElementById('print-date');
+      if (element) {
+        element.textContent = formatted;
+      }
+    }
+
+    // Load data from localStorage
+    function loadFromLocalStorage() {
+      const saved = localStorage.getItem('emergencyPlanData');
+      if (saved) {
+        try {
+          emergencyData = JSON.parse(saved);
+        } catch (e) {
+          console.error('Error loading emergency plan data:', e);
+        }
+      }
+    }
+
+    // Save data to localStorage
+    function saveToLocalStorage() {
+      emergencyData.lastUpdated = new Date().toISOString();
+      localStorage.setItem('emergencyPlanData', JSON.stringify(emergencyData));
+      updateLastUpdated();
+    }
+
+    // Update progress bars
+    function updateProgressBars() {
+      // Legal progress
+      const legalCompleted = emergencyData.legal.filter(item => item.completed).length;
+      const legalTotal = emergencyData.legal.length;
+      const legalPercentage = Math.round((legalCompleted / legalTotal) * 100);
+      
+      document.getElementById('legal-progress').textContent = `${legalPercentage}%`;
+      document.getElementById('legal-progress-bar').style.width = `${legalPercentage}%`;
+      document.getElementById('legal-progress-bar').className = `h-3 rounded-full ${
+        legalPercentage >= 80 ? 'bg-green-500' : 
+        legalPercentage >= 50 ? 'bg-yellow-500' : 'bg-red-500'
+      }`;
+      
+      // Contact progress (simplified)
+      const contactPercentage = 60; // Based on having primary contacts
+      document.getElementById('contact-progress').textContent = `${contactPercentage}%`;
+      document.getElementById('contact-progress-bar').style.width = `${contactPercentage}%`;
+      document.getElementById('contact-progress-bar').className = `h-3 rounded-full ${
+        contactPercentage >= 80 ? 'bg-green-500' : 
+        contactPercentage >= 50 ? 'bg-yellow-500' : 'bg-red-500'
+      }`;
+      
+      // Financial progress (simplified)
+      const financialPercentage = 30; // Based on account setup
+      document.getElementById('financial-progress').textContent = `${financialPercentage}%`;
+      document.getElementById('financial-progress-bar').style.width = `${financialPercentage}%`;
+      document.getElementById('financial-progress-bar').className = `h-3 rounded-full ${
+        financialPercentage >= 80 ? 'bg-green-500' : 
+        financialPercentage >= 50 ? 'bg-yellow-500' : 'bg-red-500'
+      }`;
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      // Legal checklist checkboxes
+      emergencyData.legal.forEach(item => {
+        const checkbox = document.getElementById(`legal-${item.id}`);
+        if (checkbox) {
+          checkbox.checked = item.completed;
+          checkbox.addEventListener('change', function() {
+            item.completed = this.checked;
+            item.status = this.checked ? 'completed' : 'in-progress';
+            saveToLocalStorage();
+            updateProgressBars();
+            showNotification('法律清单已更新', 'success');
+          });
+        }
+      });
+    }
+
+    // Generate emergency letter
+    function generateEmergencyLetter() {
+      const letterContent = `
+家庭应急保障指南
+====================
+生成日期: ${new Date().toLocaleDateString('zh-CN')}
+
+亲爱的妈妈：
+
+如果发生紧急情况（我暂时无法联系），请按照以下步骤操作：
+
+1. 首先联系：
+   - 张明: (555) 123-4567（首要联系人）
+   - 李华: (555) 987-6543（备用联系人）
+
+2. 医疗紧急情况：
+   - 立即拨打 911
+   - 然后联系张明或李华
+   - 去最近的医院：社区医疗中心
+
+3. 日常生活帮助：
+   - 邻居王阿姨: (555) 111-2222
+   - 教会陈姐妹: (555) 333-4444
+   - 购物帮助李叔叔
+
+4. 重要文件位置：
+   - 保险文件：书桌抽屉
+   - 医疗记录：蓝色文件夹
+   - 身份证件：保险柜
+
+5. 不需要担心：
+   - 不需要理解复杂系统
+   - 只需要打电话给上面的人
+   - 他们会帮你处理一切
+
+请将这份指南贴在冰箱门或容易看到的地方。
+
+爱你的，
+[你的名字]
+      `;
+      
+      // Create download link
+      const blob = new Blob([letterContent], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = '家庭应急指南.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      showNotification('紧急说明信已生成并下载', 'success');
+    }
+
+    // Generate notification email
+    function generateNotificationEmail() {
+      const emailContent = `
+主题：紧急情况联系信息
+
+亲爱的朋友/联系人：
+
+如果发生紧急情况（我暂时无法联系），以下是我的应急计划联系人信息：
+
+主要联系人：
+1. 张明 - (555) 123-4567（首要决策者）
+2. 李华 - (555) 987-6543（协助者）
+
+我母亲的住址：
+123 Main Street, Apt 4B
+城市, 州 12345
+
+关键医疗信息：
+- 主要医疗中心：社区健康中心 (555) 777-8888
+- 紧急医院：城市综合医院 (555) 999-0000
+- 常用药物：高血压药物（每日）
+
+如果您需要联系我母亲或协助处理紧急情况，请先联系张明。
+
+感谢您的帮助和支持。
+
+此致，
+[你的名字]
+      `;
+      
+      // Copy to clipboard
+      navigator.clipboard.writeText(emailContent).then(() => {
+        showNotification('通知邮件模板已复制到剪贴板', 'success');
+      }).catch(err => {
+        console.error('复制失败:', err);
+        showNotification('复制失败，请手动复制文本', 'error');
+      });
+    }
+
+    // Generate legal checklist
+    function generateLegalChecklist() {
+      const checklistContent = `
+家庭应急法律文件清单
+====================
+生成日期: ${new Date().toLocaleDateString('zh-CN')}
+
+待完成法律文件：
+
+1. [${emergencyData.legal[0].completed ? '✓' : ' '}] Durable Power of Attorney（财务授权）
+   状态: ${emergencyData.legal[0].status === 'completed' ? '已完成' : 
+          emergencyData.legal[0].status === 'in-progress' ? '进行中' : '未开始'}
+
+2. [${emergencyData.legal[1].completed ? '✓' : ' '}] Healthcare Proxy（医疗代理）
+   状态: ${emergencyData.legal[1].status === 'completed' ? '已完成' : 
+          emergencyData.legal[1].status === 'in-progress' ? '进行中' : '未开始'}
+
+3. [${emergencyData.legal[2].completed ? '✓' : ' '}] HIPAA Authorization
+   状态: ${emergencyData.legal[2].status === 'completed' ? '已完成' : 
+          emergencyData.legal[2].status === 'in-progress' ? '进行中' : '未开始'}
+
+4. [${emergencyData.legal[3].completed ? '✓' : ' '}] Will（简单遗嘱）
+   状态: ${emergencyData.legal[3].status === 'completed' ? '已完成' : 
+          emergencyData.legal[3].status === 'in-progress' ? '进行中' : '未开始'}
+
+5. [${emergencyData.legal[4].completed ? '✓' : ' '}] Emergency letter (给母亲的说明信，中文)
+   状态: ${emergencyData.legal[4].status === 'completed' ? '已完成' : 
+          emergencyData.legal[4].status === 'in-progress' ? '进行中' : '未开始'}
+
+建议行动：
+- 咨询律师完成所有法律文件
+- 将重要文件存放在安全且易于访问的地方
+- 确保所有联系人都知道文件位置
+
+      `;
+      
+      // Create download link
+      const blob = new Blob([checklistContent], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = '法律文件清单.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      showNotification('法律文件清单已生成并下载', 'success');
+    }
+
+    // Export all data
+    function exportAllData() {
+      const dataStr = JSON.stringify(emergencyData, null, 2);
+      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+      
+      const exportFileDefaultName = 'emergency-plan-backup.json';
+      
+      const linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
+      linkElement.click();
+      
+      showNotification('所有数据已导出备份', 'success');
+    }
+
+    // Edit contacts
+    function editContacts() {
+      showNotification('联系人编辑功能开发中', 'info');
+      // In a real implementation, this would open a modal for editing contacts
+    }
+
+    // Set reminder
+    function setReminder() {
+      const nextDate = new Date();
+      nextDate.setMonth(nextDate.getMonth() + 3);
+      const formattedDate = nextDate.toISOString().split('T')[0];
+      
+      emergencyData.reminders.nextCheck = formattedDate;
+      saveToLocalStorage();
+      
+      document.getElementById('next-check').textContent = formattedDate;
+      showNotification(`提醒已设置为: ${formattedDate}`, 'success');
+    }
+
+    // Mark as reviewed
+    function markAsReviewed() {
+      const today = new Date().toISOString().split('T')[0];
+      emergencyData.reminders.lastCheck = today;
+      saveToLocalStorage();
+      
+      document.getElementById('last-reminder').textContent = today;
+      showNotification('应急计划已标记为已检查', 'success');
+    }
+
+    // Refresh dashboard
+    function refreshDashboard() {
+      loadFromLocalStorage();
+      updateProgressBars();
+      showNotification('仪表板已刷新', 'info');
+    }
+
+    // Show notification
+    function showNotification(message, type = 'info') {
+      // Create notification element
+      const notification = document.createElement('div');
+      notification.className = `fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg max-w-sm ${
+        type === 'success' ? 'bg-green-100 text-green-800 border border-green-200' :
+        type === 'error' ? 'bg-red-100 text-red-800 border border-red-200' :
+        type === 'warning' ? 'bg-yellow-100 text-yellow-800 border border-yellow-200' :
+        'bg-blue-100 text-blue-800 border border-blue-200'
+      }`;
+      
+      notification.innerHTML = `
+        <div class="flex items-center">
+          <i class="fas ${
+            type === 'success' ? 'fa-check-circle' :
+            type === 'error' ? 'fa-exclamation-circle' :
+            type === 'warning' ? 'fa-exclamation-triangle' :
+            'fa-info-circle'
+          } mr-2"></i>
+          <span>${message}</span>
+        </div>
+      `;
+      
+      // Add to body
+      document.body.appendChild(notification);
+      
+      // Remove after 3 seconds
+      setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transition = 'opacity 0.5s';
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 500);
+      }, 3000);
+    }
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', initDashboard);
+  </script>
+</body>
+</html>
+
