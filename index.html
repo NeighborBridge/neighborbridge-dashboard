@@ -104,6 +104,84 @@
       transform: translateY(-1px);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+    
+    /* Task Management Styles */
+    .task-item {
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      background: var(--hover-bg);
+      border: 1px solid #e5e7eb;
+      transition: all 0.2s ease;
+    }
+    
+    .task-item:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+    
+    .task-status {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+    
+    .task-status:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .status-not-started {
+      background-color: #f3f4f6;
+      color: #6b7280;
+      border-color: #d1d5db;
+    }
+    
+    .status-not-started:hover {
+      background-color: #e5e7eb;
+    }
+    
+    .status-in-progress {
+      background-color: #dbeafe;
+      color: #1d4ed8;
+      border-color: #93c5fd;
+    }
+    
+    .status-in-progress:hover {
+      background-color: #bfdbfe;
+    }
+    
+    .status-in-progress.active {
+      background-color: #3b82f6;
+      color: white;
+      border-color: #1d4ed8;
+    }
+    
+    .status-completed {
+      background-color: #d1fae5;
+      color: #065f46;
+      border-color: #6ee7b7;
+    }
+    
+    .status-completed:hover {
+      background-color: #a7f3d0;
+    }
+    
+    .status-completed.active {
+      background-color: #10b981;
+      color: white;
+      border-color: #059669;
+    }
+    
+    /* Overdue task warning */
+    .task-item[data-overdue="true"] {
+      border-left: 3px solid #ef4444;
+      background: linear-gradient(90deg, rgba(239, 68, 68, 0.05), transparent);
+    }
   </style>
 </head>
 
@@ -142,8 +220,23 @@
 
     <!-- Command Center Header -->
     <div class="mb-6">
-      <h1 class="text-2xl font-bold text-gray-800 mb-2">NeighborBridge Command Center</h1>
-      <p class="text-sm text-gray-600">聚合所有子仪表板信号，提供可执行洞察</p>
+      <div class="flex justify-between items-start">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-800 mb-2">NeighborBridge Command Center</h1>
+          <p class="text-sm text-gray-600">聚合所有子仪表板信号，提供可执行洞察</p>
+        </div>
+        <div class="flex space-x-3">
+          <!-- Manual Sync Button -->
+          <button id="sync-button" onclick="syncAllDashboards()" 
+                  class="px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded hover:bg-blue-600 transition flex items-center">
+            <i class="fas fa-sync-alt mr-2"></i> 同步所有子仪表板
+          </button>
+          <div class="text-xs text-gray-500">
+            <div>最后同步: <span id="last-sync-time">刚刚</span></div>
+            <div>任务模式: <span class="font-medium text-green-600">手动同步</span></div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- 🛡️ 版本控制面板 (隐藏) -->
@@ -555,32 +648,93 @@
       <!-- Left Column -->
       <div class="space-y-6">
 
-        <!-- 🎯 今日建议 -->
+        <!-- 🎯 任务与建议 (手动同步) -->
         <div class="dashboard-card bg-card rounded-lg p-5 command-section" style="border-left-color: #0ea5e9;">
           <div class="flex justify-between items-start mb-4">
             <div>
-              <h2 class="text-lg font-semibold text-gray-800 mb-1">🎯 今日建议</h2>
-              <p class="text-xs text-gray-500">基于FQHC状态、Trillium优先级、利益相关者可用性</p>
+              <h2 class="text-lg font-semibold text-gray-800 mb-1">🎯 任务与建议</h2>
+              <p class="text-xs text-gray-500">任务持久化系统 - 点击状态标签更新进度</p>
             </div>
-            <span class="status-badge status-executable">可执行</span>
+            <div class="flex items-center space-x-2">
+              <span class="status-badge bg-blue-100 text-blue-800">手动同步</span>
+              <button onclick="addNewTask()" class="text-xs text-blue-600 hover:text-blue-800">
+                <i class="fas fa-plus mr-1"></i>添加任务
+              </button>
+            </div>
           </div>
           
-          <div class="space-y-3">
-            <div class="recommendation-bullet">
-              <div class="text-sm text-gray-700">
-                <span class="font-medium">联系Vinod Srihari</span> - 讨论Trillium试点在FQHC中的学术合作机会
+          <!-- Task List -->
+          <div id="task-list" class="space-y-3">
+            <!-- Task 1 -->
+            <div class="task-item" data-task-id="1" data-created="2026-04-03">
+              <div class="flex items-start justify-between">
+                <div class="flex-1">
+                  <div class="text-sm text-gray-700">
+                    <span class="font-medium">联系Vinod Srihari</span> - 讨论Trillium试点在FQHC中的学术合作机会
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    创建: 2026-04-03 • 最后更新: 刚刚
+                  </div>
+                </div>
+                <div class="flex space-x-1 ml-3">
+                  <span class="task-status status-not-started" onclick="updateTaskStatus(1, 'not-started')">未开始</span>
+                  <span class="task-status status-in-progress" onclick="updateTaskStatus(1, 'in-progress')">进行中</span>
+                  <span class="task-status status-completed" onclick="updateTaskStatus(1, 'completed')">已完成</span>
+                </div>
               </div>
             </div>
-            <div class="recommendation-bullet">
-              <div class="text-sm text-gray-700">
-                <span class="font-medium">发送Medical Director沟通</span> - 使用FQHC面板中的执行卡模板
+            
+            <!-- Task 2 -->
+            <div class="task-item" data-task-id="2" data-created="2026-04-03">
+              <div class="flex items-start justify-between">
+                <div class="flex-1">
+                  <div class="text-sm text-gray-700">
+                    <span class="font-medium">发送Medical Director沟通</span> - 使用FQHC面板中的执行卡模板
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    创建: 2026-04-03 • 最后更新: 刚刚
+                  </div>
+                </div>
+                <div class="flex space-x-1 ml-3">
+                  <span class="task-status status-not-started" onclick="updateTaskStatus(2, 'not-started')">未开始</span>
+                  <span class="task-status status-in-progress" onclick="updateTaskStatus(2, 'in-progress')">已完成</span>
+                  <span class="task-status status-completed" onclick="updateTaskStatus(2, 'completed')">已完成</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Task 3 (示例) -->
+            <div class="task-item" data-task-id="3" data-created="2026-04-01">
+              <div class="flex items-start justify-between">
+                <div class="flex-1">
+                  <div class="text-sm text-gray-700">
+                    <span class="font-medium">评估FASD护理路径实施</span> - 分析在Trillium环境中的可行性
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    创建: 2026-04-01 • 最后更新: 2天前
+                    <span class="ml-2 text-red-500 font-medium">⚠️ 超过3天未完成</span>
+                  </div>
+                </div>
+                <div class="flex space-x-1 ml-3">
+                  <span class="task-status status-not-started" onclick="updateTaskStatus(3, 'not-started')">未开始</span>
+                  <span class="task-status status-in-progress active" onclick="updateTaskStatus(3, 'in-progress')">进行中</span>
+                  <span class="task-status status-completed" onclick="updateTaskStatus(3, 'completed')">已完成</span>
+                </div>
               </div>
             </div>
           </div>
           
           <div class="mt-4 pt-3 border-t border-gray-200">
-            <div class="text-xs text-gray-500">
-              <span class="font-medium">依据:</span> FQHC状态(待对齐) • Trillium优先级(高) • Stakeholder可用性(中)
+            <div class="flex justify-between items-center">
+              <div class="text-xs text-gray-500">
+                <span class="font-medium">任务统计:</span> 
+                <span class="text-green-600">1 已完成</span> • 
+                <span class="text-blue-600">1 进行中</span> • 
+                <span class="text-gray-600">1 未开始</span>
+              </div>
+              <button onclick="clearCompletedTasks()" class="text-xs text-gray-500 hover:text-gray-700">
+                <i class="fas fa-trash-alt mr-1"></i>清除已完成
+              </button>
             </div>
           </div>
         </div>
@@ -875,11 +1029,313 @@
       document.getElementById('last-update').textContent = now.toLocaleDateString('zh-CN', options);
     }
 
+    // ==================================================
+    // 🚀 手动同步系统 (Manual Sync System)
+    // ==================================================
+
+    // Task management system
+    let tasks = [
+      {
+        id: 1,
+        title: "联系Vinod Srihari",
+        description: "讨论Trillium试点在FQHC中的学术合作机会",
+        status: "not-started",
+        created: "2026-04-03",
+        updated: new Date().toISOString().split('T')[0],
+        overdue: false
+      },
+      {
+        id: 2,
+        title: "发送Medical Director沟通",
+        description: "使用FQHC面板中的执行卡模板",
+        status: "completed",
+        created: "2026-04-03",
+        updated: new Date().toISOString().split('T')[0],
+        overdue: false
+      },
+      {
+        id: 3,
+        title: "评估FASD护理路径实施",
+        description: "分析在Trillium环境中的可行性",
+        status: "in-progress",
+        created: "2026-04-01",
+        updated: "2026-04-01",
+        overdue: true
+      }
+    ];
+
+    // Sync all dashboards
+    function syncAllDashboards() {
+      const syncButton = document.getElementById('sync-button');
+      const originalText = syncButton.innerHTML;
+      
+      // Show loading state
+      syncButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> 同步中...';
+      syncButton.disabled = true;
+      
+      // Simulate sync process
+      setTimeout(() => {
+        // Update last sync time
+        const now = new Date();
+        const options = { 
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        };
+        const syncTime = now.toLocaleTimeString('zh-CN', options);
+        document.getElementById('last-sync-time').textContent = syncTime;
+        
+        // Update task list from localStorage or simulate update
+        updateTaskList();
+        
+        // Show success notification
+        showNotification('所有子仪表板已同步完成', 'success');
+        
+        // Restore button
+        syncButton.innerHTML = originalText;
+        syncButton.disabled = false;
+      }, 1500);
+    }
+
+    // Update task status
+    function updateTaskStatus(taskId, newStatus) {
+      const task = tasks.find(t => t.id === taskId);
+      if (task) {
+        task.status = newStatus;
+        task.updated = new Date().toISOString().split('T')[0];
+        
+        // Check if overdue (more than 3 days)
+        const createdDate = new Date(task.created);
+        const currentDate = new Date();
+        const diffTime = Math.abs(currentDate - createdDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        task.overdue = diffDays > 3 && newStatus !== 'completed';
+        
+        // Update UI
+        updateTaskItemUI(taskId);
+        updateTaskStats();
+        saveTasksToStorage();
+        
+        showNotification(`任务"${task.title}"状态已更新`, 'info');
+      }
+    }
+
+    // Update task item UI
+    function updateTaskItemUI(taskId) {
+      const task = tasks.find(t => t.id === taskId);
+      if (!task) return;
+      
+      const taskElement = document.querySelector(`.task-item[data-task-id="${taskId}"]`);
+      if (taskElement) {
+        // Update status buttons
+        const statusButtons = taskElement.querySelectorAll('.task-status');
+        statusButtons.forEach(button => {
+          button.classList.remove('active');
+          const buttonStatus = button.classList.contains('status-not-started') ? 'not-started' :
+                              button.classList.contains('status-in-progress') ? 'in-progress' : 'completed';
+          if (buttonStatus === task.status) {
+            button.classList.add('active');
+          }
+        });
+        
+        // Update last updated time
+        const updatedText = taskElement.querySelector('.text-xs.text-gray-500.mt-1');
+        if (updatedText) {
+          const today = new Date().toISOString().split('T')[0];
+          const daysAgo = task.updated === today ? '刚刚' : 
+                         `${Math.floor((new Date() - new Date(task.updated)) / (1000 * 60 * 60 * 24))}天前`;
+          
+          updatedText.innerHTML = `
+            创建: ${task.created} • 最后更新: ${daysAgo}
+            ${task.overdue && task.status !== 'completed' ? '<span class="ml-2 text-red-500 font-medium">⚠️ 超过3天未完成</span>' : ''}
+          `;
+        }
+        
+        // Update overdue styling
+        if (task.overdue && task.status !== 'completed') {
+          taskElement.setAttribute('data-overdue', 'true');
+        } else {
+          taskElement.removeAttribute('data-overdue');
+        }
+      }
+    }
+
+    // Update task list
+    function updateTaskList() {
+      const taskList = document.getElementById('task-list');
+      if (!taskList) return;
+      
+      // In a real implementation, this would fetch from localStorage or backend
+      // For now, we'll just update the existing tasks
+      tasks.forEach(task => {
+        updateTaskItemUI(task.id);
+      });
+    }
+
+    // Update task statistics
+    function updateTaskStats() {
+      const completed = tasks.filter(t => t.status === 'completed').length;
+      const inProgress = tasks.filter(t => t.status === 'in-progress').length;
+      const notStarted = tasks.filter(t => t.status === 'not-started').length;
+      
+      const statsElement = document.querySelector('.text-xs.text-gray-500 span');
+      if (statsElement) {
+        statsElement.innerHTML = `
+          <span class="text-green-600">${completed} 已完成</span> • 
+          <span class="text-blue-600">${inProgress} 进行中</span> • 
+          <span class="text-gray-600">${notStarted} 未开始</span>
+        `;
+      }
+    }
+
+    // Add new task
+    function addNewTask() {
+      const newTaskId = tasks.length > 0 ? Math.max(...tasks.map(t => t.id)) + 1 : 1;
+      const today = new Date().toISOString().split('T')[0];
+      
+      const newTask = {
+        id: newTaskId,
+        title: "新任务",
+        description: "点击编辑任务描述",
+        status: "not-started",
+        created: today,
+        updated: today,
+        overdue: false
+      };
+      
+      tasks.push(newTask);
+      
+      // Add to UI
+      const taskList = document.getElementById('task-list');
+      if (taskList) {
+        const taskHtml = `
+          <div class="task-item" data-task-id="${newTaskId}" data-created="${today}">
+            <div class="flex items-start justify-between">
+              <div class="flex-1">
+                <div class="text-sm text-gray-700">
+                  <span class="font-medium" contenteditable="true" onblur="updateTaskTitle(${newTaskId}, this.textContent)">新任务</span> - 
+                  <span contenteditable="true" onblur="updateTaskDescription(${newTaskId}, this.textContent)">点击编辑任务描述</span>
+                </div>
+                <div class="text-xs text-gray-500 mt-1">
+                  创建: ${today} • 最后更新: 刚刚
+                </div>
+              </div>
+              <div class="flex space-x-1 ml-3">
+                <span class="task-status status-not-started active" onclick="updateTaskStatus(${newTaskId}, 'not-started')">未开始</span>
+                <span class="task-status status-in-progress" onclick="updateTaskStatus(${newTaskId}, 'in-progress')">进行中</span>
+                <span class="task-status status-completed" onclick="updateTaskStatus(${newTaskId}, 'completed')">已完成</span>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        taskList.insertAdjacentHTML('afterbegin', taskHtml);
+      }
+      
+      updateTaskStats();
+      saveTasksToStorage();
+      showNotification('新任务已添加', 'info');
+    }
+
+    // Update task title
+    function updateTaskTitle(taskId, newTitle) {
+      const task = tasks.find(t => t.id === taskId);
+      if (task) {
+        task.title = newTitle;
+        task.updated = new Date().toISOString().split('T')[0];
+        saveTasksToStorage();
+      }
+    }
+
+    // Update task description
+    function updateTaskDescription(taskId, newDescription) {
+      const task = tasks.find(t => t.id === taskId);
+      if (task) {
+        task.description = newDescription;
+        task.updated = new Date().toISOString().split('T')[0];
+        saveTasksToStorage();
+      }
+    }
+
+    // Clear completed tasks
+    function clearCompletedTasks() {
+      if (confirm('确定要清除所有已完成的任务吗？')) {
+        tasks = tasks.filter(task => task.status !== 'completed');
+        updateTaskList();
+        updateTaskStats();
+        saveTasksToStorage();
+        showNotification('已完成的任务已清除', 'success');
+      }
+    }
+
+    // Save tasks to localStorage
+    function saveTasksToStorage() {
+      try {
+        localStorage.setItem('neighborbridge_tasks', JSON.stringify(tasks));
+      } catch (e) {
+        console.error('保存任务到localStorage失败:', e);
+      }
+    }
+
+    // Load tasks from localStorage
+    function loadTasksFromStorage() {
+      try {
+        const savedTasks = localStorage.getItem('neighborbridge_tasks');
+        if (savedTasks) {
+          tasks = JSON.parse(savedTasks);
+          updateTaskList();
+          updateTaskStats();
+        }
+      } catch (e) {
+        console.error('从localStorage加载任务失败:', e);
+      }
+    }
+
+    // Show notification
+    function showNotification(message, type = 'info') {
+      // Create notification element
+      const notification = document.createElement('div');
+      notification.className = `fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg max-w-sm ${
+        type === 'success' ? 'bg-green-100 text-green-800 border border-green-200' :
+        type === 'error' ? 'bg-red-100 text-red-800 border border-red-200' :
+        type === 'warning' ? 'bg-yellow-100 text-yellow-800 border border-yellow-200' :
+        'bg-blue-100 text-blue-800 border border-blue-200'
+      }`;
+      
+      notification.innerHTML = `
+        <div class="flex items-center">
+          <i class="fas ${
+            type === 'success' ? 'fa-check-circle' :
+            type === 'error' ? 'fa-exclamation-circle' :
+            type === 'warning' ? 'fa-exclamation-triangle' :
+            'fa-info-circle'
+          } mr-2"></i>
+          <span>${message}</span>
+        </div>
+      `;
+      
+      // Add to body
+      document.body.appendChild(notification);
+      
+      // Remove after 3 seconds
+      setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transition = 'opacity 0.5s';
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 500);
+      }, 3000);
+    }
+
     // Initialize
     updateTime();
     updateActionCompletion();
+    loadTasksFromStorage();
+    updateTaskStats();
     
-    // Auto-refresh time every minute
+    // Auto-refresh time every minute (kept for time display only)
     setInterval(updateTime, 60000);
 
     // [COMMAND CENTER ENABLED]
