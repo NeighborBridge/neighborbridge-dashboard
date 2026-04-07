@@ -279,6 +279,183 @@
       color: #0ea5e9;
       text-decoration: underline;
     }
+    
+    /* Document Panel Styles */
+    .document-item {
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      background: var(--card-bg);
+      transition: all 0.2s ease;
+    }
+    
+    .document-item:hover {
+      background: var(--hover-bg);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    
+    .document-title {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+    
+    .document-description {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+    
+    .document-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .document-btn {
+      padding: 0.375rem 0.75rem;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+    
+    .document-btn-primary {
+      background-color: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    
+    .document-btn-primary:hover {
+      background-color: #0284c7;
+      border-color: #0284c7;
+    }
+    
+    .document-btn-secondary {
+      background-color: transparent;
+      color: var(--text-secondary);
+      border-color: var(--border);
+    }
+    
+    .document-btn-secondary:hover {
+      background-color: var(--hover-bg);
+      border-color: var(--text-secondary);
+    }
+    
+    .document-delete-btn {
+      margin-left: auto;
+      color: #ef4444;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.875rem;
+    }
+    
+    .document-delete-btn:hover {
+      background-color: rgba(239, 68, 68, 0.1);
+    }
+    
+    /* Modal Styles */
+    .document-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .document-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .document-modal-content {
+      background: var(--card-bg);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      transform: translateY(-20px);
+      transition: transform 0.3s ease;
+    }
+    
+    .document-modal.active .document-modal-content {
+      transform: translateY(0);
+    }
+    
+    .document-modal h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+    
+    .document-modal input,
+    .document-modal textarea {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 0.375rem;
+      background: var(--input-bg);
+      color: var(--input-text);
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+    
+    .document-modal textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    
+    .document-modal-actions {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: flex-end;
+    }
+    
+    .document-modal-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+    
+    .document-modal-btn-primary {
+      background-color: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    
+    .document-modal-btn-primary:hover {
+      background-color: #0284c7;
+    }
+    
+    .document-modal-btn-secondary {
+      background-color: transparent;
+      color: var(--text-secondary);
+      border-color: var(--border);
+    }
+    
+    .document-modal-btn-secondary:hover {
+      background-color: var(--hover-bg);
+    }
   </style>
 </head>
 
@@ -346,7 +523,30 @@
           </div>
         </div>
 
-        <!-- 2. AI Output (自动生成) -->
+        <!-- 2. Document Panel (新增) -->
+        <div class="bg-card rounded-lg shadow p-5">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold text-gray-800 mb-0">📄 Key Documents</h2>
+            <button 
+              id="add-document-btn" 
+              class="text-sm text-brand hover:text-blue-700 font-medium flex items-center"
+              onclick="showAddDocumentModal()"
+            >
+              <i class="fas fa-plus mr-1"></i> 添加文档
+            </button>
+          </div>
+          
+          <div id="document-list" class="space-y-4">
+            <!-- Document entries will be loaded here -->
+          </div>
+          
+          <div class="mt-4 text-xs text-gray-500">
+            <i class="fas fa-info-circle mr-1"></i>
+            文档链接存储在浏览器本地，仅当前设备可见
+          </div>
+        </div>
+
+        <!-- 3. AI Output (自动生成) -->
         <div class="ai-suggestion rounded-lg shadow p-5">
           <h2 class="text-lg font-semibold text-gray-800 mb-3">🤖 AI建议</h2>
           
@@ -1847,7 +2047,301 @@ Best regards,
       }, 3000);
     }
 
-    // Initialize bio generator
+    // ==================================================
+    // 📄 Document Panel Functionality
+    // ==================================================
+
+    // Default documents (seed data)
+    const defaultDocuments = [
+      {
+        id: 1,
+        title: "FASD Trillium Proposal",
+        description: "Latest working draft for Trillium pilot proposal",
+        url: "https://docs.google.com/document/d/example-fasd-proposal",
+        type: "google-doc"
+      },
+      {
+        id: 2,
+        title: "Invoice + AFPP",
+        description: "Payment documentation for 4.30.26 symposium",
+        url: "https://drive.google.com/file/d/example-invoice-pdf",
+        type: "pdf"
+      },
+      {
+        id: 3,
+        title: "ROI Model (Draft)",
+        description: "Cost-saving logic and pilot financial assumptions",
+        url: "https://docs.google.com/spreadsheets/d/example-roi-model",
+        type: "google-sheet"
+      }
+    ];
+
+    // Load documents from localStorage or use defaults
+    function loadDocuments() {
+      try {
+        const saved = localStorage.getItem('trillium_documents');
+        if (saved) {
+          return JSON.parse(saved);
+        }
+      } catch (e) {
+        console.error('Failed to load documents:', e);
+      }
+      return defaultDocuments;
+    }
+
+    // Save documents to localStorage
+    function saveDocuments(documents) {
+      try {
+        localStorage.setItem('trillium_documents', JSON.stringify(documents));
+      } catch (e) {
+        console.error('Failed to save documents:', e);
+      }
+    }
+
+    // Render document list
+    function renderDocumentList() {
+      const container = document.getElementById('document-list');
+      if (!container) return;
+      
+      const documents = loadDocuments();
+      
+      if (documents.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-6 text-gray-500">
+            <i class="fas fa-folder-open text-3xl mb-2"></i>
+            <p>暂无文档</p>
+            <p class="text-sm mt-1">点击"添加文档"按钮添加第一个文档</p>
+          </div>
+        `;
+        return;
+      }
+      
+      container.innerHTML = documents.map(doc => `
+        <div class="document-item" data-doc-id="${doc.id}">
+          <div class="flex justify-between items-start">
+            <div class="flex-1">
+              <div class="document-title">${escapeHtml(doc.title)}</div>
+              <div class="document-description">${escapeHtml(doc.description)}</div>
+              <div class="document-actions">
+                <button 
+                  class="document-btn document-btn-primary"
+                  onclick="openDocument('${escapeHtml(doc.url)}')"
+                >
+                  <i class="fas fa-external-link-alt mr-1"></i> Open
+                </button>
+                <button 
+                  class="document-btn document-btn-secondary"
+                  onclick="copyDocumentLink('${escapeHtml(doc.url)}', '${escapeHtml(doc.title)}')"
+                >
+                  <i class="fas fa-copy mr-1"></i> Copy link
+                </button>
+              </div>
+            </div>
+            <button 
+              class="document-delete-btn"
+              onclick="deleteDocument(${doc.id})"
+              title="删除文档"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+          <div class="mt-2 text-xs text-gray-500 flex items-center">
+            <i class="fas fa-${getDocumentIcon(doc.type)} mr-1"></i>
+            <span>${getDocumentTypeLabel(doc.type)}</span>
+            <span class="mx-2">•</span>
+            <span class="truncate max-w-[200px]">${escapeHtml(doc.url)}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Get document icon based on type
+    function getDocumentIcon(type) {
+      const icons = {
+        'google-doc': 'file-word',
+        'pdf': 'file-pdf',
+        'google-sheet': 'file-excel',
+        'link': 'link',
+        'default': 'file'
+      };
+      return icons[type] || icons.default;
+    }
+
+    // Get document type label
+    function getDocumentTypeLabel(type) {
+      const labels = {
+        'google-doc': 'Google Doc',
+        'pdf': 'PDF',
+        'google-sheet': 'Google Sheet',
+        'link': 'Link',
+        'default': 'Document'
+      };
+      return labels[type] || labels.default;
+    }
+
+    // Open document in new tab
+    function openDocument(url) {
+      if (url && url.startsWith('http')) {
+        window.open(url, '_blank');
+        showNotification('文档已在新标签页打开', 'info');
+      } else {
+        showNotification('无效的文档链接', 'error');
+      }
+    }
+
+    // Copy document link to clipboard
+    function copyDocumentLink(url, title) {
+      if (!url) {
+        showNotification('无链接可复制', 'error');
+        return;
+      }
+      
+      navigator.clipboard.writeText(url).then(() => {
+        showNotification(`"${title}" 链接已复制到剪贴板`, 'success');
+      }).catch(err => {
+        console.error('复制失败:', err);
+        showNotification('复制失败，请手动复制链接', 'error');
+      });
+    }
+
+    // Delete document
+    function deleteDocument(id) {
+      if (!confirm('确定要删除这个文档吗？')) return;
+      
+      const documents = loadDocuments();
+      const filtered = documents.filter(doc => doc.id !== id);
+      saveDocuments(filtered);
+      renderDocumentList();
+      showNotification('文档已删除', 'success');
+    }
+
+    // Show add document modal
+    function showAddDocumentModal() {
+      // Create modal if it doesn't exist
+      let modal = document.getElementById('document-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'document-modal';
+        modal.className = 'document-modal';
+        modal.innerHTML = `
+          <div class="document-modal-content">
+            <h3>添加新文档</h3>
+            <input 
+              type="text" 
+              id="doc-title" 
+              placeholder="文档标题"
+              class="document-title-input"
+            >
+            <textarea 
+              id="doc-description" 
+              placeholder="简短描述 (可选)"
+              class="document-description-input"
+            ></textarea>
+            <input 
+              type="url" 
+              id="doc-url" 
+              placeholder="文档链接 (Google Docs, PDF, 等)"
+              class="document-url-input"
+            >
+            <select id="doc-type" class="document-type-select">
+              <option value="google-doc">Google Doc</option>
+              <option value="pdf">PDF</option>
+              <option value="google-sheet">Google Sheet</option>
+              <option value="link">其他链接</option>
+            </select>
+            <div class="document-modal-actions">
+              <button 
+                class="document-modal-btn document-modal-btn-secondary"
+                onclick="hideAddDocumentModal()"
+              >
+                取消
+              </button>
+              <button 
+                class="document-modal-btn document-modal-btn-primary"
+                onclick="addNewDocument()"
+              >
+                添加
+              </button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        
+        // Add styles for select
+        const select = modal.querySelector('#doc-type');
+        if (select) {
+          select.className = 'w-full p-2 border rounded bg-input-bg text-input-text mb-4';
+        }
+      }
+      
+      // Clear inputs
+      document.getElementById('doc-title').value = '';
+      document.getElementById('doc-description').value = '';
+      document.getElementById('doc-url').value = '';
+      document.getElementById('doc-type').value = 'google-doc';
+      
+      // Show modal
+      modal.classList.add('active');
+    }
+
+    // Hide add document modal
+    function hideAddDocumentModal() {
+      const modal = document.getElementById('document-modal');
+      if (modal) {
+        modal.classList.remove('active');
+      }
+    }
+
+    // Add new document
+    function addNewDocument() {
+      const title = document.getElementById('doc-title').value.trim();
+      const description = document.getElementById('doc-description').value.trim();
+      const url = document.getElementById('doc-url').value.trim();
+      const type = document.getElementById('doc-type').value;
+      
+      if (!title) {
+        showNotification('请输入文档标题', 'error');
+        return;
+      }
+      
+      if (!url) {
+        showNotification('请输入文档链接', 'error');
+        return;
+      }
+      
+      // Validate URL format
+      try {
+        new URL(url);
+      } catch (e) {
+        showNotification('请输入有效的链接地址', 'error');
+        return;
+      }
+      
+      const documents = loadDocuments();
+      const newId = documents.length > 0 ? Math.max(...documents.map(d => d.id)) + 1 : 1;
+      
+      documents.push({
+        id: newId,
+        title,
+        description: description || '无描述',
+        url,
+        type
+      });
+      
+      saveDocuments(documents);
+      renderDocumentList();
+      hideAddDocumentModal();
+      showNotification('文档已添加', 'success');
+    }
+
+    // Escape HTML to prevent XSS
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Initialize bio generator and document panel
     document.addEventListener('DOMContentLoaded', function() {
       // Add enter key support for emphasis input
       const emphasisInput = document.getElementById('emphasis-input');
@@ -1858,6 +2352,26 @@ Best regards,
           }
         });
       }
+      
+      // Initialize document panel
+      renderDocumentList();
+      
+      // Close modal on click outside
+      const modal = document.getElementById('document-modal');
+      if (modal) {
+        modal.addEventListener('click', function(e) {
+          if (e.target === this) {
+            hideAddDocumentModal();
+          }
+        });
+      }
+      
+      // Close modal on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          hideAddDocumentModal();
+        }
+      });
     });
   </script>
 </body>
