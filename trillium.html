@@ -10,105 +10,6 @@
 
   <!-- Simple config -->
   <script>
-    // Immediate test - run as soon as script loads
-    console.log("=== ADD DOCUMENT BUTTON TEST ===");
-    
-    // Test 1: Check if button exists in HTML (before DOM is ready)
-    if (htmlContains('添加文档')) {
-      console.log("✓ Button text found in HTML");
-    } else {
-      console.error("✗ Button text NOT found in HTML");
-    }
-    
-    if (htmlContains('add-document-btn')) {
-      console.log("✓ Button ID found in HTML");
-    } else {
-      console.error("✗ Button ID NOT found in HTML");
-    }
-    
-    // Helper function to check HTML content
-    function htmlContains(text) {
-      return document.documentElement.innerHTML.indexOf(text) !== -1;
-    }
-    
-    // Test 2: Simulate click after short delay
-    setTimeout(function() {
-      console.log("Testing button simulation...");
-      const btn = document.getElementById('add-document-btn') || 
-                  document.querySelector('[data-add-doc="true"]');
-      
-      if (btn) {
-        console.log("✓ Button found in DOM, simulating click");
-        // Create and dispatch click event
-        const clickEvent = new MouseEvent('click', {
-          view: window,
-          bubbles: true,
-          cancelable: true
-        });
-        btn.dispatchEvent(clickEvent);
-      } else {
-        console.error("✗ Button NOT found in DOM for simulation");
-      }
-    }, 500);
-
-    // ==================================================
-    // 🔧 SIMPLE FIX: Add Document Button Handler
-    // ==================================================
-    
-    // Direct button click handler
-    function handleAddDocumentClick() {
-      console.log("Add doc clicked - SIMPLE FIX");
-      
-      // Try to call existing function
-      if (typeof showAddDocumentModal === 'function') {
-        showAddDocumentModal();
-        return;
-      }
-      
-      // Fallback: show alert
-      alert("UI not connected - 无法打开添加文档窗口");
-    }
-    
-    // Bind click handler on DOM ready
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log('DOM loaded - binding add document button');
-      
-      // Method 1: Use data attribute
-      const buttonByData = document.querySelector('[data-add-doc="true"]');
-      if (buttonByData) {
-        console.log('Found button by data-add-doc');
-        buttonByData.addEventListener('click', handleAddDocumentClick);
-      }
-      
-      // Method 2: Use button text
-      const buttons = document.querySelectorAll('button');
-      for (const btn of buttons) {
-        if (btn.textContent.includes('添加文档')) {
-          console.log('Found button by text "添加文档"');
-          btn.addEventListener('click', handleAddDocumentClick);
-          break;
-        }
-      }
-      
-      // Method 3: Direct ID
-      const buttonById = document.getElementById('add-document-btn');
-      if (buttonById) {
-        console.log('Found button by ID add-document-btn');
-        buttonById.addEventListener('click', handleAddDocumentClick);
-      }
-      
-      // Fail-safe check
-      setTimeout(function() {
-        const anyButton = document.querySelector('[data-add-doc="true"]') || 
-                         document.getElementById('add-document-btn');
-        if (!anyButton) {
-          console.error('Add document button not found in DOM');
-        } else {
-          console.log('Button binding complete:', anyButton);
-        }
-      }, 100);
-    });
-
     tailwind.config = {
       theme: {
         extend: {
@@ -677,7 +578,7 @@
         <div class="bg-card rounded-lg shadow p-5">
           <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-semibold text-gray-800 mb-0">📄 Key Documents</h2>
-            <button data-add-doc="true" 
+            <button 
               id="add-document-btn" 
               class="text-sm text-brand hover:text-blue-700 font-medium flex items-center"
               onclick="showAddDocumentModal()"
