@@ -23,7 +23,13 @@
         }
       }
     }
-  </script>
+  
+    // Global error handler for debugging
+    window.addEventListener('error', function(e) {
+      console.error('Global error:', e.message, 'at', e.filename, 'line', e.lineno);
+      showNotification('JavaScript错误: ' + e.message, 'error');
+    });
+</script>
   
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -567,7 +573,8 @@
       </button>
     </div>
 
-    <!-- 2. Document Panel (新增) -->
+    
+        <!-- 2. Document Panel (新增) -->
         <div class="bg-card rounded-lg shadow p-5">
           <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-semibold text-gray-800 mb-0">📄 Key Documents</h2>
@@ -580,8 +587,16 @@
             </button>
           </div>
           
+          <div id="document-list" class="space-y-4">
+            <!-- Document entries will be loaded here -->
+          </div>
           
-  </div>
+          <div class="mt-4 text-xs text-gray-500">
+            <i class="fas fa-info-circle mr-1"></i>
+            文档链接存储在浏览器本地，仅当前设备可见
+          </div>
+        </div>
+
 </div>
 
 <div class="mt-8">
@@ -1072,7 +1087,8 @@ Context (${today}): ${log}` : base;
 
     // Show add document modal
     function showAddDocumentModal() {
-      // Create modal if it doesn't exist
+      console.log(\'showAddDocumentModal called\');
+      // Create modal if it doesn\'t exist
       let modal = document.getElementById('document-modal');
       if (!modal) {
         modal = document.createElement('div');
@@ -1136,7 +1152,8 @@ Context (${today}): ${log}` : base;
       document.getElementById('doc-type').value = 'google-doc';
       
       // Show modal
-      modal.classList.add('active');
+      console.log(\'Showing modal\');
+      modal.classList.add(\'active\');
     }
 
     // Hide add document modal
@@ -1149,6 +1166,7 @@ Context (${today}): ${log}` : base;
 
     // Add new document
     function addNewDocument() {
+      console.log(\'addNewDocument called\');
       const title = document.getElementById('doc-title').value.trim();
       const description = document.getElementById('doc-description').value.trim();
       const url = document.getElementById('doc-url').value.trim();
@@ -1230,6 +1248,20 @@ Context (${today}): ${log}` : base;
           hideAddDocumentModal();
         }
       });
+      // Test document panel functionality
+      console.log('Testing document panel...');
+      const addBtn = document.getElementById('add-document-btn');
+      if (addBtn) {
+        console.log('Add document button found:', addBtn);
+        // Also add programmatic click handler as backup
+        addBtn.addEventListener('click', function(e) {
+          console.log('Button clicked via event listener');
+          showAddDocumentModal();
+        });
+      } else {
+        console.error('Add document button NOT FOUND!');
+      }
+
     });
   </script>
 </body>
