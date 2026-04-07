@@ -484,7 +484,7 @@
     <div class="mb-8 flex justify-between items-start">
       <div>
         <h1 class="text-2xl font-bold text-gray-900 mb-2">Trillium Health — 合作推进面板</h1>
-        <p class="text-gray-600">每日执行系统，AI辅助决策，来源验证</p>
+        <p class="text-gray-600">行动优先的执行系统，支持快速决策</p>
       </div>
       
       <!-- PPT Section -->
@@ -499,12 +499,11 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-      <!-- LEFT COLUMN (30-40%) -->
-      <div class="lg:col-span-1 space-y-6">
-
-        <!-- 1. Daily Log (用户输入) -->
+    
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+  <!-- LEFT: 今日进展 + 下一步行动 -->
+  <div class="space-y-6">
+    <!-- 1. Daily Log (用户输入) -->
         <div class="bg-card rounded-lg shadow p-5">
           <h2 class="text-lg font-semibold text-gray-800 mb-3">📝 今日进展</h2>
           <textarea 
@@ -513,17 +512,62 @@
             rows="3" 
             placeholder="记录今日进展、会议要点、关键决策..."
           ></textarea>
-          <div class="mt-4 flex justify-end">
+          <div class="mt-4 flex justify-between">
+            <button
+              id="quick-email-btn"
+              class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition text-sm font-medium"
+              onclick="generateQuickEmail()"
+            >
+              <i class="fas fa-envelope mr-2"></i>Quick Email
+            </button>
             <button 
-              id="analyze-btn" 
+              id="save-log-btn" 
               class="bg-brand text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition text-sm font-medium"
             >
-              <i class="fas fa-robot mr-2"></i>更新并分析
+              <i class="fas fa-save mr-2"></i>保存
             </button>
           </div>
-        </div>
+        
 
-        <!-- 2. Document Panel (新增) -->
+    <div id="quick-email-card" class="bg-card rounded-lg shadow p-5 hidden">
+      <div class="flex justify-between items-center mb-2">
+        <h2 class="text-lg font-semibold text-gray-800">✉️ Quick Email</h2>
+        <button class="text-sm text-gray-500 hover:text-gray-700" onclick="document.getElementById('quick-email-card').classList.add('hidden')">关闭</button>
+      </div>
+      <textarea id="quick-email-text" class="w-full border rounded-lg p-3 text-sm bg-card focus:ring-2 focus:ring-brand focus:border-transparent" rows="3" readonly></textarea>
+      <div class="mt-3 flex justify-end">
+        <button class="bg-brand text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition text-sm font-medium" onclick="copyQuickEmail()">
+          <i class="fas fa-copy mr-2"></i>复制
+        </button>
+      </div>
+    </div>
+
+    <!-- 【下一步行动（全局）】 -->
+        <div class="bg-card rounded-lg shadow p-5">
+          <h2 class="text-lg font-semibold text-gray-800 mb-4">下一步行动</h2>
+          
+          <div class="space-y-3">
+            <div class="flex items-start">
+              <input type="checkbox" class="action-checkbox mt-1 mr-3" id="action1">
+              <label for="action1" class="flex-1">
+                <span class="text-gray-800">发送重新联系邮件给Cindy Ehlers，利用75天未联系的紧迫感</span>
+                <p class="text-xs text-gray-500 mt-1">截止: 2026-03-20 • 负责人: 合作伙伴总监</p>
+              </label>
+            </div>
+            
+            
+  </div>
+
+  <!-- RIGHT: PPT + Documents -->
+  <div class="space-y-6">
+    <div class="bg-card rounded-lg shadow p-5">
+      <h2 class="text-lg font-semibold text-gray-800 mb-3">🎯 PPT</h2>
+      <button id="open-ppt-btn" class="w-full bg-brand text-white px-4 py-3 rounded-lg hover:bg-blue-600 transition text-sm font-medium">
+        <i class="fas fa-presentation-screen mr-2"></i>打开PPT
+      </button>
+    </div>
+
+    <!-- 2. Document Panel (新增) -->
         <div class="bg-card rounded-lg shadow p-5">
           <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-semibold text-gray-800 mb-0">📄 Key Documents</h2>
@@ -536,71 +580,12 @@
             </button>
           </div>
           
-          <div id="document-list" class="space-y-4">
-            <!-- Document entries will be loaded here -->
-          </div>
           
-          <div class="mt-4 text-xs text-gray-500">
-            <i class="fas fa-info-circle mr-1"></i>
-            文档链接存储在浏览器本地，仅当前设备可见
-          </div>
-        </div>
+  </div>
+</div>
 
-        <!-- 3. AI Output (自动生成) -->
-        <div class="ai-suggestion rounded-lg shadow p-5">
-          <h2 class="text-lg font-semibold text-gray-800 mb-3">🤖 AI建议</h2>
-          
-          <div class="mb-4">
-            <p class="text-sm font-medium text-gray-700 mb-1">下一步建议</p>
-            <p id="ai-suggestion-text" class="text-sm text-gray-800">
-              基于市场分析：75天未联系，Q2预算规划窗口期，建议立即重新联系。
-            </p>
-          </div>
-          
-          <div>
-            <p class="text-sm font-medium text-gray-700 mb-1">Draft Email</p>
-            <textarea 
-              id="draft-email" 
-              class="w-full border rounded-lg p-3 text-sm bg-card focus:ring-2 focus:ring-brand focus:border-transparent" 
-              rows="4"
-            >Hi Cindy,
-
-Hope you're doing well. I'm following up on our December discussion about the FASD/ASD screening pilot for Trillium's Medicaid beneficiaries.
-
-Since we last spoke, we've made significant progress:
-1. Expanded our school system partnerships in North Carolina
-2. Strengthened our clinical validation through Yale psychiatry collaboration
-3. Developed more detailed ROI models for early screening interventions
-
-Given Trillium's focus on value-based care and behavioral health integration, I believe there's strong alignment for a pilot. The Q2 budget planning window seems like an ideal time to revisit this.
-
-Would you be available for a 30-minute update call next week to discuss potential next steps?
-
-Best regards,
-[Your Name]</textarea>
-          </div>
-        </div>
-
-        <!-- 3. Human Input (用户修正) -->
-        <div class="human-input rounded-lg shadow p-5">
-          <h2 class="text-lg font-semibold text-gray-800 mb-3">👤 我的判断</h2>
-          <textarea 
-            id="human-input" 
-            class="w-full border rounded-lg p-3 text-sm bg-card focus:ring-2 focus:ring-brand focus:border-transparent" 
-            rows="3" 
-            placeholder="添加你的判断、语气调整、关键要点..."
-          ></textarea>
-          <div class="mt-4 flex justify-end">
-            <button 
-              id="update-email-btn" 
-              class="bg-amber-500 text-white px-4 py-2 rounded-lg hover:bg-amber-600 transition text-sm font-medium"
-            >
-              <i class="fas fa-edit mr-2"></i>更新邮件
-            </button>
-          </div>
-        </div>
-
-        <!-- 4. Trillium定位生成（Bio Generator） -->
+<div class="mt-8">
+  <!-- 4. Trillium定位生成（Bio Generator） -->
         <div class="bg-purple-50 rounded-lg shadow p-5 border-l-4 border-purple-500">
           <h2 class="text-lg font-semibold text-gray-800 mb-3">🧾 Trillium定位生成（Bio Generator）</h2>
           
@@ -627,406 +612,7 @@ Best regards,
                   </button>
                 </div>
               </div>
-              <p id="one-liner-text" class="text-sm text-gray-800">
-                I am developing FQHC-embedded early identification pathways for Medicaid populations, with clinical logic informed by academic discussion in psychiatry, aimed at reducing high-cost utilization.
-              </p>
-            </div>
-            
-            <!-- Standard version -->
-            <div class="bg-white rounded-lg border border-gray-200 p-4">
-              <div class="flex justify-between items-start mb-2">
-                <span class="text-sm font-semibold text-purple-700">🔹 Standard version (3–4 sentences)</span>
-                <div class="flex space-x-2">
-                  <button onclick="copyToClipboard('standard-text')" class="text-xs text-purple-600 hover:text-purple-800">
-                    <i class="fas fa-copy mr-1"></i>复制
-                  </button>
-                  <button onclick="useForEmail('standard-text')" class="text-xs text-blue-600 hover:text-blue-800">
-                    <i class="fas fa-envelope mr-1"></i>用于邮件
-                  </button>
-                </div>
-              </div>
-              <p id="standard-text" class="text-sm text-gray-800">
-                I'm building FQHC-based early identification pathways for behavioral health conditions like FASD, specifically for Medicaid populations. The clinical logic is being refined through academic discussion in psychiatry, focusing on practical implementation in community settings. This work aligns with Trillium's priorities around value-based care, cost reduction, and integrated behavioral health services.
-              </p>
-            </div>
-            
-            <!-- Extended version -->
-            <div class="bg-white rounded-lg border border-gray-200 p-4">
-              <div class="flex justify-between items-start mb-2">
-                <span class="text-sm font-semibold text-purple-700">🔹 Extended version (PPT-ready)</span>
-                <div class="flex space-x-2">
-                  <button onclick="copyToClipboard('extended-text')" class="text-xs text-purple-600 hover:text-purple-800">
-                    <i class="fas fa-copy mr-1"></i>复制
-                  </button>
-                  <button onclick="useForPPT('extended-text')" class="text-xs text-green-600 hover:text-green-800">
-                    <i class="fas fa-presentation-screen mr-1"></i>用于PPT
-                  </button>
-                </div>
-              </div>
-              <div id="extended-text" class="text-sm text-gray-800 space-y-2">
-                <p>• <strong>Clinical Pathway Framing</strong>: Developing FQHC-embedded early identification pathways for FASD and related behavioral health conditions in Medicaid populations.</p>
-                <p>• <strong>Implementation Setting</strong>: Community-based implementation through FQHCs and school systems, with focus on rural and underserved areas.</p>
-                <p>• <strong>Expected Impact</strong>: Aimed at reducing high-cost service utilization through early intervention, with projected cost savings of 15-25% in targeted populations.</p>
-                <p>• <strong>Academic Calibration</strong>: Clinical logic informed by academic discussion in psychiatry, ensuring evidence-based approach while maintaining practical implementation focus.</p>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Action Buttons -->
-          <div class="mt-6 flex justify-between">
-            <button 
-              onclick="regenerateBio()"
-              class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition text-sm font-medium"
-            >
-              <i class="fas fa-sync-alt mr-2"></i>重新生成（不同角度）
-            </button>
-            
-            <div class="text-xs text-gray-500">
-              <i class="fas fa-info-circle mr-1"></i>
-              基于当前Trillium策略自动生成
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- RIGHT COLUMN (60-70%) -->
-      <div class="lg:col-span-2 space-y-6">
-
-        <!-- 【当前阶段】 -->
-        <div class="bg-card rounded-lg shadow p-5">
-          <div class="flex justify-between items-start mb-3">
-            <div>
-              <h2 class="text-lg font-semibold text-gray-800 mb-1">当前阶段</h2>
-              <p class="text-lg font-semibold text-amber-600">机会窗口期 - 需立即行动</p>
-              <p class="text-sm text-gray-600 mt-1">已75天未联系 • 2026 Q2预算规划中</p>
-            </div>
-            <div class="text-sm text-gray-500">
-              分析更新: <span id="current-date"></span>
-            </div>
-          </div>
-          
-          <!-- 来源 -->
-          <div class="mt-4 pt-4 border-t">
-            <p class="text-xs font-medium text-gray-500 mb-2">来源</p>
-            <div class="space-y-1">
-              <a href="https://www.trilliumhealthresources.org/about" target="_blank" class="source-link">
-                <i class="fas fa-external-link-alt mr-1 text-xs"></i>
-                Trillium Health Resources - About
-              </a>
-              <a href="https://www.trilliumhealthresources.org/teams-functions" target="_blank" class="source-link">
-                <i class="fas fa-external-link-alt mr-1 text-xs"></i>
-                Trillium Teams & Functions
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- 【优先落地项目（最重要）】 -->
-        <div class="bg-card rounded-lg shadow">
-          <div class="p-5 border-b">
-            <h2 class="text-xl font-semibold text-gray-800">优先落地项目</h2>
-            <p class="text-sm text-gray-600 mt-1">基于市场分析的可执行机会</p>
-          </div>
-          
-          <div class="p-5 space-y-4">
-            
-            <!-- 项目1 -->
-            <div class="execution-card rounded-lg p-4">
-              <div class="flex justify-between items-start mb-3">
-                <div>
-                  <h3 class="font-bold text-gray-800 text-lg">FASD/ASD筛查试点激活</h3>
-                  <p class="text-sm text-gray-600 mt-1">早期筛查减少长期高成本服务利用，ROI潜力显著</p>
-                </div>
-                <span class="status-badge bg-amber-100 text-amber-800">可立即推进</span>
-              </div>
-              <div class="border-t pt-3">
-                <p class="text-sm font-medium text-gray-700">下一步行动</p>
-                <p class="text-sm text-gray-800 mt-1">发送重新联系邮件，强调耶鲁教授身份和学校系统扩展进展</p>
-              </div>
-              
-              <!-- 来源 -->
-              <div class="mt-3 pt-3 border-t">
-                <p class="text-xs font-medium text-gray-500 mb-1">来源</p>
-                <div class="space-y-1">
-                  <a href="https://www.trilliumhealthresources.org/behavioral-health" target="_blank" class="source-link">
-                    <i class="fas fa-external-link-alt mr-1 text-xs"></i>
-                    Trillium Behavioral Health Services
-                  </a>
-                  <a href="https://www.ncproviderscouncil.org/speakers-2025/cindy-ehlers/" target="_blank" class="source-link">
-                    <i class="fas fa-microphone mr-1 text-xs"></i>
-                    Cindy Ehlers - NC Providers Council Speaker
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- 项目2 -->
-            <div class="execution-card rounded-lg p-4">
-              <div class="flex justify-between items-start mb-3">
-                <div>
-                  <h3 class="font-bold text-gray-800 text-lg">FQHC基础试点（可扩展）</h3>
-                  <p class="text-sm text-gray-600 mt-1">在FQHC人群中已具备FASD识别与干预基础，可直接作为Trillium试点起点</p>
-                </div>
-                <span class="status-badge bg-green-100 text-green-800">可立即推进</span>
-              </div>
-              <div class="border-t pt-3">
-                <p class="text-sm font-medium text-gray-700">下一步行动</p>
-                <p class="text-sm text-gray-800 mt-1">选择1–2个FQHC点位，作为pilot入口</p>
-              </div>
-              
-              <!-- 来源 -->
-              <div class="mt-3 pt-3 border-t">
-                <p class="text-xs font-medium text-gray-500 mb-1">来源</p>
-                <div class="space-y-1">
-                  <a href="https://www.trilliumhealthresources.org/community-engagement" target="_blank" class="source-link">
-                    <i class="fas fa-external-link-alt mr-1 text-xs"></i>
-                    Trillium Community Engagement
-                  </a>
-                  <a href="https://www.ncdhhs.gov/medicaid/behavioral-health" target="_blank" class="source-link">
-                    <i class="fas fa-external-link-alt mr-1 text-xs"></i>
-                    NC Medicaid Behavioral Health
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- 项目3 -->
-            <div class="execution-card rounded-lg p-4">
-              <div class="flex justify-between items-start mb-3">
-                <div>
-                  <h3 class="font-bold text-gray-800 text-lg">数据驱动干预试点</h3>
-                  <p class="text-sm text-gray-600 mt-1">利用Medicaid利用数据识别高风险人群，针对性干预减少急诊利用</p>
-                </div>
-                <span class="status-badge bg-green-100 text-green-800">未开始</span>
-              </div>
-              <div class="border-t pt-3">
-                <p class="text-sm font-medium text-gray-700">下一步行动</p>
-                <p class="text-sm text-gray-800 mt-1">制定预测模型方案，量化干预措施的ROI和成本节约</p>
-              </div>
-              
-              <!-- 来源 -->
-              <div class="mt-3 pt-3 border-t">
-                <p class="text-xs font-medium text-gray-500 mb-1">来源</p>
-                <div class="space-y-1">
-                  <a href="https://www.trilliumhealthresources.org/quality-improvement" target="_blank" class="source-link">
-                    <i class="fas fa-external-link-alt mr-1 text-xs"></i>
-                    Trillium Quality Improvement
-                  </a>
-                  <a href="https://www.cms.gov/medicare/quality/value-based-programs" target="_blank" class="source-link">
-                    <i class="fas fa-external-link-alt mr-1 text-xs"></i>
-                    CMS Value-Based Programs
-                  </a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- 【下一步行动（全局）】 -->
-        <div class="bg-card rounded-lg shadow p-5">
-          <h2 class="text-lg font-semibold text-gray-800 mb-4">下一步行动</h2>
-          
-          <div class="space-y-3">
-            <div class="flex items-start">
-              <input type="checkbox" class="action-checkbox mt-1 mr-3" id="action1">
-              <label for="action1" class="flex-1">
-                <span class="text-gray-800">发送重新联系邮件给Cindy Ehlers，利用75天未联系的紧迫感</span>
-                <p class="text-xs text-gray-500 mt-1">截止: 2026-03-20 • 负责人: 合作伙伴总监</p>
-              </label>
-            </div>
-            
-            <div class="flex items-start">
-              <input type="checkbox" class="action-checkbox mt-1 mr-3" id="action2">
-              <label for="action2" class="flex-1">
-                <span class="text-gray-800">准备30分钟更新会议议程，突出耶鲁教授身份和学校系统扩展</span>
-                <p class="text-xs text-gray-500 mt-1">截止: 2026-03-21 • 负责人: 战略团队</p>
-              </label>
-            </div>
-            
-            <div class="flex items-start">
-              <input type="checkbox" class="action-checkbox mt-1 mr-3" id="action3">
-              <label for="action3" class="flex-1">
-                <span class="text-gray-800">制定2-3个县试点方案，明确范围、时间线和ROI计算</span>
-                <p class="text-xs text-gray-500 mt-1">截止: 2026-03-23 • 负责人: 临床整合负责人</p>
-              </label>
-            </div>
-            
-            <div class="flex items-start">
-              <input type="checkbox" class="action-checkbox mt-1 mr-3" id="action4">
-              <label for="action4" class="flex-1">
-                <span class="text-gray-800">识别Trillium内部其他支持者，建立支持联盟</span>
-                <p class="text-xs text-gray-500 mt-1">截止: 2026-03-25 • 负责人: 合作伙伴团队</p>
-              </label>
-            </div>
-            
-            <div class="flex items-start">
-              <input type="checkbox" class="action-checkbox mt-1 mr-3" id="action5">
-              <label for="action5" class="flex-1">
-                <span class="text-gray-800">准备数据驱动干预试点提案，突出预测模型和成本节约</span>
-                <p class="text-xs text-gray-500 mt-1">截止: 2026-03-27 • 负责人: 分析团队</p>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- Two Column Layout for Metrics and Contacts -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-          <!-- 【关键指标】 -->
-          <div>
-            <div class="bg-card rounded-lg shadow p-5">
-              <h2 class="text-lg font-semibold text-gray-800 mb-4">关键指标</h2>
-              <div class="space-y-4">
-                <div>
-                  <div class="flex justify-between items-center mb-1">
-                    <span class="text-sm font-medium text-gray-700">收入潜力</span>
-                    <span class="text-sm font-bold text-green-600">$50-150k</span>
-                  </div>
-                  <div class="w-full bg-gray-200 rounded-full h-2">
-                    <div class="bg-green-500 h-2 rounded-full" style="width: 25%"></div>
-                  </div>
-                  <p class="text-xs text-gray-500 mt-1">短期试点机会</p>
-                  
-                  <!-- 来源 -->
-                  <div class="mt-2">
-                    <a href="https://www.trilliumhealthresources.org/innovation" target="_blank" class="source-link">
-                      <i class="fas fa-external-link-alt mr-1 text-xs"></i>
-                      Trillium Innovation Initiatives
-                    </a>
-                  </div>
-                </div>
-                
-                <div>
-                  <div class="flex justify-between items-center mb-1">
-                    <span class="text-sm font-medium text-gray-700">联系中断时间</span>
-                    <span class="text-sm font-bold text-amber-600">75天</span>
-                  </div>
-                  <div class="w-full bg-gray-200 rounded-full h-2">
-                    <div class="bg-amber-500 h-2 rounded-full" style="width: 90%"></div>
-                  </div>
-                  <p class="text-xs text-gray-500 mt-1">紧迫性指标</p>
-                  
-                  <!-- 来源 -->
-                  <div class="mt-2">
-                    <a href="https://www.trilliumhealthresources.org/news" target="_blank" class="source-link">
-                      <i class="fas fa-external-link-alt mr-1 text-xs"></i>
-                      Trillium News & Updates
-                    </a>
-                  </div>
-                </div>
-                
-                <div>
-                  <div class="flex justify-between items-center mb-1">
-                    <span class="text-sm font-medium text-gray-700">成功概率</span>
-                    <span class="text-sm font-bold text-blue-600">60-70%</span>
-                  </div>
-                  <div class="w-full bg-gray-200 rounded-full h-2">
-                    <div class="bg-blue-500 h-2 rounded-full" style="width: 65%"></div>
-                  </div>
-                  <p class="text-xs text-gray-500 mt-1">基于历史兴趣评估</p>
-                  
-                  <!-- 来源 -->
-                  <div class="mt-2">
-                    <a href="https://www.ncdhhs.gov/medicaid/managed-care" target="_blank" class="source-link">
-                      <i class="fas fa-external-link-alt mr-1 text-xs"></i>
-                      NC Medicaid Managed Care
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 【关键联系人】 -->
-          <div>
-            <div class="bg-card rounded-lg shadow p-5">
-              <h2 class="text-lg font-semibold text-gray-800 mb-4">关键联系人</h2>
-              
-              <!-- Cindy Ehlers -->
-              <div class="mb-4">
-                <div class="flex items-center mb-2">
-                  <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mr-3">
-                    <i class="fas fa-user text-sm"></i>
-                  </div>
-                  <div>
-                    <p class="text-sm font-medium text-gray-800">Cindy Ehlers</p>
-                    <p class="text-xs text-gray-600">Trillium Health Resources COO</p>
-                  </div>
-                </div>
-                
-                <div class="space-y-1 pl-11">
-                  <a href="https://www.trilliumhealthresources.org/teams-functions" 
-                     target="_blank" 
-                     class="flex items-center text-xs text-blue-600 hover:text-blue-800">
-                    <i class="fas fa-external-link-alt mr-1 text-xs"></i>
-                    Trillium 团队与职能
-                  </a>
-                  <a href="https://www.ncproviderscouncil.org/speakers-2025/cindy-ehlers/" 
-                     target="_blank" 
-                     class="flex items-center text-xs text-blue-600 hover:text-blue-800">
-                    <i class="fas fa-microphone mr-1 text-xs"></i>
-                    NC Providers Council 演讲者资料
-                  </a>
-                </div>
-              </div>
-
-              <!-- Internal Contact -->
-              <div>
-                <div class="flex items-center">
-                  <div class="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center mr-3">
-                    <span class="text-xs font-bold">JD</span>
-                  </div>
-                  <div>
-                    <p class="text-sm font-medium text-gray-800">Jane Doe</p>
-                    <p class="text-xs text-gray-600">合作伙伴总监</p>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Back to Dashboard -->
-        <div class="pt-6 border-t">
-          <a href="/" class="inline-flex items-center text-sm text-gray-600 hover:text-brand">
-            <i class="fas fa-arrow-left mr-2"></i>
-            返回主面板
-          </a>
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- Footer -->
-  <div class="max-w-6xl mx-auto px-6 py-4">
-    <div class="text-xs text-gray-400 text-center">
-      每日执行系统 • 最后更新: <span id="update-time"></span>
-      <div class="mt-2 text-xs font-medium text-brand">
-        [SOFT TEXT COLOR APPLIED]
-      </div>
-      <div class="mt-1 text-xs font-medium text-green-600">
-        [ROLLBACK SUCCESSFUL]
-      </div>
-      <div class="mt-1 text-xs font-medium text-blue-600">
-        [NON-REAL CONTENT REMOVED]
-      </div>
-      <div class="mt-1 text-xs font-medium text-purple-500">
-        [MULTI-COLOR SYSTEM APPLIED]
-      </div>
-      <div class="mt-1 text-xs font-medium text-gray-500">
-        [GIT ROLLBACK DISABLED]
-      </div>
-    </div>
-  </div>
-
-  <!-- JavaScript -->
+</div>
   <script>
     // Set current date and time
     const now = new Date();
@@ -1045,787 +631,6 @@ Best regards,
       });
     });
 
-    // Daily Execution System Logic
-    const dailyLogTextarea = document.getElementById('daily-log');
-    const analyzeBtn = document.getElementById('analyze-btn');
-    const aiSuggestionText = document.getElementById('ai-suggestion-text');
-    const draftEmailTextarea = document.getElementById('draft-email');
-    const humanInputTextarea = document.getElementById('human-input');
-    const updateEmailBtn = document.getElementById('update-email-btn');
-
-    // Mock AI analysis function based on market research
-    function analyzeDailyLog(logText) {
-      if (!logText.trim()) {
-        return {
-          suggestion: "基于市场分析：75天未联系，Q2预算规划窗口期，建议立即重新联系。",
-          email: "Hi Cindy,\n\nHope you're doing well. I'm following up on our December discussion about the FASD/ASD screening pilot for Trillium's Medicaid beneficiaries.\n\nSince we last spoke, we've made significant progress:\n1. Expanded our school system partnerships in North Carolina\n2. Strengthened our clinical validation through Yale psychiatry collaboration\n3. Developed more detailed ROI models for early screening interventions\n\nGiven Trillium's focus on value-based care and behavioral health integration, I believe there's strong alignment for a pilot. The Q2 budget planning window seems like an ideal time to revisit this.\n\nWould you be available for a 30-minute update call next week to discuss potential next steps?\n\nBest regards,\n[Your Name]"
-        };
-      }
-
-      // Keyword-based analysis aligned with market research
-      let suggestion = "基于市场分析：利用75天未联系的紧迫感，强调耶鲁教授身份和学校系统扩展。";
-      let email = "Hi Cindy,\n\nHope you're doing well. I'm following up on our December discussion about the FASD/ASD screening pilot for Trillium's Medicaid beneficiaries.\n\nSince we last spoke, we've made significant progress:\n1. Expanded our school system partnerships in North Carolina\n2. Strengthened our clinical validation through Yale psychiatry collaboration\n3. Developed more detailed ROI models for early screening interventions\n\nGiven Trillium's focus on value-based care and behavioral health integration, I believe there's strong alignment for a pilot. The Q2 budget planning window seems like an ideal time to revisit this.\n\nWould you be available for a 30-minute update call next week to discuss potential next steps?\n\nBest regards,\n[Your Name]";
-
-      if (logText.includes('联系') || logText.includes('contact') || logText.includes('reach')) {
-        suggestion = "联系已建立，建议准备2-3个县试点方案，突出协同效应。";
-        email = "Hi Cindy,\n\nThank you for reconnecting. Based on our conversation, I've prepared a preliminary outline for a 2-3 county pilot that leverages Trillium's community network and our school system experience.\n\nThe proposal focuses on measurable outcomes: early identification rates, intervention timelines, and projected cost savings through reduced high-cost service utilization.\n\nI'll send the detailed proposal by end of week and we can schedule a follow-up to discuss.\n\nBest regards,\n[Your Name]";
-      }
-
-      if (logText.includes('提案') || logText.includes('proposal') || logText.includes('pilot')) {
-        suggestion = "提案讨论中，建议强调数据驱动干预和预测模型的ROI。";
-        email = "Hi Cindy,\n\nFollowing up on the pilot proposal discussion. I wanted to highlight the data-driven intervention component we discussed - using Medicaid utilization data to identify high-risk populations for targeted interventions.\n\nOur predictive models show potential for 15-25% reduction in emergency department utilization through early screening and intervention. This aligns well with Trillium's value-based care objectives.\n\nLet me know if you'd like to see the detailed ROI calculations.\n\nBest regards,\n[Your Name]";
-      }
-
-      if (logText.includes('会议') || logText.includes('meeting') || logText.includes('call')) {
-        suggestion = "会议已完成，建议发送会议纪要并确认Q2预算时间线。";
-        email = "Hi Cindy,\n\nThank you for the productive meeting yesterday. As discussed, here are the key action items:\n1. Finalize 2-county pilot scope (County A & B)\n2. Align with Q2 budget planning timeline\n3. Identify internal stakeholders for implementation support\n4. Schedule technical deep-dive on data integration\n\nI'll follow up with the detailed proposal by [date]. Please let me know if there are other team members who should be included in the next discussion.\n\nBest regards,\n[Your Name]";
-      }
-
-      if (logText.includes('预算') || logText.includes('budget') || logText.includes('Q2')) {
-        suggestion = "预算窗口期关键，建议明确$50-150k试点范围和ROI计算。";
-        email = "Hi Cindy,\n\nFollowing up on the budget discussion. For the Q2 planning window, I've prepared a tiered proposal:\n\nOption 1: Basic Screening Pilot ($50k)\n- 1 county, 6-month implementation\n- Basic screening and referral system\n\nOption 2: Enhanced Intervention Pilot ($100k)\n- 2 counties, 9-month implementation\n- Screening + early intervention support\n- Data integration and reporting\n\nOption 3: Comprehensive Program ($150k)\n- 3 counties, 12-month implementation\n- Full screening, intervention, and predictive analytics\n- Yale psychiatry consultation included\n\nAll options include detailed ROI calculations based on reduced high-cost service utilization.\n\nBest regards,\n[Your Name]";
-      }
-
-      return { suggestion, email };
-    }
-
-    // Update project status based on log
-    function updateProjectStatus(logText) {
-      const statusBadges = document.querySelectorAll('.status-badge');
-      const nextActions = document.querySelectorAll('.execution-card .text-sm.text-gray-800.mt-1');
-      
-      if (logText.includes('联系') && logText.includes('成功')) {
-        // Update first project status
-        if (statusBadges[0]) {
-          statusBadges[0].textContent = "联系完成";
-          statusBadges[0].className = "status-badge bg-green-100 text-green-800";
-        }
-        if (nextActions[0]) {
-          nextActions[0].textContent = "准备试点提案具体细节和资源需求";
-        }
-      }
-    }
-
-    // Analyze Daily Log button click
-    analyzeBtn.addEventListener('click', function() {
-      const logText = dailyLogTextarea.value;
-      const analysis = analyzeDailyLog(logText);
-      
-      // Update AI suggestion
-      aiSuggestionText.textContent = analysis.suggestion;
-      
-      // Update draft email
-      draftEmailTextarea.value = analysis.email;
-      
-      // Update project status
-      updateProjectStatus(logText);
-      
-      // Show success feedback
-      this.innerHTML = '<i class="fas fa-check mr-2"></i>分析完成';
-      this.classList.remove('bg-brand', 'hover:bg-blue-600');
-      this.classList.add('bg-green-500', 'hover:bg-green-600');
-      
-      setTimeout(() => {
-        this.innerHTML = '<i class="fas fa-robot mr-2"></i>更新并分析';
-        this.classList.remove('bg-green-500', 'hover:bg-green-600');
-        this.classList.add('bg-brand', 'hover:bg-blue-600');
-      }, 2000);
-    });
-
-    // Update Email button click
-    updateEmailBtn.addEventListener('click', function() {
-      const humanInput = humanInputTextarea.value;
-      const currentEmail = draftEmailTextarea.value;
-      
-      if (humanInput.trim()) {
-        // Simple refinement: append human input as a paragraph
-        const refinedEmail = currentEmail + "\n\n" + humanInput;
-        draftEmailTextarea.value = refinedEmail;
-        
-        // Clear human input
-        humanInputTextarea.value = '';
-        
-        // Show success feedback
-        this.innerHTML = '<i class="fas fa-check mr-2"></i>邮件已更新';
-        this.classList.remove('bg-amber-500', 'hover:bg-amber-600');
-        this.classList.add('bg-green-500', 'hover:bg-green-600');
-        
-        setTimeout(() => {
-          this.innerHTML = '<i class="fas fa-edit mr-2"></i>更新邮件';
-          this.classList.remove('bg-green-500', 'hover:bg-green-600');
-          this.classList.add('bg-amber-500', 'hover:bg-amber-600');
-        }, 2000);
-      }
-    });
-
-    // Execution card hover effects
-    document.querySelectorAll('.execution-card').forEach(card => {
-      card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-1px)';
-        this.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.05)';
-      });
-      
-      card.addEventListener('mouseleave', function() {
-        this.style.transform = '';
-        this.style.boxShadow = '';
-      });
-    });
-
-
-  </script>
-
-  <!-- PPT Modal -->
-  <div id="ppt-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
-    <div class="absolute inset-0 overflow-y-auto">
-      <div class="min-h-full flex items-center justify-center p-4">
-        <div class="bg-card rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] flex flex-col">
-          
-          <!-- Modal Header -->
-          <div class="flex justify-between items-center p-6 border-b">
-            <div>
-              <h2 class="text-xl font-bold text-gray-900">🎯 Trillium 汇报（30分钟）</h2>
-              <p class="text-sm text-gray-600 mt-1">交互式演示文稿 - 8张幻灯片</p>
-            </div>
-            <button id="close-ppt-btn" class="text-gray-500 hover:text-gray-700">
-              <i class="fas fa-times text-xl"></i>
-            </button>
-          </div>
-          
-          <!-- Modal Content - Slides -->
-          <div class="flex-1 overflow-y-auto p-6">
-            <div class="space-y-12">
-              
-              <!-- Slide 1 -->
-              <div class="slide">
-                <div class="mb-4">
-                  <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Slide 1</span>
-                </div>
-                <div class="mb-4 p-3 bg-yellow-100 border border-yellow-300 rounded-lg">
-                  <p class="text-sm font-bold text-yellow-800">[UPDATED VERSION - TEST]</p>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">我们是谁（为Trillium提供什么）</h3>
-                <div class="space-y-4 text-lg text-gray-900">
-                  <p>• <span class="font-semibold">NeighborBridge</span><br>
-                    帮助 payer 通过早期识别，降低高成本行为健康支出（FASD 为重点）</p>
-                  <p>• <span class="font-semibold">临床与学术支持</span><br>
-                    临床逻辑正在与学术专家讨论中优化 (clinical logic being refined with academic input)</p>
-                  <p>• <span class="font-semibold">FQHC 实践经验</span><br>
-                    已在一线人群中开展 FASD 相关识别与干预工作</p>
-                  <p>• <span class="font-semibold">专注 Medicaid 高风险人群的早期识别与干预</span></p>
-                </div>
-              </div>
-              
-              <!-- Slide 2 -->
-              <div class="slide">
-                <div class="mb-4">
-                  <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Slide 2</span>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">Trillium当前挑战</h3>
-                <div class="space-y-4 text-lg text-gray-700">
-                  <p>• <span class="font-semibold">高成本服务利用</span> - 晚期诊断导致的高额治疗费用</p>
-                  <p>• <span class="font-semibold">护理碎片化</span> - 缺乏整合的行为健康服务</p>
-                  <p>• <span class="font-semibold">价值医疗转型</span> - 从按服务收费转向基于结果的支付</p>
-                  <p>• <span class="font-semibold">社区覆盖不足</span> - Eastern NC 28个县的资源分配挑战</p>
-                </div>
-              </div>
-              
-              <!-- Slide 3 -->
-              <div class="slide">
-                <div class="mb-4">
-                  <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Slide 3</span>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">机会点</h3>
-                <div class="space-y-4 text-lg text-gray-700">
-                  <p>• <span class="font-semibold">FASD/ASD筛查试点</span> - 早期识别 vs 晚期治疗成本比 1:10</p>
-                  <p>• <span class="font-semibold">已设计完成的FASD早期识别路径</span> - 非单纯筛查，完整临床工作流</p>
-                  <p>• <span class="font-semibold">学校系统合作</span> - 利用Trillium社区网络扩展覆盖</p>
-                  <p>• <span class="font-semibold">数据驱动干预</span> - 预测模型识别高风险人群</p>
-                  <p>• <span class="font-semibold">价值支付模式</span> - 基于结果的支付，潜在节约15-25%</p>
-                </div>
-              </div>
-              
-              <!-- Slide 4 -->
-              <div class="slide">
-                <div class="mb-4">
-                  <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Slide 4</span>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">我们已经在做（可直接复制到Trillium）</h3>
-                <div class="mb-4 p-3 bg-yellow-100 border border-yellow-300 rounded-lg">
-                  <p class="text-sm font-bold text-yellow-800">[UPDATED VERSION - CONCRETE WORKFLOW]</p>
-                </div>
-                <div class="space-y-4 text-lg text-gray-900">
-                  <p>• <span class="font-semibold">FQHC中已运行的分层识别+干预路径</span><br>
-                    完整临床工作流：Risk Identification → Screening → Stratification → Intervention</p>
-                  <p>• <span class="font-semibold">临床与学术支持</span><br>
-                    临床逻辑正在与学术专家讨论中优化 (informed by discussion with academic experts)</p>
-                  <p>• <span class="font-semibold">初步ROI框架</span><br>
-                    已建立成本节约测算逻辑</p>
-                  <p>• <span class="font-semibold">👉 这不是新项目，而是可直接复制的试点模型</span></p>
-                </div>
-              </div>
-              
-              <!-- Slide 5 -->
-              <div class="slide">
-                <div class="mb-4">
-                  <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Slide 5</span>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">ROI如何实现（为什么这个试点值得做）</h3>
-                <div class="mb-4 p-3 bg-yellow-100 border border-yellow-300 rounded-lg">
-                  <p class="text-sm font-bold text-yellow-800">[UPDATED VERSION - CAUSAL LINK]</p>
-                </div>
-                <div class="space-y-4 text-lg text-gray-900">
-                  <p>• <span class="font-semibold">成本结构</span><br>
-                    高成本主要来自：晚期诊断 + 急诊/住院利用</p>
-                  <p>• <span class="font-semibold">干预机制</span><br>
-                    通过FASD/ASD早期识别 → 提前干预 → 减少高成本服务使用</p>
-                  <p>• <span class="font-semibold">因果链</span><br>
-                    Early identification → earlier intervention → reduced acute care cost</p>
-                  <p>• <span class="font-semibold">ROI计算逻辑</span><br>
-                    小规模试点（2–3县） → 跟踪急诊/再入院变化 → 量化成本节约</p>
-                  <p>• <span class="font-semibold">6个月内提供明确ROI数据</span></p>
-                </div>
-              </div>
-              
-              <!-- Slide 7 -->
-              <div class="slide">
-                <div class="mb-4">
-                  <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Slide 7</span>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">Pilot方案</h3>
-                <div class="space-y-4 text-lg text-gray-700">
-                  <p>• <span class="font-semibold">范围</span> - 2-3个县，6-9个月实施</p>
-                  <p>• <span class="font-semibold">目标人群</span> - Trillium Medicaid儿童和家庭</p>
-                  <p>• <span class="font-semibold">核心组件</span>:<br>
-                    &nbsp;&nbsp;✓ FASD/ASD筛查工具包<br>
-                    &nbsp;&nbsp;✓ 早期干预支持<br>
-                    &nbsp;&nbsp;✓ 数据集成和报告<br>
-                    &nbsp;&nbsp;✓ 耶鲁教授咨询</p>
-                  <p>• <span class="font-semibold">预算</span> - $50-150k (基于范围和深度)</p>
-                </div>
-              </div>
-              
-              <!-- Slide 8 -->
-              <div class="slide">
-                <div class="mb-4">
-                  <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Slide 8</span>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">ROI逻辑</h3>
-                <div class="space-y-4 text-lg text-gray-700">
-                  <p>• <span class="font-semibold">成本节约</span>:<br>
-                    &nbsp;&nbsp;✓ 减少高成本急诊利用: 15-25%<br>
-                    &nbsp;&nbsp;✓ 降低再入院率: 8-12%<br>
-                    &nbsp;&nbsp;✓ 改善护理连续性: 减少重复服务</p>
-                  <p>• <span class="font-semibold">质量提升</span>:<br>
-                    &nbsp;&nbsp;✓ 早期识别率提高<br>
-                    &nbsp;&nbsp;✓ 干预时间缩短<br>
-                    &nbsp;&nbsp;✓ 患者满意度改善</p>
-                  <p>• <span class="font-semibold">战略价值</span>:<br>
-                    &nbsp;&nbsp;✓ 价值医疗领导地位<br>
-                    &nbsp;&nbsp;✓ 社区影响力增强<br>
-                    &nbsp;&nbsp;✓ 可扩展的解决方案</p>
-                </div>
-              </div>
-              
-              <!-- Slide 9 -->
-              <div class="slide">
-                <div class="mb-4">
-                  <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Slide 9</span>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">为什么是现在</h3>
-                <div class="space-y-4 text-lg text-gray-700">
-                  <p>• <span class="font-semibold">Q2预算规划窗口</span> - 2026年第二季度预算制定期</p>
-                  <p>• <span class="font-semibold">价值医疗转型加速</span> - Medicaid MCO向基于结果支付转型</p>
-                  <p>• <span class="font-semibold">行为健康优先级提升</span> - 疫情后心理健康需求增加</p>
-                  <p>• <span class="font-semibold">竞争窗口期</span> - 其他数字健康解决方案尚未深度渗透</p>
-                  <p>• <span class="font-semibold">耶鲁教授身份强化</span> - 学术权威性增强合作可信度</p>
-                </div>
-              </div>
-              
-              <!-- Slide 10 -->
-              <div class="slide">
-                <div class="mb-4">
-                  <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Slide 10</span>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">下一步行动</h3>
-                <div class="space-y-4 text-lg text-gray-700">
-                  <p>1. <span class="font-semibold">重新联系</span> - 发送更新邮件给Cindy Ehlers (本周)</p>
-                  <p>2. <span class="font-semibold">30分钟更新会议</span> - 讨论进展和试点方案 (下周)</p>
-                  <p>3. <span class="font-semibold">试点提案细化</span> - 2-3个县具体方案 (2周内)</p>
-                  <p>4. <span class="font-semibold">内部利益相关者参与</span> - 建立支持联盟 (3周内)</p>
-                  <p>5. <span class="font-semibold">Q2预算整合</span> - 确保试点资金 (4周内)</p>
-                </div>
-              <!-- Slide 6: FASD Early Identification Pathway -->
-              <div class="slide">
-                <div class="mb-4">
-                  <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Slide 6</span>
-                </div>
-                <div class="mb-4 p-3 bg-green-100 border border-green-300 rounded-lg">
-                  <p class="text-sm font-bold text-green-800">[NEW - CONCRETE WORKFLOW]</p>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">FASD Early Identification Pathway（FQHC + Community）</h3>
-                
-                <div class="space-y-6 text-lg text-gray-900">
-                  
-                  <!-- Step 1: Risk Identification -->
-                  <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <h4 class="text-xl font-bold text-gray-800 mb-3">1. Risk Identification</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <div class="text-sm font-semibold text-gray-700 mb-2">Settings:</div>
-                        <ul class="space-y-1 text-gray-800">
-                          <li class="flex items-start">
-                            <span class="text-blue-500 mr-2">•</span>
-                            <span>FQHC visits</span>
-                          </li>
-                          <li class="flex items-start">
-                            <span class="text-blue-500 mr-2">•</span>
-                            <span>School referrals</span>
-                          </li>
-                          <li class="flex items-start">
-                            <span class="text-blue-500 mr-2">•</span>
-                            <span>CHW outreach</span>
-                          </li>
-                        </ul>
-                      </div>
-                      <div>
-                        <div class="text-sm font-semibold text-gray-700 mb-2">Method:</div>
-                        <ul class="space-y-1 text-gray-800">
-                          <li class="flex items-start">
-                            <span class="text-green-500 mr-2">•</span>
-                            <span>caregiver questionnaire</span>
-                          </li>
-                          <li class="flex items-start">
-                            <span class="text-green-500 mr-2">•</span>
-                            <span>behavioral concerns trigger</span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <!-- Step 2: Screening -->
-                  <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                    <h4 class="text-xl font-bold text-gray-800 mb-3">2. Screening</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div>
-                        <div class="text-sm font-semibold text-gray-700 mb-2">Who:</div>
-                        <ul class="space-y-1 text-gray-800">
-                          <li class="flex items-start">
-                            <span class="text-blue-500 mr-2">•</span>
-                            <span>CHW / nurse / PCP</span>
-                          </li>
-                        </ul>
-                      </div>
-                      <div>
-                        <div class="text-sm font-semibold text-gray-700 mb-2">Tool:</div>
-                        <ul class="space-y-1 text-gray-800">
-                          <li class="flex items-start">
-                            <span class="text-green-500 mr-2">•</span>
-                            <span>brief structured screener</span>
-                          </li>
-                        </ul>
-                      </div>
-                      <div>
-                        <div class="text-sm font-semibold text-gray-700 mb-2">Trigger:</div>
-                        <ul class="space-y-1 text-gray-800">
-                          <li class="flex items-start">
-                            <span class="text-orange-500 mr-2">•</span>
-                            <span>ADHD-like symptoms</span>
-                          </li>
-                          <li class="flex items-start">
-                            <span class="text-orange-500 mr-2">•</span>
-                            <span>learning issues</span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <!-- Step 3: Risk Stratification -->
-                  <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
-                    <h4 class="text-xl font-bold text-gray-800 mb-3">3. Risk Stratification</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div class="bg-white p-3 rounded border border-green-300">
-                        <div class="text-sm font-bold text-green-700 mb-1">Low Risk</div>
-                        <div class="text-gray-800">→ routine follow-up</div>
-                      </div>
-                      <div class="bg-white p-3 rounded border border-yellow-300">
-                        <div class="text-sm font-bold text-yellow-700 mb-1">Medium Risk</div>
-                        <div class="text-gray-800">→ behavioral support</div>
-                      </div>
-                      <div class="bg-white p-3 rounded border border-red-300">
-                        <div class="text-sm font-bold text-red-700 mb-1">High Risk</div>
-                        <div class="text-gray-800">→ referral (neuropsych / specialist)</div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <!-- Step 4: Early Intervention -->
-                  <div class="bg-green-50 p-4 rounded-lg border border-green-200">
-                    <h4 class="text-xl font-bold text-gray-800 mb-3">4. Early Intervention</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div>
-                        <div class="text-sm font-semibold text-gray-700 mb-2">caregiver training:</div>
-                        <div class="text-gray-800">FMF model</div>
-                      </div>
-                      <div>
-                        <div class="text-sm font-semibold text-gray-700 mb-2">school coordination</div>
-                      </div>
-                      <div>
-                        <div class="text-sm font-semibold text-gray-700 mb-2">behavioral management</div>
-                      </div>
-                    </div>
-                    <div class="mt-4 p-3 bg-white border border-green-400 rounded-lg">
-                      <p class="text-lg font-bold text-green-800 text-center">
-                        "Intervention begins before formal diagnosis"
-                      </p>
-                    </div>
-                  </div>
-                  
-                  <!-- Visual Flow Diagram - Executive Healthcare Style -->
-                  <div class="mt-8 pt-6 border-t border-gray-200">
-                    <h4 class="text-xl font-bold text-gray-800 mb-6">Clinical Workflow</h4>
-                    <div class="text-center">
-                      <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6 mb-6">
-                        <!-- Screening Box -->
-                        <div class="bg-white p-4 rounded-lg border border-gray-300 shadow-sm w-full md:w-48">
-                          <div class="text-lg font-semibold text-gray-800 mb-2">Screening</div>
-                          <div class="text-sm text-gray-600">CHW / nurse / PCP</div>
-                        </div>
-                        
-                        <div class="text-2xl text-gray-400">→</div>
-                        
-                        <!-- Stratification Box -->
-                        <div class="bg-white p-4 rounded-lg border border-gray-300 shadow-sm w-full md:w-48">
-                          <div class="text-lg font-semibold text-gray-800 mb-2">Stratification</div>
-                          <div class="text-sm text-gray-600">Low / Medium / High Risk</div>
-                        </div>
-                        
-                        <div class="text-2xl text-gray-400">→</div>
-                        
-                        <!-- Intervention Box -->
-                        <div class="bg-white p-4 rounded-lg border border-gray-300 shadow-sm w-full md:w-48">
-                          <div class="text-lg font-semibold text-gray-800 mb-2">Intervention</div>
-                          <div class="text-sm text-gray-600">Caregiver training + Support</div>
-                        </div>
-                        
-                        <div class="text-2xl text-gray-400">→</div>
-                        
-                        <!-- Outcome Box - Blue Highlight -->
-                        <div class="bg-white p-4 rounded-lg border border-blue-300 shadow-sm w-full md:w-48">
-                          <div class="text-lg font-semibold text-blue-700 mb-2">Outcome</div>
-                          <div class="text-sm text-blue-600 font-medium">↓ ED visits</div>
-                          <div class="text-sm text-blue-600 font-medium">↓ high-cost utilization</div>
-                        </div>
-                      </div>
-                      
-                      <div class="mt-6 text-center">
-                        <div class="text-sm text-gray-600 italic">
-                          "Intervention begins before formal diagnosis"
-                        </div>
-                      </div>
-                    </div>
-                  </div>                        <div class="flex justify-center space-x-6">
-                          <div class="text-red-600 font-bold">↓ ED visits</div>
-                          <div class="text-red-600 font-bold">↓ high-cost utilization</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                </div>
-              </div>              </div>
-              
-            </div>
-          </div>
-          
-          <!-- Modal Footer -->
-          <div class="p-4 border-t bg-card">
-            <div class="flex justify-between items-center">
-              <div class="text-sm text-gray-600">
-                共9张幻灯片 • 建议演示时间: 30分钟
-              </div>
-              <button id="close-ppt-btn-bottom" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition text-sm font-medium">
-                关闭演示
-              </button>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <style>
-    .slide {
-      padding-bottom: 3rem;
-      border-bottom: 1px solid #e5e7eb;
-    }
-    .slide:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-    
-    /* ============================================
-       TRILIUM PPT EXECUTIVE LIGHT THEME (PPT ONLY)
-       ============================================ */
-    
-    /* PPT Modal Container - Executive Healthcare Theme */
-    #ppt-modal .bg-white {
-      background-color: #FFFFFF !important;
-    }
-    
-    #ppt-modal .bg-card {
-      background-color: #FFFFFF !important;
-      border-color: #E5E7EB !important;
-    }
-    
-    /* PPT Slides - Clean Executive Style */
-    #ppt-modal .slide {
-      background-color: #FFFFFF !important;
-      color: #111111 !important;
-      padding: 2rem 0;
-      border-bottom: 1px solid #E5E7EB;
-    }
-    
-    #ppt-modal .slide:last-child {
-      border-bottom: none;
-    }
-    
-    /* Slide Titles - Healthcare Executive Style */
-    #ppt-modal .slide h3 {
-      color: #111111 !important;
-      font-size: 1.75rem !important;
-      font-weight: 700 !important;
-      margin-bottom: 1.5rem !important;
-      line-height: 1.3 !important;
-    }
-    
-    /* Slide Content - Readable Text */
-    #ppt-modal .slide p,
-    #ppt-modal .slide li,
-    #ppt-modal .slide div,
-    #ppt-modal .slide span {
-      color: #111111 !important;
-      line-height: 1.6 !important;
-    }
-    
-    #ppt-modal .slide .text-gray-700,
-    #ppt-modal .slide .text-gray-600,
-    #ppt-modal .slide .text-gray-500,
-    #ppt-modal .slide .text-gray-400,
-    #ppt-modal .slide .text-gray-900 {
-      color: #444444 !important;
-    }
-    
-    /* Slide Number Badge - Subtle Blue */
-    #ppt-modal .slide .bg-blue-100 {
-      background-color: rgba(37, 99, 235, 0.1) !important;
-      border: 1px solid rgba(37, 99, 235, 0.2) !important;
-    }
-    
-    #ppt-modal .slide .text-blue-800 {
-      color: #2563EB !important;
-    }
-    
-    /* Update Markers - Subtle Yellow */
-    #ppt-modal .slide .bg-yellow-100 {
-      background-color: rgba(245, 158, 11, 0.1) !important;
-      border: 1px solid rgba(245, 158, 11, 0.2) !important;
-    }
-    
-    #ppt-modal .slide .text-yellow-800 {
-      color: #D97706 !important;
-    }
-    
-    /* New Slide Marker - Subtle Green */
-    #ppt-modal .slide .bg-green-100 {
-      background-color: rgba(34, 197, 94, 0.1) !important;
-      border: 1px solid rgba(34, 197, 94, 0.2) !important;
-    }
-    
-    #ppt-modal .slide .text-green-800 {
-      color: #059669 !important;
-    }
-    
-    /* Remove Dark/Neon Backgrounds from Slides */
-    #ppt-modal .slide .bg-gray-50,
-    #ppt-modal .slide .bg-blue-50,
-    #ppt-modal .slide .bg-yellow-50,
-    #ppt-modal .slide .bg-green-50,
-    #ppt-modal .slide .bg-purple-50 {
-      background-color: #FFFFFF !important;
-      border: 1px solid #E5E7EB !important;
-    }
-    
-    /* Step Boxes - Clean White with Subtle Border */
-    #ppt-modal .slide .bg-white {
-      background-color: #FFFFFF !important;
-      border: 1px solid #E5E7EB !important;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    }
-    
-    /* Step Headers - Blue Accent */
-    #ppt-modal .slide h4 {
-      color: #2563EB !important;
-      font-size: 1.25rem !important;
-      font-weight: 600 !important;
-      margin-bottom: 1rem !important;
-    }
-    
-    /* Lists - Clean Spacing */
-    #ppt-modal .slide ul,
-    #ppt-modal .slide ol {
-      margin-left: 1.5rem !important;
-      margin-bottom: 1rem !important;
-    }
-    
-    #ppt-modal .slide li {
-      margin-bottom: 0.5rem !important;
-    }
-    
-    /* Bold Text - Dark for Emphasis */
-    #ppt-modal .slide .font-semibold,
-    #ppt-modal .slide .font-bold {
-      color: #111111 !important;
-    }
-    
-    /* ============================================
-       SLIDE 6 SPECIFIC: FASD Workflow Cleanup
-       ============================================ */
-    
-    /* Workflow Boxes - Clean Executive Style */
-    #ppt-modal .slide .bg-white.rounded-lg.shadow-sm {
-      background-color: #FFFFFF !important;
-      border: 1px solid #E5E7EB !important;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
-      padding: 1.5rem !important;
-    }
-    
-    /* Workflow Box Titles */
-    #ppt-modal .slide .text-blue-700,
-    #ppt-modal .slide .text-yellow-700,
-    #ppt-modal .slide .text-green-700,
-    #ppt-modal .slide .text-purple-700 {
-      color: #2563EB !important;
-      font-weight: 600 !important;
-    }
-    
-    /* Outcome Box - Blue Highlight */
-    #ppt-modal .slide .border-purple-300 {
-      border-color: #2563EB !important;
-    }
-    
-    #ppt-modal .slide .text-purple-700 {
-      color: #2563EB !important;
-    }
-    
-    /* Outcome Metrics - Blue Accent */
-    #ppt-modal .slide .text-red-600 {
-      color: #2563EB !important;
-      font-weight: 600 !important;
-    }
-    
-    /* Flow Arrows */
-    #ppt-modal .slide .text-gray-500 {
-      color: #9CA3AF !important;
-    }
-    
-    /* ============================================
-       SPACING & LAYOUT ENHANCEMENTS
-       ============================================ */
-    
-    /* Increased Line Spacing */
-    #ppt-modal .slide .space-y-4 > * + * {
-      margin-top: 1.5rem !important;
-    }
-    
-    #ppt-modal .slide .space-y-6 > * + * {
-      margin-top: 2rem !important;
-    }
-    
-    /* Grid Spacing */
-    #ppt-modal .slide .gap-4 {
-      gap: 1.5rem !important;
-    }
-    
-    /* Section Padding */
-    #ppt-modal .slide .p-4 {
-      padding: 1.5rem !important;
-    }
-    
-    /* ============================================
-       PRINT OPTIMIZATION
-       ============================================ */
-    
-    @media print {
-      #ppt-modal .slide {
-        page-break-inside: avoid;
-        break-inside: avoid;
-      }
-      
-      #ppt-modal .slide h3 {
-        font-size: 1.5rem !important;
-      }
-      
-      #ppt-modal .slide .bg-white {
-        box-shadow: none !important;
-      }
-    }
-    
-    /* ============================================
-       PROJECTOR OPTIMIZATION
-       ============================================ */
-    
-    @media (min-width: 1024px) {
-      #ppt-modal .slide h3 {
-        font-size: 2rem !important;
-      }
-      
-      #ppt-modal .slide p,
-      #ppt-modal .slide li {
-        font-size: 1.125rem !important;
-      }
-    }
-  </style>
-
-  <script>
-    // PPT Modal functionality
-    const pptModal = document.getElementById('ppt-modal');
-    const openPptBtn = document.getElementById('open-ppt-btn');
-    const closePptBtn = document.getElementById('close-ppt-btn');
-    const closePptBtnBottom = document.getElementById('close-ppt-btn-bottom');
-    
-    // Open modal
-    openPptBtn.addEventListener('click', function() {
-      pptModal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden'; // Prevent background scrolling
-    });
-    
-    // Close modal functions
-    function closePptModal() {
-      pptModal.classList.add('hidden');
-      document.body.style.overflow = ''; // Restore scrolling
-    }
-    
-    closePptBtn.addEventListener('click', closePptModal);
-    closePptBtnBottom.addEventListener('click', closePptModal);
-    
-    // Close modal when clicking outside content
-    pptModal.addEventListener('click', function(event) {
-      if (event.target === pptModal) {
-        closePptModal();
-      }
-    });
-    
-    // Close modal with Escape key
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape' && !pptModal.classList.contains('hidden')) {
-        closePptModal();
-      }
-    });
-
-    // ============================================
     // Trillium Bio Generator Functions
     // ============================================
 
@@ -2047,7 +852,57 @@ Best regards,
       }, 3000);
     }
 
+    
+
     // ==================================================
+    
+    // ==================================================
+    // 📝 今日进展持久化 (localStorage)
+    // ==================================================
+    function loadDailyLog() {
+      try {
+        const v = localStorage.getItem('trillium_daily_log');
+        const el = document.getElementById('daily-log');
+        if (el && v) el.value = v;
+      } catch (e) {}
+    }
+
+    function saveDailyLog() {
+      try {
+        const el = document.getElementById('daily-log');
+        if (!el) return;
+        localStorage.setItem('trillium_daily_log', el.value || '');
+        showNotification('今日进展已保存', 'success');
+      } catch (e) {
+        showNotification('保存失败', 'error');
+      }
+    }
+// ✉️ Quick Email (1–2 sentences)
+    // ==================================================
+    function generateQuickEmail() {
+      const log = (document.getElementById('daily-log')?.value || '').trim();
+      const today = new Date().toISOString().split('T')[0];
+      const base = "Hi Cindy — quick update from us. We’re ready to propose a small (2-county) pilot aligned to Trillium’s BH/VBC priorities, with a simple ROI model attached. Would you have 20–30 minutes this week to confirm scope and internal owners?";
+      const text = log ? `${base}
+
+Context (${today}): ${log}` : base;
+      const card = document.getElementById('quick-email-card');
+      const ta = document.getElementById('quick-email-text');
+      if (ta) ta.value = text;
+      if (card) card.classList.remove('hidden');
+    }
+
+    function copyQuickEmail() {
+      const ta = document.getElementById('quick-email-text');
+      const text = ta ? ta.value : '';
+      if (!text) return;
+      navigator.clipboard.writeText(text).then(() => {
+        showNotification('Quick Email 已复制到剪贴板', 'success');
+      }).catch(() => {
+        showNotification('复制失败，请手动复制', 'error');
+      });
+    }
+// ==================================================
     // 📄 Document Panel Functionality
     // ==================================================
 
@@ -2343,6 +1198,9 @@ Best regards,
 
     // Initialize bio generator and document panel
     document.addEventListener('DOMContentLoaded', function() {
+      loadDailyLog();
+      const saveBtn=document.getElementById('save-log-btn');
+      if(saveBtn){saveBtn.addEventListener('click', saveDailyLog);} 
       // Add enter key support for emphasis input
       const emphasisInput = document.getElementById('emphasis-input');
       if (emphasisInput) {
