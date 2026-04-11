@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>家庭应急保障 - NeighborBridge</title>
+  <title>家庭应急保障与照护协调 - NeighborBridge</title>
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -24,6 +24,12 @@
               important: "#f59e0b",
               normal: "#3b82f6",
               support: "#10b981"
+            },
+            care: {
+              coordination: "#3b82f6",
+              medical: "#10b981",
+              daily: "#f59e0b",
+              church: "#8b5cf6"
             }
           }
         }
@@ -38,17 +44,17 @@
   <link rel="stylesheet" href="shared.css">
   
   <style>
-    /* Emergency Plan specific styles */
-    .emergency-card {
+    /* Enhanced Emergency + Care System styles */
+    .emergency-card, .care-card {
       border-radius: 0.75rem;
       border: 1px solid #e5e7eb;
       transition: all 0.2s ease;
       background: white;
     }
     
-    .emergency-card:hover {
+    .emergency-card:hover, .care-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
     }
     
     .status-badge {
@@ -57,1021 +63,1792 @@
       padding: 0.25rem 0.75rem;
       border-radius: 9999px;
       font-size: 0.75rem;
-      font-weight: 600;
+      font-weight: 500;
     }
     
-    .contact-card {
-      transition: all 0.2s ease;
-      border-left: 4px solid;
+    .status-critical { background-color: #fee2e2; color: #dc2626; }
+    .status-important { background-color: #fef3c7; color: #d97706; }
+    .status-normal { background-color: #dbeafe; color: #2563eb; }
+    .status-completed { background-color: #d1fae5; color: #059669; }
+    .status-pending { background-color: #f3f4f6; color: #6b7280; }
+    
+    .priority-high { border-left: 4px solid #ef4444; }
+    .priority-medium { border-left: 4px solid #f59e0b; }
+    .priority-low { border-left: 4px solid #3b82f6; }
+    
+    .task-item {
+      padding: 0.75rem;
+      border-bottom: 1px solid #f3f4f6;
+      transition: background-color 0.2s;
     }
     
-    .contact-card:hover {
+    .task-item:hover {
       background-color: #f9fafb;
     }
     
-    .print-optimized {
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
+    .task-item:last-child {
+      border-bottom: none;
     }
     
-    .emergency-instruction {
-      border-left: 4px solid #ef4444;
-      background-color: #fef2f2;
+    .print-friendly {
+      background: white;
+      color: black;
     }
     
-    .action-button {
-      transition: all 0.2s ease;
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      
+      .print-friendly {
+        border: 1px solid #000 !important;
+        margin: 0 !important;
+        padding: 1rem !important;
+      }
+      
+      .page-break {
+        page-break-before: always;
+      }
     }
     
-    .action-button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* Modal styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
     }
     
-    .progress-ring {
-      transform: rotate(-90deg);
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
     }
     
-    .progress-ring-circle {
-      stroke-linecap: round;
-      transition: stroke-dashoffset 0.5s ease;
+    .modal-content {
+      background: white;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      max-width: 500px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
     }
   </style>
 </head>
-<body class="bg-gray-50 print:bg-white">
-
-  <!-- Header -->
-  <header class="bg-white shadow-sm border-b print:hidden">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="flex items-center space-x-4">
-        <a href="/" class="text-sm text-gray-600 hover:text-brand font-medium">
-          <i class="fas fa-arrow-left mr-1"></i> 主仪表板
+<body class="bg-gray-50 text-gray-900">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm border-b">
+    <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <a href="index.html" class="text-brand hover:text-blue-600">
+          <i class="fas fa-home"></i>
         </a>
-        <h1 class="text-2xl font-bold">🛡️ 家庭应急保障</h1>
+        <span class="text-gray-400">/</span>
+        <h1 class="text-lg font-semibold">家庭应急保障与照护协调</h1>
       </div>
       <div class="flex items-center space-x-4">
-        <span class="text-sm text-gray-500" id="last-updated">最后更新: 刚刚</span>
-        <button class="px-4 py-2 bg-blue-100 text-blue-700 text-sm font-medium rounded hover:bg-blue-200 transition" onclick="refreshDashboard()">
-          <i class="fas fa-sync-alt mr-1"></i> 刷新
+        <button onclick="window.print()" class="text-sm text-gray-600 hover:text-gray-900">
+          <i class="fas fa-print mr-1"></i>打印
         </button>
-        <button class="px-4 py-2 bg-green-100 text-green-700 text-sm font-medium rounded hover:bg-green-200 transition" onclick="window.print()">
-          <i class="fas fa-print mr-1"></i> 打印
+        <button onclick="refreshPage()" class="text-sm text-gray-600 hover:text-gray-900">
+          <i class="fas fa-sync-alt mr-1"></i>刷新
         </button>
       </div>
     </div>
-  </header>
+  </nav>
 
-  <!-- Main Layout -->
-  <div class="max-w-7xl mx-auto px-6 py-6 print:px-0 print:py-4">
-
-    <!-- Dashboard Header -->
-    <div class="mb-8 print:mb-4">
-      <h1 class="text-3xl font-bold text-gray-800 mb-2">🛡️ 家庭应急保障系统</h1>
-      <p class="text-gray-600">为非英语移民母亲设计的紧急情况保护系统。简洁、可执行、可打印。</p>
-    </div>
-
-    <!-- Status Tracker -->
-    <div class="emergency-card p-6 mb-8 border-2 border-blue-200 bg-gradient-to-r from-blue-50 to-white print:break-inside-avoid">
-      <h2 class="text-xl font-bold text-gray-800 mb-4">
-        <i class="fas fa-chart-line text-blue-600 mr-2"></i> 应急准备进度
-      </h2>
-      
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Legal Setup -->
-        <div>
-          <div class="flex justify-between items-center mb-2">
-            <span class="font-medium text-gray-700">法律与授权</span>
-            <span class="text-lg font-bold text-gray-800" id="legal-progress">40%</span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-3">
-            <div id="legal-progress-bar" class="bg-red-500 h-3 rounded-full" style="width: 40%"></div>
-          </div>
-          <p class="text-sm text-gray-500 mt-1">5项中完成2项</p>
-        </div>
-        
-        <!-- Contact Setup -->
-        <div>
-          <div class="flex justify-between items-center mb-2">
-            <span class="font-medium text-gray-700">紧急联系人</span>
-            <span class="text-lg font-bold text-gray-800" id="contact-progress">60%</span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-3">
-            <div id="contact-progress-bar" class="bg-yellow-500 h-3 rounded-full" style="width: 60%"></div>
-          </div>
-          <p class="text-sm text-gray-500 mt-1">3项中完成2项</p>
-        </div>
-        
-        <!-- Financial Setup -->
-        <div>
-          <div class="flex justify-between items-center mb-2">
-            <span class="font-medium text-gray-700">财务与账户</span>
-            <span class="text-lg font-bold text-gray-800" id="financial-progress">30%</span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-3">
-            <div id="financial-progress-bar" class="bg-blue-500 h-3 rounded-full" style="width: 30%"></div>
-          </div>
-          <p class="text-sm text-gray-500 mt-1">4项中完成1项</p>
-        </div>
-      </div>
-      
-      <div class="mt-6 pt-6 border-t">
-        <div class="flex items-center text-sm text-gray-600">
-          <i class="fas fa-bell text-yellow-500 mr-2"></i>
-          <span>下次检查: <span id="next-check">2026-07-01</span> (每3个月)</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Two-Column Layout -->
-    <div class="two-col-layout print:block">
-
-      <!-- Left Column -->
-      <div class="space-y-6 print:space-y-4">
-
-        <!-- A. 紧急联系人（CRITICAL） -->
-        <div class="emergency-card p-6 print:break-inside-avoid">
-          <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-bold text-gray-800">
-              <i class="fas fa-phone-alt text-red-600 mr-2"></i> 🚨 紧急联系人（CRITICAL）
-            </h2>
-            <button onclick="editContacts()" class="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded hover:bg-gray-200">
-              <i class="fas fa-edit mr-1"></i> 编辑
-            </button>
+  <main class="max-w-6xl mx-auto px-6 py-8">
+    <!-- ================================================== -->
+    <!-- 1. TOP SUMMARY CARD / DASHBOARD OVERVIEW -->
+    <!-- ================================================== -->
+    <div class="mb-8">
+      <div class="bg-white rounded-xl shadow p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Current Phase -->
+          <div class="text-center">
+            <div class="text-sm text-gray-500 mb-1">当前状态</div>
+            <div class="text-xl font-bold text-brand">术后/出院后恢复期</div>
+            <div class="text-xs text-gray-500 mt-1">开始于: 2026-04-01</div>
           </div>
           
-          <!-- Primary Contact -->
-          <div class="mb-6">
-            <h3 class="font-bold text-gray-700 mb-3">主要联系人 (1-2人)</h3>
-            <div class="space-y-4">
-              <div class="contact-card p-4 border-l-4 border-red-500 bg-red-50">
-                <div class="flex justify-between items-start">
-                  <div>
-                    <p class="font-bold text-gray-800">张明</p>
-                    <p class="text-sm text-gray-600">关系: 朋友 / 决策者</p>
-                    <p class="text-sm text-gray-600">电话: (555) 123-4567</p>
-                  </div>
-                  <span class="status-badge bg-red-100 text-red-800">
-                    <i class="fas fa-star mr-1"></i>首要联系人
+          <!-- Today's Priorities -->
+          <div class="text-center">
+            <div class="text-sm text-gray-500 mb-1">今日重点</div>
+            <div class="text-lg font-semibold">复诊接送 + 取药</div>
+            <div class="text-xs text-gray-500 mt-1">2个高优先级任务</div>
+          </div>
+          
+          <!-- This Week's Tasks -->
+          <div class="text-center">
+            <div class="text-sm text-gray-500 mb-1">本周待办</div>
+            <div class="text-xl font-bold">8</div>
+            <div class="text-xs text-gray-500 mt-1">已完成: 3/8</div>
+          </div>
+          
+          <!-- Core Contacts -->
+          <div class="text-center">
+            <div class="text-sm text-gray-500 mb-1">核心联系人</div>
+            <div class="text-xl font-bold">6</div>
+            <div class="text-xs text-gray-500 mt-1">已分配任务: 5/8</div>
+          </div>
+        </div>
+        
+        <!-- Progress Bars -->
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span>应急准备进度</span>
+              <span>85%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-green-500 h-2 rounded-full" style="width: 85%"></div>
+            </div>
+          </div>
+          
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span>照护网络激活进度</span>
+              <span>60%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-blue-500 h-2 rounded-full" style="width: 60%"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- High Priority Gaps -->
+        <div class="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <div class="flex items-center">
+            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>
+            <span class="font-medium text-red-700">高优先级风险:</span>
+            <span class="ml-2 text-red-600">夜间支持安排未落实，复诊交通未确认</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- 2. CARE NETWORK OVERVIEW -->
+    <!-- ================================================== -->
+    <div class="mb-8">
+      <div class="care-card shadow p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold text-gray-900">
+            <i class="fas fa-network-wired text-care-coordination mr-2"></i>
+            照护网络总览
+          </h2>
+          <span class="status-badge status-normal">恢复期运行中</span>
+        </div>
+        
+        <p class="text-gray-600 mb-6">
+          这不是临时帮忙，而是一个有安排、有分工、可持续的小型关怀系统。我们协调家庭、教会和社区资源，围绕母亲的恢复和日常需求建立支持网络。
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Core Coordinator -->
+          <div class="bg-blue-50 p-4 rounded-lg">
+            <div class="flex items-center mb-2">
+              <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-2">
+                <i class="fas fa-user-shield text-blue-600"></i>
+              </div>
+              <div>
+                <div class="font-medium">核心协调人</div>
+                <div class="text-sm text-gray-600">Richard Hu</div>
+              </div>
+            </div>
+            <div class="text-xs text-gray-500">总负责，任务分配，进度跟踪</div>
+          </div>
+          
+          <!-- Medical Communication -->
+          <div class="bg-green-50 p-4 rounded-lg">
+            <div class="flex items-center mb-2">
+              <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-2">
+                <i class="fas fa-user-md text-green-600"></i>
+              </div>
+              <div>
+                <div class="font-medium">医疗沟通负责人</div>
+                <div class="text-sm text-gray-600">李医生 (家庭医生)</div>
+              </div>
+            </div>
+            <div class="text-xs text-gray-500">医疗咨询，复诊协调，药物管理</div>
+          </div>
+          
+          <!-- Daily Support -->
+          <div class="bg-amber-50 p-4 rounded-lg">
+            <div class="flex items-center mb-2">
+              <div class="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center mr-2">
+                <i class="fas fa-hands-helping text-amber-600"></i>
+              </div>
+              <div>
+                <div class="font-medium">日常支持负责人</div>
+                <div class="text-sm text-gray-600">张阿姨</div>
+              </div>
+            </div>
+            <div class="text-xs text-gray-500">送饭，购物，日常陪伴</div>
+          </div>
+          
+          <!-- Church Support -->
+          <div class="bg-purple-50 p-4 rounded-lg">
+            <div class="flex items-center mb-2">
+              <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-2">
+                <i class="fas fa-church text-purple-600"></i>
+              </div>
+              <div>
+                <div class="font-medium">教会支持圈</div>
+                <div class="text-sm text-gray-600">5位志愿者</div>
+              </div>
+            </div>
+            <div class="text-xs text-gray-500">代祷，送饭，探访，临时支援</div>
+          </div>
+          
+          <!-- Backup Support -->
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <div class="flex items-center mb-2">
+              <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-2">
+                <i class="fas fa-user-friends text-gray-600"></i>
+              </div>
+              <div>
+                <div class="font-medium">机动/备用支持者</div>
+                <div class="text-sm text-gray-600">3位亲友</div>
+              </div>
+            </div>
+            <div class="text-xs text-gray-500">临时替补，紧急支援</div>
+          </div>
+          
+          <!-- Family Support Circle -->
+          <div class="bg-indigo-50 p-4 rounded-lg">
+            <div class="flex items-center mb-2">
+              <div class="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center mr-2">
+                <i class="fas fa-users text-indigo-600"></i>
+              </div>
+              <div>
+                <div class="font-medium">家庭支持圈</div>
+                <div class="text-sm text-gray-600">直系亲属4人</div>
+              </div>
+            </div>
+            <div class="text-xs text-gray-500">情感支持，决策支持，长期关怀</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- 3. TASK COORDINATION CENTER -->
+    <!-- ================================================== -->
+    <div class="mb-8">
+      <div class="care-card shadow p-6">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl font-bold text-gray-900">
+            <i class="fas fa-tasks text-care-coordination mr-2"></i>
+            任务分工中心
+          </h2>
+          <div class="flex space-x-2">
+            <button onclick="generateWeeklyTasks()" class="bg-brand text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition text-sm">
+              <i class="fas fa-list-check mr-1"></i>生成本周照护任务清单
+            </button>
+            <button onclick="addNewTask()" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition text-sm">
+              <i class="fas fa-plus mr-1"></i>添加新任务
+            </button>
+          </div>
+        </div>
+        
+        <!-- Task Categories -->
+        <div class="mb-6 flex flex-wrap gap-2">
+          <button class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">全部</button>
+          <button class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">医疗类</button>
+          <button class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-medium">生活类</button>
+          <button class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">陪伴/情感支持</button>
+          <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">行政/保险/文件</button>
+          <button class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium">交通接送</button>
+          <button class="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm font-medium">祷告/教会支持</button>
+        </div>
+        
+        <!-- Task List -->
+        <div class="space-y-4">
+          <!-- Task 1: Medical Appointment -->
+          <div class="task-item priority-high rounded-lg">
+            <div class="flex justify-between items-start">
+              <div class="flex-1">
+                <div class="flex items-center mb-1">
+                  <span class="status-badge status-critical mr-2">高</span>
+                  <span class="font-medium">复诊接送</span>
+                  <span class="ml-2 text-xs px-2 py-1 bg-green-100 text-green-700 rounded">医疗类</span>
+                </div>
+                <div class="text-sm text-gray-600 mb-2">
+                  时间: 2026-04-12 14:00 | 地点: 骨科复诊 | 频率: 一次性
+                </div>
+                <div class="flex items-center text-sm">
+                  <span class="text-gray-500 mr-4">
+                    <i class="fas fa-user mr-1"></i>负责人: Richard Hu
+                  </span>
+                  <span class="text-gray-500 mr-4">
+                    <i class="fas fa-user-friends mr-1"></i>备用: 张阿姨
+                  </span>
+                  <span class="text-gray-500">
+                    <i class="fas fa-clock mr-1"></i>状态: 进行中
                   </span>
                 </div>
               </div>
-              
-              <div class="contact-card p-4 border-l-4 border-orange-500 bg-orange-50">
-                <div class="flex justify-between items-start">
-                  <div>
-                    <p class="font-bold text-gray-800">李华</p>
-                    <p class="text-sm text-gray-600">关系: 表亲 / 协助者</p>
-                    <p class="text-sm text-gray-600">电话: (555) 987-6543</p>
-                  </div>
-                  <span class="status-badge bg-orange-100 text-orange-800">
-                    <i class="fas fa-user-check mr-1"></i>次要联系人
+              <div class="flex space-x-2">
+                <button class="text-sm text-gray-500 hover:text-gray-700">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="text-sm text-gray-500 hover:text-gray-700">
+                  <i class="fas fa-check"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Task 2: Medication Pickup -->
+          <div class="task-item priority-high rounded-lg">
+            <div class="flex justify-between items-start">
+              <div class="flex-1">
+                <div class="flex items-center mb-1">
+                  <span class="status-badge status-critical mr-2">高</span>
+                  <span class="font-medium">取药</span>
+                  <span class="ml-2 text-xs px-2 py-1 bg-green-100 text-green-700 rounded">医疗类</span>
+                </div>
+                <div class="text-sm text-gray-600 mb-2">
+                  药房: CVS Main St | 处方: 止痛药, 抗生素 | 频率: 每周
+                </div>
+                <div class="flex items-center text-sm">
+                  <span class="text-gray-500 mr-4">
+                    <i class="fas fa-user mr-1"></i>负责人: 张阿姨
                   </span>
+                  <span class="text-gray-500 mr-4">
+                    <i class="fas fa-user-friends mr-1"></i>备用: 李医生
+                  </span>
+                  <span class="text-gray-500">
+                    <i class="fas fa-clock mr-1"></i>状态: 已分配
+                  </span>
+                </div>
+              </div>
+              <div class="flex space-x-2">
+                <button class="text-sm text-gray-500 hover:text-gray-700">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="text-sm text-gray-500 hover:text-gray-700">
+                  <i class="fas fa-check"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Task 3: Grocery -->
+          <div class="task-item priority-medium rounded-lg">
+            <div class="flex justify-between items-start">
+              <div class="flex-1">
+                <div class="flex items-center mb-1">
+                  <span class="status-badge status-important mr-2">中</span>
+                  <span class="font-medium">每周 grocery</span>
+                  <span class="ml-2 text-xs px-2 py-1 bg-amber-100 text-amber-700 rounded">生活类</span>
+                </div>
+                <div class="text-sm text-gray-600 mb-2">
+                  时间: 每周六上午 | 地点: 华人超市 | 频率: 每周
+                </div>
+                <div class="flex items-center text-sm">
+                  <span class="text-gray-500 mr-4">
+                    <i class="fas fa-user mr-1"></i>负责人: 教会志愿者
+                  </span>
+                  <span class="text-gray-500 mr-4">
+                    <i class="fas fa-user-friends mr-1"></i>备用: 张阿姨
+                  </span>
+                  <span class="text-gray-500">
+                    <i class="fas fa-clock mr-1"></i>状态: 进行中
+                  </span>
+                </div>
+              </div>
+              <div class="flex space-x-2">
+                <button class="text-sm text-gray-500 hover:text-gray-700">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="text-sm text-gray-500 hover:text-gray-700">
+                  <i class="fas fa-check"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Task 4: Meal Delivery -->
+          <div class="task-item priority-medium rounded-lg">
+            <div class="flex justify-between items-start">
+              <div class="flex-1">
+                <div class="flex items-center mb-1">
+                  <span class="status-badge status-important mr-2">中</span>
+                  <span class="font-medium">每周送饭</span>
+                  <span class="ml-2 text-xs px-2 py-1 bg-amber-100 text-amber-700 rounded">生活类</span>
+                </div>
+                <div class="text-sm text-gray-600 mb-2">
+                  时间: 周一、三、五晚餐 | 饮食要求: 低盐, 易消化 | 频率: 每周
+                </div>
+                <div class="flex items-center text-sm">
+                  <span class="text-gray-500 mr-4">
+                    <i class="fas fa-user mr-1"></i>负责人: 教会关怀小组
+                  </span>
+                  <span class="text-gray-500 mr-4">
+                    <i class="fas fa-user-friends mr-1"></i>备用: 张阿姨
+                  </span>
+                  <span class="text-gray-500">
+                    <i class="fas fa-clock mr-1"></i>状态: 已分配
+                  </span>
+                </div>
+              </div>
+              <div class="flex space-x-2">
+                <button class="text-sm text-gray-500 hover:text-gray-700">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="text-sm text-gray-500 hover:text-gray-700">
+                  <i class="fas fa-check"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Task 5: Insurance Follow-up -->
+          <div class="task-item priority-medium rounded-lg">
+            <div class="flex justify-between items-start">
+              <div class="flex-1">
+                <div class="flex items-center mb-1">
+                  <span class="status-badge status-important mr-2">中</span>
+                  <span class="font-medium">理赔/账单跟进</span>
+                  <span class="ml-2 text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">行政/保险/文件</span>
+                </div>
+                <div class="text-sm text-gray-600 mb-2">
+                  保险: Medicare + 补充保险 | 医院: General Hospital | 频率: 按需
+                </div>
+                <div class="flex items-center text-sm">
+                  <span class="text-gray-500 mr-4">
+                    <i class="fas fa-user mr-1"></i>负责人: Richard Hu
+                  </span>
+                  <span class="text-gray-500 mr-4">
+                    <i class="fas fa-user-friends mr-1"></i>备用: 无
+                  </span>
+                  <span class="text-gray-500">
+                    <i class="fas fa-clock mr-1"></i>状态: 进行中
+                  </span>
+                </div>
+              </div>
+              <div class="flex space-x-2">
+                <button class="text-sm text-gray-500 hover:text-gray-700">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="text-sm text-gray-500 hover:text-gray-700">
+                  <i class="fas fa-check"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Task Statistics -->
+        <div class="mt-6 pt-6 border-t border-gray-200">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="text-center">
+              <div class="text-2xl font-bold text-gray-900">8</div>
+              <div class="text-sm text-gray-500">总任务数</div>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl font-bold text-green-600">3</div>
+              <div class="text-sm text-gray-500">已完成</div>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl font-bold text-amber-600">4</div>
+              <div class="text-sm text-gray-500">进行中</div>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl font-bold text-red-600">1</div>
+              <div class="text-sm text-gray-500">未分配</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- 4. CORE TEAM -->
+    <!-- ================================================== -->
+    <div class="mb-8">
+      <div class="care-card shadow p-6">
+        <h2 class="text-xl font-bold text-gray-900 mb-6">
+          <i class="fas fa-users text-care-coordination mr-2"></i>
+          核心团队
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Coordinator -->
+          <div class="bg-white border rounded-lg p-4">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-user-shield text-blue-600"></i>
+              </div>
+              <div>
+                <div class="font-bold">总协调人</div>
+                <div class="text-sm text-gray-600">Richard Hu</div>
+              </div>
+            </div>
+            <div class="space-y-2 text-sm">
+              <div><span class="text-gray-500">关系:</span> 儿子</div>
+              <div><span class="text-gray-500">电话:</span> (123) 456-7890</div>
+              <div><span class="text-gray-500">微信:</span> richard_hu</div>
+              <div><span class="text-gray-500">适合任务:</span> 协调, 医疗决策, 文件处理</div>
+              <div><span class="text-gray-500">可用时间:</span> 全天 (紧急), 工作日晚上</div>
+            </div>
+          </div>
+          
+          <!-- Medical Liaison -->
+          <div class="bg-white border rounded-lg p-4">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-user-md text-green-600"></i>
+              </div>
+              <div>
+                <div class="font-bold">医疗联络人</div>
+                <div class="text-sm text-gray-600">李医生</div>
+              </div>
+            </div>
+            <div class="space-y-2 text-sm">
+              <div><span class="text-gray-500">关系:</span> 家庭医生</div>
+              <div><span class="text-gray-500">电话:</span> (123) 456-7891</div>
+              <div><span class="text-gray-500">邮箱:</span> dr.li@clinic.com</div>
+              <div><span class="text-gray-500">适合任务:</span> 医疗咨询, 复诊协调, 药物指导</div>
+              <div><span class="text-gray-500">可用时间:</span> 诊所时间, 紧急电话</div>
+            </div>
+          </div>
+          
+          <!-- Daily Support -->
+          <div class="bg-white border rounded-lg p-4">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-hands-helping text-amber-600"></i>
+              </div>
+              <div>
+                <div class="font-bold">日常支持联络人</div>
+                <div class="text-sm text-gray-600">张阿姨</div>
+              </div>
+            </div>
+            <div class="space-y-2 text-sm">
+              <div><span class="text-gray-500">关系:</span> 邻居/朋友</div>
+              <div><span class="text-gray-500">电话:</span> (123) 456-7892</div>
+              <div><span class="text-gray-500">微信:</span> auntie_zhang</div>
+              <div><span class="text-gray-500">适合任务:</span> 送饭, 购物, 日常陪伴</div>
+              <div><span class="text-gray-500">可用时间:</span> 工作日白天, 周末灵活</div>
+            </div>
+          </div>
+          
+          <!-- Financial/Insurance -->
+          <div class="bg-white border rounded-lg p-4">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-file-invoice-dollar text-gray-600"></i>
+              </div>
+              <div>
+                <div class="font-bold">财务/保险联络人</div>
+                <div class="text-sm text-gray-600">Richard Hu</div>
+              </div>
+            </div>
+            <div class="space-y-2 text-sm">
+              <div><span class="text-gray-500">关系:</span> 儿子</div>
+              <div><span class="text-gray-500">电话:</span> (123) 456-7890</div>
+              <div><span class="text-gray-500">邮箱:</span> richard@example.com</div>
+              <div><span class="text-gray-500">适合任务:</span> 保险理赔, 账单处理, 文件整理</div>
+              <div><span class="text-gray-500">可用时间:</span> 工作日</div>
+            </div>
+          </div>
+          
+          <!-- Church Liaison -->
+          <div class="bg-white border rounded-lg p-4">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-church text-purple-600"></i>
+              </div>
+              <div>
+                <div class="font-bold">教会联络人</div>
+                <div class="text-sm text-gray-600">王牧师</div>
+              </div>
+            </div>
+            <div class="space-y-2 text-sm">
+              <div><span class="text-gray-500">关系:</span> 牧师</div>
+              <div><span class="text-gray-500">电话:</span> (123) 456-7893</div>
+              <div><span class="text-gray-500">微信:</span> pastor_wang</div>
+              <div><span class="text-gray-500">适合任务:</span> 代祷协调, 志愿者安排, 情感支持</div>
+              <div><span class="text-gray-500">可用时间:</span> 随时 (紧急)</div>
+            </div>
+          </div>
+          
+          <!-- Backup Contacts -->
+          <div class="bg-white border rounded-lg p-4">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-user-friends text-indigo-600"></i>
+              </div>
+              <div>
+                <div class="font-bold">备用联系人</div>
+                <div class="text-sm text-gray-600">2位亲友</div>
+              </div>
+            </div>
+            <div class="space-y-2 text-sm">
+              <div><span class="text-gray-500">1. 表姐:</span> (123) 456-7894</div>
+              <div><span class="text-gray-500">2. 朋友:</span> (123) 456-7895</div>
+              <div><span class="text-gray-500">适合任务:</span> 临时替补, 紧急支援</div>
+              <div><span class="text-gray-500">可用时间:</span> 提前通知安排</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-6 pt-6 border-t border-gray-200">
+          <button onclick="generateTeamAssignment()" class="bg-brand text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+            <i class="fas fa-file-export mr-2"></i>生成核心团队分工表
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- 5. UPGRADED EMERGENCY CONTACTS -->
+    <!-- ================================================== -->
+    <div class="mb-8">
+      <div class="emergency-card shadow p-6">
+        <h2 class="text-xl font-bold text-gray-900 mb-6">
+          <i class="fas fa-phone-alt text-emergency-critical mr-2"></i>
+          紧急联系人 (升级版)
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Contact 1 -->
+          <div class="border rounded-lg p-4">
+            <div class="flex justify-between items-start mb-3">
+              <div>
+                <div class="font-bold text-lg">Richard Hu</div>
+                <div class="text-gray-600">儿子 / 总协调人</div>
+              </div>
+              <div class="flex space-x-2">
+                <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">医疗决策</span>
+                <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">翻译</span>
+              </div>
+            </div>
+            <div class="space-y-2 text-sm">
+              <div><span class="text-gray-500">电话:</span> <span class="font-medium">(123) 456-7890</span></div>
+              <div><span class="text-gray-500">微信:</span> richard_hu</div>
+              <div><span class="text-gray-500">邮箱:</span> richard@example.com</div>
+              <div class="mt-3">
+                <div class="text-gray-500 mb-1">能力标签:</div>
+                <div class="flex flex-wrap gap-1">
+                  <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">可作医疗决策</span>
+                  <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">可去医院现场</span>
+                  <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">可帮助翻译</span>
+                  <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">可处理财务/文件</span>
+                </div>
+              </div>
+              <div class="mt-2">
+                <span class="text-gray-500">最佳联系时段:</span> 全天 (紧急), 工作日晚上
+              </div>
+            </div>
+          </div>
+          
+          <!-- Contact 2 -->
+          <div class="border rounded-lg p-4">
+            <div class="flex justify-between items-start mb-3">
+              <div>
+                <div class="font-bold text-lg">李医生</div>
+                <div class="text-gray-600">家庭医生</div>
+              </div>
+              <div class="flex space-x-2">
+                <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">医疗决策</span>
+              </div>
+            </div>
+            <div class="space-y-2 text-sm">
+              <div><span class="text-gray-500">电话:</span> <span class="font-medium">(123) 456-7891</span> (诊所)</div>
+              <div><span class="text-gray-500">紧急:</span> (123) 456-7899 (值班)</div>
+              <div><span class="text-gray-500">邮箱:</span> dr.li@clinic.com</div>
+              <div class="mt-3">
+                <div class="text-gray-500 mb-1">能力标签:</div>
+                <div class="flex flex-wrap gap-1">
+                  <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">可作医疗决策</span>
+                  <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">可去医院现场</span>
+                  <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">专业医疗翻译</span>
+                </div>
+              </div>
+              <div class="mt-2">
+                <span class="text-gray-500">最佳联系时段:</span> 诊所时间 9:00-17:00, 紧急电话
+              </div>
+            </div>
+          </div>
+          
+          <!-- Contact 3 -->
+          <div class="border rounded-lg p-4">
+            <div class="flex justify-between items-start mb-3">
+              <div>
+                <div class="font-bold text-lg">张阿姨</div>
+                <div class="text-gray-600">邻居/日常支持</div>
+              </div>
+              <div class="flex space-x-2">
+                <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">现场支持</span>
+              </div>
+            </div>
+            <div class="space-y-2 text-sm">
+              <div><span class="text-gray-500">电话:</span> <span class="font-medium">(123) 456-7892</span></div>
+              <div><span class="text-gray-500">微信:</span> auntie_zhang</div>
+              <div><span class="text-gray-500">住址:</span> 同小区, 5分钟步行</div>
+              <div class="mt-3">
+                <div class="text-gray-500 mb-1">能力标签:</div>
+                <div class="flex flex-wrap gap-1">
+                  <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">可去医院现场</span>
+                  <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">可帮助翻译</span>
+                  <span class="px-2 py-1 bg-amber-100 text-amber-700 text-xs rounded">日常照顾</span>
+                </div>
+              </div>
+              <div class="mt-2">
+                <span class="text-gray-500">最佳联系时段:</span> 工作日白天, 周末灵活
+              </div>
+            </div>
+          </div>
+          
+          <!-- Contact 4 -->
+          <div class="border rounded-lg p-4">
+            <div class="flex justify-between items-start mb-3">
+              <div>
+                <div class="font-bold text-lg">王牧师</div>
+                <div class="text-gray-600">教会牧师</div>
+              </div>
+              <div class="flex space-x-2">
+                <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">情感支持</span>
+              </div>
+            </div>
+            <div class="space-y-2 text-sm">
+              <div><span class="text-gray-500">电话:</span> <span class="font-medium">(123) 456-7893</span></div>
+              <div><span class="text-gray-500">微信:</span> pastor_wang</div>
+              <div><span class="text-gray-500">教会:</span> 华人基督教会</div>
+              <div class="mt-3">
+                <div class="text-gray-500 mb-1">能力标签:</div>
+                <div class="flex flex-wrap gap-1">
+                  <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">情感/灵性支持</span>
+                  <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">社区资源协调</span>
+                  <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">紧急情况支持</span>
+                </div>
+              </div>
+              <div class="mt-2">
+                <span class="text-gray-500">最佳联系时段:</span> 随时 (紧急), 最好白天
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-6 pt-6 border-t border-gray-200">
+          <div class="text-sm text-gray-600">
+            <i class="fas fa-info-circle mr-1"></i>
+            紧急联系人卡片已优化，包含能力标签和最佳联系时段，便于快速决策。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- 6. POST-DISCHARGE RECOVERY PLAN -->
+    <!-- ================================================== -->
+    <div class="mb-8">
+      <div class="care-card shadow p-6">
+        <h2 class="text-xl font-bold text-gray-900 mb-6">
+          <i class="fas fa-heartbeat text-care-medical mr-2"></i>
+          母亲恢复期支持计划
+        </h2>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Left Column: Current Status -->
+          <div>
+            <h3 class="font-bold text-lg mb-4">当前恢复阶段</h3>
+            <div class="space-y-4">
+              <div class="bg-blue-50 p-4 rounded-lg">
+                <div class="font-medium mb-2">骨科/住院后恢复跟进</div>
+                <div class="text-sm text-gray-600">
+                  • 手术日期: 2026-03-28<br>
+                  • 出院日期: 2026-04-01<br>
+                  • 下次复诊: 2026-04-12<br>
+                  • 预计恢复期: 6-8周
+                </div>
+              </div>
+              
+              <div class="bg-green-50 p-4 rounded-lg">
+                <div class="font-medium mb-2">疼痛控制</div>
+                <div class="text-sm text-gray-600">
+                  • 当前疼痛等级: 3/10 (可控)<br>
+                  • 药物: 止痛药 (按需), 抗生素 (完成中)<br>
+                  • 非药物缓解: 冰敷, 抬高患肢
+                </div>
+              </div>
+              
+              <div class="bg-amber-50 p-4 rounded-lg">
+                <div class="font-medium mb-2">行动能力 / Mobility</div>
+                <div class="text-sm text-gray-600">
+                  • 可使用助行器短距离行走<br>
+                  • 需要协助: 洗澡, 如厕<br>
+                  • 物理治疗: 每周2次 (居家)
                 </div>
               </div>
             </div>
           </div>
           
-          <!-- Instructions -->
-          <div class="bg-gray-50 p-4 rounded-lg">
-            <h3 class="font-bold text-gray-700 mb-2">紧急情况指示</h3>
-            <ul class="space-y-2 text-sm text-gray-600">
+          <!-- Right Column: Risks & Needs -->
+          <div>
+            <h3 class="font-bold text-lg mb-4">主要风险点与支持需求</h3>
+            <div class="space-y-4">
+              <div class="bg-red-50 p-4 rounded-lg">
+                <div class="font-medium mb-2 text-red-700">⚠️ 跌倒风险 (高)</div>
+                <div class="text-sm text-gray-600">
+                  • 浴室: 已安装扶手, 防滑垫<br>
+                  • 夜间: 需要小夜灯, 床边便椅<br>
+                  • 监督: 洗澡时需有人在家
+                </div>
+              </div>
+              
+              <div class="bg-purple-50 p-4 rounded-lg">
+                <div class="font-medium mb-2">药物管理</div>
+                <div class="text-sm text-gray-600">
+                  • 每日服药时间: 早8点, 晚8点<br>
+                  • 需要提醒: 是 (张阿姨负责)<br>
+                  • 药物清单: 贴在冰箱上
+                </div>
+              </div>
+              
+              <div class="bg-indigo-50 p-4 rounded-lg">
+                <div class="font-medium mb-2">本周医疗事项</div>
+                <div class="text-sm text-gray-600">
+                  • 复诊: 4月12日 14:00 (骨科)<br>
+                  • 取药: 每周一次 (CVS)<br>
+                  • 物理治疗: 周二, 周四上午
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- When to Contact -->
+        <div class="mt-6 pt-6 border-t border-gray-200">
+          <h3 class="font-bold text-lg mb-4">何时联系医生 / 何时打 911</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-yellow-50 p-4 rounded-lg">
+              <div class="font-medium text-amber-700 mb-2">联系医生 (白天)</div>
+              <ul class="text-sm space-y-1">
+                <li>• 疼痛突然加剧 (≥7/10)</li>
+                <li>• 伤口红肿、流脓、发热</li>
+                <li>• 新出现呼吸困难</li>
+                <li>• 药物副作用明显</li>
+                <li>• 精神状态突然变化</li>
+              </ul>
+            </div>
+            
+            <div class="bg-red-50 p-4 rounded-lg">
+              <div class="font-medium text-red-700 mb-2">立即打 911 (紧急)</div>
+              <ul class="text-sm space-y-1">
+                <li>• 严重呼吸困难</li>
+                <li>• 胸痛、胸闷</li>
+                <li>• 突然失去意识</li>
+                <li>• 严重跌倒受伤</li>
+                <li>• 无法控制的出血</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Support Needs -->
+        <div class="mt-6 pt-6 border-t border-gray-200">
+          <h3 class="font-bold text-lg mb-4">支持需求安排</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="text-center p-4 bg-white border rounded-lg">
+              <div class="text-2xl font-bold text-brand mb-1">家庭陪伴</div>
+              <div class="text-sm text-gray-600">每日至少2小时<br>情感支持, 简单家务</div>
+            </div>
+            
+            <div class="text-center p-4 bg-white border rounded-lg">
+              <div class="text-2xl font-bold text-green-600 mb-1">洗澡/如厕支持</div>
+              <div class="text-sm text-gray-600">每日协助<br>防跌倒监督</div>
+            </div>
+            
+            <div class="text-center p-4 bg-white border rounded-lg">
+              <div class="text-2xl font-bold text-purple-600 mb-1">夜间支持</div>
+              <div class="text-sm text-gray-600">按需安排<br>紧急情况响应</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- 7. UPGRADED MOTHER'S INSTRUCTIONS -->
+    <!-- ================================================== -->
+    <div class="mb-8 print-friendly">
+      <div class="care-card shadow p-6">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl font-bold text-gray-900">
+            <i class="fas fa-file-alt text-care-coordination mr-2"></i>
+            给母亲的说明（中文）- 可打印版
+          </h2>
+          <button onclick="generateMotherCard()" class="bg-brand text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+            <i class="fas fa-print mr-2"></i>生成可打印母亲说明卡（中文）
+          </button>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Column 1: Emergency & Daily Help -->
+          <div class="space-y-4">
+            <div class="bg-red-50 p-4 rounded-lg">
+              <h3 class="font-bold text-red-700 mb-3">A. 如果发生医疗紧急情况</h3>
+              <ul class="text-sm space-y-2">
+                <li>1. <strong>先打 911</strong> (说清楚地址和情况)</li>
+                <li>2. <strong>然后打电话给 Richard</strong>: (123) 456-7890</li>
+                <li>3. <strong>重要文件在</strong>: 客厅书桌抽屉里</li>
+                <li>4. <strong>告诉医护人员</strong>: 有 Medicare 和补充保险</li>
+                <li>5. <strong>药物清单</strong>: 贴在冰箱门上</li>
+              </ul>
+            </div>
+            
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <h3 class="font-bold text-blue-700 mb-3">B. 如果只是日常需要帮助</h3>
+              <ul class="text-sm space-y-2">
+                <li>1. <strong>送饭、购物</strong>: 找张阿姨或教会朋友</li>
+                <li>2. <strong>取药、复诊</strong>: Richard 或张阿姨安排</li>
+                <li>3. <strong>家里维修</strong>: 找物业或打电话给 Richard</li>
+                <li>4. <strong>感觉孤单</strong>: 打电话给王牧师或教会朋友</li>
+                <li>5. <strong>不确定找谁</strong>: 先打给 Richard</li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- Column 2: Recovery & Documents -->
+          <div class="space-y-4">
+            <div class="bg-green-50 p-4 rounded-lg">
+              <h3 class="font-bold text-green-700 mb-3">C. 出院后恢复期间怎么找人帮助</h3>
+              <ul class="text-sm space-y-2">
+                <li>1. <strong>每周送饭</strong>: 周一、三、五晚餐 (教会安排)</li>
+                <li>2. <strong>每周购物</strong>: 周六上午 (志愿者)</li>
+                <li>3. <strong>洗澡协助</strong>: 每日 (提前安排)</li>
+                <li>4. <strong>复诊接送</strong>: 提前1天确认</li>
+                <li>5. <strong>紧急情况</strong>: 任何时间打给 Richard</li>
+              </ul>
+            </div>
+            
+            <div class="bg-amber-50 p-4 rounded-lg">
+              <h3 class="font-bold text-amber-700 mb-3">D. 重要文件在哪里</h3>
+              <ul class="text-sm space-y-2">
+                <li>1. <strong>保险卡、ID</strong>: 钱包里 (随身带)</li>
+                <li>2. <strong>医疗文件</strong>: 客厅书桌抽屉</li>
+                <li>3. <strong>药物清单</strong>: 冰箱门上 (中英文)</li>
+                <li>4. <strong>紧急联系人</strong>: 电话旁贴的卡片</li>
+                <li>5. <strong>房屋文件</strong>: 卧室保险柜</li>
+              </ul>
+            </div>
+            
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h3 class="font-bold text-gray-700 mb-3">E. 不需要担心的事</h3>
+              <ul class="text-sm space-y-2">
+                <li>1. <strong>账单付款</strong>: Richard 会处理</li>
+                <li>2. <strong>保险理赔</strong>: 已经在跟进中</li>
+                <li>3. <strong>家务打扫</strong>: 每周有志愿者帮忙</li>
+                <li>4. <strong>孤独寂寞</strong>: 每天有人打电话关心</li>
+                <li>5. <strong>恢复进度</strong>: 按医生计划进行，不要着急</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-6 pt-6 border-t border-gray-200">
+          <div class="text-center">
+            <p class="text-gray-600 mb-4">
+              <i class="fas fa-info-circle mr-1"></i>
+              这份说明使用简单中文、大字排版，适合打印后放在母亲容易看到的地方。
+            </p>
+            <button onclick="printMotherCard()" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition font-medium">
+              <i class="fas fa-print mr-2"></i>立即打印母亲说明卡
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- 8. CHURCH CARE SUPPORT -->
+    <!-- ================================================== -->
+    <div class="mb-8">
+      <div class="care-card shadow p-6">
+        <h2 class="text-xl font-bold text-gray-900 mb-6">
+          <i class="fas fa-church text-care-church mr-2"></i>
+          教会关怀支持
+        </h2>
+        
+        <div class="mb-6">
+          <p class="text-gray-600 italic border-l-4 border-purple-500 pl-4 py-2">
+            这不是临时帮忙，而是一个有安排、有分工、可持续的小型关怀系统。我们通过教会大家庭建立支持网络，让关怀更有组织、更可持续。
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Church Contact -->
+          <div class="bg-purple-50 p-4 rounded-lg">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-user-tie text-purple-600"></i>
+              </div>
+              <div>
+                <div class="font-bold">教会联系人</div>
+                <div class="text-sm text-gray-600">王牧师</div>
+              </div>
+            </div>
+            <div class="text-sm text-gray-600">
+              总协调，代祷安排，志愿者调度
+            </div>
+          </div>
+          
+          <!-- Prayer Support -->
+          <div class="bg-blue-50 p-4 rounded-lg">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-pray text-blue-600"></i>
+              </div>
+              <div>
+                <div class="font-bold">代祷支持</div>
+                <div class="text-sm text-gray-600">祷告小组 (8人)</div>
+              </div>
+            </div>
+            <div class="text-sm text-gray-600">
+              每日代祷，每周祷告会特别提名
+            </div>
+          </div>
+          
+          <!-- Meal Delivery -->
+          <div class="bg-green-50 p-4 rounded-lg">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-utensils text-green-600"></i>
+              </div>
+              <div>
+                <div class="font-bold">送饭安排</div>
+                <div class="text-sm text-gray-600">周一、三、五晚餐</div>
+              </div>
+            </div>
+            <div class="text-sm text-gray-600">
+              3组家庭轮流，符合饮食要求
+            </div>
+          </div>
+          
+          <!-- Visit Arrangement -->
+          <div class="bg-amber-50 p-4 rounded-lg">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-home text-amber-600"></i>
+              </div>
+              <div>
+                <div class="font-bold">探访安排</div>
+                <div class="text-sm text-gray-600">每周2-3次</div>
+              </div>
+            </div>
+            <div class="text-sm text-gray-600">
+              短时间探访，避免疲劳，情感支持
+            </div>
+          </div>
+        </div>
+        
+        <!-- Volunteer Roster -->
+        <div class="mt-8">
+          <h3 class="font-bold text-lg mb-4">志愿者花名册</h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border rounded-lg">
+              <thead>
+                <tr class="bg-gray-50">
+                  <th class="py-3 px-4 text-left text-sm font-medium text-gray-700">姓名</th>
+                  <th class="py-3 px-4 text-left text-sm font-medium text-gray-700">可提供帮助类型</th>
+                  <th class="py-3 px-4 text-left text-sm font-medium text-gray-700">可用时间</th>
+                  <th class="py-3 px-4 text-left text-sm font-medium text-gray-700">最近参与</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td class="py-3 px-4 text-sm">李姐妹</td>
+                  <td class="py-3 px-4 text-sm">送饭, 探访, 购物</td>
+                  <td class="py-3 px-4 text-sm">周末, 周三下午</td>
+                  <td class="py-3 px-4 text-sm">2026-04-08 (送饭)</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 text-sm">张弟兄</td>
+                  <td class="py-3 px-4 text-sm">接送, 维修, 重物搬运</td>
+                  <td class="py-3 px-4 text-sm">周六全天</td>
+                  <td class="py-3 px-4 text-sm">2026-04-06 (购物)</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 text-sm">王阿姨</td>
+                  <td class="py-3 px-4 text-sm">陪伴聊天, 简单家务</td>
+                  <td class="py-3 px-4 text-sm">周二、四上午</td>
+                  <td class="py-3 px-4 text-sm">2026-04-05 (探访)</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 text-sm">陈姐妹</td>
+                  <td class="py-3 px-4 text-sm">祷告支持, 电话关心</td>
+                  <td class="py-3 px-4 text-sm">灵活 (电话)</td>
+                  <td class="py-3 px-4 text-sm">每日 (代祷)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <div class="mt-6 pt-6 border-t border-gray-200">
+          <button onclick="generateChurchNotice()" class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition">
+            <i class="fas fa-bullhorn mr-2"></i>生成给教会朋友的通知模板
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- 9. DOCUMENTS AND CLAIMS FOLLOW-UP -->
+    <!-- ================================================== -->
+    <div class="mb-8">
+      <div class="care-card shadow p-6">
+        <h2 class="text-xl font-bold text-gray-900 mb-6">
+          <i class="fas fa-file-invoice-dollar text-care-coordination mr-2"></i>
+          文件与理赔跟进
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Hospital & Insurance Info -->
+          <div>
+            <h3 class="font-bold text-lg mb-4">住院与保险信息</h3>
+            <div class="space-y-4">
+              <div class="bg-white border rounded-lg p-4">
+                <div class="font-medium mb-2">住院机构</div>
+                <div class="text-gray-600">General Hospital - Orthopedic Department</div>
+              </div>
+              
+              <div class="bg-white border rounded-lg p-4">
+                <div class="font-medium mb-2">出院日期</div>
+                <div class="text-gray-600">2026-04-01 (住院4天)</div>
+              </div>
+              
+              <div class="bg-white border rounded-lg p-4">
+                <div class="font-medium mb-2">主要专科</div>
+                <div class="text-gray-600">骨科 (髋关节手术)</div>
+              </div>
+              
+              <div class="bg-white border rounded-lg p-4">
+                <div class="font-medium mb-2">保险计划</div>
+                <div class="text-gray-600">Medicare Part A/B + 补充保险 Plan G</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Claims Status -->
+          <div>
+            <h3 class="font-bold text-lg mb-4">理赔状态跟踪</h3>
+            <div class="space-y-4">
+              <div class="bg-white border rounded-lg p-4">
+                <div class="flex justify-between items-center mb-2">
+                  <div class="font-medium">Claim 状态</div>
+                  <span class="px-2 py-1 bg-amber-100 text-amber-700 text-xs rounded">处理中</span>
+                </div>
+                <div class="text-sm text-gray-600">提交日期: 2026-04-03 | 预计完成: 4-6周</div>
+              </div>
+              
+              <div class="bg-white border rounded-lg p-4">
+                <div class="flex justify-between items-center mb-2">
+                  <div class="font-medium">医院账单状态</div>
+                  <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">已收到</span>
+                </div>
+                <div class="text-sm text-gray-600">金额: $待定 | 不要先付款，等EOB</div>
+              </div>
+              
+              <div class="bg-white border rounded-lg p-4">
+                <div class="flex justify-between items-center mb-2">
+                  <div class="font-medium">EOB 状态</div>
+                  <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">等待中</span>
+                </div>
+                <div class="text-sm text-gray-600">Explanation of Benefits (保险说明)</div>
+              </div>
+              
+              <div class="bg-white border rounded-lg p-4">
+                <div class="font-medium mb-2">跟进需求</div>
+                <div class="text-sm text-gray-600 space-y-1">
+                  <div>• 4月15日: 联系保险确认claim进度</div>
+                  <div>• 收到EOB后: 比对医院账单</div>
+                  <div>• 如有疑问: 联系医院billing部门</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Important Reminders -->
+        <div class="mt-6 pt-6 border-t border-gray-200">
+          <h3 class="font-bold text-lg mb-4">重要提醒</h3>
+          <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+            <ul class="space-y-2 text-sm">
               <li class="flex items-start">
-                <i class="fas fa-arrow-right text-red-500 mt-1 mr-2"></i>
-                <span><strong>首先联系谁</strong>: 张明 (首要决策者)</span>
+                <i class="fas fa-exclamation-triangle text-yellow-500 mt-0.5 mr-2"></i>
+                <span><strong>不要先急着付款</strong> - 先等 insurance processing/EOB</span>
               </li>
               <li class="flex items-start">
-                <i class="fas fa-arrow-right text-red-500 mt-1 mr-2"></i>
-                <span><strong>医疗紧急情况</strong>: 先打911，然后联系李华</span>
+                <i class="fas fa-file-contract text-yellow-500 mt-0.5 mr-2"></i>
+                <span><strong>比对医院账单与保险说明</strong> - 确保金额一致</span>
               </li>
               <li class="flex items-start">
-                <i class="fas fa-arrow-right text-red-500 mt-1 mr-2"></i>
-                <span><strong>财务紧急情况</strong>: 联系张明处理授权事宜</span>
+                <i class="fas fa-phone-alt text-yellow-500 mt-0.5 mr-2"></i>
+                <span><strong>记录每次电话沟通</strong> - 时间、对象、承诺内容</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-folder-open text-yellow-500 mt-0.5 mr-2"></i>
+                <span><strong>保存所有文件</strong> - 账单、EOB、通信记录</span>
               </li>
             </ul>
           </div>
         </div>
-
-        <!-- B. 法律与授权（LEGAL） -->
-        <div class="emergency-card p-6 print:break-inside-avoid">
-          <h2 class="text-xl font-bold text-gray-800 mb-4">
-            <i class="fas fa-file-contract text-purple-600 mr-2"></i> 📄 法律与授权（LEGAL）
-          </h2>
-          
-          <div class="space-y-4">
-            <!-- Durable Power of Attorney -->
-            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-              <div class="flex items-center">
-                <input type="checkbox" id="legal-1" class="h-4 w-4 text-purple-600 rounded focus:ring-purple-500">
-                <label for="legal-1" class="ml-3">
-                  <span class="font-medium text-gray-700">Durable Power of Attorney（财务授权）</span>
-                  <p class="text-sm text-gray-500">授权处理财务事务的法律文件</p>
-                </label>
-              </div>
-              <span class="status-badge bg-yellow-100 text-yellow-800">进行中</span>
-            </div>
-            
-            <!-- Healthcare Proxy -->
-            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-              <div class="flex items-center">
-                <input type="checkbox" id="legal-2" checked class="h-4 w-4 text-green-600 rounded focus:ring-green-500">
-                <label for="legal-2" class="ml-3">
-                  <span class="font-medium text-gray-700">Healthcare Proxy（医疗代理）</span>
-                  <p class="text-sm text-gray-500">医疗决策授权</p>
-                </label>
-              </div>
-              <span class="status-badge bg-green-100 text-green-800">已完成</span>
-            </div>
-            
-            <!-- HIPAA Authorization -->
-            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-              <div class="flex items-center">
-                <input type="checkbox" id="legal-3" class="h-4 w-4 text-purple-600 rounded focus:ring-purple-500">
-                <label for="legal-3" class="ml-3">
-                  <span class="font-medium text-gray-700">HIPAA Authorization</span>
-                  <p class="text-sm text-gray-500">医疗信息访问授权</p>
-                </label>
-              </div>
-              <span class="status-badge bg-gray-100 text-gray-800">未完成</span>
-            </div>
-            
-            <!-- Will -->
-            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-              <div class="flex items-center">
-                <input type="checkbox" id="legal-4" checked class="h-4 w-4 text-green-600 rounded focus:ring-green-500">
-                <label for="legal-4" class="ml-3">
-                  <span class="font-medium text-gray-700">Will（简单遗嘱）</span>
-                  <p class="text-sm text-gray-500">资产分配指示</p>
-                </label>
-              </div>
-              <span class="status-badge bg-green-100 text-green-800">已完成</span>
-            </div>
-            
-            <!-- Emergency letter -->
-            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-              <div class="flex items-center">
-                <input type="checkbox" id="legal-5" class="h-4 w-4 text-purple-600 rounded focus:ring-purple-500">
-                <label for="legal-5" class="ml-3">
-                  <span class="font-medium text-gray-700">Emergency letter (给母亲的说明信，中文)</span>
-                  <p class="text-sm text-gray-500">紧急情况操作指南</p>
-                </label>
-              </div>
-              <span class="status-badge bg-gray-100 text-gray-800">未完成</span>
-            </div>
-          </div>
-          
-          <div class="mt-6 pt-6 border-t">
-            <p class="text-sm text-gray-600">
-              <i class="fas fa-info-circle text-blue-500 mr-1"></i>
-              建议咨询律师完成所有法律文件。此清单仅为提醒。
-            </p>
-          </div>
-        </div>
-
-        <!-- E. 给母亲的说明（中文模块） -->
-        <div class="emergency-card p-6 print:break-inside-avoid">
-          <h2 class="text-xl font-bold text-gray-800 mb-4">
-            <i class="fas fa-comment-alt text-green-600 mr-2"></i> 🧠 给母亲的说明（中文）
-          </h2>
-          
-          <div class="emergency-instruction p-5 rounded-lg">
-            <h3 class="text-lg font-bold text-gray-800 mb-3">如果发生紧急情况，请这样做：</h3>
-            
-            <div class="space-y-4 text-gray-700">
-              <div>
-                <p class="font-medium mb-1">1. 首先打电话给谁：</p>
-                <ul class="list-disc pl-5 space-y-1">
-                  <li><strong>张明</strong>: (555) 123-4567（首要联系人）</li>
-                  <li><strong>李华</strong>: (555) 987-6543（备用联系人）</li>
-                </ul>
-              </div>
-              
-              <div>
-                <p class="font-medium mb-1">2. 医疗紧急情况：</p>
-                <ul class="list-disc pl-5 space-y-1">
-                  <li>先打 <strong>911</strong>（紧急医疗服务）</li>
-                  <li>然后联系张明或李华</li>
-                  <li>去最近的医院：<strong>社区医疗中心</strong></li>
-                </ul>
-              </div>
-              
-              <div>
-                <p class="font-medium mb-1">3. 日常生活需要帮助：</p>
-                <ul class="list-disc pl-5 space-y-1">
-                  <li>联系邻居：<strong>王阿姨</strong>（隔壁）</li>
-                  <li>教会朋友：<strong>陈姐妹</strong></li>
-                  <li>日常购物：<strong>李叔叔</strong>可以帮忙</li>
-                </ul>
-              </div>
-              
-              <div>
-                <p class="font-medium mb-1">4. 重要文件在哪里：</p>
-                <ul class="list-disc pl-5 space-y-1">
-                  <li>保险文件：<strong>书桌抽屉</strong></li>
-                  <li>医疗记录：<strong>蓝色文件夹</strong></li>
-                  <li>身份证件：<strong>保险柜</strong></li>
-                </ul>
-              </div>
-              
-              <div>
-                <p class="font-medium mb-1">5. 不需要担心：</p>
-                <ul class="list-disc pl-5 space-y-1">
-                  <li>不需要理解复杂系统</li>
-                  <li>只需要打电话给上面的人</li>
-                  <li>他们会帮你处理一切</li>
-                </ul>
-              </div>
-            </div>
-            
-            <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded">
-              <p class="text-sm text-blue-800">
-                <i class="fas fa-lightbulb mr-2"></i>
-                这份说明应该打印出来放在母亲容易看到的地方（如冰箱门）。
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right Column -->
-      <div class="space-y-6 print:space-y-4">
-
-        <!-- C. 财务与账户（FINANCIAL） -->
-        <div class="emergency-card p-6 print:break-inside-avoid">
-          <h2 class="text-xl font-bold text-gray-800 mb-4">
-            <i class="fas fa-piggy-bank text-green-600 mr-2"></i> 💰 财务与账户（FINANCIAL）
-          </h2>
-          
-          <div class="space-y-6">
-            <!-- Bank Accounts -->
-            <div>
-              <h3 class="font-bold text-gray-700 mb-3">银行账户（仅说明）</h3>
-              <div class="space-y-3">
-                <div class="p-3 bg-gray-50 rounded-lg">
-                  <p class="font-medium text-gray-800">主要支票账户</p>
-                  <p class="text-sm text-gray-600">银行: 本地信用合作社</p>
-                  <p class="text-sm text-gray-600">设置: 联名账户 (joint account)</p>
-                </div>
-                
-                <div class="p-3 bg-gray-50 rounded-lg">
-                  <p class="font-medium text-gray-800">储蓄账户</p>
-                  <p class="text-sm text-gray-600">银行: 全国性银行</p>
-                  <p class="text-sm text-gray-600">设置: 受益人指定 (beneficiary)</p>
-                </div>
-                
-                <div class="p-3 bg-gray-50 rounded-lg">
-                  <p class="font-medium text-gray-800">投资账户</p>
-                  <p class="text-sm text-gray-600">机构: 在线投资平台</p>
-                  <p class="text-sm text-gray-600">设置: 待完成</p>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Key Institutions -->
-            <div>
-              <h3 class="font-bold text-gray-700 mb-3">关键机构联系方式</h3>
-              <div class="space-y-2 text-sm">
-                <div class="flex justify-between">
-                  <span class="text-gray-600">主要银行</span>
-                  <span class="font-medium">(555) 222-3333</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">保险公司</span>
-                  <span class="font-medium">(555) 444-5555</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">社会保障局</span>
-                  <span class="font-medium">1-800-772-1213</span>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Monthly Expenses -->
-            <div>
-              <h3 class="font-bold text-gray-700 mb-3">每月基本开支</h3>
-              <div class="space-y-2">
-                <div class="flex justify-between">
-                  <span class="text-gray-600">房租</span>
-                  <span class="font-medium">$1,200</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">水电费</span>
-                  <span class="font-medium">$150-200</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">医疗/药物</span>
-                  <span class="font-medium">$100-300</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">食品/生活用品</span>
-                  <span class="font-medium">$400-500</span>
-                </div>
-              </div>
-              <div class="mt-3 pt-3 border-t">
-                <div class="flex justify-between font-bold">
-                  <span>每月总计</span>
-                  <span>$1,850-2,200</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="mt-6 pt-6 border-t">
-            <p class="text-sm text-gray-600">
-              <i class="fas fa-shield-alt text-green-500 mr-1"></i>
-              注意：不存储完整账号信息。仅作为提醒和说明。
-            </p>
-          </div>
-        </div>
-
-        <!-- D. 日常生活支持（LIFE SUPPORT） -->
-        <div class="emergency-card p-6 print:break-inside-avoid">
-          <h2 class="text-xl font-bold text-gray-800 mb-4">
-            <i class="fas fa-home text-blue-600 mr-2"></i> 🏠 日常生活支持（LIFE SUPPORT）
-          </h2>
-          
-          <div class="space-y-6">
-            <!-- Address -->
-            <div>
-              <h3 class="font-bold text-gray-700 mb-2">住址信息</h3>
-              <div class="p-3 bg-gray-50 rounded-lg">
-                <p class="font-medium text-gray-800">主要住址</p>
-                <p class="text-sm text-gray-600">123 Main Street, Apt 4B</p>
-                <p class="text-sm text-gray-600">城市, 州 12345</p>
-              </div>
-            </div>
-            
-            <!-- Medical System -->
-            <div>
-              <h3 class="font-bold text-gray-700 mb-2">医疗系统</h3>
-              <div class="space-y-3">
-                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                  <p class="font-medium text-gray-800">主要医疗中心 (FQHC)</p>
-                  <p class="text-sm text-gray-600">社区健康中心</p>
-                  <p class="text-sm text-gray-600">电话: (555) 777-8888</p>
-                </div>
-                
-                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                  <p class="font-medium text-gray-800">紧急医院</p>
-                  <p class="text-sm text-gray-600">城市综合医院</p>
-                  <p class="text-sm text-gray-600">电话: (555) 999-0000</p>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Medications -->
-            <div>
-              <h3 class="font-bold text-gray-700 mb-2">常用药物（如有）</h3>
-              <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
-                <p class="text-sm text-gray-600">高血压药物 (每日)</p>
-                <p class="text-sm text-gray-600">药房: 本地CVS</p>
-                <p class="text-sm text-gray-600">医生: 王医生</p>
-              </div>
-            </div>
-            
-            <!-- Daily Contacts -->
-            <div>
-              <h3 class="font-bold text-gray-700 mb-2">日常联系人</h3>
-              <div class="space-y-2">
-                <div class="flex justify-between">
-                  <span class="text-gray-600">邻居 (王阿姨)</span>
-                  <span class="font-medium">(555) 111-2222</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">教会朋友 (陈姐妹)</span>
-                  <span class="font-medium">(555) 333-4444</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">社区中心</span>
-                  <span class="font-medium">(555) 555-6666</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- F. 一键行动（ACTION PANEL） -->
-        <div class="emergency-card p-6 print:break-inside-avoid">
-          <h2 class="text-xl font-bold text-gray-800 mb-4">
-            <i class="fas fa-bolt text-purple-600 mr-2"></i> 📞 一键行动（ACTION PANEL）
-          </h2>
-          
-          <div class="space-y-4">
-            <!-- Generate Emergency Letter -->
-            <button onclick="generateEmergencyLetter()" 
-                    class="action-button w-full flex items-center justify-between p-4 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-3">
-                  <i class="fas fa-envelope text-red-600"></i>
-                </div>
-                <div>
-                  <p class="font-bold text-gray-800">生成紧急说明信（中文）</p>
-                  <p class="text-sm text-gray-600">为母亲创建可打印的紧急指南</p>
-                </div>
-              </div>
-              <i class="fas fa-chevron-right text-gray-400"></i>
-            </button>
-            
-            <!-- Generate Notification Email -->
-            <button onclick="generateNotificationEmail()" 
-                    class="action-button w-full flex items-center justify-between p-4 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                  <i class="fas fa-mail-bulk text-blue-600"></i>
-                </div>
-                <div>
-                  <p class="font-bold text-gray-800">生成给朋友/联系人通知邮件</p>
-                  <p class="text-sm text-gray-600">创建紧急情况通知模板</p>
-                </div>
-              </div>
-              <i class="fas fa-chevron-right text-gray-400"></i>
-            </button>
-            
-            <!-- Generate Legal Checklist -->
-            <button onclick="generateLegalChecklist()" 
-                    class="action-button w-full flex items-center justify-between p-4 bg-green-50 border border-green-200 rounded-lg hover:bg-green-100 transition">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
-                  <i class="fas fa-tasks text-green-600"></i>
-                </div>
-                <div>
-                  <p class="font-bold text-gray-800">生成法律文件清单</p>
-                  <p class="text-sm text-gray-600">创建待办法律文件清单</p>
-                </div>
-              </div>
-              <i class="fas fa-chevron-right text-gray-400"></i>
-            </button>
-            
-            <!-- Export All Data -->
-            <button onclick="exportAllData()" 
-                    class="action-button w-full flex items-center justify-between p-4 bg-purple-50 border border-purple-200 rounded-lg hover:bg-purple-100 transition">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
-                  <i class="fas fa-download text-purple-600"></i>
-                </div>
-                <div>
-                  <p class="font-bold text-gray-800">导出所有数据</p>
-                  <p class="text-sm text-gray-600">备份所有应急计划信息</p>
-                </div>
-              </div>
-              <i class="fas fa-chevron-right text-gray-400"></i>
-            </button>
-          </div>
-          
-          <div class="mt-6 pt-6 border-t">
-            <div class="flex items-center text-sm text-gray-600">
-              <i class="fas fa-clock text-blue-500 mr-2"></i>
-              <span>最后提醒设置: <span id="last-reminder">2026-04-01</span></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Reminder System -->
-    <div class="emergency-card p-6 mt-8 print:hidden">
-      <h2 class="text-xl font-bold text-gray-800 mb-4">
-        <i class="fas fa-bell text-yellow-600 mr-2"></i> 提醒系统
-      </h2>
-      
-      <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-        <div class="flex items-start">
-          <i class="fas fa-exclamation-triangle text-yellow-600 mt-1 mr-3"></i>
-          <div>
-            <p class="font-medium text-gray-800">每3个月检查一次应急计划</p>
-            <p class="text-sm text-gray-600 mt-1">下次检查: <span class="font-medium">2026-07-01</span></p>
-            <p class="text-sm text-gray-600 mt-2">若未完成关键模块（法律授权、紧急联系人），系统将显示高优先级提示。</p>
-          </div>
-        </div>
         
-        <div class="mt-4 flex space-x-3">
-          <button onclick="setReminder()" class="px-4 py-2 bg-yellow-100 text-yellow-800 text-sm font-medium rounded hover:bg-yellow-200">
-            <i class="fas fa-calendar-plus mr-1"></i> 设置提醒
-          </button>
-          <button onclick="markAsReviewed()" class="px-4 py-2 bg-green-100 text-green-800 text-sm font-medium rounded hover:bg-green-200">
-            <i class="fas fa-check mr-1"></i> 标记为已检查
+        <div class="mt-6 pt-6 border-t border-gray-200">
+          <button onclick="generateClaimsChecklist()" class="bg-amber-500 text-white px-4 py-2 rounded-lg hover:bg-amber-600 transition">
+            <i class="fas fa-clipboard-list mr-2"></i>生成理赔/账单跟进清单
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Print Notice -->
-    <div class="hidden print:block mt-8 p-4 border-t">
-      <p class="text-sm text-gray-500 text-center">
-        家庭应急保障计划 - 打印日期: <span id="print-date">2026-04-01</span> | 
-        建议每3个月更新一次 | 将本文件放在母亲容易看到的地方
-      </p>
+    <!-- ================================================== -->
+    <!-- 10. REUSABLE CARE MODEL -->
+    <!-- ================================================== -->
+    <div class="mb-8">
+      <div class="care-card shadow p-6">
+        <h2 class="text-xl font-bold text-gray-900 mb-6">
+          <i class="fas fa-share-alt text-care-coordination mr-2"></i>
+          可复制的照护模板
+        </h2>
+        
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+          <p class="text-gray-700 mb-4">
+            这个家庭应急保障与照护协调系统不仅适用于当前情况，还可以作为模板用于其他家庭和场景：
+          </p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-white p-4 rounded-lg border">
+              <div class="font-medium mb-2">👵 老人照护</div>
+              <div class="text-sm text-gray-600">长期慢性病管理，日常支持协调</div>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg border">
+              <div class="font-medium mb-2">🏥 出院后短期恢复</div>
+              <div class="text-sm text-gray-600">手术恢复期，临时支持网络建立</div>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg border">
+              <div class="font-medium mb-2">🌍 非英语家庭支持</div>
+              <div class="text-sm text-gray-600">语言障碍家庭，跨文化照护协调</div>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg border">
+              <div class="font-medium mb-2">⛪ 教会关怀小组</div>
+              <div class="text-sm text-gray-600">教会内部支持网络，志愿者管理</div>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg border">
+              <div class="font-medium mb-2">🤝 NeighborBridge 家庭支持</div>
+              <div class="text-sm text-gray-600">社区互助模式，结构化任务分配</div>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg border">
+              <div class="font-medium mb-2">👨‍👩‍👧‍👦 多代家庭协调</div>
+              <div class="text-sm text-gray-600">分散家庭成员的任务分工协调</div>
+            </div>
+          </div>
+          
+          <div class="mt-6 pt-6 border-t border-blue-200">
+            <p class="text-sm text-gray-600">
+              <i class="fas fa-lightbulb mr-1"></i>
+              这是一个原型系统，展示了如何将紧急准备、恢复期支持和社区关怀整合到一个可操作、可打印、可持续的照护协调模型中。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================== -->
+    <!-- ACTION BUTTONS FOOTER -->
+    <!-- ================================================== -->
+    <div class="mb-8 no-print">
+      <div class="bg-white rounded-xl shadow p-6">
+        <h3 class="font-bold text-lg mb-4 text-center">快速操作按钮</h3>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+          <button onclick="generateWeeklyTasks()" class="bg-brand text-white px-3 py-3 rounded-lg hover:bg-blue-600 transition text-sm">
+            <i class="fas fa-list-check mb-1 block"></i>
+            本周任务清单
+          </button>
+          
+          <button onclick="generateMotherCard()" class="bg-green-500 text-white px-3 py-3 rounded-lg hover:bg-green-600 transition text-sm">
+            <i class="fas fa-print mb-1 block"></i>
+            母亲说明卡
+          </button>
+          
+          <button onclick="generateChurchNotice()" class="bg-purple-500 text-white px-3 py-3 rounded-lg hover:bg-purple-600 transition text-sm">
+            <i class="fas fa-bullhorn mb-1 block"></i>
+            教会通知
+          </button>
+          
+          <button onclick="generateTeamAssignment()" class="bg-blue-500 text-white px-3 py-3 rounded-lg hover:bg-blue-600 transition text-sm">
+            <i class="fas fa-users mb-1 block"></i>
+            团队分工表
+          </button>
+          
+          <button onclick="generateClaimsChecklist()" class="bg-amber-500 text-white px-3 py-3 rounded-lg hover:bg-amber-600 transition text-sm">
+            <i class="fas fa-clipboard-list mb-1 block"></i>
+            理赔清单
+          </button>
+          
+          <button onclick="markWeekChecked()" class="bg-gray-500 text-white px-3 py-3 rounded-lg hover:bg-gray-600 transition text-sm">
+            <i class="fas fa-check-circle mb-1 block"></i>
+            标记本周已检查
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================================================== -->
+  <!-- MODALS -->
+  <!-- ================================================== -->
+  <div id="task-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h3 class="text-lg font-bold mb-4">添加/编辑任务</h3>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">任务名称</label>
+          <input type="text" class="w-full border rounded-lg p-2" placeholder="例如：复诊接送">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">类别</label>
+          <select class="w-full border rounded-lg p-2">
+            <option value="medical">医疗类</option>
+            <option value="daily">生活类</option>
+            <option value="emotional">陪伴/情感支持</option>
+            <option value="admin">行政/保险/文件</option>
+            <option value="transport">交通接送</option>
+            <option value="church">祷告/教会支持</option>
+          </select>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">优先级</label>
+            <select class="w-full border rounded-lg p-2">
+              <option value="high">高</option>
+              <option value="medium">中</option>
+              <option value="low">低</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">频率</label>
+            <select class="w-full border rounded-lg p-2">
+              <option value="once">一次性</option>
+              <option value="daily">每日</option>
+              <option value="weekly">每周</option>
+              <option value="biweekly">每两周</option>
+              <option value="as-needed">按需</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">备注</label>
+          <textarea class="w-full border rounded-lg p-2" rows="3" placeholder="任务详细说明..."></textarea>
+        </div>
+      </div>
+      <div class="mt-6 flex justify-end space-x-3">
+        <button onclick="closeModal('task-modal')" class="px-4 py-2 border rounded-lg">取消</button>
+        <button onclick="saveTask()" class="px-4 py-2 bg-brand text-white rounded-lg">保存</button>
+      </div>
     </div>
   </div>
 
-  <!-- JavaScript -->
+  <!-- ================================================== -->
+  <!-- JAVASCRIPT -->
+  <!-- ================================================== -->
   <script>
-    // Emergency Plan Dashboard JavaScript
+    // ==================================================
+    // UTILITY FUNCTIONS
+    // ==================================================
     
-    // Data structure
-    let emergencyData = {
-      contacts: {
-        primary: [
-          { name: "张明", phone: "(555) 123-4567", relationship: "朋友", role: "决策者", priority: 1 },
-          { name: "李华", phone: "(555) 987-6543", relationship: "表亲", role: "协助者", priority: 2 }
-        ],
-        secondary: [],
-        instructions: [
-          "首先联系谁: 张明 (首要决策者)",
-          "医疗紧急情况: 先打911，然后联系李华",
-          "财务紧急情况: 联系张明处理授权事宜"
-        ]
-      },
-      legal: [
-        { id: 1, name: "Durable Power of Attorney（财务授权）", status: "in-progress", completed: false },
-        { id: 2, name: "Healthcare Proxy（医疗代理）", status: "completed", completed: true },
-        { id: 3, name: "HIPAA Authorization", status: "not-started", completed: false },
-        { id: 4, name: "Will（简单遗嘱）", status: "completed", completed: true },
-        { id: 5, name: "Emergency letter (给母亲的说明信，中文)", status: "not-started", completed: false }
-      ],
-      financial: {
-        accounts: [
-          { name: "主要支票账户", institution: "本地信用合作社", type: "joint" },
-          { name: "储蓄账户", institution: "全国性银行", type: "beneficiary" },
-          { name: "投资账户", institution: "在线投资平台", type: "pending" }
-        ],
-        institutions: [
-          { name: "主要银行", contact: "(555) 222-3333" },
-          { name: "保险公司", contact: "(555) 444-5555" },
-          { name: "社会保障局", contact: "1-800-772-1213" }
-        ],
-        expenses: [
-          { category: "房租", amount: 1200 },
-          { category: "水电费", amount: "150-200" },
-          { category: "医疗/药物", amount: "100-300" },
-          { category: "食品/生活用品", amount: "400-500" }
-        ]
-      },
-      lifeSupport: {
-        address: "123 Main Street, Apt 4B, 城市, 州 12345",
-        medical: [
-          { name: "社区健康中心 (FQHC)", contact: "(555) 777-8888", type: "primary" },
-          { name: "城市综合医院", contact: "(555) 999-0000", type: "emergency" }
-        ],
-        medications: [
-          { name: "高血压药物", pharmacy: "本地CVS", doctor: "王医生", frequency: "每日" }
-        ],
-        dailyContacts: [
-          { name: "邻居 (王阿姨)", contact: "(555) 111-2222" },
-          { name: "教会朋友 (陈姐妹)", contact: "(555) 333-4444" },
-          { name: "社区中心", contact: "(555) 555-6666" }
-        ]
-      },
-      reminders: {
-        lastCheck: "2026-04-01",
-        nextCheck: "2026-07-01",
-        frequency: "3 months"
-      },
-      lastUpdated: new Date().toISOString()
-    };
-
-    // Initialize dashboard
-    function initDashboard() {
-      updateLastUpdated();
-      loadFromLocalStorage();
-      updateProgressBars();
-      setupEventListeners();
-      updatePrintDate();
+    function refreshPage() {
+      window.location.reload();
     }
-
-    // Update last updated timestamp
-    function updateLastUpdated() {
-      const now = new Date();
-      const options = { 
-        year: 'numeric', 
-        month: 'short', 
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      };
-      
-      const formatted = now.toLocaleDateString('zh-CN', options);
-      const element = document.getElementById('last-updated');
-      if (element) {
-        element.textContent = `最后更新: ${formatted}`;
+    
+    function showModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('active');
       }
     }
-
-    // Update print date
-    function updatePrintDate() {
-      const now = new Date();
-      const formatted = now.toISOString().split('T')[0];
-      const element = document.getElementById('print-date');
-      if (element) {
-        element.textContent = formatted;
+    
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.remove('active');
       }
     }
+    
+    function showNotification(message, type = 'info') {
+      // Simple alert for now - can be enhanced with toast notifications
+      alert(`[${type.toUpperCase()}] ${message}`);
+    }
+    
+    // ==================================================
+    // TASK MANAGEMENT
+    // ==================================================
+    
+    function addNewTask() {
+      showModal('task-modal');
+      console.log('TODO: Implement addNewTask functionality');
+    }
+    
+    function saveTask() {
+      closeModal('task-modal');
+      showNotification('任务已保存 (演示功能)', 'success');
+      // TODO: Implement actual task saving to localStorage
+    }
+    
+    function generateWeeklyTasks() {
+      const tasks = [
+        '1. 复诊接送 (4月12日 14:00)',
+        '2. 每周取药 (CVS药房)',
+        '3. 超市购物 (周六上午)',
+        '4. 周一、三、五送饭',
+        '5. 每日电话关心',
+        '6. 周二、四物理治疗陪同',
+        '7. 保险理赔跟进',
+        '8. 教会代祷协调'
+      ];
+      
+      const taskList = tasks.join('\\n');
+      alert('本周照护任务清单:\\n\\n' + taskList + '\\n\\n已复制到剪贴板');
+      
+      // Copy to clipboard
+      navigator.clipboard.writeText(taskList).then(() => {
+        console.log('Weekly tasks copied to clipboard');
+      });
+    }
+    
+    // ==================================================
+    // MOTHER'S CARD GENERATION
+    // ==================================================
+    
+    function generateMotherCard() {
+      const cardContent = `
+家庭应急与恢复期支持说明卡
+（给母亲的中文说明）
 
-    // Load data from localStorage
-    function loadFromLocalStorage() {
-      const saved = localStorage.getItem('emergencyPlanData');
-      if (saved) {
-        try {
-          emergencyData = JSON.parse(saved);
-        } catch (e) {
-          console.error('Error loading emergency plan data:', e);
-        }
+A. 紧急情况怎么办？
+1. 先打 911 (说清楚地址和情况)
+2. 然后打电话给 Richard: (123) 456-7890
+3. 重要文件在: 客厅书桌抽屉里
+4. 告诉医护人员: 有 Medicare 和补充保险
+
+B. 日常需要帮助找谁？
+1. 送饭、购物: 张阿姨或教会朋友
+2. 取药、复诊: Richard 或张阿姨安排
+3. 家里维修: 找物业或打电话给 Richard
+4. 感觉孤单: 打电话给王牧师或教会朋友
+
+C. 恢复期间支持安排
+1. 每周送饭: 周一、三、五晚餐
+2. 每周购物: 周六上午
+3. 洗澡协助: 每日 (提前安排)
+4. 复诊接送: 提前1天确认
+
+D. 重要提醒
+• 不要担心账单，Richard 会处理
+• 每天有人打电话关心
+• 恢复要慢慢来，不要着急
+• 有任何不舒服随时告诉家人
+
+最后更新: ${new Date().toLocaleDateString('zh-CN')}
+      `;
+      
+      alert('母亲说明卡内容已生成，即将打印...');
+      printContent(cardContent, '母亲说明卡');
+    }
+    
+    function printMotherCard() {
+      generateMotherCard();
+    }
+    
+    // ==================================================
+    // CHURCH NOTICE GENERATION
+    // ==================================================
+    
+    function generateChurchNotice() {
+      const notice = `
+亲爱的教会家人们：
+
+感谢大家持续为李姐妹的康复代祷和支持。目前她处于术后恢复期（髋关节手术），需要一些具体的帮助安排：
+
+📅 当前支持安排：
+• 送饭: 周一、三、五晚餐 (3组家庭轮流)
+• 购物: 周六上午 (志愿者协助)
+• 探访: 每周2-3次短时间探访
+• 代祷: 每日特别提名祷告
+
+👥 需要帮助的类型：
+1. 送饭 (符合低盐、易消化要求)
+2. 超市购物陪同/代购
+3. 短时间探访陪伴
+4. 复诊接送 (偶尔需要)
+5. 代祷支持
+
+🕐 时间安排：
+• 送饭: 晚餐时间送达
+• 购物: 周六上午
+• 探访: 提前协调时间，避免疲劳
+
+🙏 注意事项：
+• 探访时间不宜过长 (30分钟左右)
+• 李姐妹需要多休息
+• 如有感冒等症状，请暂缓探访
+• 具体安排请联系王牧师协调
+
+感谢大家的爱心和代祷！让我们继续用实际的行动彼此扶持。
+
+主内平安，
+关怀小组 敬上
+${new Date().toLocaleDateString('zh-CN')}
+      `;
+      
+      alert('教会通知模板已生成，已复制到剪贴板');
+      navigator.clipboard.writeText(notice).then(() => {
+        console.log('Church notice copied to clipboard');
+      });
+    }
+    
+    // ==================================================
+    // TEAM ASSIGNMENT GENERATION
+    // ==================================================
+    
+    function generateTeamAssignment() {
+      const assignment = `
+核心团队分工表
+最后更新: ${new Date().toLocaleDateString('zh-CN')}
+
+👤 总协调人: Richard Hu
+• 电话: (123) 456-7890
+• 微信: richard_hu
+• 职责: 总体协调、任务分配、进度跟踪
+• 可用时间: 全天 (紧急), 工作日晚上
+
+🏥 医疗联络人: 李医生
+• 电话: (123) 456-7891 (诊所)
+• 紧急: (123) 456-7899 (值班)
+• 职责: 医疗咨询、复诊协调、药物指导
+• 可用时间: 诊所时间 9:00-17:00, 紧急电话
+
+🛒 日常支持联络人: 张阿姨
+• 电话: (123) 456-7892
+• 微信: auntie_zhang
+• 职责: 送饭、购物、日常陪伴
+• 可用时间: 工作日白天, 周末灵活
+
+💰 财务/保险联络人: Richard Hu
+• 电话: (123) 456-7890
+• 邮箱: richard@example.com
+• 职责: 保险理赔、账单处理、文件整理
+• 可用时间: 工作日
+
+⛪ 教会联络人: 王牧师
+• 电话: (123) 456-7893
+• 微信: pastor_wang
+• 职责: 代祷协调、志愿者安排、情感支持
+• 可用时间: 随时 (紧急), 最好白天
+
+🆘 备用联系人:
+1. 表姐: (123) 456-7894
+2. 朋友: (123) 456-7895
+• 职责: 临时替补、紧急支援
+• 可用时间: 提前通知安排
+
+📋 任务分配状态:
+• 总任务数: 8
+• 已完成: 3
+• 进行中: 4
+• 未分配: 1
+• 高优先级任务: 2个 (复诊接送、取药)
+      `;
+      
+      alert('核心团队分工表已生成，已复制到剪贴板');
+      navigator.clipboard.writeText(assignment).then(() => {
+        console.log('Team assignment copied to clipboard');
+      });
+    }
+    
+    // ==================================================
+    // CLAIMS CHECKLIST GENERATION
+    // ==================================================
+    
+    function generateClaimsChecklist() {
+      const checklist = `
+理赔/账单跟进清单
+最后更新: ${new Date().toLocaleDateString('zh-CN')}
+
+🏥 住院信息:
+• 医院: General Hospital - Orthopedic Department
+• 住院日期: 2026-03-28 至 2026-04-01 (4天)
+• 手术类型: 髋关节手术
+• 主治医生: Dr. Smith
+
+📄 文件状态:
+✅ 出院小结 (已收到)
+✅ 手术报告 (已收到)
+✅ 初始医院账单 (已收到)
+⏳ 保险 EOB (等待中)
+⏳ 最终账单 (等待中)
+
+💰 保险信息:
+• Medicare Part A/B
+• 补充保险 Plan G
+• 保险ID: [已记录]
+• Group#: [已记录]
+
+📞 跟进时间表:
+1. 2026-04-15: 联系保险确认claim进度
+2. 收到EOB后: 比对医院账单金额
+3. 如有差异: 联系医院billing部门
+4. 最终确认: 等待所有文件齐全后付款
+
+⚠️ 重要提醒:
+• 不要先付款，等保险处理完成
+• 保存所有通信记录 (日期、对象、内容)
+• 比对医院账单与EOB的每一项
+• 如有疑问，要求书面解释
+
+📁 文件保存位置:
+• 原件: 客厅书桌抽屉
+• 复印件: 卧室文件柜
+• 电子版: 云存储备份
+
+📅 下次跟进日期: 2026-04-15
+负责人: Richard Hu
+      `;
+      
+      alert('理赔/账单跟进清单已生成，已复制到剪贴板');
+      navigator.clipboard.writeText(checklist).then(() => {
+        console.log('Claims checklist copied to clipboard');
+      });
+    }
+    
+    // ==================================================
+    // WEEKLY CHECK MARK
+    // ==================================================
+    
+    function markWeekChecked() {
+      const today = new Date().toLocaleDateString('zh-CN');
+      localStorage.setItem('last_weekly_check', today);
+      showNotification(`本周已标记检查 (${today})`, 'success');
+      
+      // Update UI if needed
+      const checkBtn = document.querySelector('[onclick="markWeekChecked()"]');
+      if (checkBtn) {
+        checkBtn.innerHTML = '<i class="fas fa-check-circle mb-1 block"></i> 已检查';
+        checkBtn.classList.remove('bg-gray-500');
+        checkBtn.classList.add('bg-green-500');
       }
     }
-
-    // Save data to localStorage
-    function saveToLocalStorage() {
-      emergencyData.lastUpdated = new Date().toISOString();
-      localStorage.setItem('emergencyPlanData', JSON.stringify(emergencyData));
-      updateLastUpdated();
+    
+    // ==================================================
+    // PRINT UTILITY
+    // ==================================================
+    
+    function printContent(content, title = '文档') {
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>${title}</title>
+            <style>
+              body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+              h1 { color: #333; border-bottom: 2px solid #0ea5e9; padding-bottom: 10px; }
+              pre { white-space: pre-wrap; font-family: inherit; }
+              @media print {
+                body { font-size: 14pt; }
+              }
+            </style>
+          </head>
+          <body>
+            <h1>${title}</h1>
+            <pre>${content}</pre>
+            <script>
+              window.onload = function() {
+                window.print();
+                setTimeout(function() {
+                  window.close();
+                }, 1000);
+              };
+            <\/script>
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
     }
-
-    // Update progress bars
-    function updateProgressBars() {
-      // Legal progress
-      const legalCompleted = emergencyData.legal.filter(item => item.completed).length;
-      const legalTotal = emergencyData.legal.length;
-      const legalPercentage = Math.round((legalCompleted / legalTotal) * 100);
+    
+    // ==================================================
+    // INITIALIZATION
+    // ==================================================
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('家庭应急保障与照护协调系统已加载');
       
-      document.getElementById('legal-progress').textContent = `${legalPercentage}%`;
-      document.getElementById('legal-progress-bar').style.width = `${legalPercentage}%`;
-      document.getElementById('legal-progress-bar').className = `h-3 rounded-full ${
-        legalPercentage >= 80 ? 'bg-green-500' : 
-        legalPercentage >= 50 ? 'bg-yellow-500' : 'bg-red-500'
-      }`;
+      // Check last weekly check
+      const lastCheck = localStorage.getItem('last_weekly_check');
+      if (lastCheck) {
+        console.log('上次检查时间:', lastCheck);
+      }
       
-      // Contact progress (simplified)
-      const contactPercentage = 60; // Based on having primary contacts
-      document.getElementById('contact-progress').textContent = `${contactPercentage}%`;
-      document.getElementById('contact-progress-bar').style.width = `${contactPercentage}%`;
-      document.getElementById('contact-progress-bar').className = `h-3 rounded-full ${
-        contactPercentage >= 80 ? 'bg-green-500' : 
-        contactPercentage >= 50 ? 'bg-yellow-500' : 'bg-red-500'
-      }`;
+      // Close modal on outside click
+      const modals = document.querySelectorAll('.modal-overlay');
+      modals.forEach(modal => {
+        modal.addEventListener('click', function(e) {
+          if (e.target === this) {
+            this.classList.remove('active');
+          }
+        });
+      });
       
-      // Financial progress (simplified)
-      const financialPercentage = 30; // Based on account setup
-      document.getElementById('financial-progress').textContent = `${financialPercentage}%`;
-      document.getElementById('financial-progress-bar').style.width = `${financialPercentage}%`;
-      document.getElementById('financial-progress-bar').className = `h-3 rounded-full ${
-        financialPercentage >= 80 ? 'bg-green-500' : 
-        financialPercentage >= 50 ? 'bg-yellow-500' : 'bg-red-500'
-      }`;
-    }
-
-    // Setup event listeners
-    function setupEventListeners() {
-      // Legal checklist checkboxes
-      emergencyData.legal.forEach(item => {
-        const checkbox = document.getElementById(`legal-${item.id}`);
-        if (checkbox) {
-          checkbox.checked = item.completed;
-          checkbox.addEventListener('change', function() {
-            item.completed = this.checked;
-            item.status = this.checked ? 'completed' : 'in-progress';
-            saveToLocalStorage();
-            updateProgressBars();
-            showNotification('法律清单已更新', 'success');
+      // Close modal on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          modals.forEach(modal => {
+            modal.classList.remove('active');
           });
         }
       });
-    }
-
-    // Generate emergency letter
-    function generateEmergencyLetter() {
-      const letterContent = `
-家庭应急保障指南
-====================
-生成日期: ${new Date().toLocaleDateString('zh-CN')}
-
-亲爱的妈妈：
-
-如果发生紧急情况（我暂时无法联系），请按照以下步骤操作：
-
-1. 首先联系：
-   - 张明: (555) 123-4567（首要联系人）
-   - 李华: (555) 987-6543（备用联系人）
-
-2. 医疗紧急情况：
-   - 立即拨打 911
-   - 然后联系张明或李华
-   - 去最近的医院：社区医疗中心
-
-3. 日常生活帮助：
-   - 邻居王阿姨: (555) 111-2222
-   - 教会陈姐妹: (555) 333-4444
-   - 购物帮助李叔叔
-
-4. 重要文件位置：
-   - 保险文件：书桌抽屉
-   - 医疗记录：蓝色文件夹
-   - 身份证件：保险柜
-
-5. 不需要担心：
-   - 不需要理解复杂系统
-   - 只需要打电话给上面的人
-   - 他们会帮你处理一切
-
-请将这份指南贴在冰箱门或容易看到的地方。
-
-爱你的，
-[你的名字]
-      `;
-      
-      // Create download link
-      const blob = new Blob([letterContent], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = '家庭应急指南.txt';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      
-      showNotification('紧急说明信已生成并下载', 'success');
-    }
-
-    // Generate notification email
-    function generateNotificationEmail() {
-      const emailContent = `
-主题：紧急情况联系信息
-
-亲爱的朋友/联系人：
-
-如果发生紧急情况（我暂时无法联系），以下是我的应急计划联系人信息：
-
-主要联系人：
-1. 张明 - (555) 123-4567（首要决策者）
-2. 李华 - (555) 987-6543（协助者）
-
-我母亲的住址：
-123 Main Street, Apt 4B
-城市, 州 12345
-
-关键医疗信息：
-- 主要医疗中心：社区健康中心 (555) 777-8888
-- 紧急医院：城市综合医院 (555) 999-0000
-- 常用药物：高血压药物（每日）
-
-如果您需要联系我母亲或协助处理紧急情况，请先联系张明。
-
-感谢您的帮助和支持。
-
-此致，
-[你的名字]
-      `;
-      
-      // Copy to clipboard
-      navigator.clipboard.writeText(emailContent).then(() => {
-        showNotification('通知邮件模板已复制到剪贴板', 'success');
-      }).catch(err => {
-        console.error('复制失败:', err);
-        showNotification('复制失败，请手动复制文本', 'error');
-      });
-    }
-
-    // Generate legal checklist
-    function generateLegalChecklist() {
-      const checklistContent = `
-家庭应急法律文件清单
-====================
-生成日期: ${new Date().toLocaleDateString('zh-CN')}
-
-待完成法律文件：
-
-1. [${emergencyData.legal[0].completed ? '✓' : ' '}] Durable Power of Attorney（财务授权）
-   状态: ${emergencyData.legal[0].status === 'completed' ? '已完成' : 
-          emergencyData.legal[0].status === 'in-progress' ? '进行中' : '未开始'}
-
-2. [${emergencyData.legal[1].completed ? '✓' : ' '}] Healthcare Proxy（医疗代理）
-   状态: ${emergencyData.legal[1].status === 'completed' ? '已完成' : 
-          emergencyData.legal[1].status === 'in-progress' ? '进行中' : '未开始'}
-
-3. [${emergencyData.legal[2].completed ? '✓' : ' '}] HIPAA Authorization
-   状态: ${emergencyData.legal[2].status === 'completed' ? '已完成' : 
-          emergencyData.legal[2].status === 'in-progress' ? '进行中' : '未开始'}
-
-4. [${emergencyData.legal[3].completed ? '✓' : ' '}] Will（简单遗嘱）
-   状态: ${emergencyData.legal[3].status === 'completed' ? '已完成' : 
-          emergencyData.legal[3].status === 'in-progress' ? '进行中' : '未开始'}
-
-5. [${emergencyData.legal[4].completed ? '✓' : ' '}] Emergency letter (给母亲的说明信，中文)
-   状态: ${emergencyData.legal[4].status === 'completed' ? '已完成' : 
-          emergencyData.legal[4].status === 'in-progress' ? '进行中' : '未开始'}
-
-建议行动：
-- 咨询律师完成所有法律文件
-- 将重要文件存放在安全且易于访问的地方
-- 确保所有联系人都知道文件位置
-
-      `;
-      
-      // Create download link
-      const blob = new Blob([checklistContent], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = '法律文件清单.txt';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      
-      showNotification('法律文件清单已生成并下载', 'success');
-    }
-
-    // Export all data
-    function exportAllData() {
-      const dataStr = JSON.stringify(emergencyData, null, 2);
-      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-      
-      const exportFileDefaultName = 'emergency-plan-backup.json';
-      
-      const linkElement = document.createElement('a');
-      linkElement.setAttribute('href', dataUri);
-      linkElement.setAttribute('download', exportFileDefaultName);
-      linkElement.click();
-      
-      showNotification('所有数据已导出备份', 'success');
-    }
-
-    // Edit contacts
-    function editContacts() {
-      showNotification('联系人编辑功能开发中', 'info');
-      // In a real implementation, this would open a modal for editing contacts
-    }
-
-    // Set reminder
-    function setReminder() {
-      const nextDate = new Date();
-      nextDate.setMonth(nextDate.getMonth() + 3);
-      const formattedDate = nextDate.toISOString().split('T')[0];
-      
-      emergencyData.reminders.nextCheck = formattedDate;
-      saveToLocalStorage();
-      
-      document.getElementById('next-check').textContent = formattedDate;
-      showNotification(`提醒已设置为: ${formattedDate}`, 'success');
-    }
-
-    // Mark as reviewed
-    function markAsReviewed() {
-      const today = new Date().toISOString().split('T')[0];
-      emergencyData.reminders.lastCheck = today;
-      saveToLocalStorage();
-      
-      document.getElementById('last-reminder').textContent = today;
-      showNotification('应急计划已标记为已检查', 'success');
-    }
-
-    // Refresh dashboard
-    function refreshDashboard() {
-      loadFromLocalStorage();
-      updateProgressBars();
-      showNotification('仪表板已刷新', 'info');
-    }
-
-    // Show notification
-    function showNotification(message, type = 'info') {
-      // Create notification element
-      const notification = document.createElement('div');
-      notification.className = `fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg max-w-sm ${
-        type === 'success' ? 'bg-green-100 text-green-800 border border-green-200' :
-        type === 'error' ? 'bg-red-100 text-red-800 border border-red-200' :
-        type === 'warning' ? 'bg-yellow-100 text-yellow-800 border border-yellow-200' :
-        'bg-blue-100 text-blue-800 border border-blue-200'
-      }`;
-      
-      notification.innerHTML = `
-        <div class="flex items-center">
-          <i class="fas ${
-            type === 'success' ? 'fa-check-circle' :
-            type === 'error' ? 'fa-exclamation-circle' :
-            type === 'warning' ? 'fa-exclamation-triangle' :
-            'fa-info-circle'
-          } mr-2"></i>
-          <span>${message}</span>
-        </div>
-      `;
-      
-      // Add to body
-      document.body.appendChild(notification);
-      
-      // Remove after 3 seconds
-      setTimeout(() => {
-        notification.style.opacity = '0';
-        notification.style.transition = 'opacity 0.5s';
-        setTimeout(() => {
-          if (notification.parentNode) {
-            notification.parentNode.removeChild(notification);
-          }
-        }, 500);
-      }, 3000);
-    }
-
-    // Initialize on load
-    document.addEventListener('DOMContentLoaded', initDashboard);
+    });
+    
+    // ==================================================
+    // TODO MARKERS FOR FUTURE DEVELOPMENT
+    // ==================================================
+    /*
+    TODO: Implement full localStorage persistence for:
+    1. Task list management
+    2. Contact information updates
+    3. Recovery plan progress tracking
+    4. Church volunteer roster management
+    5. Claims follow-up status tracking
+    
+    TODO: Add data export/import functionality
+    TODO: Implement email/SMS notification stubs
+    TODO: Add calendar integration for appointments
+    TODO: Create PDF generation for all printable cards
+    TODO: Implement role-based access for different team members
+    TODO: Add multilingual support (English version)
+    TODO: Create mobile app version
+    TODO: Implement backup to cloud storage
+    TODO: Add analytics dashboard for care coordination metrics
+    */
   </script>
 </body>
 </html>
-
