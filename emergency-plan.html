@@ -862,69 +862,93 @@
           母亲恢复期支持计划
         </h2>
         
+        <!-- Clinical Status Summary (Compressed) -->
+        <div class="mb-8">
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="font-medium text-blue-700">当前状态摘要</div>
+                <div class="text-sm text-gray-600 mt-1">
+                  骨科术后恢复中 • 下次复诊: 2026-04-12 14:00 • 预计恢复期: 6-8周
+                </div>
+              </div>
+              <div class="text-xs text-gray-500">
+                <i class="fas fa-info-circle mr-1"></i>
+                详细临床信息已整合到任务分工和覆盖系统中
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Operational Focus Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <!-- Left Column: Current Status -->
+          <!-- Left Column: Operational Risks -->
           <div>
-            <h3 class="font-bold text-lg mb-4">当前恢复阶段</h3>
+            <h3 class="font-bold text-lg mb-4">操作风险与覆盖需求</h3>
             <div class="space-y-4">
-              <div class="bg-blue-50 p-4 rounded-lg">
-                <div class="font-medium mb-2">骨科/住院后恢复跟进</div>
+              <div class="bg-red-50 p-4 rounded-lg">
+                <div class="font-medium mb-2 text-red-700">⚠️ 跌倒风险 → 覆盖需求</div>
                 <div class="text-sm text-gray-600">
-                  • 手术日期: 2026-03-28<br>
-                  • 出院日期: 2026-04-01<br>
-                  • 下次复诊: 2026-04-12<br>
-                  • 预计恢复期: 6-8周
+                  • <strong>任务:</strong> 洗澡监督 (每日)<br>
+                  • <strong>负责人:</strong> 张阿姨 + 备用<br>
+                  • <strong>覆盖标准:</strong> 洗澡时需有人在家或可5分钟内到达<br>
+                  • <strong>离家影响:</strong> 短期外出需安排固定监督时间
                 </div>
               </div>
               
-              <div class="bg-green-50 p-4 rounded-lg">
-                <div class="font-medium mb-2">疼痛控制</div>
+              <div class="bg-purple-50 p-4 rounded-lg">
+                <div class="font-medium mb-2">药物管理 → 任务分配</div>
                 <div class="text-sm text-gray-600">
-                  • 当前疼痛等级: 3/10 (可控)<br>
-                  • 药物: 止痛药 (按需), 抗生素 (完成中)<br>
-                  • 非药物缓解: 冰敷, 抬高患肢
+                  • <strong>任务:</strong> 药物提醒与监督 (早8点, 晚8点)<br>
+                  • <strong>负责人:</strong> 张阿姨 (主要), 教会志愿者 (备用)<br>
+                  • <strong>覆盖标准:</strong> 每日2次确认，有记录<br>
+                  • <strong>离家影响:</strong> 需建立远程确认流程
                 </div>
               </div>
               
-              <div class="bg-amber-50 p-4 rounded-lg">
-                <div class="font-medium mb-2">行动能力 / Mobility</div>
+              <div class="bg-indigo-50 p-4 rounded-lg">
+                <div class="font-medium mb-2">医疗事项 → 协调任务</div>
                 <div class="text-sm text-gray-600">
-                  • 可使用助行器短距离行走<br>
-                  • 需要协助: 洗澡, 如厕<br>
-                  • 物理治疗: 每周2次 (居家)
+                  • <strong>复诊接送:</strong> 4月12日 14:00 (已分配)<br>
+                  • <strong>取药安排:</strong> 每周一次 CVS (张阿姨负责)<br>
+                  • <strong>物理治疗:</strong> 周二、四上午 (需要陪同)<br>
+                  • <strong>协调需求:</strong> 所有事项已在任务分工中心
                 </div>
               </div>
             </div>
           </div>
           
-          <!-- Right Column: Risks & Needs -->
+          <!-- Right Column: Coverage Implications -->
           <div>
-            <h3 class="font-bold text-lg mb-4">主要风险点与支持需求</h3>
+            <h3 class="font-bold text-lg mb-4">对离家覆盖的影响</h3>
             <div class="space-y-4">
-              <div class="bg-red-50 p-4 rounded-lg">
-                <div class="font-medium mb-2 text-red-700">⚠️ 跌倒风险 (高)</div>
+              <div class="bg-amber-50 p-4 rounded-lg">
+                <div class="font-medium mb-2">行动能力限制 → 覆盖要求</div>
                 <div class="text-sm text-gray-600">
-                  • 浴室: 已安装扶手, 防滑垫<br>
-                  • 夜间: 需要小夜灯, 床边便椅<br>
-                  • 监督: 洗澡时需有人在家
+                  • <strong>助行器使用:</strong> 短距离行走需监督<br>
+                  • <strong>覆盖缺口:</strong> 当前只有1个主要日常支持人<br>
+                  • <strong>改进需求:</strong> 增加备用支持人员至3人<br>
+                  • <strong>可靠性影响:</strong> 当前评分 60/100 (需改进)
                 </div>
               </div>
               
-              <div class="bg-purple-50 p-4 rounded-lg">
-                <div class="font-medium mb-2">药物管理</div>
+              <div class="bg-green-50 p-4 rounded-lg">
+                <div class="font-medium mb-2">疼痛控制 → 紧急响应准备</div>
                 <div class="text-sm text-gray-600">
-                  • 每日服药时间: 早8点, 晚8点<br>
-                  • 需要提醒: 是 (张阿姨负责)<br>
-                  • 药物清单: 贴在冰箱上
+                  • <strong>当前状态:</strong> 疼痛可控 (3/10)<br>
+                  • <strong>紧急阈值:</strong> ≥7/10 需联系医生<br>
+                  • <strong>覆盖要求:</strong> 李医生待命，可作医疗决策<br>
+                  • <strong>系统就绪:</strong> ✅ 医疗响应覆盖满足
                 </div>
               </div>
               
-              <div class="bg-indigo-50 p-4 rounded-lg">
-                <div class="font-medium mb-2">本周医疗事项</div>
+              <div class="bg-blue-50 p-4 rounded-lg">
+                <div class="font-medium mb-2">恢复进度 → 任务演化</div>
                 <div class="text-sm text-gray-600">
-                  • 复诊: 4月12日 14:00 (骨科)<br>
-                  • 取药: 每周一次 (CVS)<br>
-                  • 物理治疗: 周二, 周四上午
+                  • <strong>当前阶段:</strong> 术后2周，需要较高支持<br>
+                  • <strong>任务变化:</strong> 4周后物理治疗频率可能减少<br>
+                  • <strong>覆盖调整:</strong> 恢复进度影响外出时长支持能力<br>
+                  • <strong>监控需求:</strong> 每月评估任务分配和覆盖标准
                 </div>
               </div>
             </div>
