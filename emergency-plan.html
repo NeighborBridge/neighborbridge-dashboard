@@ -250,7 +250,7 @@
         </div>
         
         <p class="text-gray-600 mb-6">
-          这不是临时帮忙，而是一个有安排、有分工、可持续的小型关怀系统。我们协调家庭、教会和社区资源，围绕母亲的恢复和日常需求建立支持网络。
+          结构化关怀系统：协调家庭、教会和社区资源，支持母亲恢复和日常需求。
         </p>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -358,18 +358,20 @@
             <button onclick="addNewTask()" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition text-sm">
               <i class="fas fa-plus mr-1"></i>添加新任务
             </button>
+            <button onclick="addErrandTask()" class="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition text-sm">
+              <i class="fas fa-shopping-cart mr-1"></i>添加生活事务
+            </button>
           </div>
         </div>
         
         <!-- Task Categories -->
         <div class="mb-6 flex flex-wrap gap-2">
           <button class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">全部</button>
-          <button class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">医疗类</button>
-          <button class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-medium">生活类</button>
-          <button class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">陪伴/情感支持</button>
-          <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">行政/保险/文件</button>
-          <button class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium">交通接送</button>
-          <button class="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm font-medium">祷告/教会支持</button>
+          <button class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">医疗</button>
+          <button class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm font-medium">日常支持</button>
+          <button class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm font-medium">生活事务</button>
+          <button class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">情感与教会支持</button>
+          <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">文件与财务</button>
         </div>
         
         <!-- Task List -->
@@ -381,7 +383,8 @@
                 <div class="flex items-center mb-1">
                   <span class="status-badge status-critical mr-2">高</span>
                   <span class="font-medium">复诊接送</span>
-                  <span class="ml-2 text-xs px-2 py-1 bg-green-100 text-green-700 rounded">医疗类</span>
+                  <span class="ml-2 text-xs px-2 py-1 bg-green-100 text-green-700 rounded">医疗</span>
+                  <span class="ml-1 text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded">需本人处理</span>
                 </div>
                 <div class="text-sm text-gray-600 mb-2">
                   时间: 2026-04-12 14:00 | 地点: 骨科复诊 | 频率: 一次性
@@ -416,7 +419,8 @@
                 <div class="flex items-center mb-1">
                   <span class="status-badge status-critical mr-2">高</span>
                   <span class="font-medium">取药</span>
-                  <span class="ml-2 text-xs px-2 py-1 bg-green-100 text-green-700 rounded">医疗类</span>
+                  <span class="ml-2 text-xs px-2 py-1 bg-green-100 text-green-700 rounded">医疗</span>
+                  <span class="ml-1 text-xs px-2 py-1 bg-teal-100 text-teal-700 rounded">可委托</span>
                 </div>
                 <div class="text-sm text-gray-600 mb-2">
                   药房: CVS Main St | 处方: 止痛药, 抗生素 | 频率: 每周
@@ -451,7 +455,8 @@
                 <div class="flex items-center mb-1">
                   <span class="status-badge status-important mr-2">中</span>
                   <span class="font-medium">每周 grocery</span>
-                  <span class="ml-2 text-xs px-2 py-1 bg-amber-100 text-amber-700 rounded">生活类</span>
+                  <span class="ml-2 text-xs px-2 py-1 bg-amber-100 text-amber-700 rounded">日常支持</span>
+                  <span class="ml-1 text-xs px-2 py-1 bg-teal-100 text-teal-700 rounded">可委托</span>
                 </div>
                 <div class="text-sm text-gray-600 mb-2">
                   时间: 每周六上午 | 地点: 华人超市 | 频率: 每周
@@ -486,7 +491,8 @@
                 <div class="flex items-center mb-1">
                   <span class="status-badge status-important mr-2">中</span>
                   <span class="font-medium">每周送饭</span>
-                  <span class="ml-2 text-xs px-2 py-1 bg-amber-100 text-amber-700 rounded">生活类</span>
+                  <span class="ml-2 text-xs px-2 py-1 bg-amber-100 text-amber-700 rounded">日常支持</span>
+                  <span class="ml-1 text-xs px-2 py-1 bg-teal-100 text-teal-700 rounded">可委托</span>
                 </div>
                 <div class="text-sm text-gray-600 mb-2">
                   时间: 周一、三、五晚餐 | 饮食要求: 低盐, 易消化 | 频率: 每周
@@ -521,7 +527,8 @@
                 <div class="flex items-center mb-1">
                   <span class="status-badge status-important mr-2">中</span>
                   <span class="font-medium">理赔/账单跟进</span>
-                  <span class="ml-2 text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">行政/保险/文件</span>
+                  <span class="ml-2 text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">文件与财务</span>
+                  <span class="ml-1 text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded">需本人处理</span>
                 </div>
                 <div class="text-sm text-gray-600 mb-2">
                   保险: Medicare + 补充保险 | 医院: General Hospital | 频率: 按需
@@ -548,13 +555,87 @@
               </div>
             </div>
           </div>
+          
+          <!-- Task 6: Amazon Return (New Errands Example) -->
+          <div class="task-item priority-low rounded-lg">
+            <div class="flex justify-between items-start">
+              <div class="flex-1">
+                <div class="flex items-center mb-1">
+                  <span class="status-badge status-normal mr-2">低</span>
+                  <span class="font-medium">Amazon退货</span>
+                  <span class="ml-2 text-xs px-2 py-1 bg-teal-100 text-teal-700 rounded">生活事务</span>
+                  <span class="ml-1 text-xs px-2 py-1 bg-teal-100 text-teal-700 rounded">可委托</span>
+                </div>
+                <div class="text-sm text-gray-600 mb-2">
+                  描述: 把已包装好的 Amazon 退货带去 Whole Foods 柜台扫码退回<br>
+                  目的地: Whole Foods Raleigh | 截止时间: 2026-04-15
+                </div>
+                <div class="flex items-center text-sm">
+                  <span class="text-gray-500 mr-4">
+                    <i class="fas fa-user mr-1"></i>负责人: 教会朋友
+                  </span>
+                  <span class="text-gray-500 mr-4">
+                    <i class="fas fa-user-friends mr-1"></i>备用: 张阿姨
+                  </span>
+                  <span class="text-gray-500">
+                    <i class="fas fa-clock mr-1"></i>状态: 待分配
+                  </span>
+                </div>
+              </div>
+              <div class="flex space-x-2">
+                <button class="text-sm text-gray-500 hover:text-gray-700">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="text-sm text-gray-500 hover:text-gray-700">
+                  <i class="fas fa-check"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Task 7: Pharmacy Pickup (New Errands Example) -->
+          <div class="task-item priority-medium rounded-lg">
+            <div class="flex justify-between items-start">
+              <div class="flex-1">
+                <div class="flex items-center mb-1">
+                  <span class="status-badge status-important mr-2">中</span>
+                  <span class="font-medium">CVS取药</span>
+                  <span class="ml-2 text-xs px-2 py-1 bg-teal-100 text-teal-700 rounded">生活事务</span>
+                  <span class="ml-1 text-xs px-2 py-1 bg-teal-100 text-teal-700 rounded">可委托</span>
+                </div>
+                <div class="text-sm text-gray-600 mb-2">
+                  描述: 处方止痛药和抗生素 | 药房: CVS Main St<br>
+                  截止时间: 2026-04-13 | 频率: 每周
+                </div>
+                <div class="flex items-center text-sm">
+                  <span class="text-gray-500 mr-4">
+                    <i class="fas fa-user mr-1"></i>负责人: 张阿姨
+                  </span>
+                  <span class="text-gray-500 mr-4">
+                    <i class="fas fa-user-friends mr-1"></i>备用: 教会朋友
+                  </span>
+                  <span class="text-gray-500">
+                    <i class="fas fa-clock mr-1"></i>状态: 已分配
+                  </span>
+                </div>
+              </div>
+              <div class="flex space-x-2">
+                <button class="text-sm text-gray-500 hover:text-gray-700">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="text-sm text-gray-500 hover:text-gray-700">
+                  <i class="fas fa-check"></i>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
         
         <!-- Task Statistics -->
         <div class="mt-6 pt-6 border-t border-gray-200">
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div class="text-center">
-              <div class="text-2xl font-bold text-gray-900">8</div>
+              <div class="text-2xl font-bold text-gray-900">10</div>
               <div class="text-sm text-gray-500">总任务数</div>
             </div>
             <div class="text-center">
@@ -1110,7 +1191,7 @@
         
         <div class="mb-6">
           <p class="text-gray-600 italic border-l-4 border-purple-500 pl-4 py-2">
-            这不是临时帮忙，而是一个有安排、有分工、可持续的小型关怀系统。我们通过教会大家庭建立支持网络，让关怀更有组织、更可持续。
+            教会大家庭支持网络：有组织、可持续的关怀系统。
           </p>
         </div>
         
@@ -2078,12 +2159,11 @@
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">类别</label>
           <select class="w-full border rounded-lg p-2">
-            <option value="medical">医疗类</option>
-            <option value="daily">生活类</option>
-            <option value="emotional">陪伴/情感支持</option>
-            <option value="admin">行政/保险/文件</option>
-            <option value="transport">交通接送</option>
-            <option value="church">祷告/教会支持</option>
+            <option value="medical">医疗</option>
+            <option value="daily">日常支持</option>
+            <option value="errands">生活事务</option>
+            <option value="emotional">情感与教会支持</option>
+            <option value="admin">文件与财务</option>
           </select>
         </div>
         <div class="grid grid-cols-2 gap-4">
@@ -2156,6 +2236,21 @@
     function addNewTask() {
       showModal('task-modal');
       console.log('TODO: Implement addNewTask functionality');
+    }
+    
+    function addErrandTask() {
+      showModal('task-modal');
+      console.log('TODO: Prefill task modal with errands category');
+      
+      // In a real implementation, this would prefill the category dropdown
+      // For now, just show a notification
+      setTimeout(() => {
+        const categorySelect = document.querySelector('select');
+        if (categorySelect) {
+          categorySelect.value = 'errands';
+          showNotification('任务编辑器已打开，类别已预设为"生活事务"', 'info');
+        }
+      }, 100);
     }
     
     function saveTask() {
