@@ -1,2693 +1,361 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NeighborBridge Dashboard</title>
-
-  <!-- Tailwind CDN -->
+  <title>NeighborBridge 主面板</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Simple config -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            brand: "#0ea5e9",
-            urgent: "#ef4444",
-            warning: "#f59e0b",
-            neutral: "#6b7280",
-            completed: "#10b981",
-            orange: {
-              500: "#f59e0b"
-            },
-            blue: {
-              500: "#60a5fa"
-            },
-            green: {
-              500: "#34d399"
-            },
-            purple: {
-              500: "#a78bfa"
-            }
+            brand: "#0ea5e9", urgent: "#ef4444", warning: "#f59e0b",
+            neutral: "#6b7280", completed: "#10b981",
+            orange: { 500: "#f59e0b" }, blue: { 500: "#60a5fa" },
+            green: { 500: "#34d399" }, purple: { 500: "#a78bfa" }
           }
         }
       }
     }
   </script>
-
-  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Shared Design System - Single Source of Truth -->
   <link rel="stylesheet" href="shared.css">
-  
   <style>
-    /* [COMMAND CENTER ENABLED] - Main dashboard upgraded to command center */
-    /* Using shared.css for design system consistency */
-    
-    /* Command center specific styles */
-    .command-section {
-      border-left: 4px solid;
-      transition: all 0.2s ease;
+    .accent-blue { border-left: 4px solid #60a5fa; }
+    .accent-green { border-left: 4px solid #34d399; }
+    .accent-purple { border-left: 4px solid #a78bfa; }
+    .accent-red { border-left: 4px solid #ef4444; }
+    .accent-orange { border-left: 4px solid #f59e0b; }
+    .sec-card { @apply bg-white rounded-lg p-3 border shadow-sm mb-3; }
+    .action-btn {
+      width: 100%; padding: 10px 14px; border-radius: 8px; text-align: left;
+      cursor: pointer; transition: all 0.2s; display: block;
     }
-    .command-section:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      background: var(--hover-bg);
+    .action-btn.completed { opacity: 0.55; cursor: default; }
+    .task-card {
+      padding: 10px 12px; border-radius: 8px; border: 1px solid #e5e7eb; background: #f9fafb;
     }
-    
-    .recommendation-bullet {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 0.5rem;
+    .task-card[data-overdue="true"] { border-color: #fca5a5; background: #fef2f2; }
+    .status-pill {
+      display: inline-flex; align-items: center; padding: 1px 8px; border-radius: 9999px;
+      font-size: 11px; cursor: pointer; opacity: 0.55; transition: opacity 0.15s;
     }
-    .recommendation-bullet::before {
-      content: "•";
-      color: var(--accent-blue);
-      font-weight: bold;
-      margin-right: 0.5rem;
-      margin-top: 0.1rem;
-    }
-    
-    .connection-item {
-      display: flex;
-      align-items: center;
-      padding: 0.5rem;
-      border-radius: 0.375rem;
-      background: var(--hover-bg);
-      margin-bottom: 0.5rem;
-    }
-    
-    .blocker-item {
-      display: flex;
-      align-items: center;
-      padding: 0.5rem;
-      border-radius: 0.375rem;
-      background: rgba(239, 68, 68, 0.05);
-      border-left: 3px solid #ef4444;
-      margin-bottom: 0.5rem;
-    }
-    
-    .action-button {
-      width: 100%;
-      padding: 0.5rem 1rem;
-      border-radius: 0.375rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      text-align: left;
-      transition: all 0.2s ease;
-      margin-bottom: 0.5rem;
-    }
-    .action-button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    
-    /* Task Management Styles */
-    .task-item {
-      padding: 0.75rem;
-      border-radius: 0.5rem;
-      background: var(--hover-bg);
-      border: 1px solid #e5e7eb;
-      transition: all 0.2s ease;
-    }
-    
-    .task-item:hover {
-      background: #f8fafc;
-      border-color: #cbd5e1;
-    }
-    
-    .task-status {
-      display: inline-block;
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.25rem;
-      font-size: 0.75rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      border: 1px solid transparent;
-    }
-    
-    .task-status:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-    
-    .status-not-started {
-      background-color: #f3f4f6;
-      color: #6b7280;
-      border-color: #d1d5db;
-    }
-    
-    .status-not-started:hover {
-      background-color: #e5e7eb;
-    }
-    
-    .status-in-progress {
-      background-color: #dbeafe;
-      color: #1d4ed8;
-      border-color: #93c5fd;
-    }
-    
-    .status-in-progress:hover {
-      background-color: #bfdbfe;
-    }
-    
-    .status-in-progress.active {
-      background-color: #3b82f6;
-      color: white;
-      border-color: #1d4ed8;
-    }
-    
-    .status-completed {
-      background-color: #d1fae5;
-      color: #065f46;
-      border-color: #6ee7b7;
-    }
-    
-    .status-completed:hover {
-      background-color: #a7f3d0;
-    }
-    
-    .status-completed.active {
-      background-color: #10b981;
-      color: white;
-      border-color: #059669;
-    }
-    
-    /* Overdue task warning */
-    .task-item[data-overdue="true"] {
-      border-left: 3px solid #ef4444;
-      background: linear-gradient(90deg, rgba(239, 68, 68, 0.05), transparent);
-    }
+    .status-pill.active { opacity: 1; font-weight: 600; }
+    .pill-not-started { background: #e5e7eb; color: #374151; }
+    .pill-not-started.active { background: #d1d5db; color: #111827; }
+    .pill-in-progress { background: #bfdbfe; color: #1e40af; }
+    .pill-in-progress.active { background: #93c5fd; color: #1e3a5f; }
+    .pill-completed { background: #bbf7d0; color: #166534; }
+    .pill-completed.active { background: #86efac; color: #14532d; }
+    .badge { display: inline-flex; align-items: center; padding: 1px 10px; border-radius: 9999px; font-size: 11px; font-weight: 500; }
+    .conn-card { padding: 10px 12px; border-radius: 8px; border: 1px solid #e5e7eb; background: #f9fafb; }
+    .blocker { padding: 8px 12px; border-radius: 6px; border: 1px solid #fca5a5; background: #fef2f2; }
   </style>
 </head>
-
 <body>
 
   <!-- Header -->
-  <header class="bg-card shadow-sm border-b">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <h1 class="text-2xl font-bold">NeighborBridge Dashboard</h1>
-      <div class="flex space-x-4">
-        <a href="/adoption" class="text-sm text-gray-600 hover:text-brand font-medium">Adoption Planning</a>
-        <a href="/trillium" class="text-sm text-gray-600 hover:text-brand font-medium">Trillium Health Resources</a>
-        <a href="/fqhc" class="text-sm text-gray-600 hover:text-brand font-medium">FQHC（基础试点）</a>
-        <a href="/stakeholders" class="text-sm text-gray-600 hover:text-brand font-medium">Stakeholders（关系网络）</a>
-        <a href="/tax-strategy" class="text-sm text-gray-600 hover:text-brand font-medium">Tax Strategy & Optimization</a>
-        <a href="/emergency-plan" class="text-sm text-gray-600 hover:text-brand font-medium">🛡️ Emergency Plan（家庭应急保障）</a>
-        <a href="/fasd-care-pathway" class="text-sm text-gray-600 hover:text-brand font-medium">🧠 FASD Care Pathway（识别→支持→管理）</a>
-      </div>
-      <div class="flex items-center space-x-3">
-        <!-- Version Control UI -->
-        <div class="flex space-x-2">
-          <button id="rollback-btn" class="px-3 py-1 bg-red-100 text-red-700 text-sm font-medium rounded hover:bg-red-200 transition" onclick="showRollbackOptions()">
-            <i class="fas fa-undo mr-1"></i> 恢复上一个版本
-          </button>
-          <button id="history-btn" class="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded hover:bg-blue-200 transition" onclick="showVersionHistory()">
-            <i class="fas fa-history mr-1"></i> 查看历史版本
-          </button>
-        </div>
-        <span class="text-sm text-gray-500">v<span id="current-version">1</span></span>
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-6xl mx-auto px-3 py-2 flex justify-between items-center">
+      <h1 class="text-base font-bold">NeighborBridge</h1>
+      <div class="flex flex-wrap gap-x-3 gap-y-0.5 text-[11px]">
+        <a href="/" class="text-brand font-semibold">主面板</a>
+        <a href="/fqhc" class="text-gray-500 hover:text-brand">FQHC</a>
+        <a href="/trillium" class="text-gray-500 hover:text-brand">Trillium</a>
+        <a href="/stakeholders" class="text-gray-500 hover:text-brand">Stakeholders</a>
+        <a href="/adoption" class="text-gray-500 hover:text-brand">Adoption</a>
+        <a href="/emergency-plan" class="text-gray-500 hover:text-brand">🛡️Emergency</a>
+        <a href="/fasd-care-pathway" class="text-gray-500 hover:text-brand">🧠FASD</a>
+        <a href="/tax-strategy" class="text-gray-500 hover:text-brand">Tax</a>
       </div>
     </div>
   </header>
 
-  <!-- Command Center Layout -->
-  <div class="max-w-7xl mx-auto px-6 py-6">
+  <!-- Main Content -->
+  <div class="max-w-6xl mx-auto px-3 py-3">
 
-    <!-- Command Center Header -->
-    <div class="mb-6">
-      <div class="flex justify-between items-start">
+    <!-- 1. 今日可执行 -->
+    <div class="sec-card accent-green">
+      <div class="flex justify-between items-center mb-2">
         <div>
-          <h1 class="text-2xl font-bold text-gray-800 mb-2">NeighborBridge Command Center</h1>
-          <p class="text-sm text-gray-600">聚合所有子仪表板信号，提供可执行洞察</p>
+          <h2 class="text-sm font-bold">🚀 可执行（今天）</h2>
+          <p class="text-[10px] text-gray-400">直接行动项</p>
         </div>
-        <div class="flex space-x-3">
-          <!-- Manual Sync Button -->
-          <button id="sync-button" onclick="syncAllDashboards()" 
-                  class="px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded hover:bg-blue-600 transition flex items-center">
-            <i class="fas fa-sync-alt mr-2"></i> 同步所有子仪表板
-          </button>
-          <div class="text-xs text-gray-500">
-            <div>最后同步: <span id="last-sync-time">刚刚</span></div>
-            <div>任务模式: <span class="font-medium text-green-600">手动同步</span></div>
-          </div>
-        </div>
+        <span class="badge bg-green-100 text-green-800 text-[10px]">今日</span>
       </div>
-    </div>
-
-    <!-- 🛡️ 版本控制面板 (隐藏) -->
-    <div id="version-control-panel" class="dashboard-card bg-card rounded-lg p-5 mb-6 border border-gray-300 hidden">
-      <div class="flex justify-between items-start mb-4">
-        <div>
-          <h2 class="text-xl font-bold text-gray-800 mb-1">🛡️ 版本控制系统</h2>
-          <p class="text-sm text-gray-600">快速 + 精确 + 安全的版本回滚</p>
-        </div>
-        <button class="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded hover:bg-gray-200 transition" onclick="hideVersionControl()">
-          <i class="fas fa-times mr-1"></i> 关闭
+      <div class="space-y-1.5">
+        <button onclick="go('/fqhc')" class="action-btn bg-blue-50 text-blue-700 border border-blue-200">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-paper-plane text-xs w-4"></i>
+            <div class="text-xs"><span class="font-medium">发送Medical Director消息</span> <span class="text-blue-500">使用FQHC面板中模板</span></div>
+          </div>
+        </button>
+        <button onclick="go('/stakeholders')" class="action-btn bg-purple-50 text-purple-700 border border-purple-200">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-user-tie text-xs w-4"></i>
+            <div class="text-xs"><span class="font-medium">联系Vinod Srihari</span> <span class="text-purple-500">讨论学术合作机会</span></div>
+          </div>
+        </button>
+        <button onclick="go('/trillium')" class="action-btn bg-green-50 text-green-700 border border-green-200">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-chart-line text-xs w-4"></i>
+            <div class="text-xs"><span class="font-medium">更新Trillium优先级</span> <span class="text-green-500">基于FQHC试点可行性</span></div>
+          </div>
+        </button>
+        <button onclick="reviewBlockers()" class="action-btn bg-orange-50 text-orange-700 border border-orange-200">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-exclamation-triangle text-xs w-4"></i>
+            <div class="text-xs"><span class="font-medium">审查阻塞项</span> <span class="text-orange-500">分配责任和时间线</span></div>
+          </div>
         </button>
       </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        
-        <!-- 版本历史 -->
-        <div class="space-y-4">
-          <h3 class="text-lg font-semibold text-gray-800 mb-3">📜 版本历史</h3>
-          
-          <div id="version-history-list" class="space-y-3 max-h-64 overflow-y-auto p-2">
-            <!-- 版本历史将通过JavaScript动态生成 -->
-            <div class="text-sm text-gray-500 text-center py-4">
-              正在加载版本历史...
-            </div>
-          </div>
-          
-          <div class="text-xs text-gray-500">
-            每次更新自动保存快照：内容 + 结构 + 模块
-          </div>
-        </div>
-        
-        <!-- 恢复选项 -->
-        <div class="space-y-4">
-          <h3 class="text-lg font-semibold text-gray-800 mb-3">🔄 恢复选项</h3>
-          
-          <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-300">
-            <h4 class="text-sm font-semibold text-gray-700 mb-3">当前选择版本</h4>
-            
-            <div id="selected-version-info" class="mb-4 p-3 bg-white rounded border border-gray-300">
-              <div class="text-sm text-gray-500 text-center">
-                请从左侧选择版本
-              </div>
-            </div>
-            
-            <div class="space-y-3">
-              <button id="restore-btn" class="w-full px-4 py-2 bg-red-100 text-red-800 text-sm font-medium rounded hover:bg-red-200 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled onclick="restoreSelectedVersion()">
-                <i class="fas fa-undo mr-1"></i> 恢复到此版本
-              </button>
-              
-              <div class="text-xs text-gray-600">
-                <div class="font-medium mb-1">恢复保证：</div>
-                <ul class="space-y-1">
-                  <li>• 精确恢复（无AI重写）</li>
-                  <li>• 无部分重新生成</li>
-                  <li>• 不依赖AI推理</li>
-                  <li>• 确定性恢复</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          
-          <div class="bg-gray-50 p-3 rounded border border-gray-300">
-            <h4 class="text-sm font-semibold text-gray-700 mb-2">系统状态</h4>
-            <div class="text-xs text-gray-600 space-y-1">
-              <div>• 当前版本: <span id="status-current-version" class="font-medium">v1</span></div>
-              <div>• 总版本数: <span id="status-total-versions" class="font-medium">1</span></div>
-              <div>• 最后保存: <span id="status-last-save" class="font-medium">刚刚</span></div>
-              <div>• 自动版本: <span class="text-green-600 font-medium">启用</span></div>
-            </div>
-          </div>
-        </div>
-        
+      <div class="mt-2 pt-1.5 border-t text-[11px] text-gray-400">
+        完成状态：<span id="action-completion">0/4</span> 项完成
       </div>
     </div>
 
-    <!-- 🚀 可执行模块（Execution Panel） - 升级为利益相关者感知行动引擎 -->
-    <div class="dashboard-card bg-card rounded-lg p-5 mb-6 border border-gray-300">
-      <div class="flex justify-between items-start mb-4">
+    <!-- 2. 仪表板状态概览 -->
+    <div class="sec-card accent-blue">
+      <h2 class="text-sm font-bold mb-2">📊 仪表板状态概览</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
+        <a href="/fqhc" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
+          <div class="text-xs font-medium text-gray-700">FQHC</div>
+          <div class="text-[10px] text-gray-400">基础试点面板</div>
+          <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-orange-100 text-orange-800">⏳待对齐</span>
+        </a>
+        <a href="/trillium" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
+          <div class="text-xs font-medium text-gray-700">Trillium</div>
+          <div class="text-[10px] text-gray-400">支付方演示文稿</div>
+          <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-green-100 text-green-800">✅已优化</span>
+        </a>
+        <a href="/stakeholders" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
+          <div class="text-xs font-medium text-gray-700">Stakeholders</div>
+          <div class="text-[10px] text-gray-400">关系网络</div>
+          <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-blue-100 text-blue-800">🔗1活跃</span>
+        </a>
+        <a href="/adoption" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
+          <div class="text-xs font-medium text-gray-700">Adoption</div>
+          <div class="text-[10px] text-gray-400">采用规划</div>
+          <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-gray-100 text-gray-800">⏸待更新</span>
+        </a>
+        <a href="/emergency-plan" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
+          <div class="text-xs font-medium text-gray-700">🛡️Emergency</div>
+          <div class="text-[10px] text-gray-400">家庭应急保障</div>
+          <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-purple-100 text-purple-800">🆕新建</span>
+        </a>
+        <a href="/fasd-care-pathway" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
+          <div class="text-xs font-medium text-gray-700">🧠FASD</div>
+          <div class="text-[10px] text-gray-400">识别→支持→管理</div>
+          <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-blue-100 text-blue-800">🆕新建</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 3. 关键连接 -->
+    <div class="sec-card accent-purple">
+      <div class="flex justify-between items-center mb-2">
         <div>
-          <h2 class="text-xl font-bold text-gray-800 mb-1">🚀 可执行模块（Execution Panel）</h2>
-          <p class="text-sm text-gray-600">利益相关者感知行动引擎 • Right message → right person → right timing</p>
+          <h2 class="text-sm font-bold">🔗 关键连接</h2>
+          <p class="text-[10px] text-gray-400">跨仪表板的关系网络</p>
         </div>
-        <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">Stakeholder-Aware</span>
+        <span class="badge bg-gray-100 text-gray-600 text-[10px]">网络</span>
       </div>
-
-      <!-- 利益相关者选择器 -->
-      <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-300">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <h3 class="text-sm font-semibold text-gray-700 mb-2">🎯 选择沟通对象</h3>
-            <p class="text-xs text-gray-600">系统将自动加载对应策略、阶段和沟通风格</p>
-          </div>
-          
-          <div class="flex flex-col md:flex-row gap-3">
-            <!-- 利益相关者选择下拉框 -->
-            <div class="relative">
-              <select id="stakeholder-selector" class="w-full md:w-48 px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" onchange="loadStakeholderContext(this.value)">
-                <option value="" disabled selected>选择对象 ▼</option>
-                <option value="vinod">Vinod Srihari (耶鲁精神科教授)</option>
-                <option value="trillium">Trillium (Cindy - 支付方联系人)</option>
-                <option value="fqhc">FQHC stakeholders (Medical Director)</option>
-                <option value="academic">学术合作伙伴</option>
-                <option value="government">政府/FQHC技术咨询</option>
-              </select>
+      <div class="space-y-1.5">
+        <div class="conn-card flex items-start justify-between">
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5 mb-0.5">
+              <span class="text-xs font-medium">FQHC ↔ Trillium</span>
             </div>
-            
-            <!-- 快速切换按钮 -->
-            <div class="flex space-x-2">
-              <button class="px-3 py-2 bg-blue-100 text-blue-700 text-sm font-medium rounded hover:bg-blue-200 transition flex items-center" onclick="quickSwitchStakeholder('vinod')">
-                <i class="fas fa-user-tie mr-1"></i> Vinod
-              </button>
-              <button class="px-3 py-2 bg-green-100 text-green-700 text-sm font-medium rounded hover:bg-green-200 transition flex items-center" onclick="quickSwitchStakeholder('trillium')">
-                <i class="fas fa-building mr-1"></i> Trillium
-              </button>
-              <button class="px-3 py-2 bg-orange-100 text-orange-700 text-sm font-medium rounded hover:bg-orange-200 transition flex items-center" onclick="quickSwitchStakeholder('fqhc')">
-                <i class="fas fa-hospital mr-1"></i> FQHC
-              </button>
-            </div>
+            <p class="text-[11px] text-gray-500">试点机会：在FQHC中测试Trillium screening + referral支持层</p>
           </div>
+          <span class="badge bg-blue-100 text-blue-700 text-[10px] shrink-0 ml-2">机会</span>
         </div>
-        
-        <!-- 上下文信息显示 -->
-        <div id="stakeholder-context" class="mt-4 p-3 bg-white rounded border border-gray-300 hidden">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div class="text-center">
-              <div class="text-xs font-medium text-gray-600">策略</div>
-              <div id="context-strategy" class="text-sm font-medium text-gray-800 mt-1">加载中...</div>
+        <div class="conn-card flex items-start justify-between">
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5 mb-0.5">
+              <span class="text-xs font-medium">Vinod Srihari ↔ 当前需求</span>
             </div>
-            <div class="text-center">
-              <div class="text-xs font-medium text-gray-600">当前阶段</div>
-              <div id="context-stage" class="text-sm font-medium text-gray-800 mt-1">加载中...</div>
-            </div>
-            <div class="text-center">
-              <div class="text-xs font-medium text-gray-600">沟通风格</div>
-              <div id="context-style" class="text-sm font-medium text-gray-800 mt-1">加载中...</div>
-            </div>
+            <p class="text-[11px] text-gray-500">耶鲁精神科教授可提供学术背书和FQHC网络</p>
           </div>
+          <span class="badge bg-green-100 text-green-700 text-[10px] shrink-0 ml-2">学术</span>
         </div>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        
-        <!-- 1. 沟通（Communication） -->
-        <div class="space-y-4">
-          <h3 class="text-lg font-semibold text-gray-800 mb-3">📧 邮件草稿（双语）</h3>
-          
-          <!-- Stakeholder-Specific Email Generator -->
-          <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
-            <div class="flex justify-between items-center mb-3">
-              <h4 class="text-sm font-semibold text-gray-700">🇺🇸 English (Send Version)</h4>
-              <span class="text-xs text-gray-500" id="email-context-indicator">请先选择对象</span>
+        <div class="conn-card flex items-start justify-between">
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5 mb-0.5">
+              <span class="text-xs font-medium">Medical Director ↔ 风险对齐</span>
             </div>
-            
-            <div class="mb-3">
-              <div class="text-xs font-medium text-gray-600 mb-1">当前对象: <span id="current-stakeholder" class="font-semibold">未选择</span></div>
-              <div class="text-xs text-gray-500" id="email-strategy-summary">选择对象后，系统将加载对应策略和沟通风格</div>
-            </div>
-            
-            <textarea id="email-template" class="w-full h-32 p-3 text-sm border border-gray-300 rounded mb-3" placeholder="请先选择利益相关者对象...">
-请从上方选择利益相关者对象，系统将自动生成上下文感知的邮件模板。</textarea>
-            
-            <div class="flex space-x-2 mb-4">
-              <button class="flex-1 px-3 py-2 bg-blue-100 text-blue-700 text-sm font-medium rounded hover:bg-blue-200 transition" onclick="copyEmail()">
-                <i class="fas fa-copy mr-1"></i> 复制
-              </button>
-              <button class="flex-1 px-3 py-2 bg-green-100 text-green-700 text-sm font-medium rounded hover:bg-green-200 transition" onclick="markSent()">
-                <i class="fas fa-check mr-1"></i> 标记已发送
-              </button>
-              <button class="flex-1 px-3 py-2 bg-purple-100 text-purple-700 text-sm font-medium rounded hover:bg-purple-200 transition" onclick="optimizeEmail()">
-                <i class="fas fa-magic mr-1"></i> 让AI优化
-              </button>
-              <button class="flex-1 px-3 py-2 bg-yellow-100 text-yellow-700 text-sm font-medium rounded hover:bg-yellow-200 transition" onclick="regenerateEmail()">
-                <i class="fas fa-sync-alt mr-1"></i> 根据当前内容优化
-              </button>
-            </div>
-            
-            <!-- 🇨🇳 中文理解（Internal） - Collapsible Section -->
-            <div class="border-t border-gray-300 pt-4">
-              <div class="flex justify-between items-center mb-3 cursor-pointer" onclick="toggleChineseExplanation()">
-                <h4 class="text-sm font-semibold text-gray-700">🇨🇳 中文理解（Internal）</h4>
-                <span id="chinese-toggle-icon" class="text-xs text-gray-500">
-                  <i class="fas fa-chevron-down"></i> 展开
-                </span>
-              </div>
-              
-              <div id="chinese-explanation" class="hidden">
-                <div class="bg-blue-50 p-3 rounded-lg border border-blue-200 mb-3">
-                  <div class="text-xs font-medium text-blue-700 mb-1">📋 邮件要点</div>
-                  <div id="chinese-summary" class="text-xs text-blue-800">
-                    请先选择利益相关者对象，系统将生成中文理解摘要。
-                  </div>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
-                  <div class="bg-white p-2 rounded border border-gray-200">
-                    <div class="text-xs font-medium text-gray-600 mb-1">🎯 核心请求</div>
-                    <div id="chinese-request" class="text-xs text-gray-700">-</div>
-                  </div>
-                  <div class="bg-white p-2 rounded border border-gray-200">
-                    <div class="text-xs font-medium text-gray-600 mb-1">🎭 语气风格</div>
-                    <div id="chinese-tone" class="text-xs text-gray-700">-</div>
-                  </div>
-                  <div class="bg-white p-2 rounded border border-gray-200">
-                    <div class="text-xs font-medium text-gray-600 mb-1">🧭 战略意图</div>
-                    <div id="chinese-intent" class="text-xs text-gray-700">-</div>
-                  </div>
-                </div>
-                
-                <div class="text-xs text-gray-500 italic">
-                  💡 提示：这不是逐字翻译，而是对邮件语气、意图和战略重点的内部理解。
-                </div>
-              </div>
-            </div>
+            <p class="text-[11px] text-gray-500">需要明确clinical/workflow/billing风险边界</p>
           </div>
-          
-          <!-- 🧠 我的判断 -->
-          <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-300">
-            <h4 class="text-sm font-semibold text-gray-700 mb-3">🧠 我的判断</h4>
-            
-            <textarea id="human-judgment" class="w-full h-24 p-3 text-sm border border-gray-300 rounded mb-3" placeholder="输入您的判断：为什么延迟、担忧、偏好..."></textarea>
-            
-            <button class="w-full px-4 py-2 bg-yellow-100 text-yellow-800 text-sm font-medium rounded hover:bg-yellow-200 transition mb-3" onclick="regenerateBasedOnJudgment()">
-              <i class="fas fa-sync-alt mr-1"></i> 基于我的判断重新生成
-            </button>
-            
-            <!-- 🧠 AI理解调试显示 -->
-            <div id="ai-debug-panel" class="hidden">
-              <div class="bg-gray-800 text-white p-3 rounded-lg mb-3">
-                <div class="flex justify-between items-center mb-2">
-                  <h5 class="text-xs font-semibold">🧠 AI理解</h5>
-                  <button class="text-xs text-gray-400 hover:text-white" onclick="hideAIDebug()">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-                
-                <div class="space-y-2">
-                  <div class="flex">
-                    <div class="text-xs font-medium text-gray-400 w-16">Intent:</div>
-                    <div id="debug-intent" class="text-xs">-</div>
-                  </div>
-                  <div class="flex">
-                    <div class="text-xs font-medium text-gray-400 w-16">Stakeholder:</div>
-                    <div id="debug-stakeholder" class="text-xs">-</div>
-                  </div>
-                  <div class="flex">
-                    <div class="text-xs font-medium text-gray-400 w-16">Stage:</div>
-                    <div id="debug-stage" class="text-xs">-</div>
-                  </div>
-                  <div class="flex">
-                    <div class="text-xs font-medium text-gray-400 w-16">Strategy:</div>
-                    <div id="debug-strategy" class="text-xs">-</div>
-                  </div>
-                  <div class="flex">
-                    <div class="text-xs font-medium text-gray-400 w-16">Structure:</div>
-                    <div id="debug-structure" class="text-xs">-</div>
-                  </div>
-                  <div class="flex">
-                    <div class="text-xs font-medium text-gray-400 w-16">Changes:</div>
-                    <div id="debug-changes" class="text-xs">-</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="text-xs text-gray-600 italic">
-                💡 战略再生引擎：基于用户意图 + 利益相关者上下文 + 当前阶段
-              </div>
-            </div>
-            
-            <div class="mt-2 text-xs text-gray-600">
-              AI将：重新评估时机、重写邮件、调整语气/策略
-            </div>
-          </div>
-        </div>
-        
-
-        
-        <!-- 3. 执行（Action） -->
-        <div class="space-y-4">
-          <h3 class="text-lg font-semibold text-gray-800 mb-3">✅ 执行（Action）</h3>
-          
-          <!-- 行动清单 -->
-          <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
-            <div class="flex justify-between items-center mb-3">
-              <h4 class="text-sm font-semibold text-gray-700">行动清单</h4>
-              <span class="text-xs text-gray-500" id="action-list-context">通用</span>
-            </div>
-            
-            <div class="space-y-3">
-              <div class="flex items-center">
-                <input type="checkbox" id="action1" class="mr-3">
-                <label for="action1" class="text-sm text-gray-800 flex-1">
-                  <span id="action1-text">发送邮件</span>
-                  <div class="text-xs text-gray-500" id="timestamp1"></div>
-                </label>
-              </div>
-              
-              <div class="flex items-center">
-                <input type="checkbox" id="action2" class="mr-3">
-                <label for="action2" class="text-sm text-gray-800 flex-1">
-                  <span id="action2-text">安排会议</span>
-                  <div class="text-xs text-gray-500" id="timestamp2"></div>
-                </label>
-              </div>
-              
-              <div class="flex items-center">
-                <input type="checkbox" id="action3" class="mr-3">
-                <label for="action3" class="text-sm text-gray-800 flex-1">
-                  <span id="action3-text">更新相关材料</span>
-                  <div class="text-xs text-gray-500" id="timestamp3"></div>
-                </label>
-              </div>
-              
-              <div class="flex items-center">
-                <input type="checkbox" id="action4" class="mr-3">
-                <label for="action4" class="text-sm text-gray-800 flex-1">
-                  <span id="action4-text">准备后续步骤</span>
-                  <div class="text-xs text-gray-500" id="timestamp4"></div>
-                </label>
-              </div>
-            </div>
-          </div>
-          
-          <!-- 反馈循环 -->
-          <div class="bg-purple-50 p-4 rounded-lg border border-purple-300">
-            <h4 class="text-sm font-semibold text-gray-700 mb-3">🔄 反馈循环</h4>
-            
-            <div class="mb-3">
-              <div class="text-xs font-medium text-gray-600 mb-2">行动结果:</div>
-              <div class="flex space-x-2">
-                <button class="flex-1 px-3 py-2 bg-gray-100 text-gray-700 text-sm rounded hover:bg-gray-200 transition" onclick="recordResult('no-response')">
-                  无回复
-                </button>
-                <button class="flex-1 px-3 py-2 bg-blue-100 text-blue-700 text-sm rounded hover:bg-blue-200 transition" onclick="recordResult('replied')">
-                  已回复
-                </button>
-                <button class="flex-1 px-3 py-2 bg-green-100 text-green-700 text-sm rounded hover:bg-green-200 transition" onclick="recordResult('meeting-scheduled')">
-                  会议已安排
-                </button>
-              </div>
-            </div>
-            
-            <div id="next-step-suggestion" class="p-3 bg-white rounded border border-gray-300">
-              <div class="text-xs font-medium text-gray-600 mb-1">AI下一步建议:</div>
-              <div class="text-sm text-gray-800">等待用户选择行动结果...</div>
-            </div>
-            
-            <div class="mt-3 text-xs text-gray-600">
-              AI将更新：下一步建议、紧急程度
-            </div>
-          </div>
-          
-          <!-- 其他可执行项 -->
-          <div class="space-y-3 mt-6">
-            <h4 class="text-sm font-semibold text-gray-700 mb-2">其他可执行项</h4>
-            
-            <!-- 通话脚本生成器 -->
-            <div class="bg-white p-3 rounded border border-gray-300">
-              <div class="flex justify-between items-center">
-                <div>
-                  <div class="text-sm font-medium text-gray-800">📞 Call script generator</div>
-                  <div class="text-xs text-gray-600" id="call-script-target">为当前对象生成通话脚本</div>
-                </div>
-                <button class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded hover:bg-blue-200 transition" onclick="generateCallScript()">
-                  执行
-                </button>
-              </div>
-              <!-- 通话脚本预览 -->
-              <div id="call-script-preview" class="mt-2 hidden">
-                <div class="text-xs font-medium text-gray-600 mb-1">通话脚本预览:</div>
-                <div class="text-xs text-gray-700 bg-gray-50 p-2 rounded border border-gray-300 max-h-24 overflow-y-auto">
-                  <div id="call-script-content">选择对象后生成...</div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="bg-white p-3 rounded border border-gray-300">
-              <div class="flex justify-between items-center">
-                <div>
-                  <div class="text-sm font-medium text-gray-800">📄 PPT refinement suggestion</div>
-                  <div class="text-xs text-gray-600">基于最新反馈优化Trillium PPT</div>
-                </div>
-                <button class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded hover:bg-blue-200 transition" onclick="refinePPT()">
-                  执行
-                </button>
-              </div>
-            </div>
-            
-            <div class="bg-white p-3 rounded border border-gray-300">
-              <div class="flex justify-between items-center">
-                <div>
-                  <div class="text-sm font-medium text-gray-800">👥 Stakeholder prioritization</div>
-                  <div class="text-xs text-gray-600">基于Q2目标重新排序</div>
-                </div>
-                <button class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded hover:bg-blue-200 transition" onclick="prioritizeStakeholders()">
-                  执行
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-
-    <!-- Command Center Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-      <!-- Left Column -->
-      <div class="space-y-6">
-
-        <!-- 🎯 任务与建议 (手动同步) -->
-        <div class="dashboard-card bg-card rounded-lg p-5 command-section" style="border-left-color: #0ea5e9;">
-          <div class="flex justify-between items-start mb-4">
-            <div>
-              <h2 class="text-lg font-semibold text-gray-800 mb-1">🎯 任务与建议</h2>
-              <p class="text-xs text-gray-500">任务持久化系统 - 点击状态标签更新进度</p>
-            </div>
-            <div class="flex items-center space-x-2">
-              <span class="status-badge bg-blue-100 text-blue-800">手动同步</span>
-              <button onclick="addNewTask()" class="text-xs text-blue-600 hover:text-blue-800">
-                <i class="fas fa-plus mr-1"></i>添加任务
-              </button>
-            </div>
-          </div>
-          
-          <!-- Task List -->
-          <div id="task-list" class="space-y-3">
-            <!-- Task 1 -->
-            <div class="task-item" data-task-id="1" data-created="2026-04-03">
-              <div class="flex items-start justify-between">
-                <div class="flex-1">
-                  <div class="text-sm text-gray-700">
-                    <span class="font-medium">联系Vinod Srihari</span> - 讨论Trillium试点在FQHC中的学术合作机会
-                  </div>
-                  <div class="text-xs text-gray-500 mt-1">
-                    创建: 2026-04-03 • 最后更新: 刚刚
-                  </div>
-                </div>
-                <div class="flex space-x-1 ml-3">
-                  <span class="task-status status-not-started" onclick="updateTaskStatus(1, 'not-started')">未开始</span>
-                  <span class="task-status status-in-progress" onclick="updateTaskStatus(1, 'in-progress')">进行中</span>
-                  <span class="task-status status-completed" onclick="updateTaskStatus(1, 'completed')">已完成</span>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Task 2 -->
-            <div class="task-item" data-task-id="2" data-created="2026-04-03">
-              <div class="flex items-start justify-between">
-                <div class="flex-1">
-                  <div class="text-sm text-gray-700">
-                    <span class="font-medium">发送Medical Director沟通</span> - 使用FQHC面板中的执行卡模板
-                  </div>
-                  <div class="text-xs text-gray-500 mt-1">
-                    创建: 2026-04-03 • 最后更新: 刚刚
-                  </div>
-                </div>
-                <div class="flex space-x-1 ml-3">
-                  <span class="task-status status-not-started" onclick="updateTaskStatus(2, 'not-started')">未开始</span>
-                  <span class="task-status status-in-progress" onclick="updateTaskStatus(2, 'in-progress')">已完成</span>
-                  <span class="task-status status-completed" onclick="updateTaskStatus(2, 'completed')">已完成</span>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Task 3 (示例) -->
-            <div class="task-item" data-task-id="3" data-created="2026-04-01">
-              <div class="flex items-start justify-between">
-                <div class="flex-1">
-                  <div class="text-sm text-gray-700">
-                    <span class="font-medium">评估FASD护理路径实施</span> - 分析在Trillium环境中的可行性
-                  </div>
-                  <div class="text-xs text-gray-500 mt-1">
-                    创建: 2026-04-01 • 最后更新: 2天前
-                    <span class="ml-2 text-red-500 font-medium">⚠️ 超过3天未完成</span>
-                  </div>
-                </div>
-                <div class="flex space-x-1 ml-3">
-                  <span class="task-status status-not-started" onclick="updateTaskStatus(3, 'not-started')">未开始</span>
-                  <span class="task-status status-in-progress active" onclick="updateTaskStatus(3, 'in-progress')">进行中</span>
-                  <span class="task-status status-completed" onclick="updateTaskStatus(3, 'completed')">已完成</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="mt-4 pt-3 border-t border-gray-200">
-            <div class="flex justify-between items-center">
-              <div class="text-xs text-gray-500">
-                <span class="font-medium">任务统计:</span> 
-                <span class="text-green-600">1 已完成</span> • 
-                <span class="text-blue-600">1 进行中</span> • 
-                <span class="text-gray-600">1 未开始</span>
-              </div>
-              <button onclick="clearCompletedTasks()" class="text-xs text-gray-500 hover:text-gray-700">
-                <i class="fas fa-trash-alt mr-1"></i>清除已完成
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 🔗 关键连接 -->
-        <div class="dashboard-card bg-card rounded-lg p-5 command-section" style="border-left-color: #a78bfa;">
-          <div class="flex justify-between items-start mb-4">
-            <div>
-              <h2 class="text-lg font-semibold text-gray-800 mb-1">🔗 关键连接</h2>
-              <p class="text-xs text-gray-500">跨仪表板的关系网络</p>
-            </div>
-            <span class="status-badge status-info">网络</span>
-          </div>
-          
-          <div class="space-y-2">
-            <div class="connection-item">
-              <div class="flex-1">
-                <div class="text-sm font-medium text-gray-700">FQHC ↔ Trillium</div>
-                <div class="text-xs text-gray-500">试点机会: 在FQHC中测试Trillium的screening + referral支持层</div>
-              </div>
-              <span class="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded">机会</span>
-            </div>
-            
-            <div class="connection-item">
-              <div class="flex-1">
-                <div class="text-sm font-medium text-gray-700">Vinod Srihari ↔ 当前需求</div>
-                <div class="text-xs text-gray-500">耶鲁精神科教授可提供学术背书和FQHC网络</div>
-              </div>
-              <span class="text-xs bg-purple-50 text-purple-700 px-2 py-1 rounded">学术</span>
-            </div>
-            
-            <div class="connection-item">
-              <div class="flex-1">
-                <div class="text-sm font-medium text-gray-700">Medical Director ↔ 风险对齐</div>
-                <div class="text-xs text-gray-500">需要明确clinical/workflow/billing风险边界</div>
-              </div>
-              <span class="text-xs bg-orange-50 text-orange-700 px-2 py-1 rounded">对齐</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Right Column -->
-      <div class="space-y-6">
-
-        <!-- ⚠️ 当前阻塞 -->
-        <div class="dashboard-card bg-card rounded-lg p-5 command-section" style="border-left-color: #ef4444;">
-          <div class="flex justify-between items-start mb-4">
-            <div>
-              <h2 class="text-lg font-semibold text-gray-800 mb-1">⚠️ 当前阻塞</h2>
-              <p class="text-xs text-gray-500">来自FQHC风险和缺失对齐</p>
-            </div>
-            <span class="status-badge status-critical">阻塞</span>
-          </div>
-          
-          <div class="space-y-2">
-            <div class="blocker-item">
-              <div class="flex-1">
-                <div class="text-sm font-medium text-gray-700">FQHC Medical Director未对齐</div>
-                <div class="text-xs text-gray-500">诊断边界、workflow负担、reimbursement路径待明确</div>
-              </div>
-            </div>
-            
-            <div class="blocker-item">
-              <div class="flex-1">
-                <div class="text-sm font-medium text-gray-700">Trillium试点入口缺失</div>
-                <div class="text-xs text-gray-500">需要1-2个FQHC点位作为pilot起点</div>
-              </div>
-            </div>
-            
-            <div class="blocker-item">
-              <div class="flex-1">
-                <div class="text-sm font-medium text-gray-700">学术-商业整合延迟</div>
-                <div class="text-xs text-gray-500">耶鲁教授身份尚未最大化利用于商业项目</div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="mt-4 pt-3 border-t border-gray-200">
-            <div class="text-xs text-gray-500">
-              <span class="font-medium">影响:</span> 试点启动延迟 • 收入目标风险 • 战略执行受阻
-            </div>
-          </div>
-        </div>
-
-        <!-- 🚀 可执行（今天） -->
-        <div class="dashboard-card bg-card rounded-lg p-5 command-section" style="border-left-color: #34d399;">
-          <div class="flex justify-between items-start mb-4">
-            <div>
-              <h2 class="text-lg font-semibold text-gray-800 mb-1">🚀 可执行（今天）</h2>
-              <p class="text-xs text-gray-500">直接行动项</p>
-            </div>
-            <span class="status-badge status-executable">今日</span>
-          </div>
-          
-          <div class="space-y-3">
-            <button onclick="sendMedicalDirectorMessage()" class="action-button bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100">
-              <div class="flex items-center">
-                <i class="fas fa-paper-plane mr-2"></i>
-                <div class="flex-1">
-                  <div class="font-medium">发送Medical Director消息</div>
-                  <div class="text-xs text-blue-600">使用FQHC面板中的模板</div>
-                </div>
-              </div>
-            </button>
-            
-            <button onclick="contactVinodSrihari()" class="action-button bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100">
-              <div class="flex items-center">
-                <i class="fas fa-user-tie mr-2"></i>
-                <div class="flex-1">
-                  <div class="font-medium">联系Vinod Srihari</div>
-                  <div class="text-xs text-purple-600">讨论学术合作机会</div>
-                </div>
-              </div>
-            </button>
-            
-            <button onclick="updateTrilliumPriority()" class="action-button bg-green-50 text-green-700 border border-green-200 hover:bg-green-100">
-              <div class="flex items-center">
-                <i class="fas fa-chart-line mr-2"></i>
-                <div class="flex-1">
-                  <div class="font-medium">更新Trillium优先级</div>
-                  <div class="text-xs text-green-600">基于FQHC试点可行性</div>
-                </div>
-              </div>
-            </button>
-            
-            <button onclick="reviewBlockers()" class="action-button bg-orange-50 text-orange-700 border border-orange-200 hover:bg-orange-100">
-              <div class="flex items-center">
-                <i class="fas fa-exclamation-triangle mr-2"></i>
-                <div class="flex-1">
-                  <div class="font-medium">审查阻塞项</div>
-                  <div class="text-xs text-orange-600">分配解决责任和时间线</div>
-                </div>
-              </div>
-            </button>
-          </div>
-          
-          <div class="mt-4 pt-3 border-t border-gray-200">
-            <div class="text-xs text-gray-500">
-              <span class="font-medium">完成状态:</span> <span id="action-completion">0/4</span> 项完成
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- Dashboard Status Summary -->
-    <div class="mt-8">
-      <div class="dashboard-card bg-card rounded-lg p-5">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">📊 仪表板状态概览</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
-          <a href="/fqhc" class="bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors">
-            <div class="text-sm font-medium text-gray-700">FQHC</div>
-            <div class="text-xs text-gray-500 mt-1">基础试点面板</div>
-            <div class="mt-2">
-              <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
-                <i class="fas fa-clock mr-1"></i> 待对齐
-              </span>
-            </div>
-          </a>
-          
-          <a href="/trillium" class="bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors">
-            <div class="text-sm font-medium text-gray-700">Trillium</div>
-            <div class="text-xs text-gray-500 mt-1">支付方演示文稿</div>
-            <div class="mt-2">
-              <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                <i class="fas fa-check mr-1"></i> 已优化
-              </span>
-            </div>
-          </a>
-          
-          <a href="/stakeholders" class="bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors">
-            <div class="text-sm font-medium text-gray-700">Stakeholders</div>
-            <div class="text-xs text-gray-500 mt-1">关系网络</div>
-            <div class="mt-2">
-              <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                <i class="fas fa-network-wired mr-1"></i> 1 活跃
-              </span>
-            </div>
-          </a>
-          
-          <a href="/adoption" class="bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors">
-            <div class="text-sm font-medium text-gray-700">Adoption</div>
-            <div class="text-xs text-gray-500 mt-1">采用规划</div>
-            <div class="mt-2">
-              <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                <i class="fas fa-pause mr-1"></i> 待更新
-              </span>
-            </div>
-          </a>
-          
-          <a href="/emergency-plan" class="bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors">
-            <div class="text-sm font-medium text-gray-700">🛡️ Emergency Plan</div>
-            <div class="text-xs text-gray-500 mt-1">家庭应急保障</div>
-            <div class="mt-2">
-              <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                <i class="fas fa-shield-alt mr-1"></i> 新建
-              </span>
-            </div>
-          </a>
-          
-          <a href="/fasd-care-pathway" class="bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors">
-            <div class="text-sm font-medium text-gray-700">🧠 FASD Care Pathway</div>
-            <div class="text-xs text-gray-500 mt-1">识别→支持→管理</div>
-            <div class="mt-2">
-              <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                <i class="fas fa-plus mr-1"></i> 新建
-              </span>
-            </div>
-          </a>
+          <span class="badge bg-orange-100 text-orange-700 text-[10px] shrink-0 ml-2">对齐</span>
         </div>
       </div>
     </div>
 
-    <!-- Footer -->
-    <div class="mt-8 text-xs text-gray-400 text-center">
-      NeighborBridge Command Center • 聚合所有子仪表板信号
-      <div class="mt-2 text-xs font-medium text-brand">
-        [COMMAND CENTER ENABLED]
+    <!-- 4. 当前阻塞 -->
+    <div class="sec-card accent-red">
+      <div class="flex justify-between items-center mb-2">
+        <div>
+          <h2 class="text-sm font-bold">⚠️ 当前阻塞</h2>
+          <p class="text-[10px] text-gray-400">来自FQHC风险和缺失对齐</p>
+        </div>
+        <span class="badge bg-red-100 text-red-700 text-[10px]">阻塞</span>
       </div>
-      <div class="mt-1 text-xs font-medium text-green-500">
-        [DESIGN SYSTEM UNIFIED]
+      <div class="space-y-1.5">
+        <div class="blocker">
+          <p class="text-xs font-medium text-red-800">🔴 FQHC Medical Director 未对齐</p>
+          <p class="text-[11px] text-red-600">诊断边界、workflow负担、reimbursement路径待明确</p>
+        </div>
+        <div class="blocker">
+          <p class="text-xs font-medium text-red-800">🔴 Trillium 试点入口缺失</p>
+          <p class="text-[11px] text-red-600">需要1-2个FQHC点位作为pilot起点</p>
+        </div>
+        <div class="blocker">
+          <p class="text-xs font-medium text-red-800">🔴 学术-商业整合延迟</p>
+          <p class="text-[11px] text-red-600">耶鲁教授身份尚未最大化利用于商业项目</p>
+        </div>
       </div>
-      <div class="mt-1 text-xs text-gray-500">
-        最后更新: <span id="last-update"></span>
+      <p class="mt-1.5 text-[11px] text-gray-400">影响：试点启动延迟 · 收入目标风险 · 战略执行受阻</p>
+    </div>
+
+    <!-- 5. 任务与建议 -->
+    <div class="sec-card accent-blue">
+      <div class="flex justify-between items-start mb-2">
+        <div>
+          <h2 class="text-sm font-bold">🎯 任务与建议</h2>
+          <p class="text-[10px] text-gray-400">任务持久化系统 - 点击状态标签更新进度</p>
+        </div>
+        <div class="flex gap-1.5 shrink-0">
+          <button onclick="syncAllDashboards()" id="sync-btn" class="px-2 py-1 bg-blue-50 text-blue-700 text-[10px] rounded hover:bg-blue-100">
+            <i class="fas fa-sync mr-0.5"></i>手动同步
+          </button>
+          <button onclick="addNewTask()" class="px-2 py-1 bg-blue-50 text-blue-700 text-[10px] rounded hover:bg-blue-100">
+            <i class="fas fa-plus mr-0.5"></i>添加任务
+          </button>
+        </div>
+      </div>
+      
+      <div id="task-list" class="space-y-1.5">
+        <!-- Tasks rendered from localStorage -->
+      </div>
+      
+      <div class="mt-2 pt-1.5 border-t flex justify-between items-center text-[11px] text-gray-400">
+        <span id="task-stats">任务统计：0 已完成 · 0 进行中 · 0 未开始</span>
+        <button onclick="clearCompletedTasks()" class="text-red-400 hover:text-red-600">
+          <i class="fas fa-trash-alt mr-0.5"></i>清除已完成
+        </button>
       </div>
     </div>
 
   </div>
 
-  <!-- Command Center JavaScript -->
   <script>
+    function go(u) { window.location.href = u; }
+    const TASKS_KEY = 'neighborbridge_tasks';
 
-    // Command Center Functions
-    function sendMedicalDirectorMessage() {
-      // Redirect to FQHC dashboard for execution
-      window.location.href = '/fqhc';
-    }
-
-    function contactVinodSrihari() {
-      // Redirect to Stakeholders dashboard
-      window.location.href = '/stakeholders';
-    }
-
-    function updateTrilliumPriority() {
-      // Redirect to Trillium dashboard
-      window.location.href = '/trillium';
-    }
-
-    function reviewBlockers() {
-      // Show blocker review modal or redirect
-      alert('阻塞项审查功能即将推出。当前阻塞项已在面板中列出。');
-    }
-
-    // Action completion tracking
-    let completedActions = 0;
-    const totalActions = 4;
-    
-    function updateActionCompletion() {
-      document.getElementById('action-completion').textContent = `${completedActions}/${totalActions}`;
-    }
-    
-    // Mock action completion (in real implementation, this would be saved to localStorage/backend)
-    document.querySelectorAll('.action-button').forEach(button => {
-      button.addEventListener('click', function() {
-        // Mark as completed visually
-        if (!this.classList.contains('completed')) {
-          this.classList.add('completed');
-          this.innerHTML = this.innerHTML.replace(/<i class="fas fa-[^"]+"/, '<i class="fas fa-check"');
-          this.classList.remove('hover:bg-.*?100');
-          this.classList.add('bg-gray-100', 'text-gray-500', 'border-gray-300');
-          
-          completedActions++;
-          updateActionCompletion();
-        }
-      });
-    });
-
-    // Update time
-    function updateTime() {
-      const now = new Date();
-      const options = { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      };
-      document.getElementById('last-update').textContent = now.toLocaleDateString('zh-CN', options);
-    }
-
-    // ==================================================
-    // 🚀 手动同步系统 (Manual Sync System)
-    // ==================================================
-
-    // Task management system
     let tasks = [
-      {
-        id: 1,
-        title: "联系Vinod Srihari",
-        description: "讨论Trillium试点在FQHC中的学术合作机会",
-        status: "not-started",
-        created: "2026-04-03",
-        updated: new Date().toISOString().split('T')[0],
-        overdue: false
-      },
-      {
-        id: 2,
-        title: "发送Medical Director沟通",
-        description: "使用FQHC面板中的执行卡模板",
-        status: "completed",
-        created: "2026-04-03",
-        updated: new Date().toISOString().split('T')[0],
-        overdue: false
-      },
-      {
-        id: 3,
-        title: "评估FASD护理路径实施",
-        description: "分析在Trillium环境中的可行性",
-        status: "in-progress",
-        created: "2026-04-01",
-        updated: "2026-04-01",
-        overdue: true
-      }
+      { id: 1, title: "联系Vinod Srihari", desc: "讨论Trillium试点在FQHC中的学术合作机会", status: "not-started", created: "2026-04-03", updated: new Date().toISOString().split('T')[0] },
+      { id: 2, title: "发送Medical Director沟通", desc: "使用FQHC面板中的执行卡模板", status: "completed", created: "2026-04-03", updated: new Date().toISOString().split('T')[0] },
+      { id: 3, title: "评估FASD护理路径实施", desc: "分析在Trillium环境中的可行性", status: "in-progress", created: "2026-04-01", updated: "2026-04-01" }
     ];
 
-    // Sync all dashboards
-    function syncAllDashboards() {
-      const syncButton = document.getElementById('sync-button');
-      const originalText = syncButton.innerHTML;
-      
-      // Show loading state
-      syncButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> 同步中...';
-      syncButton.disabled = true;
-      
-      // Simulate sync process
-      setTimeout(() => {
-        // Update last sync time
-        const now = new Date();
-        const options = { 
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit'
-        };
-        const syncTime = now.toLocaleTimeString('zh-CN', options);
-        document.getElementById('last-sync-time').textContent = syncTime;
-        
-        // Update task list from localStorage or simulate update
-        updateTaskList();
-        
-        // Show success notification
-        showNotification('所有子仪表板已同步完成', 'success');
-        
-        // Restore button
-        syncButton.innerHTML = originalText;
-        syncButton.disabled = false;
-      }, 1500);
+    // --- Action tracking ---
+    let completedActions = 0;
+    function updateActionCount() {
+      document.getElementById('action-completion').textContent = completedActions + '/4';
     }
-
-    // Update task status
-    function updateTaskStatus(taskId, newStatus) {
-      const task = tasks.find(t => t.id === taskId);
-      if (task) {
-        task.status = newStatus;
-        task.updated = new Date().toISOString().split('T')[0];
-        
-        // Check if overdue (more than 3 days)
-        const createdDate = new Date(task.created);
-        const currentDate = new Date();
-        const diffTime = Math.abs(currentDate - createdDate);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        task.overdue = diffDays > 3 && newStatus !== 'completed';
-        
-        // Update UI
-        updateTaskItemUI(taskId);
-        updateTaskStats();
-        saveTasksToStorage();
-        
-        showNotification(`任务"${task.title}"状态已更新`, 'info');
-      }
-    }
-
-    // Update task item UI
-    function updateTaskItemUI(taskId) {
-      const task = tasks.find(t => t.id === taskId);
-      if (!task) return;
-      
-      const taskElement = document.querySelector(`.task-item[data-task-id="${taskId}"]`);
-      if (taskElement) {
-        // Update status buttons
-        const statusButtons = taskElement.querySelectorAll('.task-status');
-        statusButtons.forEach(button => {
-          button.classList.remove('active');
-          const buttonStatus = button.classList.contains('status-not-started') ? 'not-started' :
-                              button.classList.contains('status-in-progress') ? 'in-progress' : 'completed';
-          if (buttonStatus === task.status) {
-            button.classList.add('active');
-          }
-        });
-        
-        // Update last updated time
-        const updatedText = taskElement.querySelector('.text-xs.text-gray-500.mt-1');
-        if (updatedText) {
-          const today = new Date().toISOString().split('T')[0];
-          const daysAgo = task.updated === today ? '刚刚' : 
-                         `${Math.floor((new Date() - new Date(task.updated)) / (1000 * 60 * 60 * 24))}天前`;
-          
-          updatedText.innerHTML = `
-            创建: ${task.created} • 最后更新: ${daysAgo}
-            ${task.overdue && task.status !== 'completed' ? '<span class="ml-2 text-red-500 font-medium">⚠️ 超过3天未完成</span>' : ''}
-          `;
+    document.querySelectorAll('.action-btn').forEach((b, i) => {
+      b.addEventListener('click', function() {
+        if (!this.classList.contains('completed')) {
+          this.classList.add('completed');
+          completedActions++;
+          updateActionCount();
         }
-        
-        // Update overdue styling
-        if (task.overdue && task.status !== 'completed') {
-          taskElement.setAttribute('data-overdue', 'true');
-        } else {
-          taskElement.removeAttribute('data-overdue');
-        }
-      }
-    }
-
-    // Update task list
-    function updateTaskList() {
-      const taskList = document.getElementById('task-list');
-      if (!taskList) return;
-      
-      // In a real implementation, this would fetch from localStorage or backend
-      // For now, we'll just update the existing tasks
-      tasks.forEach(task => {
-        updateTaskItemUI(task.id);
       });
-    }
+    });
 
-    // Update task statistics
-    function updateTaskStats() {
-      const completed = tasks.filter(t => t.status === 'completed').length;
-      const inProgress = tasks.filter(t => t.status === 'in-progress').length;
-      const notStarted = tasks.filter(t => t.status === 'not-started').length;
-      
-      const statsElement = document.querySelector('.text-xs.text-gray-500 span');
-      if (statsElement) {
-        statsElement.innerHTML = `
-          <span class="text-green-600">${completed} 已完成</span> • 
-          <span class="text-blue-600">${inProgress} 进行中</span> • 
-          <span class="text-gray-600">${notStarted} 未开始</span>
-        `;
-      }
+    // --- Tasks ---
+    function taskDays(task) {
+      return Math.floor((new Date() - new Date(task.created)) / 86400000);
     }
-
-    // Add new task
-    function addNewTask() {
-      const newTaskId = tasks.length > 0 ? Math.max(...tasks.map(t => t.id)) + 1 : 1;
-      const today = new Date().toISOString().split('T')[0];
-      
-      const newTask = {
-        id: newTaskId,
-        title: "新任务",
-        description: "点击编辑任务描述",
-        status: "not-started",
-        created: today,
-        updated: today,
-        overdue: false
-      };
-      
-      tasks.push(newTask);
-      
-      // Add to UI
-      const taskList = document.getElementById('task-list');
-      if (taskList) {
-        const taskHtml = `
-          <div class="task-item" data-task-id="${newTaskId}" data-created="${today}">
-            <div class="flex items-start justify-between">
-              <div class="flex-1">
-                <div class="text-sm text-gray-700">
-                  <span class="font-medium" contenteditable="true" onblur="updateTaskTitle(${newTaskId}, this.textContent)">新任务</span> - 
-                  <span contenteditable="true" onblur="updateTaskDescription(${newTaskId}, this.textContent)">点击编辑任务描述</span>
-                </div>
-                <div class="text-xs text-gray-500 mt-1">
-                  创建: ${today} • 最后更新: 刚刚
-                </div>
-              </div>
-              <div class="flex space-x-1 ml-3">
-                <span class="task-status status-not-started active" onclick="updateTaskStatus(${newTaskId}, 'not-started')">未开始</span>
-                <span class="task-status status-in-progress" onclick="updateTaskStatus(${newTaskId}, 'in-progress')">进行中</span>
-                <span class="task-status status-completed" onclick="updateTaskStatus(${newTaskId}, 'completed')">已完成</span>
-              </div>
+    function taskOverdue(task) {
+      return taskDays(task) > 3 && task.status !== 'completed';
+    }
+    function renderTasks() {
+      const list = document.getElementById('task-list');
+      list.innerHTML = tasks.map(t => {
+        const today = new Date().toISOString().split('T')[0];
+        const lastUp = t.updated === today ? '刚刚' : taskDays(t) + '天前';
+        const od = taskOverdue(t) ? '<span class="ml-1.5 text-red-500 font-medium">⚠️超过3天未完成</span>' : '';
+        return `<div class="task-card" data-id="${t.id}">
+          <div class="flex items-start justify-between gap-2">
+            <div class="min-w-0 flex-1">
+              <div class="text-xs text-gray-700"><span class="font-medium">${escHtml(t.title)}</span> - ${escHtml(t.desc)}</div>
+              <div class="text-[10px] text-gray-400 mt-0.5">创建: ${t.created} · 最后更新: ${lastUp}${od}</div>
+            </div>
+            <div class="flex gap-0.5 shrink-0">
+              <span class="status-pill pill-not-started${t.status==='not-started'?' active':''}" onclick="setStatus(${t.id},'not-started')">未开始</span>
+              <span class="status-pill pill-in-progress${t.status==='in-progress'?' active':''}" onclick="setStatus(${t.id},'in-progress')">进行中</span>
+              <span class="status-pill pill-completed${t.status==='completed'?' active':''}" onclick="setStatus(${t.id},'completed')">已完成</span>
             </div>
           </div>
-        `;
-        
-        taskList.insertAdjacentHTML('afterbegin', taskHtml);
-      }
-      
+        </div>`;
+      }).join('');
       updateTaskStats();
-      saveTasksToStorage();
-      showNotification('新任务已添加', 'info');
     }
-
-    // Update task title
-    function updateTaskTitle(taskId, newTitle) {
-      const task = tasks.find(t => t.id === taskId);
-      if (task) {
-        task.title = newTitle;
-        task.updated = new Date().toISOString().split('T')[0];
-        saveTasksToStorage();
-      }
+    function escHtml(s) {
+      const d = document.createElement('div');
+      d.textContent = s; return d.innerHTML;
     }
-
-    // Update task description
-    function updateTaskDescription(taskId, newDescription) {
-      const task = tasks.find(t => t.id === taskId);
-      if (task) {
-        task.description = newDescription;
-        task.updated = new Date().toISOString().split('T')[0];
-        saveTasksToStorage();
-      }
+    function setStatus(id, status) {
+      const t = tasks.find(x => x.id === id);
+      if (!t) return;
+      t.status = status; t.updated = new Date().toISOString().split('T')[0];
+      saveTasks(); renderTasks();
     }
-
-    // Clear completed tasks
+    function updateTaskStats() {
+      const c = tasks.filter(t => t.status === 'completed').length;
+      const ip = tasks.filter(t => t.status === 'in-progress').length;
+      const ns = tasks.filter(t => t.status === 'not-started').length;
+      document.getElementById('task-stats').textContent = `任务统计：${c} 已完成 · ${ip} 进行中 · ${ns} 未开始`;
+    }
+    function addNewTask() {
+      const id = tasks.length ? Math.max(...tasks.map(t => t.id)) + 1 : 1;
+      const today = new Date().toISOString().split('T')[0];
+      tasks.push({ id, title: "新任务", desc: "点击编辑任务描述", status: "not-started", created: today, updated: today });
+      saveTasks(); renderTasks();
+    }
     function clearCompletedTasks() {
-      if (confirm('确定要清除所有已完成的任务吗？')) {
-        tasks = tasks.filter(task => task.status !== 'completed');
-        updateTaskList();
-        updateTaskStats();
-        saveTasksToStorage();
-        showNotification('已完成的任务已清除', 'success');
-      }
+      if (!confirm('清除所有已完成任务?')) return;
+      tasks = tasks.filter(t => t.status !== 'completed');
+      saveTasks(); renderTasks();
     }
-
-    // Save tasks to localStorage
-    function saveTasksToStorage() {
-      try {
-        localStorage.setItem('neighborbridge_tasks', JSON.stringify(tasks));
-      } catch (e) {
-        console.error('保存任务到localStorage失败:', e);
-      }
-    }
-
-    // Load tasks from localStorage
-    function loadTasksFromStorage() {
-      try {
-        const savedTasks = localStorage.getItem('neighborbridge_tasks');
-        if (savedTasks) {
-          tasks = JSON.parse(savedTasks);
-          updateTaskList();
-          updateTaskStats();
-        }
-      } catch (e) {
-        console.error('从localStorage加载任务失败:', e);
-      }
-    }
-
-    // Show notification
-    function showNotification(message, type = 'info') {
-      // Create notification element
-      const notification = document.createElement('div');
-      notification.className = `fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg max-w-sm ${
-        type === 'success' ? 'bg-green-100 text-green-800 border border-green-200' :
-        type === 'error' ? 'bg-red-100 text-red-800 border border-red-200' :
-        type === 'warning' ? 'bg-yellow-100 text-yellow-800 border border-yellow-200' :
-        'bg-blue-100 text-blue-800 border border-blue-200'
-      }`;
-      
-      notification.innerHTML = `
-        <div class="flex items-center">
-          <i class="fas ${
-            type === 'success' ? 'fa-check-circle' :
-            type === 'error' ? 'fa-exclamation-circle' :
-            type === 'warning' ? 'fa-exclamation-triangle' :
-            'fa-info-circle'
-          } mr-2"></i>
-          <span>${message}</span>
-        </div>
-      `;
-      
-      // Add to body
-      document.body.appendChild(notification);
-      
-      // Remove after 3 seconds
+    function syncAllDashboards() {
+      const btn = document.getElementById('sync-btn');
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-0.5"></i>同步中...';
+      btn.disabled = true;
       setTimeout(() => {
-        notification.style.opacity = '0';
-        notification.style.transition = 'opacity 0.5s';
-        setTimeout(() => {
-          if (notification.parentNode) {
-            notification.parentNode.removeChild(notification);
-          }
-        }, 500);
-      }, 3000);
+        renderTasks();
+        btn.innerHTML = '<i class="fas fa-sync mr-0.5"></i>手动同步';
+        btn.disabled = false;
+      }, 600);
     }
-
-    // Initialize
-    updateTime();
-    updateActionCompletion();
-    loadTasksFromStorage();
-    updateTaskStats();
-    
-    // Auto-refresh time every minute (kept for time display only)
-    setInterval(updateTime, 60000);
-
-    // [COMMAND CENTER ENABLED]
-
-    // ==================================================
-    // 🚀 执行引擎函数 (Execution Engine Functions)
-    // ==================================================
-
-    // 1. 沟通模块函数
-    function copyEmail() {
-      const emailText = document.getElementById('email-template').value;
-      navigator.clipboard.writeText(emailText).then(() => {
-        alert('邮件内容已复制到剪贴板！');
-      }).catch(err => {
-        console.error('复制失败:', err);
-        alert('复制失败，请手动选择并复制。');
-      });
+    function saveTasks() {
+      try { localStorage.setItem(TASKS_KEY, JSON.stringify(tasks)); } catch(e) {}
     }
-
-    function markSent() {
-      const emailText = document.getElementById('email-template').value;
-      alert('邮件已标记为已发送！\n\n内容已保存到本地。');
-      // 在实际应用中，这里会保存到localStorage或发送到后端
-      localStorage.setItem('lastSentEmail', emailText);
-      localStorage.setItem('lastSentTime', new Date().toISOString());
+    function loadTasks() {
+      try {
+        const s = localStorage.getItem(TASKS_KEY);
+        if (s) { tasks = JSON.parse(s); }
+      } catch(e) {}
     }
-
-    function optimizeEmail() {
-      const currentEmail = document.getElementById('email-template').value;
-      // 模拟AI优化
-      const optimizedEmail = currentEmail.replace(
-        'Would you be open to a brief call next week to discuss?',
-        'Given your expertise in early psychosis and FQHC implementation, I\'d value your perspective on whether this clinical pathway makes sense. Would you be available for a 20-minute call next week?'
-      );
-      document.getElementById('email-template').value = optimizedEmail;
-      
-      // 更新中文解释
-      if (currentStakeholder) {
-        const context = stakeholderContexts[currentStakeholder];
-        if (context) {
-          let summary = document.getElementById('chinese-summary').textContent;
-          if (!summary.includes('(AI优化)')) {
-            document.getElementById('chinese-summary').textContent = summary + ' (AI优化)';
-            document.getElementById('chinese-tone').textContent = '专业语气、具体明确、价值导向';
-          }
-        }
-      }
-      
-      alert('AI已优化邮件语气和具体性！中文解释已同步更新。');
-    }
-
-
-
-    // 3. 其他可执行项函数
-    function generateCallScript() {
-      alert('正在生成通话脚本...\n\n已创建Vinod Srihari通话脚本，包含：\n• 开场白\n• 3个核心问题\n• 应对策略\n• 结束语');
-      // 在实际应用中，这里会打开一个新窗口或显示脚本
-    }
-
-    function refinePPT() {
-      alert('正在分析Trillium PPT...\n\n建议优化：\n1. 加强临床路径框架\n2. 添加具体FQHC工作流示例\n3. 优化ROI计算展示');
-      // 在实际应用中，这里会链接到Trillium页面
-    }
-
-    function prioritizeStakeholders() {
-      alert('正在重新排序利益相关者...\n\n新优先级：\n1. Vinod Srihari (学术校准)\n2. FQHC Medical Director (试点对齐)\n3. Trillium联系人 (支付方关系)');
-      // 在实际应用中，这里会更新Stakeholders页面
-    }
-
-    // 4. 行动清单函数
-    function updateActionTimestamp(timestampId) {
-      const now = new Date();
-      const timeStr = now.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-      document.getElementById(timestampId).textContent = `完成于 ${timeStr}`;
-    }
-
-    // 监听行动清单的复选框变化
-    document.querySelectorAll('#action1, #action2, #action3, #action4').forEach(checkbox => {
-      checkbox.addEventListener('change', function() {
-        const id = this.id;
-        const timestampId = 'timestamp' + id.replace('action', '');
-        if (this.checked) {
-          updateActionTimestamp(timestampId);
-        } else {
-          document.getElementById(timestampId).textContent = '';
-        }
-      });
-    });
-
-    // 5. 反馈循环函数
-    function recordResult(result) {
-      const nextStepDiv = document.getElementById('next-step-suggestion');
-      let suggestion = '';
-      let urgency = '';
-
-      switch(result) {
-        case 'no-response':
-          suggestion = '建议：等待3天后发送跟进邮件，同时联系其他stakeholder保持动量。';
-          urgency = '中等';
-          break;
-        case 'replied':
-          suggestion = '建议：24小时内回复，提议具体会议时间，准备简短的议程。';
-          urgency = '高';
-          break;
-        case 'meeting-scheduled':
-          suggestion = '建议：准备会议材料，更新相关仪表板，安排后续行动项。';
-          urgency = '高';
-          break;
-      }
-
-      nextStepDiv.innerHTML = `
-        <div class="text-xs font-medium text-gray-600 mb-1">AI下一步建议:</div>
-        <div class="text-sm text-gray-800 mb-1">${suggestion}</div>
-        <div class="text-xs text-gray-500">紧急程度: <span class="font-medium">${urgency}</span></div>
-      `;
-
-      alert(`已记录结果：${result}\n\nAI已更新下一步建议。`);
-    }
-
-    // ==================================================
-    // 初始化执行引擎
-    // ==================================================
-    document.addEventListener('DOMContentLoaded', function() {
-      // 初始化时间戳
-      updateTime();
-      updateActionCompletion();
-      
-      // 设置自动刷新
-      setInterval(updateTime, 60000);
-      
-      // 初始化版本控制系统
-      initializeVersionControl();
-      
-      console.log('🚀 执行引擎已加载！');
-      console.log('功能：决策 → 行动 → 反馈 → 下一步行动循环');
-    });
-
-    // ==================================================
-    // 🛡️ 版本控制系统 (Version Control System)
-    // ==================================================
-
-    // 版本存储键
-    const VERSION_STORAGE_KEY = 'dashboard_versions';
-    const CURRENT_VERSION_KEY = 'current_version';
-
-    // 版本数据结构
-    class DashboardVersion {
-      constructor(versionNumber, content, timestamp, changeSummary) {
-        this.version = versionNumber;
-        this.content = content; // 完整的HTML内容
-        this.timestamp = timestamp;
-        this.changeSummary = changeSummary;
-        this.id = `v${versionNumber}_${timestamp.getTime()}`;
-      }
-    }
-
-    // 版本管理器
-    class VersionManager {
-      constructor() {
-        this.versions = this.loadVersions();
-        this.currentVersion = this.loadCurrentVersion();
-      }
-
-      // 加载版本历史
-      loadVersions() {
-        try {
-          const stored = localStorage.getItem(VERSION_STORAGE_KEY);
-          if (stored) {
-            const parsed = JSON.parse(stored);
-            // 恢复时间戳为Date对象
-            return parsed.map(v => new DashboardVersion(
-              v.version,
-              v.content,
-              new Date(v.timestamp),
-              v.changeSummary
-            ));
-          }
-        } catch (e) {
-          console.error('加载版本历史失败:', e);
-        }
-        return [];
-      }
-
-      // 加载当前版本
-      loadCurrentVersion() {
-        const stored = localStorage.getItem(CURRENT_VERSION_KEY);
-        return stored ? parseInt(stored) : 1;
-      }
-
-      // 保存版本历史
-      saveVersions() {
-        try {
-          // 转换为可序列化的格式
-          const serializable = this.versions.map(v => ({
-            version: v.version,
-            content: v.content,
-            timestamp: v.timestamp.toISOString(),
-            changeSummary: v.changeSummary,
-            id: v.id
-          }));
-          localStorage.setItem(VERSION_STORAGE_KEY, JSON.stringify(serializable));
-        } catch (e) {
-          console.error('保存版本历史失败:', e);
-        }
-      }
-
-      // 保存当前版本
-      saveCurrentVersion() {
-        localStorage.setItem(CURRENT_VERSION_KEY, this.currentVersion.toString());
-      }
-
-      // 创建新版本
-      createVersion(changeSummary = '自动保存') {
-        // 获取当前仪表板内容
-        const content = document.documentElement.outerHTML;
-        const timestamp = new Date();
-        
-        // 创建新版本
-        const newVersion = new DashboardVersion(
-          this.versions.length + 1,
-          content,
-          timestamp,
-          changeSummary
-        );
-
-        // 添加到版本历史
-        this.versions.push(newVersion);
-        
-        // 更新当前版本
-        this.currentVersion = newVersion.version;
-        
-        // 保存到本地存储
-        this.saveVersions();
-        this.saveCurrentVersion();
-        
-        // 更新UI
-        this.updateUI();
-        
-        console.log(`✅ 版本 v${newVersion.version} 已保存`, {
-          timestamp: timestamp.toLocaleString(),
-          summary: changeSummary,
-          size: `${(content.length / 1024).toFixed(1)} KB`
-        });
-
-        return newVersion;
-      }
-
-      // 恢复到指定版本
-      restoreVersion(versionNumber) {
-        const version = this.versions.find(v => v.version === versionNumber);
-        if (!version) {
-          alert(`版本 v${versionNumber} 不存在！`);
-          return false;
-        }
-
-        // 确认恢复
-        if (!confirm(`确定要恢复到版本 v${versionNumber} 吗？\n\n时间: ${version.timestamp.toLocaleString()}\n摘要: ${version.changeSummary}\n\n当前更改将会丢失。`)) {
-          return false;
-        }
-
-        try {
-          // 精确恢复：直接替换整个文档
-          document.open();
-          document.write(version.content);
-          document.close();
-          
-          // 更新当前版本
-          this.currentVersion = versionNumber;
-          this.saveCurrentVersion();
-          
-          console.log(`✅ 已恢复到版本 v${versionNumber}`);
-          alert(`✅ 已成功恢复到版本 v${versionNumber}！\n页面将重新加载。`);
-          
-          return true;
-        } catch (e) {
-          console.error('恢复版本失败:', e);
-          alert(`恢复版本失败: ${e.message}`);
-          return false;
-        }
-      }
-
-      // 恢复到上一个版本
-      restorePreviousVersion() {
-        if (this.versions.length < 2) {
-          alert('没有可恢复的上一个版本！');
-          return false;
-        }
-
-        const previousVersion = this.currentVersion - 1;
-        if (previousVersion < 1) {
-          alert('已经是第一个版本！');
-          return false;
-        }
-
-        return this.restoreVersion(previousVersion);
-      }
-
-      // 获取版本历史
-      getVersionHistory() {
-        return [...this.versions].reverse(); // 最新的在前
-      }
-
-      // 更新UI显示
-      updateUI() {
-        // 更新当前版本显示
-        document.getElementById('current-version').textContent = this.currentVersion;
-        document.getElementById('status-current-version').textContent = `v${this.currentVersion}`;
-        document.getElementById('status-total-versions').textContent = this.versions.length;
-        
-        // 更新最后保存时间
-        if (this.versions.length > 0) {
-          const lastVersion = this.versions[this.versions.length - 1];
-          const timeDiff = Math.floor((new Date() - lastVersion.timestamp) / 1000);
-          let timeText = '刚刚';
-          
-          if (timeDiff > 60) {
-            const minutes = Math.floor(timeDiff / 60);
-            timeText = `${minutes}分钟前`;
-          }
-          
-          document.getElementById('status-last-save').textContent = timeText;
-        }
-      }
-
-      // 渲染版本历史列表
-      renderVersionHistory() {
-        const container = document.getElementById('version-history-list');
-        if (!container) return;
-
-        const history = this.getVersionHistory();
-        
-        if (history.length === 0) {
-          container.innerHTML = `
-            <div class="text-sm text-gray-500 text-center py-4">
-              暂无版本历史
-            </div>
-          `;
-          return;
-        }
-
-        let html = '';
-        history.forEach(version => {
-          const isCurrent = version.version === this.currentVersion;
-          const timeStr = version.timestamp.toLocaleString('zh-CN', {
-            month: 'short',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-          });
-
-          html += `
-            <div class="version-item p-3 rounded border ${isCurrent ? 'bg-blue-50 border-blue-200' : 'bg-white border-gray-300'} hover:bg-gray-50 cursor-pointer transition" 
-                 onclick="selectVersion(${version.version})"
-                 data-version="${version.version}">
-              <div class="flex justify-between items-start">
-                <div>
-                  <div class="flex items-center">
-                    <span class="text-sm font-medium text-gray-800">v${version.version}</span>
-                    ${isCurrent ? '<span class="ml-2 px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded">当前</span>' : ''}
-                  </div>
-                  <div class="text-xs text-gray-600 mt-1">${timeStr}</div>
-                </div>
-                <div class="text-xs text-gray-500">
-                  ${(version.content.length / 1024).toFixed(1)} KB
-                </div>
-              </div>
-              <div class="mt-2 text-xs text-gray-700">
-                ${version.changeSummary}
-              </div>
-            </div>
-          `;
-        });
-
-        container.innerHTML = html;
-      }
-    }
-
-    // 全局版本管理器实例
-    let versionManager;
-
-    // 初始化版本控制
-    function initializeVersionControl() {
-      versionManager = new VersionManager();
-      
-      // 如果是第一次访问，创建初始版本
-      if (versionManager.versions.length === 0) {
-        versionManager.createVersion('初始版本');
-      }
-      
-      // 更新UI
-      versionManager.updateUI();
-      
-      console.log('🛡️ 版本控制系统已初始化');
-      console.log(`当前版本: v${versionManager.currentVersion}, 总版本数: ${versionManager.versions.length}`);
-    }
-
-    // UI控制函数
-    function showRollbackOptions() {
-      // 显示版本控制面板
-      document.getElementById('version-control-panel').classList.remove('hidden');
-      
-      // 加载版本历史
-      versionManager.renderVersionHistory();
-      
-      // 默认选择上一个版本
-      if (versionManager.versions.length > 1) {
-        const previousVersion = versionManager.currentVersion - 1;
-        selectVersion(previousVersion);
-      }
-    }
-
-    function showVersionHistory() {
-      // 显示版本控制面板
-      document.getElementById('version-control-panel').classList.remove('hidden');
-      
-      // 加载版本历史
-      versionManager.renderVersionHistory();
-      
-      // 默认选择当前版本
-      selectVersion(versionManager.currentVersion);
-    }
-
-    function hideVersionControl() {
-      document.getElementById('version-control-panel').classList.add('hidden');
-    }
-
-    // 选择版本
-    let selectedVersion = null;
-
-    function selectVersion(versionNumber) {
-      selectedVersion = versionNumber;
-      const version = versionManager.versions.find(v => v.version === versionNumber);
-      
-      if (!version) return;
-
-      // 更新选中状态
-      document.querySelectorAll('.version-item').forEach(item => {
-        const itemVersion = parseInt(item.dataset.version);
-        if (itemVersion === versionNumber) {
-          item.classList.add('bg-yellow-50', 'border-yellow-300');
-          item.classList.remove('bg-white', 'bg-blue-50', 'border-gray-300', 'border-blue-200');
-        } else {
-          item.classList.remove('bg-yellow-50', 'border-yellow-300');
-          const isCurrent = itemVersion === versionManager.currentVersion;
-          item.classList.add(isCurrent ? 'bg-blue-50 border-blue-200' : 'bg-white border-gray-300');
-        }
-      });
-
-      // 更新版本信息显示
-      const timeStr = version.timestamp.toLocaleString('zh-CN', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-
-      document.getElementById('selected-version-info').innerHTML = `
-        <div class="text-sm font-medium text-gray-800 mb-1">v${version.version}</div>
-        <div class="text-xs text-gray-600 mb-2">${timeStr}</div>
-        <div class="text-xs text-gray-700 bg-gray-50 p-2 rounded">
-          ${version.changeSummary}
-        </div>
-        <div class="mt-2 text-xs text-gray-500">
-          大小: ${(version.content.length / 1024).toFixed(1)} KB
-        </div>
-      `;
-
-      // 启用/禁用恢复按钮
-      const restoreBtn = document.getElementById('restore-btn');
-      if (versionNumber === versionManager.currentVersion) {
-        restoreBtn.disabled = true;
-        restoreBtn.textContent = '当前版本';
-      } else {
-        restoreBtn.disabled = false;
-        restoreBtn.innerHTML = '<i class="fas fa-undo mr-1"></i> 恢复到此版本';
-      }
-    }
-
-    // 恢复选中的版本
-    function restoreSelectedVersion() {
-      if (!selectedVersion) {
-        alert('请先选择一个版本！');
-        return;
-      }
-
-      versionManager.restoreVersion(selectedVersion);
-    }
-
-    // 自动版本保存（模拟每次更新时调用）
-    function autoSaveVersion(changeSummary) {
-      if (!versionManager) return;
-      
-      // 在实际应用中，这里会在每次重要更新时调用
-      // 例如：邮件发送、行动完成、决策变更等
-      versionManager.createVersion(changeSummary);
-    }
-
-    // 模拟一些自动保存的触发器
-    document.addEventListener('DOMContentLoaded', function() {
-      // 监听邮件发送
-      const emailTextarea = document.getElementById('email-template');
-      if (emailTextarea) {
-        let lastEmailValue = emailTextarea.value;
-        emailTextarea.addEventListener('blur', function() {
-          if (this.value !== lastEmailValue) {
-            autoSaveVersion('邮件内容更新');
-            lastEmailValue = this.value;
-          }
-        });
-      }
-
-      // 监听行动清单变化
-      document.querySelectorAll('#action1, #action2, #action3, #action4').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-          if (this.checked) {
-            autoSaveVersion(`行动完成: ${this.nextElementSibling.textContent.trim()}`);
-          }
-        });
-      });
-    });
-
-    // 手动保存版本（用于测试）
-    function manualSaveVersion() {
-      const summary = prompt('请输入版本摘要:', '手动保存');
-      if (summary) {
-        autoSaveVersion(summary);
-        alert(`✅ 版本 v${versionManager.currentVersion} 已保存！`);
-      }
-    }
-
-    // 添加手动保存按钮到控制台（仅用于开发）
-    console.log('💾 版本控制命令:');
-    console.log('• manualSaveVersion() - 手动保存当前版本');
-    console.log('• versionManager.restorePreviousVersion() - 恢复到上一个版本');
-    console.log('• versionManager.getVersionHistory() - 查看版本历史');
-
-    // ==================================================
-    // 🎯 利益相关者感知行动引擎 (Stakeholder-Aware Action Engine)
-    // ==================================================
-
-    // 当前选择的利益相关者
-    let currentStakeholder = null;
-
-    // 利益相关者上下文数据
-    const stakeholderContexts = {
-      vinod: {
-        name: 'Vinod Srihari',
-        title: '耶鲁精神科教授',
-        strategy: '学术校准 + 战略对齐',
-        stage: 'pre-call (75天未联系)',
-        style: '学术语气，无商业语言，校准框架',
-        emailTemplate: `Subject: Following up on early identification pathways in FQHC settings
-
-Dear Dr. Srihari,
-
-I hope this message finds you well. I'm writing to follow up on our previous discussion about embedding early identification pathways within FQHC settings.
-
-Given your expertise in early psychosis and FQHC implementation, I would value your perspective on whether the clinical logic I've developed makes sense from an implementation standpoint. The core idea remains focused on identifying patients upstream before they reach specialty care, using CHW workflows within primary care.
-
-Would you be available for a brief call next week to discuss this further? I'm particularly interested in your thoughts on how this approach aligns with current best practices in community mental health.
-
-Best regards,
-Richard Hu`,
-        callScript: `📞 Vinod Srihari 通话脚本 (15分钟)
-
-开场白 (2分钟):
-1. "感谢您抽出时间，Srihari医生"
-2. "我想请教您关于在FQHC中实施早期识别路径的想法"
-3. "特别是从学术和临床实施的角度"
-
-核心问题 (10分钟):
-1. "从您的经验看，在FQHC中识别早期行为健康问题的最大挑战是什么？"
-2. "CHW在初级护理中的角色如何优化才能支持这种识别？"
-3. "学术研究如何最好地支持这种社区实施？"
-
-结束语 (3分钟):
-1. "感谢您的宝贵见解"
-2. "下一步：我会根据您的反馈完善方案"
-3. "保持联系，期待未来合作机会"`,
-        actions: [
-          '发送邮件给 Vinod Srihari',
-          '安排学术校准会议',
-          '准备临床路径讨论材料',
-          '更新学术合作提案'
-        ]
-      },
-      trillium: {
-        name: 'Trillium (Cindy)',
-        title: '支付方联系人',
-        strategy: '试点合作 + ROI展示',
-        stage: 'post-presentation follow-up',
-        style: '商业语气，ROI重点，试点框架',
-        emailTemplate: `Subject: Follow-up on Trillium pilot opportunity
-
-Hi Cindy,
-
-Following up on our presentation about the early identification pathway for behavioral health in FQHC settings.
-
-The key value proposition we discussed:
-1. ROI: Reduced specialty care referrals by 20-30%
-2. Pilot: 1-2 FQHC sites for 6-month validation
-3. Scalability: Potential expansion across Trillium network
-
-I've attached an updated ROI calculation based on our conversation. Would you be available for a brief call next week to discuss next steps for the pilot?
-
-Looking forward to moving this forward.
-
-Best,
-Richard`,
-        callScript: `📞 Trillium (Cindy) 通话脚本 (15分钟)
-
-开场白 (2分钟):
-1. "感谢您的时间，Cindy"
-2. "跟进我们关于FQHC试点机会的讨论"
-3. "重点讨论ROI和试点实施路径"
-
-核心问题 (10分钟):
-1. "从支付方角度看，这个试点最重要的成功指标是什么？"
-2. "试点的时间线和预算考虑是什么？"
-3. "我们需要哪些内部对齐才能启动？"
-
-结束语 (3分钟):
-1. "明确下一步行动项"
-2. "确定试点启动时间线"
-3. "安排下次跟进会议"`,
-        actions: [
-          '发送ROI更新给 Trillium',
-          '安排试点规划会议',
-          '更新试点提案文档',
-          '准备内部对齐材料'
-        ]
-      },
-      fqhc: {
-        name: 'FQHC Medical Director',
-        title: '试点站点领导',
-        strategy: '风险对齐 + 工作流整合',
-        stage: 'pre-engagement risk assessment',
-        style: '临床语气，风险重点，实施框架',
-        emailTemplate: `Subject: Discussing early identification pathway implementation
-
-Dear [Medical Director Name],
-
-I'm writing to discuss the possibility of implementing an early identification pathway for behavioral health concerns within your FQHC.
-
-The approach focuses on:
-1. Clinical safety: Clear referral pathways for complex cases
-2. Workflow efficiency: ≤5 minute screening by CHWs
-3. Reimbursement: CHW billing codes and value-based care alignment
-
-I understand the importance of aligning on clinical boundaries, workflow burden, and reimbursement pathways before moving forward.
-
-Would you be open to a brief conversation next week to discuss whether this makes sense for your clinic?
-
-Sincerely,
-Richard Hu`,
-        callScript: `📞 FQHC Medical Director 通话脚本 (20分钟)
-
-开场白 (3分钟):
-1. "感谢您的时间，医生"
-2. "讨论在您诊所实施早期识别路径的可能性"
-3. "重点：临床安全、工作流效率、报销路径"
-
-核心问题 (14分钟):
-1. "从临床角度看，最大的风险边界是什么？"
-2. "现有工作流中，哪里可以嵌入5分钟筛查？"
-3. "报销方面，CHW billing codes的可行性如何？"
-
-结束语 (3分钟):
-1. "总结风险对齐点"
-2. "确定下一步评估步骤"
-3. "安排临床团队讨论"`,
-        actions: [
-          '发送风险评估邮件',
-          '安排临床对齐会议',
-          '准备工作流分析',
-          '更新报销路径文档'
-        ]
-      }
-    };
-
-    // 加载利益相关者上下文
-    function loadStakeholderContext(stakeholderId) {
-      const context = stakeholderContexts[stakeholderId];
-      if (!context) {
-        alert('未找到该利益相关者的上下文信息');
-        return;
-      }
-
-      currentStakeholder = stakeholderId;
-      
-      // 更新上下文显示
-      document.getElementById('stakeholder-context').classList.remove('hidden');
-      document.getElementById('context-strategy').textContent = context.strategy;
-      document.getElementById('context-stage').textContent = context.stage;
-      document.getElementById('context-style').textContent = context.style;
-      
-      // 更新邮件模板
-      document.getElementById('current-stakeholder').textContent = context.name;
-      document.getElementById('email-context-indicator').textContent = context.style;
-      document.getElementById('email-strategy-summary').textContent = `策略: ${context.strategy} • 阶段: ${context.stage}`;
-      document.getElementById('email-template').value = context.emailTemplate;
-      
-      // 更新中文解释
-      updateChineseExplanation(context);
-      
-      // 更新通话脚本目标
-      document.getElementById('call-script-target').textContent = `为${context.name}生成通话脚本`;
-      
-      // 更新行动清单
-      document.getElementById('action-list-context').textContent = context.name;
-      document.getElementById('action1-text').textContent = context.actions[0];
-      document.getElementById('action2-text').textContent = context.actions[1];
-      document.getElementById('action3-text').textContent = context.actions[2];
-      document.getElementById('action4-text').textContent = context.actions[3];
-      
-      // 更新AI建议
-      updateAIRecommendation(stakeholderId);
-      
-      // 自动保存版本
-      if (versionManager) {
-        versionManager.createVersion(`切换到利益相关者: ${context.name}`);
-      }
-      
-      console.log(`✅ 已加载利益相关者: ${context.name}`);
-      console.log(`策略: ${context.strategy}, 阶段: ${context.stage}, 风格: ${context.style}`);
-    }
-
-    // 快速切换利益相关者
-    function quickSwitchStakeholder(stakeholderId) {
-      // 更新下拉框选择
-      document.getElementById('stakeholder-selector').value = stakeholderId;
-      
-      // 加载上下文
-      loadStakeholderContext(stakeholderId);
-      
-      // 显示成功消息
-      const context = stakeholderContexts[stakeholderId];
-      alert(`✅ 已切换到: ${context.name}\n\n系统已自动更新:\n• 邮件模板\n• 通话脚本\n• 行动清单\n• AI建议`);
-    }
-
-    // 更新AI建议
-    function updateAIRecommendation(stakeholderId) {
-      const context = stakeholderContexts[stakeholderId];
-      if (!context) return;
-
-      let recommendation = '';
-      let reason = '';
-
-      switch(stakeholderId) {
-        case 'vinod':
-          recommendation = '建议立即联系 Vinod Srihari';
-          reason = '理由：75天未联系 + Q2合作窗口 + Trillium汇报前校准机会';
-          break;
-        case 'trillium':
-          recommendation = '建议本周内跟进 Trillium';
-          reason = '理由：演示后关键窗口 + 试点启动时间压力 + Q2预算周期';
-          break;
-        case 'fqhc':
-          recommendation = '建议风险评估对齐';
-          reason = '理由：试点启动前提条件 + 临床安全必须前置对齐';
-          break;
-        default:
-          recommendation = '建议保持联系节奏';
-          reason = '理由：维持关系动量，避免过冷';
-      }
-
-      const suggestionDiv = document.querySelector('.bg-green-50 .bg-white');
-      if (suggestionDiv) {
-        suggestionDiv.innerHTML = `
-          <div class="text-sm font-medium text-gray-800 mb-1">${recommendation}</div>
-          <div class="text-xs text-gray-600">${reason}</div>
-        `;
-      }
-    }
-
-    // 重新生成邮件
-    function regenerateEmail() {
-      if (!currentStakeholder) {
-        alert('请先选择利益相关者对象！');
-        return;
-      }
-
-      const context = stakeholderContexts[currentStakeholder];
-      if (!context) return;
-
-      // 基于当前上下文重新生成邮件
-      const newEmail = `Subject: Follow-up - ${context.name}
-
-Hi [Name],
-
-Following up on our previous discussion about ${context.strategy.toLowerCase()}.
-
-Based on our conversation, I've refined the approach to better align with ${context.stage.toLowerCase()}.
-
-Key points:
-• ${context.strategy.split(' + ')[0]}
-• ${context.strategy.split(' + ')[1] || 'Implementation readiness'}
-
-Would you be available for a brief call next week to discuss next steps?
-
-Best,
-Richard`;
-
-      document.getElementById('email-template').value = newEmail;
-      
-      // 更新中文解释
-      updateChineseExplanation(context);
-      
-      alert(`✅ 已为${context.name}重新生成双语邮件！\n\n基于: ${context.strategy}`);
-    }
-
-    // 增强的通话脚本生成器
-    // 更新中文解释
-    function updateChineseExplanation(context) {
-      if (!context) return;
-      
-      let summary = '';
-      let request = '';
-      let tone = '';
-      let intent = '';
-      
-      // 根据利益相关者类型生成中文解释
-      switch(context.name) {
-        case 'Vinod Srihari':
-          summary = '跟进FQHC早期识别路径的学术讨论，寻求实施视角的反馈';
-          request = '请求15分钟通话，讨论临床逻辑在FQHC实施中的可行性';
-          tone = '学术语气、探索性、无商业语言、校准框架';
-          intent = '学术校准 + 战略对齐，为Trillium汇报做准备';
-          break;
-        case 'Trillium (Cindy)':
-          summary = '跟进Trillium试点机会，讨论ROI和实施时间线';
-          request = '请求跟进会议，讨论试点启动的下一步行动';
-          tone = '商业语气、ROI重点、紧迫性框架、试点导向';
-          intent = '试点合作 + ROI展示，推动支付方合作';
-          break;
-        case 'FQHC Medical Director':
-          summary = '讨论在FQHC实施早期识别路径的可能性，重点临床安全和报销';
-          request = '请求风险评估对话，了解临床边界和工作流整合';
-          tone = '临床语气、风险重点、实施框架、务实导向';
-          intent = '风险对齐 + 工作流整合，为试点实施铺平道路';
-          break;
-        default:
-          summary = '跟进之前的讨论，寻求进一步对话机会';
-          request = '请求简短通话，讨论下一步合作可能性';
-          tone = '温和语气、跟进性、开放式';
-          intent = '关系维护 + 机会探索';
-      }
-      
-      // 更新UI
-      document.getElementById('chinese-summary').textContent = summary;
-      document.getElementById('chinese-request').textContent = request;
-      document.getElementById('chinese-tone').textContent = tone;
-      document.getElementById('chinese-intent').textContent = intent;
-      
-      console.log(`✅ 已更新中文解释: ${summary}`);
-    }
-
-    // 切换中文解释显示/隐藏
-    function toggleChineseExplanation() {
-      const explanationDiv = document.getElementById('chinese-explanation');
-      const toggleIcon = document.getElementById('chinese-toggle-icon');
-      
-      if (explanationDiv.classList.contains('hidden')) {
-        explanationDiv.classList.remove('hidden');
-        toggleIcon.innerHTML = '<i class="fas fa-chevron-up"></i> 收起';
-      } else {
-        explanationDiv.classList.add('hidden');
-        toggleIcon.innerHTML = '<i class="fas fa-chevron-down"></i> 展开';
-      }
-    }
-
-    function generateCallScript() {
-      if (!currentStakeholder) {
-        alert('请先选择利益相关者对象！');
-        return;
-      }
-
-      const context = stakeholderContexts[currentStakeholder];
-      if (!context) return;
-
-      // 显示通话脚本预览
-      const previewDiv = document.getElementById('call-script-preview');
-      const contentDiv = document.getElementById('call-script-content');
-      
-      contentDiv.innerHTML = context.callScript.replace(/\n/g, '<br>');
-      previewDiv.classList.remove('hidden');
-      
-      // 自动保存版本
-      if (versionManager) {
-        versionManager.createVersion(`生成通话脚本: ${context.name}`);
-      }
-      
-      alert(`✅ 已为${context.name}生成通话脚本！\n\n时长: 15-20分钟\n包含: 开场白 + 核心问题 + 结束语`);
-    }
-
-    // 显示/隐藏AI调试面板
-    function showAIDebug() {
-      document.getElementById('ai-debug-panel').classList.remove('hidden');
-    }
-    
-    function hideAIDebug() {
-      document.getElementById('ai-debug-panel').classList.add('hidden');
-    }
-
-    // 基于用户判断重新生成 - 真正的上下文感知战略引擎
-    function regenerateBasedOnJudgment() {
-      const judgment = document.getElementById('human-judgment').value;
-      if (!judgment.trim()) {
-        alert('请先输入您的判断！');
-        return;
-      }
-
-      if (!currentStakeholder) {
-        alert('请先选择利益相关者对象！');
-        return;
-      }
-
-      const context = stakeholderContexts[currentStakeholder];
-      if (!context) return;
-
-      // ==================================================
-      // 🧠 步骤1: 意图解析 (Intent Parsing)
-      // ==================================================
-      let intent = 'follow-up'; // 默认: 跟进
-      let intentDetails = '';
-      
-      // 意图分类
-      if (judgment.includes('call') || judgment.includes('通话') || judgment.includes('会议') || judgment.includes('schedule')) {
-        intent = 'scheduling';
-        intentDetails = '请求通话/会议安排';
-      } else if (judgment.includes('update') || judgment.includes('更新') || judgment.includes('进展') || judgment.includes('progress')) {
-        intent = 'update';
-        intentDetails = '分享进展更新';
-      } else if (judgment.includes('align') || judgment.includes('对齐') || judgment.includes('input') || judgment.includes('反馈')) {
-        intent = 'alignment';
-        intentDetails = '寻求输入/对齐';
-      } else if (judgment.includes('follow') || judgment.includes('跟进') || judgment.includes('re-engage')) {
-        intent = 'follow-up';
-        intentDetails = '重新接触/跟进';
-      } else if (judgment.includes('intro') || judgment.includes('介绍') || judgment.includes('工作') || judgment.includes('working')) {
-        intent = 'introduction';
-        intentDetails = '介绍工作/建立联系';
-      }
-      
-      // 特殊意图检测
-      if (judgment.includes('已有call') || judgment.includes('已有通话') || judgment.includes('already scheduled')) {
-        intent = 'context-framing';
-        intentDetails = '已有通话安排，提供上下文框架';
-      }
-
-      // ==================================================
-      // 🧠 步骤2: 加载上下文 (Context Loading)
-      // ==================================================
-      const stakeholderName = context.name;
-      const stakeholderStrategy = context.strategy;
-      const currentStage = context.stage;
-      const communicationStyle = context.style;
-      
-      // 通信规则
-      const communicationRules = {
-        vinod: ['no business language', 'academic tone', 'calibration framing'],
-        trillium: ['ROI focus', 'business tone', 'pilot framework'],
-        fqhc: ['clinical safety', 'risk focus', 'implementation framework']
-      };
-      
-      const rules = communicationRules[currentStakeholder] || [];
-
-      // ==================================================
-      // 🧠 步骤3: 结构级重写 (Structure-Level Rewrite)
-      // ==================================================
-      let emailStructure = '';
-      let structuralChanges = [];
-      
-      // 基于意图和利益相关者确定邮件结构
-      switch(intent) {
-        case 'scheduling':
-          emailStructure = 'call-request';
-          structuralChanges.push('包含明确的通话请求');
-          structuralChanges.push('提供时间灵活性');
-          break;
-          
-        case 'update':
-          emailStructure = 'progress-update';
-          structuralChanges.push('移除通话请求');
-          structuralChanges.push('专注于进展分享');
-          structuralChanges.push('提供具体更新内容');
-          break;
-          
-        case 'alignment':
-          emailStructure = 'input-seeking';
-          structuralChanges.push('专注于寻求输入');
-          structuralChanges.push('提供具体问题');
-          structuralChanges.push('学术/专业对齐');
-          break;
-          
-        case 'context-framing':
-          emailStructure = 'context-bridge';
-          structuralChanges.push('移除通话请求（已有安排）');
-          structuralChanges.push('提供智力重叠框架');
-          structuralChanges.push('建立上下文桥梁');
-          break;
-          
-        case 'introduction':
-          emailStructure = 'work-introduction';
-          structuralChanges.push('介绍当前工作');
-          structuralChanges.push('建立相关联系');
-          structuralChanges.push('软性桥梁到潜在合作');
-          break;
-          
-        default: // follow-up
-          emailStructure = 're-engagement';
-          structuralChanges.push('温和重新接触');
-          structuralChanges.push('保持关系动量');
-          structuralChanges.push('开放式结尾');
-      }
-      
-      // ==================================================
-      // 🧠 步骤4: 邮件生成 (Email Generation)
-      // ==================================================
-      let newEmail = '';
-      let emailChanges = [];
-      
-      // 基于利益相关者和意图生成邮件
-      if (currentStakeholder === 'vinod') {
-        // Vinod特定模板
-        switch(intent) {
-          case 'scheduling':
-            newEmail = `Subject: Following up on early identification pathways in FQHC settings\n\n`;
-            newEmail += `Dear Dr. Srihari,\n\n`;
-            newEmail += `I hope this message finds you well. I'm writing to follow up on our previous discussion about embedding early identification pathways within FQHC settings.\n\n`;
-            newEmail += `Given your expertise in early psychosis and FQHC implementation, I would value your perspective on whether the clinical logic I've developed makes sense from an implementation standpoint. The core idea remains focused on identifying patients upstream before they reach specialty care, using CHW workflows within primary care.\n\n`;
-            newEmail += `Would you be available for a brief call next week to discuss this further? I'm particularly interested in your thoughts on how this approach aligns with current best practices in community mental health.\n\n`;
-            newEmail += `Best regards,\nRichard Hu`;
-            emailChanges.push('学术语气，校准框架');
-            emailChanges.push('无商业语言');
-            emailChanges.push('具体实施视角请求');
-            break;
-            
-          case 'context-framing':
-            newEmail = `Subject: Context for our upcoming conversation\n\n`;
-            newEmail += `Dear Dr. Srihari,\n\n`;
-            newEmail += `Looking forward to our conversation next week. I wanted to provide some context on what I've been working on, which I believe aligns with your interests in early psychosis and FQHC implementation.\n\n`;
-            newEmail += `I've been developing a clinical pathway for early identification of behavioral health concerns within FQHC settings, with a focus on CHW-led screening and clear referral protocols. The approach emphasizes clinical safety and workflow efficiency while maintaining academic rigor.\n\n`;
-            newEmail += `I'm particularly interested in your perspective on how this aligns with current implementation science in community mental health. Looking forward to the discussion.\n\n`;
-            newEmail += `Best regards,\nRichard Hu`;
-            emailChanges.push('移除通话请求（已有安排）');
-            emailChanges.push('提供智力重叠框架');
-            emailChanges.push('建立上下文桥梁');
-            break;
-            
-          case 'update':
-            newEmail = `Subject: Update on early identification pathway development\n\n`;
-            newEmail += `Dear Dr. Srihari,\n\n`;
-            newEmail += `I wanted to share a brief update on the early identification pathway I've been developing for FQHC settings.\n\n`;
-            newEmail += `Since we last spoke, I've refined the clinical logic to better align with CHW workflows and safety protocols. The pathway now includes clearer referral criteria and documentation templates that could support implementation research.\n\n`;
-            newEmail += `From an academic perspective, I believe this could contribute to the literature on scalable mental health interventions in primary care settings. I'd be curious to hear your thoughts when you have a moment.\n\n`;
-            newEmail += `Best regards,\nRichard Hu`;
-            emailChanges.push('专注于进展分享');
-            emailChanges.push('学术更新框架');
-            emailChanges.push('开放式反馈请求');
-            break;
-            
-          default: // follow-up or other
-            newEmail = `Subject: Following up on our discussion about FQHC implementation\n\n`;
-            newEmail += `Dear Dr. Srihari,\n\n`;
-            newEmail += `I hope you're doing well. I wanted to follow up on our previous discussion about early identification pathways in FQHC settings.\n\n`;
-            newEmail += `The approach continues to focus on clinical safety and workflow efficiency, with particular attention to how CHWs can support early detection within existing primary care workflows.\n\n`;
-            newEmail += `I'd be interested in your perspective on implementation considerations when you have availability. No urgency—just keeping the conversation alive.\n\n`;
-            newEmail += `Best regards,\nRichard Hu`;
-            emailChanges.push('温和重新接触');
-            emailChanges.push('保持学术语气');
-            emailChanges.push('无压力跟进');
-        }
-      } else if (currentStakeholder === 'trillium') {
-        // Trillium特定模板
-        switch(intent) {
-          case 'scheduling':
-            newEmail = `Subject: Follow-up on Trillium pilot opportunity\n\n`;
-            newEmail += `Hi Cindy,\n\n`;
-            newEmail += `Following up on our presentation about the early identification pathway for behavioral health in FQHC settings.\n\n`;
-            newEmail += `The key value proposition we discussed:\n1. ROI: Reduced specialty care referrals by 20-30%\n2. Pilot: 1-2 FQHC sites for 6-month validation\n3. Scalability: Potential expansion across Trillium network\n\n`;
-            newEmail += `I've attached an updated ROI calculation based on our conversation. Would you be available for a brief call next week to discuss next steps for the pilot?\n\n`;
-            newEmail += `Looking forward to moving this forward.\n\n`;
-            newEmail += `Best,\nRichard`;
-            emailChanges.push('商业语气，ROI重点');
-            emailChanges.push('试点框架');
-            emailChanges.push('紧迫性');
-            break;
-            
-          default:
-            newEmail = `Subject: Update on FQHC pilot opportunity\n\n`;
-            newEmail += `Hi Cindy,\n\n`;
-            newEmail += `I wanted to provide an update on the FQHC pilot opportunity we discussed.\n\n`;
-            newEmail += `I've refined the ROI calculations and identified potential implementation sites. The approach maintains focus on reducing specialty care referrals while ensuring clinical safety and workflow efficiency.\n\n`;
-            newEmail += `Let me know when would be a good time to discuss next steps. I'm flexible with timing.\n\n`;
-            newEmail += `Best,\nRichard`;
-            emailChanges.push('进展更新');
-            emailChanges.push('商业语气');
-            emailChanges.push('灵活安排');
-        }
-      } else if (currentStakeholder === 'fqhc') {
-        // FQHC特定模板
-        switch(intent) {
-          case 'scheduling':
-            newEmail = `Subject: Discussing early identification pathway implementation\n\n`;
-            newEmail += `Dear [Medical Director Name],\n\n`;
-            newEmail += `I'm writing to discuss the possibility of implementing an early identification pathway for behavioral health concerns within your FQHC.\n\n`;
-            newEmail += `The approach focuses on:\n1. Clinical safety: Clear referral pathways for complex cases\n2. Workflow efficiency: ≤5 minute screening by CHWs\n3. Reimbursement: CHW billing codes and value-based care alignment\n\n`;
-            newEmail += `I understand the importance of aligning on clinical boundaries, workflow burden, and reimbursement pathways before moving forward.\n\n`;
-            newEmail += `Would you be open to a brief conversation next week to discuss whether this makes sense for your clinic?\n\n`;
-            newEmail += `Sincerely,\nRichard Hu`;
-            emailChanges.push('临床语气，风险重点');
-            emailChanges.push('实施框架');
-            emailChanges.push('务实导向');
-            break;
-            
-          default:
-            newEmail = `Subject: Update on early identification pathway approach\n\n`;
-            newEmail += `Dear [Medical Director Name],\n\n`;
-            newEmail += `I wanted to follow up on our discussion about implementing an early identification pathway for behavioral health in FQHC settings.\n\n`;
-            newEmail += `I've further refined the approach to emphasize clinical safety protocols and workflow integration considerations. The pathway maintains clear boundaries for complex case referrals while optimizing CHW screening efficiency.\n\n`;
-            newEmail += `I'd be happy to discuss implementation considerations when you have availability.\n\n`;
-            newEmail += `Sincerely,\nRichard Hu`;
-            emailChanges.push('临床更新');
-            emailChanges.push('安全重点');
-            emailChanges.push('务实语气');
-        }
-      }
-
-      // ==================================================
-      // 🧠 步骤5: 质量检查 (Quality Check)
-      // ==================================================
-      const qualityChecks = [];
-      
-      // 检查1: 无冗余调度（如果已有通话安排）
-      if (intent === 'context-framing' && newEmail.includes('call') && newEmail.includes('schedule')) {
-        // 移除通话请求相关语言
-        newEmail = newEmail.replace(/Would you be available for a brief call.*?\?/g, '');
-        newEmail = newEmail.replace(/Would you be open to a brief conversation.*?\?/g, '');
-        qualityChecks.push('✅ 移除冗余通话请求');
-      } else {
-        qualityChecks.push('✅ 通话请求适当');
-      }
-      
-      // 检查2: 语气匹配利益相关者
-      if (currentStakeholder === 'vinod' && !newEmail.includes('academic') && !newEmail.includes('clinical')) {
-        qualityChecks.push('⚠️ 语气可能需要更多学术调整');
-      } else {
-        qualityChecks.push('✅ 语气匹配利益相关者');
-      }
-      
-      // 检查3: 内容匹配用户意图
-      if (intent === 'update' && newEmail.includes('call request')) {
-        qualityChecks.push('⚠️ 内容可能包含不匹配的请求');
-      } else {
-        qualityChecks.push('✅ 内容匹配用户意图');
-      }
-      
-      // 检查4: 遵守通信规则
-      let rulesCheck = true;
-      rules.forEach(rule => {
-        if (rule === 'no business language' && newEmail.includes('ROI') && newEmail.includes('business')) {
-          rulesCheck = false;
-          qualityChecks.push(`❌ 违反规则: ${rule}`);
-        }
-      });
-      if (rulesCheck) {
-        qualityChecks.push('✅ 遵守所有通信规则');
-      }
-
-      // ==================================================
-      // 🧠 步骤6: 更新UI和调试显示
-      // ==================================================
-      document.getElementById('email-template').value = newEmail;
-      
-      // 更新调试显示
-      document.getElementById('debug-intent').textContent = `${intent} (${intentDetails})`;
-      document.getElementById('debug-stakeholder').textContent = stakeholderName;
-      document.getElementById('debug-stage').textContent = currentStage;
-      document.getElementById('debug-strategy').textContent = stakeholderStrategy;
-      document.getElementById('debug-structure').textContent = emailStructure;
-      document.getElementById('debug-changes').textContent = structuralChanges.join(', ');
-      
-      // 显示调试面板
-      showAIDebug();
-      
-      // ==================================================
-      // 🧠 步骤7: 更新中文解释
-      // ==================================================
-      let chineseSummary = '';
-      let chineseRequest = '';
-      let chineseTone = '';
-      let chineseIntent = '';
-      
-      // 基于意图和利益相关者生成中文解释
-      switch(intent) {
-        case 'scheduling':
-          chineseSummary = '请求通话安排，讨论实施路径';
-          chineseRequest = '安排15-20分钟通话，讨论具体实施考虑';
-          chineseTone = '专业语气、具体明确、价值导向';
-          chineseIntent = '推进合作讨论，明确下一步行动';
-          break;
-          
-        case 'context-framing':
-          chineseSummary = '为已有通话提供上下文框架';
-          chineseRequest = '无新请求（已有安排），提供讨论背景';
-          chineseTone = '学术语气、框架性、智力重叠';
-          chineseIntent = '建立共同理解基础，优化通话效率';
-          break;
-          
-        case 'update':
-          chineseSummary = '分享工作进展更新';
-          chineseRequest = '无立即行动请求，分享进展供参考';
-          chineseTone = '更新语气、进展导向、开放式';
-          chineseIntent = '保持关系动量，展示持续进展';
-          break;
-          
-        case 'alignment':
-          chineseSummary = '寻求专业输入和对齐';
-          chineseRequest = '请求专业视角反馈，无时间压力';
-          chineseTone = '咨询语气、尊重专业、探索性';
-          chineseIntent = '学术/专业校准，优化方案质量';
-          break;
-          
-        default: // follow-up
-          chineseSummary = '温和跟进，保持联系';
-          chineseRequest = '无紧迫请求，保持对话活跃';
-          chineseTone = '温和语气、无压力、关系维护';
-          chineseIntent = '关系维护，机会探索';
-      }
-      
-      // 添加利益相关者特定调整
-      if (currentStakeholder === 'vinod') {
-        chineseTone += '、学术导向、无商业语言';
-        chineseIntent += '、学术价值建立';
-      } else if (currentStakeholder === 'trillium') {
-        chineseTone += '、商业导向、ROI重点';
-        chineseIntent += '、商业价值推进';
-      } else if (currentStakeholder === 'fqhc') {
-        chineseTone += '、临床导向、风险意识';
-        chineseIntent += '、临床安全对齐';
-      }
-      
-      // 添加用户判断调整
-      if (judgment.includes('延迟') || judgment.includes('wait')) {
-        chineseTone += '、时机灵活';
-        chineseIntent += '、等待更好时机';
-      } else if (judgment.includes('紧急') || judgment.includes('urgent')) {
-        chineseTone += '、时间敏感';
-        chineseIntent += '、加速推进';
-      }
-      
-      // 更新中文解释UI
-      document.getElementById('chinese-summary').textContent = chineseSummary;
-      document.getElementById('chinese-request').textContent = chineseRequest;
-      document.getElementById('chinese-tone').textContent = chineseTone;
-      document.getElementById('chinese-intent').textContent = chineseIntent;
-      
-      // 确保中文解释面板可见
-      document.getElementById('chinese-explanation').classList.remove('hidden');
-      document.getElementById('chinese-toggle-icon').innerHTML = '<i class="fas fa-chevron-up"></i> 收起';
-
-      // ==================================================
-      // 🧠 步骤8: 更新AI建议
-      // ==================================================
-      updateAIRecommendationBasedOnJudgment(judgment);
-
-      // ==================================================
-      // 🧠 步骤9: 显示结果和更改摘要
-      // ==================================================
-      const changeSummary = [];
-      changeSummary.push(`意图: ${intentDetails}`);
-      changeSummary.push(`结构: ${emailStructure}`);
-      structuralChanges.forEach(change => changeSummary.push(`• ${change}`));
-      emailChanges.forEach(change => changeSummary.push(`📧 ${change}`));
-      qualityChecks.forEach(check => changeSummary.push(check));
-      
-      const summaryText = changeSummary.join('\n');
-      
-      alert(`✅ 战略再生完成！\n\n利益相关者: ${stakeholderName}\n意图: ${intentDetails}\n\n关键更改:\n${structuralChanges.map(c => `• ${c}`).join('\n')}\n\n质量检查:\n${qualityChecks.filter(c => c.includes('✅') || c.includes('❌')).join('\n')}`);
-      
-      console.log(`🎯 战略再生引擎完成:`);
-      console.log(`意图: ${intent} (${intentDetails})`);
-      console.log(`利益相关者: ${stakeholderName}`);
-      console.log(`策略: ${stakeholderStrategy}`);
-      console.log(`阶段: ${currentStage}`);
-      console.log(`结构更改: ${structuralChanges.join(', ')}`);
-      console.log(`质量检查: ${qualityChecks.join(', ')}`);
-    }
-
-
-    // 基于用户判断更新中文解释
-    // 基于用户判断更新中文解释（简化版，主要逻辑已在regenerateBasedOnJudgment中处理）
-    function updateChineseExplanationBasedOnJudgment(context, judgment) {
-      // 此函数现在主要作为兼容性层
-      // 主要逻辑已在regenerateBasedOnJudgment中实现
-      console.log('📝 updateChineseExplanationBasedOnJudgment called (legacy)');
-    }
-
-    // 基于用户判断更新AI建议
-    function updateAIRecommendationBasedOnJudgment(judgment) {
-      if (!currentStakeholder) return;
-
-      let recommendation = '';
-      let reason = '';
-
-      if (judgment.includes('延迟') || judgment.includes('wait')) {
-        recommendation = '建议等待1-2周后联系';
-        reason = `基于您的判断: "${judgment.substring(0, 30)}..."`;
-      } else if (judgment.includes('紧急') || judgment.includes('urgent')) {
-        recommendation = '建议24小时内联系';
-        reason = `基于您的判断: "${judgment.substring(0, 30)}..."`;
-      } else {
-        recommendation = '建议按原计划联系';
-        reason = `基于您的判断: "${judgment.substring(0, 30)}..."`;
-      }
-
-      const suggestionDiv = document.querySelector('.bg-green-50 .bg-white');
-      if (suggestionDiv) {
-        suggestionDiv.innerHTML = `
-          <div class="text-sm font-medium text-gray-800 mb-1">${recommendation}</div>
-          <div class="text-xs text-gray-600">${reason}</div>
-        `;
-      }
-    }
-
-    // 初始化利益相关者感知引擎
-    function initializeStakeholderEngine() {
-      // 默认选择第一个利益相关者
-      const defaultStakeholder = 'vinod';
-      document.getElementById('stakeholder-selector').value = defaultStakeholder;
-      loadStakeholderContext(defaultStakeholder);
-      
-      console.log('🎯 利益相关者感知行动引擎已初始化');
-      console.log(`默认选择: ${stakeholderContexts[defaultStakeholder].name}`);
-    }
-
-    // 在DOM加载完成后初始化
-    document.addEventListener('DOMContentLoaded', function() {
-      // 初始化利益相关者感知引擎
-      initializeStakeholderEngine();
-      
-      console.log('🚀 利益相关者感知行动引擎功能:');
-      console.log('• loadStakeholderContext(id) - 加载利益相关者上下文');
-      console.log('• quickSwitchStakeholder(id) - 快速切换利益相关者');
-      console.log('• regenerateEmail() - 重新生成邮件');
-      console.log('• generateCallScript() - 生成通话脚本');
-    });
-
+    function reviewBlockers() { alert('请在阻塞面板中查看详情。'); }
+
+    // --- Init ---
+    loadTasks();
+    renderTasks();
+    updateActionCount();
   </script>
 
 </body>
 </html>
-HTML && echo "✅ 文件修改完成" && echo "" && echo "检查修改差异..." && diff -u index.html.backup index.html | head -30
