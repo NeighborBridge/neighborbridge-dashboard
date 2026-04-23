@@ -34,7 +34,8 @@
     .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; }
     .blocker { padding: 8px 12px; border-radius: 6px; border: 1px solid #fca5a5; background: #fef2f2; }
     .material-row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; }
-    .decision-option { padding: 6px 10px; border-radius: 6px; border: 1px solid #e5e7eb; margin-bottom: 4px; }
+    .priority-card { padding: 8px 10px; border-radius: 6px; border: 1px solid #e5e7eb; margin-bottom: 4px; }
+    .elevator-line { padding: 8px 12px; border-radius: 6px; border: 1px dashed #a78bfa; background: #f5f3ff; }
   </style>
 </head>
 <body>
@@ -63,7 +64,7 @@
     <!-- Page title -->
     <div class="mb-3">
       <h2 class="text-base font-bold">🎓 Faculty Pathway（教职路径）</h2>
-      <p class="text-[10px] text-gray-400">长期教职战略规划 · 保持多校可选性</p>
+      <p class="text-[10px] text-gray-400">最适角色：社区基础 × 实施导向 × 临床锚点的 faculty role</p>
     </div>
 
     <!-- ============ 1. 总目标 ============ -->
@@ -72,15 +73,20 @@
         <h3 class="text-sm font-bold">🎯 总目标</h3>
         <span class="badge bg-purple-100 text-purple-800 text-[10px]">战略核心</span>
       </div>
-      <div class="text-xs space-y-1">
-        <p><span class="font-medium">长期目标：</span>获得可持续的教职路径，以行为健康实施科学为学术锚点</p>
-        <p><span class="font-medium">主要方向：</span>Duke相关教职（如可行），借助现有学术网络和NC本地优势</p>
-        <p><span class="font-medium">可选性：</span>保持多校可能——不锁定单一机构，持续评估Duke内外机会</p>
-        <p><span class="text-[10px] text-gray-400">定位：实施型研究员 + 临床-学术混合角色，非传统 tenure-track 路径</span></p>
+      <div class="text-xs space-y-1.5">
+        <p><span class="font-medium">目标：</span>获得可持续的教职路径，核心是 <strong>社区-实施-临床三位一体</strong> 的角色定位——不是"随便一个教职"，而是最合适的一个。</p>
+        <p><span class="font-medium">理想角色需同时满足：</span></p>
+        <ul class="list-disc pl-4 text-[11px] space-y-0.5 text-gray-500">
+          <li><span class="text-purple-600 font-medium">学术合法性</span> — 有研究 / 发表出口，参与学术社区</li>
+          <li><span class="text-green-600 font-medium">实施领导力</span> — 在北卡主导真实世界的 FASD/NDD 路径搭建</li>
+          <li><span class="text-blue-600 font-medium">社区灵活性</span> — 能与基层、学校、教会、CHW、支付方合作</li>
+          <li><span class="text-orange-600 font-medium">临床锚点</span> — 保持基层临床接触，实践而非纯理论</li>
+        </ul>
+        <p class="text-[10px] text-gray-400 mt-1">不是传统 tenure-track 学术路径，而是以社区实施为根基的角色</p>
       </div>
     </div>
 
-    <!-- ============ 2. 目标院校 / 目标平台 ============ -->
+    <!-- ============ 2. 目标院校 / 平台 ============ -->
     <div class="sec-card accent-blue">
       <div class="flex justify-between items-center mb-2">
         <h3 class="text-sm font-bold">🏛️ 目标院校 / 平台</h3>
@@ -101,29 +107,15 @@
           </div>
         </div>
 
-        <!-- Duke alternative academic home -->
+        <!-- Other options -->
         <div class="target-card">
           <div class="flex justify-between items-start mb-1">
-            <div class="font-medium text-xs">Duke — 其他学术归宿</div>
-            <span class="badge bg-blue-100 text-blue-800 text-[10px]">待探索</span>
-          </div>
-          <div class="grid grid-cols-2 gap-1 text-[10px] text-gray-500">
-            <div><span class="text-gray-400">契合度：</span><span class="text-yellow-600">中</span> — 取决于具体院系</div>
-            <div><span class="text-gray-400">关键联系人：</span>待确认</div>
-            <div><span class="text-gray-400">当前状态：</span>未探索，保留选项</div>
-            <div><span class="text-gray-400">下一步：</span>优先聚焦Duke Psychiatry方向</div>
-          </div>
-        </div>
-
-        <!-- Other future options -->
-        <div class="target-card">
-          <div class="flex justify-between items-start mb-1">
-            <div class="font-medium text-xs">其他未来选项</div>
-            <span class="badge bg-gray-100 text-gray-600 text-[10px]">占位</span>
+            <div class="font-medium text-xs">其他潜在平台</div>
+            <span class="badge bg-gray-100 text-gray-600 text-[10px]">待评估</span>
           </div>
           <div class="text-[10px] text-gray-400 space-y-0.5">
-            <p>—— 保持开放，待后续评估 ——</p>
-            <p>可能方向：UNC / NC Central / 其他NC及非NC院校</p>
+            <p>—— 保持开放，不锁定 Duke 单一方向 ——</p>
+            <p>可能方向：UNC / NC Central / 其他NC及非NC院校，以社区实施匹配度为标准</p>
           </div>
         </div>
       </div>
@@ -144,8 +136,8 @@
           </div>
           <div class="text-[10px] text-gray-500 space-y-0.5">
             <p><span class="text-gray-400">当前价值：</span>提供implementation视角的学术校准，评估pilot可持续性</p>
-            <p><span class="text-gray-400">可解锁：</span>Duke内部引荐（通过其Duke联系）/ 学术声誉背书 / 角色定位建议</p>
-            <p><span class="text-gray-400">下一步：</span>发1-page brief → 跟进Duke内部关系</p>
+            <p><span class="text-gray-400">可解锁：</span>Duke内部引荐 / 学术声誉背书 / 角色定位建议</p>
+            <p><span class="text-gray-400">下一步：</span>发1-page brief（统一叙事）→ 跟进Duke内部关系</p>
           </div>
         </div>
 
@@ -180,40 +172,54 @@
     <!-- ============ 4. Faculty 类型澄清 ============ -->
     <div class="sec-card accent-orange">
       <div class="flex justify-between items-center mb-2">
-        <h3 class="text-sm font-bold">📋 Faculty 类型澄清</h3>
-        <span class="badge bg-orange-100 text-orange-800 text-[10px]">需决策</span>
+        <h3 class="text-sm font-bold">📋 Faculty 类型优先级</h3>
+        <span class="badge bg-orange-100 text-orange-800 text-[10px]">已明确</span>
       </div>
       <div class="space-y-1.5 text-xs">
-        <p class="text-gray-400 mb-1">当前需明确的角色定位——以下为候选方向：</p>
-        <div class="decision-option">
+        <p class="text-[10px] text-gray-400 mb-1">最适合的角色类型已明确——以下是优先级排序：</p>
+
+        <!-- 1st Priority -->
+        <div class="priority-card border-green-300 bg-green-50">
           <div class="flex items-center gap-1">
-            <input type="radio" name="faculty-type" id="ft1" class="w-3 h-3" checked>
-            <label for="ft1" class="font-medium">Adjunct / Affiliate Professor</label>
+            <span class="w-2 h-2 rounded-full bg-green-500 inline-block"></span>
+            <span class="font-medium text-green-700 text-[11px]">第一优先</span>
           </div>
-          <p class="text-[10px] text-gray-400 ml-5">保留耶鲁Adjunct身份整合价值，适合轻量级学术参与</p>
+          <p class="text-[11px] font-medium">社区-实施-临床锚点 faculty role</p>
+          <p class="text-[9px] text-gray-500">community-engaged, implementation-oriented, clinically anchored faculty role</p>
+          <p class="text-[10px] text-gray-400 mt-0.5">真正的最佳匹配：以社区真实世界为实验室，以实施科学为方法论，以基层临床为锚点</p>
         </div>
-        <div class="decision-option">
+
+        <!-- 2nd Priority -->
+        <div class="priority-card border-blue-200 bg-blue-50">
           <div class="flex items-center gap-1">
-            <input type="radio" name="faculty-type" id="ft2" class="w-3 h-3">
-            <label for="ft2" class="font-medium">Clinical / Research Hybrid</label>
+            <span class="w-2 h-2 rounded-full bg-blue-500 inline-block"></span>
+            <span class="font-medium text-blue-700 text-[11px]">第二优先</span>
           </div>
-          <p class="text-[10px] text-gray-400 ml-5">实施科学导向，教学+研究+社区合作混合角色</p>
+          <p class="text-[11px] font-medium">儿童/发育/社区精神医学导向 + 实施关联性</p>
+          <p class="text-[10px] text-gray-400">child / developmental / community psychiatry — 有implementation relevance的角色</p>
         </div>
-        <div class="decision-option">
+
+        <!-- 3rd Priority -->
+        <div class="priority-card border-gray-200 bg-gray-50">
           <div class="flex items-center gap-1">
-            <input type="radio" name="faculty-type" id="ft3" class="w-3 h-3">
-            <label for="ft3" class="font-medium">Implementation-Oriented Academic Role</label>
+            <span class="w-2 h-2 rounded-full bg-gray-400 inline-block"></span>
+            <span class="font-medium text-gray-600 text-[11px]">第三优先（入口选项）</span>
           </div>
-          <p class="text-[10px] text-gray-400 ml-5">以实践为本的学术定位，聚焦行为健康实施科学</p>
+          <p class="text-[11px] font-medium">Adjunct / Affiliate — 轻量入口</p>
+          <p class="text-[10px] text-gray-400">如第一、第二优先不可立即实现，以轻量级角色建立学术立足点，逐步演进</p>
         </div>
-        <div class="decision-option">
+
+        <!-- Not preferred -->
+        <div class="priority-card border-red-200 bg-red-50 mt-1.5">
           <div class="flex items-center gap-1">
-            <input type="radio" name="faculty-type" id="ft4" class="w-3 h-3">
-            <label for="ft4" class="font-medium">Part-Time Faculty</label>
+            <span class="w-2 h-2 rounded-full bg-red-400 inline-block"></span>
+            <span class="font-medium text-red-600 text-[11px]">不优先</span>
           </div>
-          <p class="text-[10px] text-gray-400 ml-5">低投入起步选项，适合保持现有LLC项目的同时建立学术立足点</p>
+          <div class="text-[10px] text-gray-500 space-y-0.5">
+            <p>✗ 纯论文 / 纯传统学术研究 role（不是实施科学家方向）</p>
+            <p>✗ 纯RVU驱动的高门诊量临床 faculty role（不是路径搭建者方向）</p>
+          </div>
         </div>
-        <p class="text-[10px] text-gray-400 mt-1.5">💡 建议：先用 <strong>Adjunct + Implementation Research</strong> 混合模式开启对话，灵活调整</p>
       </div>
     </div>
 
@@ -224,31 +230,70 @@
         <span class="badge bg-green-100 text-green-800 text-[10px]">待构建</span>
       </div>
       <div class="space-y-1.5 text-xs">
-        <div class="p-2 rounded border border-gray-100">
-          <p class="font-medium mb-0.5">当前支持模式</p>
-          <p class="text-gray-500 text-[10px]">主要由LLC项目收入支撑，暂无专属学术资金或教职薪资</p>
+        <p class="text-[10px] text-gray-500 mb-1">理想角色需要同时支撑四方面所需，而非临时拼凑：</p>
+
+        <div class="grid grid-cols-2 gap-1.5">
+          <div class="p-1.5 rounded border border-purple-100 bg-purple-50">
+            <p class="font-medium text-[10px] text-purple-700">学术合法性</p>
+            <p class="text-[9px] text-gray-500">院校薪资/研究时间保障<br>发表渠道/学术身份</p>
+          </div>
+          <div class="p-1.5 rounded border border-blue-100 bg-blue-50">
+            <p class="font-medium text-[10px] text-blue-700">操作灵活性</p>
+            <p class="text-[9px] text-gray-500">时间分配自主权<br>与LLC项目兼容</p>
+          </div>
+          <div class="p-1.5 rounded border border-green-100 bg-green-50">
+            <p class="font-medium text-[10px] text-green-700">社区/系统合作</p>
+            <p class="text-[9px] text-gray-500">FQHC/学校/教会/CHW/支付方<br>路径搭建无需层层审批</p>
+          </div>
+          <div class="p-1.5 rounded border border-orange-100 bg-orange-50">
+            <p class="font-medium text-[10px] text-orange-700">NC可持续实施</p>
+            <p class="text-[9px] text-gray-500">外部资助 ≥1年<br>FASD/NDD路径持续推进</p>
+          </div>
         </div>
-        <div class="p-2 rounded border border-gray-100">
-          <p class="font-medium mb-0.5">可能的NC支持逻辑</p>
-          <ul class="text-gray-500 text-[10px] list-disc pl-4 space-y-0.5">
-            <li>NC DHHS / 州级行为健康资金（通过Holly Warren网络）</li>
-            <li>FQHC协作资金（实施科学项目经费）</li>
-            <li>NC学术-社区合作基金（CBPR / 实施科学专项）</li>
-            <li>Duke Psychiatry潜在启动资金（如Adjunct角色匹配）</li>
+
+        <p class="text-[10px] text-gray-400 mt-1">资金模型理想比例：院校 50% + 外部资助 30% + 咨询/服务 20%。需从软资金启动过渡到混合支持。</p>
+      </div>
+    </div>
+
+    <!-- ============ 6. 材料主线 / 对外表达 ============ -->
+    <div class="sec-card accent-purple">
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-sm font-bold">📢 材料主线 / 对外表达</h3>
+        <span class="badge bg-purple-100 text-purple-800 text-[10px]">统一叙事</span>
+      </div>
+      <div class="text-xs space-y-1">
+        <p class="text-[10px] text-gray-500">未来给 Vinod / Duke 等所有人的材料应传递一个统一的主线：</p>
+        <div class="p-2 rounded border border-purple-100 bg-purple-50/50 text-[11px] space-y-1">
+          <p><span class="font-medium">主线：</span>Richard 的工作不是一组零散的项目或想法，而是一条完整的系统路径——</p>
+          <ul class="list-disc pl-4 text-[10px] text-gray-500 space-y-0.5">
+            <li>为 FASD / NDD 的 <span class="font-medium text-purple-600">早期识别</span> 和 <span class="font-medium text-purple-600">长期支持</span> 搭建真实世界的持续路径</li>
+            <li>跨越初级保健、家庭、学校、社区/教会、CHW、支付方系统</li>
+            <li>以实施科学为方法论，以社区为实验室</li>
           </ul>
-        </div>
-        <div class="p-2 rounded border border-gray-100">
-          <p class="font-medium mb-0.5">可持续性问题</p>
-          <p class="text-gray-500 text-[10px]">教职可持续性需要：明确的资金源（>=1年承诺）+ 教学/研究时间分配 + 行政支持。当前LLC收入可补充但不可完全替代学术薪资。建议：先以软资金模式启动，逐步过渡到混合支持</p>
-        </div>
-        <div class="p-2 rounded border border-gray-100">
-          <p class="font-medium mb-0.5">支持可持续教职所需</p>
-          <p class="text-gray-500 text-[10px]">(1) 外部研究/实施资助；(2) 院校部分薪资匹配；(3) 服务合同收入补充。理想比例：院校50% + 外部资助30% + 咨询/服务20%</p>
+          <p class="text-[10px] text-gray-400 mt-0.5">每个项目（试点、FASD路径、Trillium整合）都是这条主线的具体节点，而非独立想法。</p>
         </div>
       </div>
     </div>
 
-    <!-- ============ 6. 材料准备情况 ============ -->
+    <!-- ============ 7. 可直接复用的一句话定位 ============ -->
+    <div class="sec-card accent-green">
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-sm font-bold">🎯 一句话定位</h3>
+        <span class="badge bg-green-100 text-green-800 text-[10px]">可复用</span>
+      </div>
+      <div class="space-y-1.5">
+        <div class="elevator-line">
+          <p class="text-[10px] text-purple-500 font-medium mb-0.5">中文</p>
+          <p class="text-xs">Richard 最适合争取的是一个以社区为基础、以实施为导向、并有基层临床锚点的 faculty role，使其能够围绕 FASD / NDD 的早期识别与长期支持路径，在北卡进行搭建、实施与研究。</p>
+        </div>
+        <div class="elevator-line">
+          <p class="text-[10px] text-blue-500 font-medium mb-0.5">English</p>
+          <p class="text-xs">Richard is best suited for a community-engaged, implementation-oriented, clinically anchored faculty role that allows him to build, study, and sustain real-world pathways for early identification and longitudinal support of FASD / NDD in North Carolina.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 8. 材料准备情况 ============ -->
     <div class="sec-card">
       <div class="flex justify-between items-center mb-2">
         <h3 class="text-sm font-bold">📄 材料准备情况</h3>
@@ -286,7 +331,7 @@
       </div>
     </div>
 
-    <!-- ============ 7. 当前阻塞 / 下一步动作 ============ -->
+    <!-- ============ 9. 当前阻塞 / 下一步动作 ============ -->
     <div class="sec-card accent-red">
       <div class="flex justify-between items-center mb-2">
         <h3 class="text-sm font-bold">🚧 当前阻塞 / 下一步动作</h3>
@@ -300,9 +345,9 @@
           <div class="blocker text-[10px]">
             <div class="flex items-center gap-1.5">
               <span class="w-1.5 h-1.5 rounded-full bg-red-500 inline-block"></span>
-              <span class="font-medium">角色定位不明确</span>
+              <span class="font-medium">角色定位已明确但未对外沟通</span>
             </div>
-            <p class="text-gray-500 ml-3">需与Vinod / Duke确认Adjunct vs. Implementation Research角色的匹配度</p>
+            <p class="text-gray-500 ml-3">类型优先级已确定，但 Vinod / Duke 尚未看到统一叙事</p>
           </div>
           <div class="blocker text-[10px]">
             <div class="flex items-center gap-1.5">
@@ -328,13 +373,13 @@
           <button class="w-full text-left p-2 rounded border border-green-200 bg-green-50 text-[10px]">
             <div class="flex items-center gap-1.5">
               <i class="fas fa-pen text-green-600 text-[10px] w-3"></i>
-              <span><span class="font-medium">P0</span> 起草1-page brief（实施科学方向）</span>
+              <span><span class="font-medium">P0</span> 起草1-page brief（统一主线叙事）</span>
             </div>
           </button>
           <button class="w-full text-left p-2 rounded border border-green-200 bg-green-50 text-[10px]">
             <div class="flex items-center gap-1.5">
               <i class="fas fa-envelope text-green-600 text-[10px] w-3"></i>
-              <span><span class="font-medium">P0</span> 跟Vinod发1-page brief → 跟进Duke内部关系</span>
+              <span><span class="font-medium">P0</span> 发1-page brief给Vinod → 跟进Duke</span>
             </div>
           </button>
           <button class="w-full text-left p-2 rounded border border-blue-200 bg-blue-50 text-[10px]">
