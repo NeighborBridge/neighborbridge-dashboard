@@ -249,6 +249,59 @@
 
   </div>
 
+  <!--
+    ===== NEIGHBORBRIDGE STRUCTURED DATA (Phase 1) =====
+    Machine-readable schema for AI-agent automation.
+    Schema: docs/structured-data-schema.md
+  -->
+  <script type="application/json" id="nb-tasks">[
+    {
+      "type": "task",
+      "id": 1,
+      "title_cn": "联系Vinod Srihari",
+      "priority": "high",
+      "status": "not_started",
+      "owner": "Richard",
+      "due_date": "2026-04-30",
+      "can_agent_execute": true,
+      "requires_user_approval": true,
+      "next_action": "draft 1-page summary brief covering implementation logic, pathway design, ECHO integration",
+      "success_definition_cn": "Vinod收到brief并表示愿意进一步讨论pilot逻辑",
+      "linked_stakeholder_id": "YALE-PSYCH-001",
+      "updated_at": "2026-04-23"
+    },
+    {
+      "type": "task",
+      "id": 2,
+      "title_cn": "发送Medical Director沟通",
+      "priority": "medium",
+      "status": "done",
+      "owner": "Richard",
+      "due_date": "2026-04-15",
+      "can_agent_execute": true,
+      "requires_user_approval": true,
+      "next_action": "check for response",
+      "success_definition_cn": "Medical Director已阅读FQHC执行卡模板",
+      "linked_stakeholder_id": "",
+      "updated_at": "2026-04-23"
+    },
+    {
+      "type": "task",
+      "id": 3,
+      "title_cn": "评估FASD护理路径实施",
+      "priority": "high",
+      "status": "in_progress",
+      "owner": "Richard",
+      "due_date": "2026-05-15",
+      "can_agent_execute": false,
+      "requires_user_approval": true,
+      "next_action": "draft implementation feasibility analysis for Trillium environment",
+      "success_definition_cn": "完成FASD护理路径在Trillium环境中的可行性评估",
+      "linked_stakeholder_id": "NC-FASD-001",
+      "updated_at": "2026-04-01"
+    }
+  ]</script>
+
   <script>
     function go(u) { window.location.href = u; }
     const TASKS_KEY = 'neighborbridge_tasks';
