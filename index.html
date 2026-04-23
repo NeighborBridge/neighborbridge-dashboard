@@ -250,10 +250,66 @@
   </div>
 
   <!--
-    ===== NEIGHBORBRIDGE STRUCTURED DATA (Phase 1) =====
+    ===== NEIGHBORBRIDGE STRUCTURED DATA (Phase 1-2) =====
     Machine-readable schema for AI-agent automation.
     Schema: docs/structured-data-schema.md
   -->
+  <script type="application/json" id="nb-dashboard-meta">{
+    "type": "dashboard_metadata",
+    "page_id": "neighborbridge-main",
+    "page_name": "NeighborBridge Main Dashboard",
+    "page_name_cn": "NeighborBridge 主面板",
+    "dashboard_role_cn": "高层战略执行指挥面板 — 浓缩、信号密集、行动优先。非叙事性文档。",
+    "is_main_dashboard": true,
+    "version": "1.0.0",
+    "last_updated": "2026-04-23",
+    "structured_object_types": ["stakeholders", "tasks", "connections", "blockers", "actions"],
+    "structured_block_ids": ["#nb-dashboard-meta", "#nb-tasks", "#nb-connections", "#nb-blockers", "#nb-actions"],
+    "bootstrap_read_order": ["#nb-dashboard-meta", "#nb-actions", "#nb-blockers", "#nb-connections", "#nb-tasks", "#nb-stakeholders"],
+    "page_priority": "high",
+    "default_language": "zh-CN",
+    "mobile_first": true,
+    "auto_push_default": true,
+    "requires_user_approval_for_live_changes": false,
+    "brief_summary_cn": "NeighborBridge执行指挥面板。紧凑布局，中文优先，移动端适配。包含5个结构化数据层：stakeholders/tasks/connections/blockers/actions。",
+    "status_counts": {
+      "stakeholder_count": 2,
+      "task_count": 3,
+      "connection_count": 3,
+      "blocker_count": 3,
+      "action_count": 4
+    },
+    "priority_snapshot": {
+      "high_priority_count": 10,
+      "medium_priority_count": 3,
+      "low_priority_count": 0
+    },
+    "section_presence": {
+      "has_actions": true,
+      "has_status_overview": true,
+      "has_connections": true,
+      "has_blockers": true,
+      "has_tasks": true
+    },
+    "agent_behavior_flags": {
+      "use_workspace_recovery_first": true,
+      "auto_push_after_verified_dashboard_edits": true,
+      "keep_ui_compact": true,
+      "chinese_first_visible_content": true
+    },
+    "recommended_agent_start_point": "Read #nb-dashboard-meta first, then follow bootstrap_read_order. This is a compact executive dashboard. Read sections in order, do not generate content unless the task explicitly requests it.",
+    "recommended_next_structured_object_type": "nb-metrics (dashboard-level KPIs and health indicators)",
+    "auto_push_rule": "On the NeighborBridge dashboard, production-ready edits are auto-committed and pushed to GitHub main by default. Richard must explicitly say 'don\u2019t deploy yet' to skip. Applies to: index.html, stakeholders.html, fqhc.html, trillium.html, adoption.html, emergency-plan.html, fasd-care-pathway.html, shared.css, related docs. Skip conditions: Richard says no, draft/preview, GitHub auth unavailable, local verification fails, content awaiting approval.",
+    "notes_for_agents": [
+      "This is an executive command dashboard \u2014 high signal density, minimal prose. Read, don\u2019t narrate.",
+      "All visible content is Chinese-first. English is only used for proper nouns (names, brands) and code/machine references.",
+      "The structured JSON blocks are invisible to the browser. Do not expose them in the visible UI.",
+      "Do not change visible layout unless the task explicitly requires it.",
+      "After editing dashboard files, always verify: JSON validity, HTML structure, localStorage behavior, no visible regression.",
+      "Schema docs are at docs/structured-data-schema.md. Update them when adding new object types."
+    ]
+  }</script>
+
   <script type="application/json" id="nb-tasks">[
     {
       "type": "task",
