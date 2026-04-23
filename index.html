@@ -421,6 +421,99 @@
     }
   }</script>
 
+  <script type="application/json" id="nb-actions">{
+    "summary": {
+      "section_title_cn": "可执行（今天）",
+      "total_actions": 4,
+      "completed_actions": 0,
+      "pending_actions": 4,
+      "last_updated": "2026-04-23",
+      "section_status": "pending"
+    },
+    "actions": [
+      {
+        "type": "action",
+        "id": "ACT-001",
+        "title_cn": "发送Medical Director消息",
+        "priority": "high",
+        "status": "not_started",
+        "owner": "Richard",
+        "linked_dashboard": "/fqhc",
+        "related_stakeholders": [],
+        "brief_summary_cn": "使用FQHC面板中的模板发送消息给Medical Director",
+        "next_step_cn": "打开FQHC面板，使用执行卡模板",
+        "can_agent_execute": false,
+        "requires_user_approval": true,
+        "agent_execution_level": "draft_with_review",
+        "completion_state": "pending",
+        "due_date": "2026-04-24",
+        "trigger_source": "/fqhc",
+        "success_definition_cn": "Medical Director已通过FQHC模板接收并阅读消息",
+        "updated_at": "2026-04-23"
+      },
+      {
+        "type": "action",
+        "id": "ACT-002",
+        "title_cn": "联系Vinod Srihari",
+        "priority": "high",
+        "status": "not_started",
+        "owner": "Richard",
+        "linked_dashboard": "/stakeholders",
+        "related_stakeholders": ["YALE-PSYCH-001"],
+        "brief_summary_cn": "讨论学术合作机会 - Trillium试点在FQHC中的学术支持",
+        "next_step_cn": "打开Stakeholders面板查看Vinod的总结，准备1-page brief",
+        "can_agent_execute": true,
+        "requires_user_approval": true,
+        "agent_execution_level": "draft_with_review",
+        "completion_state": "pending",
+        "due_date": "2026-04-30",
+        "trigger_source": "/stakeholders",
+        "success_definition_cn": "Vinod收到brief并同意进一步讨论pilot逻辑和FQHC合作",
+        "updated_at": "2026-04-23"
+      },
+      {
+        "type": "action",
+        "id": "ACT-003",
+        "title_cn": "更新Trillium优先级",
+        "priority": "medium",
+        "status": "not_started",
+        "owner": "Richard",
+        "linked_dashboard": "/trillium",
+        "related_stakeholders": [],
+        "brief_summary_cn": "基于FQHC试点可行性重新评估Trillium优先级",
+        "next_step_cn": "打开Trillium面板，根据最新试点可行性更新优先级",
+        "can_agent_execute": false,
+        "requires_user_approval": true,
+        "agent_execution_level": "draft_only",
+        "completion_state": "pending",
+        "due_date": "2026-04-30",
+        "trigger_source": "/trillium",
+        "success_definition_cn": "Trillium优先级已根据FQHC试点可行性更新",
+        "updated_at": "2026-04-23"
+      },
+      {
+        "type": "action",
+        "id": "ACT-004",
+        "title_cn": "审查阻塞项",
+        "priority": "high",
+        "status": "not_started",
+        "owner": "Richard",
+        "linked_dashboard": "/",
+        "related_stakeholders": [],
+        "brief_summary_cn": "审查所有阻塞项并分配责任和时间线",
+        "next_step_cn": "审查阻塞面板，为每个阻塞项分配责任人和deadline",
+        "can_agent_execute": false,
+        "requires_user_approval": true,
+        "agent_execution_level": "draft_with_review",
+        "completion_state": "pending",
+        "due_date": "2026-04-24",
+        "trigger_source": "/",
+        "success_definition_cn": "所有阻塞项已分配责任人并有明确的时间线",
+        "updated_at": "2026-04-23"
+      }
+    ]
+  }</script>
+
   <script>
     function go(u) { window.location.href = u; }
     const TASKS_KEY = 'neighborbridge_tasks';

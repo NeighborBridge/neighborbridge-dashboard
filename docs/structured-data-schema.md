@@ -10,11 +10,17 @@ Machine-readable structured data embedded in HTML files to enable AI-agent autom
 |---|---|---|
 | Stakeholders | `stakeholders.html` | `#nb-stakeholders` |
 | Tasks | `index.html` | `#nb-tasks` |
+| Connections | `index.html` | `#nb-connections` |
+| Blockers | `index.html` | `#nb-blockers` |
+| Actions | `index.html` | `#nb-actions` |
 
-## Objects Migrated (Phase 1)
+## Objects Migrated (Phase 1–2)
 
 - **Stakeholders**: Vinod Srihari (YALE-PSYCH-001), Dr. Holly Warren (NC-FASD-001)
 - **Tasks**: Task 1 (联系Vinod), Task 2 (Medical Director沟通), Task 3 (FASD护理路径)
+- **Connections**: FQHC↔Trillium (CONN-001), Vinod Srihari↔当前需求 (CONN-002), Medical Director↔风险对齐 (CONN-003)
+- **Blockers**: FQHC Medical Director未对齐 (BLKR-001), Trillium试点入口缺失 (BLKR-002), 学术-商业整合延迟 (BLKR-003)
+- **Actions**: 发送Medical Director消息 (ACT-001), 联系Vinod Srihari (ACT-002), 更新Trillium优先级 (ACT-003), 审查阻塞项 (ACT-004)
 
 ## Schema
 
@@ -121,6 +127,47 @@ The blockers block also includes a top-level `dashboard_summary` object:
 }
 ```
 
+### Action
+
+```json
+{
+  "type": "action",
+  "id": "string — stable unique ID",
+  "title_cn": "string — Chinese title",
+  "priority": "high | medium | low",
+  "status": "not_started | in_progress | ready_for_review | blocked | done",
+  "owner": "string",
+  "linked_dashboard": "string — dashboard path",
+  "related_stakeholders": ["string — stakeholder IDs"],
+  "brief_summary_cn": "string — one-line Chinese summary",
+  "next_step_cn": "string — next actionable step in Chinese",
+  "can_agent_execute": "boolean",
+  "requires_user_approval": "boolean",
+  "agent_execution_level": "manual_only | draft_only | draft_with_review | execute_with_review | auto_execute",
+  "completion_state": "pending | done",
+  "due_date": "YYYY-MM-DD",
+  "trigger_source": "string — what triggers this action",
+  "success_definition_cn": "string — Chinese success criteria",
+  "updated_at": "YYYY-MM-DD"
+}
+```
+
+Each `#nb-actions` block also includes a top-level `summary` object:
+
+```json
+{
+  "summary": {
+    "section_title_cn": "string",
+    "total_actions": "number",
+    "completed_actions": "number",
+    "pending_actions": "number",
+    "last_updated": "YYYY-MM-DD",
+    "section_status": "pending | partial | done"
+  },
+  "actions": [ ... ]
+}
+```
+
 ## Status Vocabulary
 
 ### Stakeholder statuses
@@ -180,6 +227,18 @@ For new fields, prefer backward-compatible additions (optional fields with defau
 - `active` — currently blocking progress
 - `monitoring` — exists but not actively blocking yet
 - `resolved` — blocker has been addressed
+
+### Action statuses
+- `not_started` — pending, not yet begun
+- `in_progress` — actively being worked on
+- `ready_for_review` — completed, needs user review
+- `blocked` — cannot proceed
+- `done` — completed
+
+### Action section_status values
+- `pending` — no actions completed yet
+- `partial` — some actions completed
+- `done` — all actions completed
 
 ## UI → Schema Status Mapping (Blockers)
 
