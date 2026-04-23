@@ -302,6 +302,125 @@
     }
   ]</script>
 
+  <script type="application/json" id="nb-connections">[
+    {
+      "type": "connection",
+      "id": "CONN-001",
+      "title_cn": "FQHC ↔ Trillium",
+      "left_entity": "FQHC",
+      "right_entity": "Trillium",
+      "connection_type": "pilot_opportunity",
+      "priority": "high",
+      "status": "pending",
+      "brief_summary_cn": "在FQHC中测试Trillium screening + referral支持层",
+      "why_it_matters_cn": "试点验证是整个FASD路径落地的关键第一步，FQHC是基层入口，Trillium是支付方，两者对齐才能启动",
+      "next_action": "align Medical Director + secure 1-2 FQHC pilot sites",
+      "next_action_due": "2026-05-15",
+      "related_stakeholders": ["YALE-PSYCH-001", "NC-FASD-001"],
+      "related_dashboards": ["/fqhc", "/trillium"],
+      "agent_execution_level": "draft_only",
+      "updated_at": "2026-04-23"
+    },
+    {
+      "type": "connection",
+      "id": "CONN-002",
+      "title_cn": "Vinod Srihari ↔ 当前需求",
+      "left_entity": "Vinod Srihari",
+      "right_entity": "当前需求",
+      "connection_type": "academic_backing",
+      "priority": "high",
+      "status": "active",
+      "brief_summary_cn": "耶鲁精神科教授可提供学术背书和FQHC网络",
+      "why_it_matters_cn": "Vinod的学术legitimacy和implementation经验能增强pilot的可信度，同时他所在的Yale网络可能提供FQHC关系",
+      "next_action": "send 1-page implementation brief and request pathway design review",
+      "next_action_due": "2026-04-30",
+      "related_stakeholders": ["YALE-PSYCH-001"],
+      "related_dashboards": ["/stakeholders"],
+      "agent_execution_level": "draft_with_review",
+      "updated_at": "2026-04-23"
+    },
+    {
+      "type": "connection",
+      "id": "CONN-003",
+      "title_cn": "Medical Director ↔ 风险对齐",
+      "left_entity": "Medical Director",
+      "right_entity": "风险对齐",
+      "connection_type": "risk_boundary",
+      "priority": "high",
+      "status": "active",
+      "brief_summary_cn": "需要明确clinical/workflow/billing风险边界",
+      "why_it_matters_cn": "Medical Director是FQHC side的关键决策者，未对齐诊断边界和billing路径会阻塞整个pilot启动",
+      "next_action": "schedule alignment conversation clarifying diagnosis boundaries, workflow burden, reimbursement path",
+      "next_action_due": "2026-05-01",
+      "related_stakeholders": [],
+      "related_dashboards": ["/fqhc"],
+      "agent_execution_level": "draft_only",
+      "updated_at": "2026-04-23"
+    }
+  ]</script>
+
+  <script type="application/json" id="nb-blockers">{
+    "blockers": [
+      {
+        "type": "blocker",
+        "id": "BLKR-001",
+        "title_cn": "FQHC Medical Director未对齐",
+        "priority": "high",
+        "status": "active",
+        "impact_level": "high",
+        "brief_summary_cn": "诊断边界、workflow负担、reimbursement路径待明确",
+        "owner": "Richard",
+        "next_action": "schedule alignment conversation to clarify boundaries, workflow, and billing path",
+        "next_action_due": "2026-05-01",
+        "related_stakeholders": [],
+        "related_dashboards": ["/fqhc"],
+        "agent_execution_level": "manual_only",
+        "resolved_condition_cn": "Medical Director确认诊断边界、workflow和reimbursement路径的共识",
+        "updated_at": "2026-04-23"
+      },
+      {
+        "type": "blocker",
+        "id": "BLKR-002",
+        "title_cn": "Trillium试点入口缺失",
+        "priority": "high",
+        "status": "active",
+        "impact_level": "high",
+        "brief_summary_cn": "需要1-2个FQHC点位作为pilot起点",
+        "owner": "Richard",
+        "next_action": "identify and approach 1-2 FQHC sites for pilot participation",
+        "next_action_due": "2026-05-30",
+        "related_stakeholders": ["YALE-PSYCH-001", "NC-FASD-001"],
+        "related_dashboards": ["/fqhc", "/trillium"],
+        "agent_execution_level": "draft_only",
+        "resolved_condition_cn": "1-2个FQHC点位确认参与Trillium试点",
+        "updated_at": "2026-04-23"
+      },
+      {
+        "type": "blocker",
+        "id": "BLKR-003",
+        "title_cn": "学术-商业整合延迟",
+        "priority": "medium",
+        "status": "active",
+        "impact_level": "medium",
+        "brief_summary_cn": "耶鲁教授身份尚未最大化利用于商业项目",
+        "owner": "Richard",
+        "next_action": "develop strategy doc for academic-commercial integration, leveraging Yale identity",
+        "next_action_due": "2026-05-15",
+        "related_stakeholders": ["YALE-PSYCH-001"],
+        "related_dashboards": [],
+        "agent_execution_level": "draft_with_review",
+        "resolved_condition_cn": "耶鲁教授身份与商业项目形成明确的协同策略并开始执行",
+        "updated_at": "2026-04-23"
+      }
+    ],
+    "dashboard_summary": {
+      "impact_cn": "试点启动延迟 · 收入目标风险 · 战略执行受阻",
+      "total_active": 3,
+      "highest_impact_blocker_id": "BLKR-001",
+      "updated_at": "2026-04-23"
+    }
+  }</script>
+
   <script>
     function go(u) { window.location.href = u; }
     const TASKS_KEY = 'neighborbridge_tasks';

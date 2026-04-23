@@ -63,6 +63,64 @@ Machine-readable structured data embedded in HTML files to enable AI-agent autom
 }
 ```
 
+### Connection
+
+```json
+{
+  "type": "connection",
+  "id": "string — stable unique ID",
+  "title_cn": "string — Chinese display title",
+  "left_entity": "string — left side of connection",
+  "right_entity": "string — right side of connection",
+  "connection_type": "pilot_opportunity | academic_backing | risk_boundary | partnership | other",
+  "priority": "high | medium | low",
+  "status": "active | monitoring | pending | resolved",
+  "brief_summary_cn": "string — one-line Chinese summary",
+  "why_it_matters_cn": "string — paragraph explaining strategic importance",
+  "next_action": "string — actionable next step",
+  "next_action_due": "YYYY-MM-DD",
+  "related_stakeholders": ["string — stakeholder IDs"],
+  "related_dashboards": ["string — dashboard paths"],
+  "agent_execution_level": "manual_only | draft_only | draft_with_review | execute_with_review | auto_execute",
+  "updated_at": "YYYY-MM-DD"
+}
+```
+
+### Blocker
+
+```json
+{
+  "type": "blocker",
+  "id": "string — stable unique ID",
+  "title_cn": "string — Chinese title",
+  "priority": "high | medium | low",
+  "status": "active | monitoring | resolved",
+  "impact_level": "high | medium | low",
+  "brief_summary_cn": "string — one-line Chinese summary",
+  "owner": "string",
+  "next_action": "string — actionable next step",
+  "next_action_due": "YYYY-MM-DD",
+  "related_stakeholders": ["string — stakeholder IDs"],
+  "related_dashboards": ["string — dashboard paths"],
+  "agent_execution_level": "manual_only | draft_only | draft_with_review | execute_with_review | auto_execute",
+  "resolved_condition_cn": "string — what 'done' looks like in Chinese",
+  "updated_at": "YYYY-MM-DD"
+}
+```
+
+The blockers block also includes a top-level `dashboard_summary` object:
+
+```json
+{
+  "dashboard_summary": {
+    "impact_cn": "string — bottom-line impact sentence",
+    "total_active": "number",
+    "highest_impact_blocker_id": "string",
+    "updated_at": "YYYY-MM-DD"
+  }
+}
+```
+
 ## Status Vocabulary
 
 ### Stakeholder statuses
@@ -91,7 +149,7 @@ Machine-readable structured data embedded in HTML files to enable AI-agent autom
 
 ## Extending the Schema
 
-To migrate a new object type (e.g. blockers, connections, sub-dashboards):
+To migrate a new object type (e.g. sub-dashboards, action items, metrics):
 
 1. Add a `<script type="application/json" id="nb-{type}">` block to the appropriate HTML file
 2. Use the field naming conventions above (snake_case, English)
@@ -111,3 +169,21 @@ For new fields, prefer backward-compatible additions (optional fields with defau
 | 中优先级 | medium |
 | 通话后跟进 | awaiting_followup |
 | 高信任关系 / 本地关键盟友 | strategic_ally |
+
+### Connection statuses
+- `active` — actively leveraged or being developed
+- `monitoring` — exists, no immediate action needed
+- `pending` — identified but not yet activated
+- `resolved` — connection has achieved its purpose
+
+### Blocker statuses
+- `active` — currently blocking progress
+- `monitoring` — exists but not actively blocking yet
+- `resolved` — blocker has been addressed
+
+## UI → Schema Status Mapping (Blockers)
+
+| UI display | Schema value |
+|---|---|
+| 未对齐 / 缺失 / 延迟 | active |
+| 影响句 | dashboard_summary.impact_cn |
