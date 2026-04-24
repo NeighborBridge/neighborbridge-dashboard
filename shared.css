@@ -24,19 +24,28 @@
   --accent-purple: #a78bfa;
 }
 
-/* Dark Mode - Global System with Multi-Color Accents */
+/* Dark Mode - Soft Slate Dark Theme */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0b0f14;
-    --card: #121821;
-    --modal: #1e2632;
-    --text-primary: #e6edf3;
-    --text-secondary: #9fb0c3; /* Restore original secondary color */
-    --text-muted: #6e7681; /* Restore original muted color */
-    --heading: #f0f6fc;
-    --link: var(--accent-blue); /* Use accent-blue for links */
-    --border: #2a3441;
-    --hover-bg: rgba(255, 255, 255, 0.08);
+    --bg: #0f172a;       /* deep slate background */
+    --card: #1a2332;     /* soft dark card */
+    --modal: #1e293b;    /* modal surface */
+    --text-primary: #e2e8f0;   /* soft white */
+    --text-secondary: #94a3b8; /* readable slate */
+    --text-muted: #64748b;     /* muted but visible */
+    --heading: #f1f5f9;  /* brighter heading */
+    --link: var(--accent-blue);
+    --border: rgba(148, 163, 184, 0.2); /* subtle border */
+    --hover-bg: rgba(255, 255, 255, 0.04);
+  }
+
+  /* Multi-Color Accents - slightly softened for dark mode */
+  :root {
+    --accent-orange: #fbbf24;  /* warmer orange */
+    --accent-blue: #7cb4fa;    /* softer blue */
+    --accent-green: #6ee7b7;   /* softer green */
+    --accent-purple: #c4b5fd;  /* softer purple */
+    --accent-red: #f87171;     /* softer red */
   }
 
   /* Apply multi-color accent rules */
@@ -70,12 +79,198 @@
   .yale-mention, .harvard-mention {
     color: var(--accent-purple) !important;
   }
-  
+
+  /* Red: urgent, blockers, risk */
+  .text-red-500, .text-red-600, .text-red-700,
+  .text-urgent, .text-danger {
+    color: var(--accent-red) !important;
+  }
+
   /* Restore secondary text to original color */
   .text-gray-600, .text-gray-500, .text-gray-400,
   .text-xs, .meta, .timestamp,
   .text-gray-700, .text-gray-800, .text-gray-900 {
     color: var(--text-secondary) !important;
+  }
+
+  /* ===== Dark mode backgrounds for commonly used Tailwind bg classes ===== */
+
+  /* bg-white and bg-card containers */
+  .bg-white, .shadow-sm {
+    background: var(--card) !important;
+  }
+
+  /* Header - previously pure white, now dark slate */
+  header.bg-white, header.shadow-sm,
+  header[class*="bg-white"] {
+    background: #131c2b !important;
+    border-color: rgba(148, 163, 184, 0.15) !important;
+  }
+
+  /* Red backgrounds - muted dark */
+  .bg-red-50,
+  [class*="bg-red-50"] {
+    background: rgba(248, 113, 113, 0.08) !important;
+    border-color: rgba(248, 113, 113, 0.2) !important;
+  }
+  [class*="border-red-"],
+  [class*="border-red"] {
+    border-color: rgba(248, 113, 113, 0.25) !important;
+  }
+  .text-red-700, .text-red-800 {
+    color: #fca5a5 !important;
+  }
+  [class*="bg-red-100"] {
+    background: rgba(248, 113, 113, 0.12) !important;
+    color: #fca5a5 !important;
+  }
+
+  /* Green backgrounds - muted dark */
+  .bg-green-50,
+  [class*="bg-green-50"] {
+    background: rgba(110, 231, 183, 0.08) !important;
+    border-color: rgba(110, 231, 183, 0.2) !important;
+  }
+  [class*="border-green-"] {
+    border-color: rgba(110, 231, 183, 0.25) !important;
+  }
+  .text-green-700, .text-green-800 {
+    color: #86efac !important;
+  }
+  [class*="bg-green-100"] {
+    background: rgba(110, 231, 183, 0.12) !important;
+    color: #86efac !important;
+  }
+
+  /* Blue backgrounds - muted dark */
+  .bg-blue-50,
+  [class*="bg-blue-50"] {
+    background: rgba(124, 180, 250, 0.08) !important;
+    border-color: rgba(124, 180, 250, 0.2) !important;
+  }
+  [class*="border-blue-"],
+  [class*="border-blue"] {
+    border-color: rgba(124, 180, 250, 0.25) !important;
+  }
+  .text-blue-700, .text-blue-800 {
+    color: #93c5fd !important;
+  }
+  [class*="bg-blue-100"] {
+    background: rgba(124, 180, 250, 0.12) !important;
+    color: #93c5fd !important;
+  }
+
+  /* Yellow/Orange backgrounds - muted dark */
+  .bg-yellow-50,
+  [class*="bg-yellow-50"] {
+    background: rgba(251, 191, 36, 0.08) !important;
+    border-color: rgba(251, 191, 36, 0.2) !important;
+  }
+  .bg-orange-50,
+  [class*="bg-orange-50"] {
+    background: rgba(251, 191, 36, 0.08) !important;
+    border-color: rgba(251, 191, 36, 0.2) !important;
+  }
+  [class*="border-yellow-"],
+  [class*="border-orange-"],
+  [class*="border-amber-"] {
+    border-color: rgba(251, 191, 36, 0.25) !important;
+  }
+  .text-yellow-700, .text-yellow-800,
+  .text-orange-700, .text-orange-800,
+  .text-amber-700, .text-amber-800 {
+    color: #fde68a !important;
+  }
+  [class*="bg-yellow-100"],
+  [class*="bg-orange-100"],
+  [class*="bg-amber-100"] {
+    background: rgba(251, 191, 36, 0.12) !important;
+    color: #fde68a !important;
+  }
+
+  /* Purple backgrounds - muted dark */
+  .bg-purple-50,
+  [class*="bg-purple-50"] {
+    background: rgba(196, 181, 253, 0.08) !important;
+    border-color: rgba(196, 181, 253, 0.2) !important;
+  }
+  [class*="border-purple-"] {
+    border-color: rgba(196, 181, 253, 0.25) !important;
+  }
+  .text-purple-700, .text-purple-800 {
+    color: #c4b5fd !important;
+  }
+  [class*="bg-purple-100"] {
+    background: rgba(196, 181, 253, 0.12) !important;
+    color: #c4b5fd !important;
+  }
+
+  /* Gray backgrounds - muted dark */
+  .bg-gray-50,
+  [class*="bg-gray-50"],
+  .bg-gray-100,
+  [class*="bg-gray-100"] {
+    background: rgba(148, 163, 184, 0.06) !important;
+    border-color: rgba(148, 163, 184, 0.12) !important;
+  }
+  .text-gray-700, .text-gray-800, .text-gray-900 {
+    color: var(--text-secondary) !important;
+  }
+
+  /* FEF2F2-based (light red) backgrounds in blockers */
+  [style*="background: #fef2f2"],
+  [style*="background:#fef2f2"],
+  .blocker {
+    background: rgba(248, 113, 113, 0.08) !important;
+    border-color: rgba(248, 113, 113, 0.25) !important;
+    color: var(--text-primary) !important;
+  }
+
+  /* Gradient backgrounds */
+  [class*="bg-gradient-to-r"] {
+    background: var(--card) !important;
+  }
+
+  /* FFFBEB / other light background inline styles */
+  [style*="background: #fffbeb"],
+  [style*="background:#fffbeb"],
+  [style*="background: #ecfdf5"],
+  [style*="background:#ecfdf5"],
+  [style*="background: #f0f5ff"],
+  [style*="background:#f0f5ff"],
+  [style*="background: #f5f3ff"],
+  [style*="background:#f5f3ff"],
+  [style*="background: #ecfeff"],
+  [style*="background:#ecfeff"],
+  [style*="background: #fefce8"],
+  [style*="background:#fefce8"] {
+    background: rgba(148, 163, 184, 0.06) !important;
+  }
+
+  /* Color-coded border-left accent bars - make them visible on dark */
+  [style*="border-left-color: #3b82f6"],
+  [style*="border-left-color:#3b82f6"] {
+    border-left-color: #7cb4fa !important;
+  }
+  [style*="border-left-color: #8b5cf6"],
+  [style*="border-left-color:#8b5cf6"] {
+    border-left-color: #c4b5fd !important;
+  }
+  [style*="border-left-color: #06b6d4"],
+  [style*="border-left-color:#06b6d4"] {
+    border-left-color: #67e8f9 !important;
+  }
+  [style*="border-left-color: #10b981"],
+  [style*="border-left-color:#10b981"] {
+    border-left-color: #6ee7b7 !important;
+  }
+  [style*="border-left-color: #f59e0b"],
+  [style*="border-left-color:#f59e0b"] {
+    border-left-color: #fbbf24 !important;
+  }
+  [style*="border-left-color: #ef4444"],
+  [style*="border-left-color:#ef4444"] {
+    border-left-color: #f87171 !important;
   }
 }
 
