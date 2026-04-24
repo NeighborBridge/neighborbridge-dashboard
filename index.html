@@ -92,10 +92,10 @@
             <div class="text-xs"><span class="font-medium">发送Medical Director消息</span> <span class="text-blue-500">使用FQHC面板中模板</span></div>
           </div>
         </button>
-        <button onclick="go('/stakeholders')" class="action-btn bg-purple-50 text-purple-700 border border-purple-200">
+        <button onclick="go('/faculty-pathway')" class="action-btn bg-purple-50 text-purple-700 border border-purple-200">
           <div class="flex items-center gap-2">
-            <i class="fas fa-user-tie text-xs w-4"></i>
-            <div class="text-xs"><span class="font-medium">联系Vinod Srihari</span> <span class="text-purple-500">讨论学术合作机会</span></div>
+            <i class="fas fa-graduation-cap text-xs w-4"></i>
+            <div class="text-xs"><span class="font-medium">推进Faculty Pathway</span> <span class="text-purple-500">→ 教职路径面板（含Vinod/Truls引荐）</span></div>
           </div>
         </button>
         <button onclick="go('/trillium')" class="action-btn bg-green-50 text-green-700 border border-green-200">
@@ -175,11 +175,11 @@
         <div class="conn-card flex items-start justify-between">
           <div class="min-w-0">
             <div class="flex items-center gap-1.5 mb-0.5">
-              <span class="text-xs font-medium">Vinod Srihari ↔ 当前需求</span>
+              <span class="text-xs font-medium">Vinod / Truls ↔ 🎓教职路径</span>
             </div>
-            <p class="text-[11px] text-gray-500">耶鲁精神科教授可提供学术背书和FQHC网络</p>
+            <p class="text-[11px] text-gray-500">Psychiatry与population health两条路径并行校准 → 见教职路径面板</p>
           </div>
-          <span class="badge bg-green-100 text-green-700 text-[10px] shrink-0 ml-2">学术</span>
+          <span class="badge bg-purple-100 text-purple-700 text-[10px] shrink-0 ml-2">🎓教职</span>
         </div>
         <div class="conn-card flex items-start justify-between">
           <div class="min-w-0">
@@ -212,8 +212,8 @@
           <p class="text-[11px] text-red-600">需要1-2个FQHC点位作为pilot起点</p>
         </div>
         <div class="blocker">
-          <p class="text-xs font-medium text-red-800">🔴 学术-商业整合延迟</p>
-          <p class="text-[11px] text-red-600">耶鲁教授身份尚未最大化利用于商业项目</p>
+          <p class="text-xs font-medium text-red-800">🔴 教职路径定位待完成</p>
+          <p class="text-[11px] text-red-600">需对齐institutional fit、support/funding逻辑与引荐人路径 → 见教职路径面板</p>
         </div>
       </div>
       <p class="mt-1.5 text-[11px] text-gray-400">影响：试点启动延迟 · 收入目标风险 · 战略执行受阻</p>
@@ -263,7 +263,7 @@
     "dashboard_role_cn": "高层战略执行指挥面板 — 浓缩、信号密集、行动优先。非叙事性文档。",
     "is_main_dashboard": true,
     "version": "1.0.0",
-    "last_updated": "2026-04-23",
+    "last_updated": "2026-04-24",
     "structured_object_types": ["stakeholders", "tasks", "connections", "blockers", "actions"],
     "structured_block_ids": ["#nb-dashboard-meta", "#nb-tasks", "#nb-connections", "#nb-blockers", "#nb-actions"],
     "bootstrap_read_order": ["#nb-dashboard-meta", "#nb-actions", "#nb-blockers", "#nb-connections", "#nb-tasks", "#nb-stakeholders"],
@@ -290,7 +290,18 @@
       "has_status_overview": true,
       "has_connections": true,
       "has_blockers": true,
-      "has_tasks": true
+      "has_tasks": true,
+      "has_faculty_pathway": true
+    },
+    "sub_dashboards": {
+      "/faculty-pathway": "🎓教职路径面板",
+      "/trillium": "Trillium支付方策略",
+      "/fqhc": "FQHC基础试点",
+      "/stakeholders": "关系网络",
+      "/adoption": "采用规划",
+      "/emergency-plan": "🛡️家庭应急保障",
+      "/fasd-care-pathway": "🧠FASD护理路径",
+      "/tax-strategy": "💰税务策略"
     },
     "agent_behavior_flags": {
       "use_workspace_recovery_first": true,
@@ -315,17 +326,18 @@
     {
       "type": "task",
       "id": 1,
-      "title_cn": "联系Vinod Srihari",
+      "title_cn": "推进Faculty Pathway定位与引荐",
       "priority": "high",
       "status": "not_started",
       "owner": "Richard",
-      "due_date": "2026-04-30",
+      "due_date": "2026-05-15",
       "can_agent_execute": true,
       "requires_user_approval": true,
-      "next_action": "draft 1-page summary brief covering implementation logic, pathway design, ECHO integration",
-      "success_definition_cn": "Vinod收到brief并表示愿意进一步讨论pilot逻辑",
+      "next_action": "prep Vinod/Duke 1-page brief covering institutional fit, community-engaged implementation role, support/funding model",
+      "success_definition_cn": "Faculty Pathway定位清晰，Vinod/Truls路径各有明确next step",
       "linked_stakeholder_id": "YALE-PSYCH-001",
-      "updated_at": "2026-04-23"
+      "linked_dashboard": "/faculty-pathway",
+      "updated_at": "2026-04-24"
     },
     {
       "type": "task",
@@ -381,20 +393,20 @@
     {
       "type": "connection",
       "id": "CONN-002",
-      "title_cn": "Vinod Srihari ↔ 当前需求",
-      "left_entity": "Vinod Srihari",
-      "right_entity": "当前需求",
-      "connection_type": "academic_backing",
+      "title_cn": "Vinod / Truls ↔ 教职路径",
+      "left_entity": "Vinod / Truls",
+      "right_entity": "Faculty Pathway",
+      "connection_type": "faculty_pathway",
       "priority": "high",
       "status": "active",
-      "brief_summary_cn": "耶鲁精神科教授可提供学术背书和FQHC网络",
-      "why_it_matters_cn": "Vinod的学术legitimacy和implementation经验能增强pilot的可信度，同时他所在的Yale网络可能提供FQHC关系",
-      "next_action": "send 1-page implementation brief and request pathway design review",
-      "next_action_due": "2026-04-30",
+      "brief_summary_cn": "Psychiatry与population health两条路径并行校准",
+      "why_it_matters_cn": "Vinod=psychiatry入口，Truls=community/implementation/population health入口，双路径降低单点依赖风险",
+      "next_action": "complete Faculty Pathway定位，prep Vinod/Duke方向的1-page brief",
+      "next_action_due": "2026-05-15",
       "related_stakeholders": ["YALE-PSYCH-001"],
-      "related_dashboards": ["/stakeholders"],
+      "related_dashboards": ["/faculty-pathway"],
       "agent_execution_level": "draft_with_review",
-      "updated_at": "2026-04-23"
+      "updated_at": "2026-04-24"
     },
     {
       "type": "connection",
@@ -455,26 +467,26 @@
       {
         "type": "blocker",
         "id": "BLKR-003",
-        "title_cn": "学术-商业整合延迟",
-        "priority": "medium",
+        "title_cn": "教职路径定位待完成",
+        "priority": "high",
         "status": "active",
-        "impact_level": "medium",
-        "brief_summary_cn": "耶鲁教授身份尚未最大化利用于商业项目",
+        "impact_level": "high",
+        "brief_summary_cn": "需对齐institutional fit、support/funding逻辑与引荐人路径",
         "owner": "Richard",
-        "next_action": "develop strategy doc for academic-commercial integration, leveraging Yale identity",
+        "next_action": "对齐Faculty Pathway中的institutional fit、support/funding模型与关键引荐人路径",
         "next_action_due": "2026-05-15",
         "related_stakeholders": ["YALE-PSYCH-001"],
-        "related_dashboards": [],
+        "related_dashboards": ["/faculty-pathway"],
         "agent_execution_level": "draft_with_review",
-        "resolved_condition_cn": "耶鲁教授身份与商业项目形成明确的协同策略并开始执行",
-        "updated_at": "2026-04-23"
+        "resolved_condition_cn": "Faculty Pathway定位清晰——社区-实施-临床三位一体角色明确，institutional fit与support/funding逻辑完成，Vinod/Truls路径各有next step",
+        "updated_at": "2026-04-24"
       }
     ],
     "dashboard_summary": {
-      "impact_cn": "试点启动延迟 · 收入目标风险 · 战略执行受阻",
+      "impact_cn": "试点启动延迟 · 教职路径待定位 · 战略执行受阻",
       "total_active": 3,
       "highest_impact_blocker_id": "BLKR-001",
-      "updated_at": "2026-04-23"
+      "updated_at": "2026-04-24"
     }
   }</script>
 
@@ -484,7 +496,7 @@
       "total_actions": 4,
       "completed_actions": 0,
       "pending_actions": 4,
-      "last_updated": "2026-04-23",
+      "last_updated": "2026-04-24",
       "section_status": "pending"
     },
     "actions": [
@@ -511,22 +523,22 @@
       {
         "type": "action",
         "id": "ACT-002",
-        "title_cn": "联系Vinod Srihari",
+        "title_cn": "推进Faculty Pathway",
         "priority": "high",
         "status": "not_started",
         "owner": "Richard",
-        "linked_dashboard": "/stakeholders",
+        "linked_dashboard": "/faculty-pathway",
         "related_stakeholders": ["YALE-PSYCH-001"],
-        "brief_summary_cn": "讨论学术合作机会 - Trillium试点在FQHC中的学术支持",
-        "next_step_cn": "打开Stakeholders面板查看Vinod的总结，准备1-page brief",
+        "brief_summary_cn": "准备Vinod/Duke方向的1-page brief，围绕Faculty Pathway与implementation logic跟进",
+        "next_step_cn": "打开教职路径面板，完成定位对齐，准备Vinod/Duke 1-page brief",
         "can_agent_execute": true,
         "requires_user_approval": true,
         "agent_execution_level": "draft_with_review",
         "completion_state": "pending",
-        "due_date": "2026-04-30",
-        "trigger_source": "/stakeholders",
-        "success_definition_cn": "Vinod收到brief并同意进一步讨论pilot逻辑和FQHC合作",
-        "updated_at": "2026-04-23"
+        "due_date": "2026-05-15",
+        "trigger_source": "/faculty-pathway",
+        "success_definition_cn": "Faculty Pathway定位完成，Vinod方向1-page brief就绪，institutional fit与support/funding模型对齐",
+        "updated_at": "2026-04-24"
       },
       {
         "type": "action",
@@ -576,7 +588,7 @@
     const TASKS_KEY = 'neighborbridge_tasks';
 
     let tasks = [
-      { id: 1, title: "联系Vinod Srihari", desc: "讨论Trillium试点在FQHC中的学术合作机会", status: "not-started", created: "2026-04-03", updated: new Date().toISOString().split('T')[0] },
+      { id: 1, title: "推进Faculty Pathway定位", desc: "准备Vinod/Duke方向的1-page brief（institutional fit + implementation逻辑）", status: "not-started", created: "2026-04-24", updated: new Date().toISOString().split('T')[0] },
       { id: 2, title: "发送Medical Director沟通", desc: "使用FQHC面板中的执行卡模板", status: "completed", created: "2026-04-03", updated: new Date().toISOString().split('T')[0] },
       { id: 3, title: "评估FASD护理路径实施", desc: "分析在Trillium环境中的可行性", status: "in-progress", created: "2026-04-01", updated: "2026-04-01" }
     ];
