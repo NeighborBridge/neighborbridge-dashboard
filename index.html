@@ -94,8 +94,8 @@
         </button>
         <button onclick="go('/faculty-pathway')" class="action-btn bg-purple-50 text-purple-700 border border-purple-200">
           <div class="flex items-center gap-2">
-            <i class="fas fa-graduation-cap text-xs w-4"></i>
-            <div class="text-xs"><span class="font-medium">推进Faculty Pathway</span> <span class="text-purple-500">→ 教职路径面板（含Vinod/Truls引荐）</span></div>
+            <i class="fas fa-paper-plane text-xs w-4"></i>
+            <div class="text-xs"><span class="font-medium">发送Vinod进展更新</span> <span class="text-purple-500">附external brief · 评论ECHO/implementation logic</span></div>
           </div>
         </button>
         <button onclick="go('/trillium')" class="action-btn bg-green-50 text-green-700 border border-green-200">
@@ -177,7 +177,7 @@
             <div class="flex items-center gap-1.5 mb-0.5">
               <span class="text-xs font-medium">Vinod / Truls ↔ 🎓教职路径</span>
             </div>
-            <p class="text-[11px] text-gray-500">Psychiatry与population health两条路径并行校准 → 见教职路径面板</p>
+            <p class="text-[11px] text-gray-500">Psychiatry与population health两条路径并行 · 待Richard确认后发送Vinod进展更新+external brief</p>
           </div>
           <span class="badge bg-purple-100 text-purple-700 text-[10px] shrink-0 ml-2">🎓教职</span>
         </div>
@@ -213,10 +213,10 @@
         </div>
         <div class="blocker">
           <p class="text-xs font-medium text-red-800">🔴 教职路径定位待完成</p>
-          <p class="text-[11px] text-red-600">需对齐institutional fit、support/funding逻辑与引荐人路径 → 见教职路径面板</p>
+          <p class="text-[11px] text-red-600">external brief已完成，待Richard审阅确认后发送Vinod · ECHO作为capacity-building</p>
         </div>
       </div>
-      <p class="mt-1.5 text-[11px] text-gray-400">影响：试点启动延迟 · 收入目标风险 · 战略执行受阻</p>
+      <p class="mt-1.5 text-[11px] text-gray-400">影响：试点启动延迟 · Vinod跟进待确认 · 战略执行受阻</p>
     </div>
 
     <!-- 5. 任务与建议 -->
@@ -471,14 +471,16 @@
         "priority": "high",
         "status": "active",
         "impact_level": "high",
-        "brief_summary_cn": "需对齐institutional fit、support/funding逻辑与引荐人路径",
+        "brief_summary_cn": "external brief已完成，待Richard审阅确认后发送Vinod · ECHO作为capacity-building",
         "owner": "Richard",
-        "next_action": "对齐Faculty Pathway中的institutional fit、support/funding模型与关键引荐人路径",
+        "next_action": "Richard审阅external brief + email draft → 确认后发送Vinod进展更新",
         "next_action_due": "2026-05-15",
         "related_stakeholders": ["YALE-PSYCH-001"],
         "related_dashboards": ["/faculty-pathway"],
+        "related_documents": ["docs/faculty-pathway-brief-vinod-external-draft.md", "docs/vinod-followup-email-draft.md"],
         "agent_execution_level": "draft_with_review",
-        "resolved_condition_cn": "Faculty Pathway定位清晰——社区-实施-临床三位一体角色明确，institutional fit与support/funding逻辑完成，Vinod/Truls路径各有next step",
+        "not_sent": true,
+        "resolved_condition_cn": "Vinod收到进展更新+external brief，提供implementation logic与institutional fit反馈",
         "updated_at": "2026-04-24"
       }
     ],
@@ -523,21 +525,23 @@
       {
         "type": "action",
         "id": "ACT-002",
-        "title_cn": "推进Faculty Pathway",
+        "title_cn": "发送Vinod进展更新",
         "priority": "high",
         "status": "not_started",
         "owner": "Richard",
         "linked_dashboard": "/faculty-pathway",
         "related_stakeholders": ["YALE-PSYCH-001"],
-        "brief_summary_cn": "准备Vinod/Duke方向的1-page brief，围绕Faculty Pathway与implementation logic跟进",
-        "next_step_cn": "打开教职路径面板，完成定位对齐，准备Vinod/Duke 1-page brief",
+        "related_documents": ["docs/faculty-pathway-brief-vinod-external-draft.md", "docs/vinod-followup-email-draft.md"],
+        "brief_summary_cn": "附external brief · 请他评论Project ECHO / implementation logic / institutional fit",
+        "next_step_cn": "Richard审阅external brief + email draft → 确认后发送给Vinod",
         "can_agent_execute": true,
         "requires_user_approval": true,
         "agent_execution_level": "draft_with_review",
         "completion_state": "pending",
         "due_date": "2026-05-15",
         "trigger_source": "/faculty-pathway",
-        "success_definition_cn": "Faculty Pathway定位完成，Vinod方向1-page brief就绪，institutional fit与support/funding模型对齐",
+        "success_definition_cn": "Vinod收到进展更新+external brief，提供implementation logic与institutional fit的反馈",
+        "not_sent": true,
         "updated_at": "2026-04-24"
       },
       {
@@ -588,7 +592,7 @@
     const TASKS_KEY = 'neighborbridge_tasks';
 
     let tasks = [
-      { id: 1, title: "推进Faculty Pathway定位", desc: "准备Vinod/Duke方向的1-page brief（institutional fit + implementation逻辑）", status: "not-started", created: "2026-04-24", updated: new Date().toISOString().split('T')[0] },
+      { id: 1, title: "发送Vinod进展更新", desc: "附external brief · ECHO作为capacity-building · 请他评论implementation logic与institutional fit", status: "not-started", created: "2026-04-24", updated: new Date().toISOString().split('T')[0] },
       { id: 2, title: "发送Medical Director沟通", desc: "使用FQHC面板中的执行卡模板", status: "completed", created: "2026-04-03", updated: new Date().toISOString().split('T')[0] },
       { id: 3, title: "评估FASD护理路径实施", desc: "分析在Trillium环境中的可行性", status: "in-progress", created: "2026-04-01", updated: "2026-04-01" }
     ];
