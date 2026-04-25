@@ -70,6 +70,7 @@
         <a href="/tax-strategy" class="text-gray-500 hover:text-brand">Tax</a>
         <a href="/faculty-pathway" class="text-gray-500 hover:text-brand">🎓教职</a>
         <a href="/manuscript-dashboard" class="text-gray-500 hover:text-brand">📄稿件</a>
+        <a href="/caregiving-mobility" class="text-gray-500 hover:text-brand">🏠照护</a>
       </div>
     </div>
   </header>
@@ -111,9 +112,15 @@
             <div class="text-xs"><span class="font-medium">审查阻塞项</span> <span class="text-orange-500">分配责任和时间线</span></div>
           </div>
         </button>
+        <button onclick="go('/caregiving-mobility')" class="action-btn bg-red-50 text-red-700 border border-red-200">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-home text-xs w-4"></i>
+            <div class="text-xs"><span class="font-medium">评估照护约束</span> <span class="text-red-500">明确可用backup · 列出高价值外出机会</span></div>
+          </div>
+        </button>
       </div>
       <div class="mt-2 pt-1.5 border-t text-[11px] text-gray-400">
-        完成状态：<span id="action-completion">0/4</span> 项完成
+        完成状态：<span id="action-completion">0/5</span> 项完成
       </div>
     </div>
 
@@ -150,6 +157,11 @@
           <div class="text-xs font-medium text-gray-700">🧠FASD</div>
           <div class="text-[10px] text-gray-400">识别→支持→管理</div>
           <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-blue-100 text-blue-800">🆕新建</span>
+        </a>
+        <a href="/caregiving-mobility" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
+          <div class="text-xs font-medium text-gray-700">🏠照护</div>
+          <div class="text-[10px] text-gray-400">行动约束管理</div>
+          <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-red-100 text-red-800">⚠️跨领域阻塞</span>
         </a>
       </div>
     </div>
@@ -205,6 +217,10 @@
       </div>
       <div class="space-y-1.5">
         <div class="blocker">
+          <p class="text-xs font-medium text-red-800">🔴 照护职责限制外出与拓展</p>
+          <p class="text-[11px] text-red-600">当前caregiving role限制travel / networking / in-person relationship building，直接影响教职路径、Trillium推进与外部合作</p>
+        </div>
+        <div class="blocker">
           <p class="text-xs font-medium text-red-800">🔴 FQHC Medical Director 未对齐</p>
           <p class="text-[11px] text-red-600">诊断边界、workflow负担、reimbursement路径待明确</p>
         </div>
@@ -221,7 +237,7 @@
           <p class="text-[11px] text-red-600">external brief已完成，待Richard审阅确认后发送Vinod · ECHO作为capacity-building</p>
         </div>
       </div>
-      <p class="mt-1.5 text-[11px] text-gray-400">影响：试点启动延迟 · Vinod跟进待确认 · 战略执行受阻</p>
+      <p class="mt-1.5 text-[11px] text-gray-400">跨领域阻塞：照护职责限制外出 · 试点启动延迟 · Vinod跟进待确认 · 战略执行受阻</p>
     </div>
 
     <!-- 5. 任务与建议 -->
@@ -282,8 +298,8 @@
       "stakeholder_count": 2,
       "task_count": 3,
       "connection_count": 3,
-      "blocker_count": 3,
-      "action_count": 4
+      "blocker_count": 5,
+      "action_count": 5
     },
     "priority_snapshot": {
       "high_priority_count": 10,
@@ -296,7 +312,8 @@
       "has_connections": true,
       "has_blockers": true,
       "has_tasks": true,
-      "has_faculty_pathway": true
+      "has_faculty_pathway": true,
+      "has_caregiving_mobility": true
     },
     "sub_dashboards": {
       "/faculty-pathway": "🎓教职路径面板",
@@ -306,7 +323,9 @@
       "/adoption": "采用规划",
       "/emergency-plan": "🛡️家庭应急保障",
       "/fasd-care-pathway": "🧠FASD护理路径",
-      "/tax-strategy": "💰税务策略"
+      "/tax-strategy": "💰税务策略",
+      "/manuscript-dashboard": "📄稿件面板",
+      "/caregiving-mobility": "🏠照护与行动自由"
     },
     "agent_behavior_flags": {
       "use_workspace_recovery_first": true,
@@ -456,6 +475,23 @@
     "blockers": [
       {
         "type": "blocker",
+        "id": "BLKR-000",
+        "title_cn": "照护职责限制外出与拓展",
+        "priority": "critical",
+        "status": "active",
+        "impact_level": "cross-cutting",
+        "brief_summary_cn": "caregiving role限制travel/networking/in-person relationship building，影响所有外部推进",
+        "owner": "Richard",
+        "next_action": "评估可用backup/respite/home support · 列出高价值必须争取的外出机会",
+        "next_action_due": "2026-05-15",
+        "related_stakeholders": [],
+        "related_dashboards": ["/faculty-pathway", "/trillium", "/manuscript-dashboard", "/caregiving-mobility"],
+        "agent_execution_level": "manual_only",
+        "resolved_condition_cn": "建立最小可行travel support方案，关键外出机会可被覆盖",
+        "updated_at": "2026-04-25"
+      },
+      {
+        "type": "blocker",
         "id": "BLKR-001",
         "title_cn": "FQHC Medical Director未对齐",
         "priority": "high",
@@ -509,9 +545,9 @@
       }
     ],
     "dashboard_summary": {
-      "impact_cn": "试点启动延迟 · 教职路径待定位 · 战略执行受阻",
-      "total_active": 3,
-      "highest_impact_blocker_id": "BLKR-001",
+      "impact_cn": "照护职责限制外出 · 试点启动延迟 · 教职路径待定位 · 战略执行受阻",
+      "total_active": 5,
+      "highest_impact_blocker_id": "BLKR-000",
       "updated_at": "2026-04-24"
     }
   }</script>
@@ -519,13 +555,35 @@
   <script type="application/json" id="nb-actions">{
     "summary": {
       "section_title_cn": "可执行（今天）",
-      "total_actions": 4,
+      "highlights_cn": "新：照护约束为跨领域顶级阻塞"
+      
+      "total_actions": 5,
       "completed_actions": 0,
-      "pending_actions": 4,
-      "last_updated": "2026-04-24",
+      "pending_actions": 5,
+      "last_updated": "2026-04-25",
       "section_status": "pending"
     },
     "actions": [
+      {
+        "type": "action",
+        "id": "ACT-005",
+        "title_cn": "评估照护约束与行动alternatives",
+        "priority": "critical",
+        "status": "not_started",
+        "owner": "Richard",
+        "linked_dashboard": "/caregiving-mobility",
+        "related_stakeholders": [],
+        "brief_summary_cn": "明确可被替代的照护时段·评估可用backup·列出高价值外出场景·建立最小可行travel support方案",
+        "next_step_cn": "打开照护与行动自由面板，系统评估约束和支持资源",
+        "can_agent_execute": false,
+        "requires_user_approval": true,
+        "agent_execution_level": "manual_only",
+        "completion_state": "pending",
+        "due_date": "2026-05-15",
+        "trigger_source": "/caregiving-mobility",
+        "success_definition_cn": "照护约束已作为运营系统变量被管理，高价值外出机会有明确支持方案",
+        "updated_at": "2026-04-25"
+      },
       {
         "type": "action",
         "id": "ACT-001",
@@ -624,7 +682,7 @@
     // --- Action tracking ---
     let completedActions = 0;
     function updateActionCount() {
-      document.getElementById('action-completion').textContent = completedActions + '/4';
+      document.getElementById('action-completion').textContent = completedActions + '/5';
     }
     document.querySelectorAll('.action-btn').forEach((b, i) => {
       b.addEventListener('click', function() {
