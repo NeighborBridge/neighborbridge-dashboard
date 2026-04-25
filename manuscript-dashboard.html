@@ -30,6 +30,7 @@
     .acc-red { border-left: 4px solid #ef4444; }
     .acc-orange { border-left: 4px solid #f59e0b; }
     .acc-cyan { border-left: 4px solid #22d3ee; }
+    .acc-amber { border-left: 4px solid #f59e0b; }
   </style>
 </head>
 <body>
@@ -195,6 +196,41 @@
               <div><span class="text-gray-400">Article type</span><br><span class="text-gray-700">Original research</span></div>
               <div><span class="text-gray-400">Fit status</span><br><span class="text-green-600 font-medium">审稿完成</span></div>
             </div>
+          </div>
+        </div>
+
+        <!-- 5b. P0 必须修改 -->
+        <div class="sec-card acc-amber">
+          <div class="flex justify-between items-center mb-1">
+            <h3 class="text-sm font-bold">P0 必须修改</h3>
+            <span class="badge bg-amber-100 text-amber-700 text-[10px]">按此方向改</span>
+          </div>
+          <div class="space-y-1 text-[11px]">
+            <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
+              <p class="text-amber-700 font-medium">核心主张</p>
+              <p class="text-amber-600 text-[10px]">三层框架应服务于 Fei × Kleinman 在临床现场的交汇点，而非与之竞争。当前个人与社区层最强，制度层最弱。</p>
+            </div>
+            <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
+              <p class="text-amber-700 font-medium">标题</p>
+              <p class="text-amber-600 text-[10px]">'Primary Care' 偏卫生系统语调。建议改为 'Clinical Care' 或 'Rural Healthcare'，例: Trust as Moral Experience: Relational Ethics and the Clinical Encounter in Rural Western Hunan。</p>
+            </div>
+            <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
+              <p class="text-amber-700 font-medium">摘要</p>
+              <p class="text-amber-600 text-[10px]">以 'explores how policy translation' 开头将文章定位为政策研究。需改为以人类学主张开头，例: Trust is not a precondition for care but produced through the moral practice of care itself。</p>
+            </div>
+            <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
+              <p class="text-amber-700 font-medium">引言</p>
+              <p class="text-amber-600 text-[10px]">前两段 global health 语言 (disparities, governance, resource allocation) 需移除或压缩。入口应是临床实践中的道德/关系维度，从 Fei × Kleinman 的理论问题切入。</p>
+            </div>
+            <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
+              <p class="text-amber-700 font-medium">讨论</p>
+              <p class="text-amber-600 text-[10px]">需写出 Fei × Kleinman 对话揭示了什么，而非重复三层模型摘要。去掉 'understand local culture' 类泛化建议，以阐释性发现收尾。</p>
+            </div>
+            <div class="p-1 rounded bg-gray-50">
+              <p class="text-gray-400 text-[9px]">完整版见 <code>docs/manuscript-anth-med-comments-cn.md</code> · Google Doc 直接评论因 OAuth 未配置不可用</p>
+            </div>
+          </div>
+        </div>
 
         <!-- 6. 当前阻塞 -->
         <div class="sec-card acc-red">
@@ -306,7 +342,7 @@
     </div>
 
     <!-- Structured metadata -->
-    <!-- #nb-manuscript: {"id":"MS-001","title":"Trust as Moral Experience","source":"Google Doc / 1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI","phase":"reviewed","doc_read":true,"core_claim":"medical_anthropology_local_moral_worlds","journal_primary":"Anthropology and Medicine","journal_status":"preferred candidate / not finalized","fit_assessment":"reviewed / needs revision","strongest_line":"medical anthropology / local moral worlds","weakest_line":"implementation/policy analysis","review_location":"docs/manuscript-anth-med-review-comments.md","comments_cn_location":"docs/manuscript-anth-med-comments-cn.md","google_doc_direct_comment":"blocked by OAuth","created":"2026-04-25"} -->
+    <!-- #nb-manuscript: {"id":"MS-001","title":"Trust as Moral Experience","source":"Google Doc / 1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI","phase":"reviewed","doc_read":true,"core_claim":"medical_anthropology_local_moral_worlds","journal_primary":"Anthropology and Medicine","journal_status":"preferred candidate / not finalized","fit_assessment":"reviewed / needs revision","strongest_line":"medical anthropology / local moral worlds","weakest_line":"implementation/policy analysis","review_location":"docs/manuscript-anth-med-review-comments.md","comments_cn_location":"docs/manuscript-anth-med-comments-cn.md","p0_comments_visible":true,"p0_comment_count":5,"google_doc_direct_comment":"blocked_by_oauth","next_action":"Richard manually paste P0 comments into Google Doc or apply revisions directly","created":"2026-04-25"} -->
     <!-- #nb-manuscript-sections: {"title":"draft","abstract":"needs-rewrite","introduction":"draft","background":"draft","methods":"draft","findings":"organizing","conclusion":"needs-work","references":"in-progress"} -->
     <!-- #nb-blockers: [{"id":"BLK-MS-000","desc":"连续深度写作时间受照护打断"},{"id":"BLK-MS-001","desc":"核心论点未收敛"},{"id":"BLK-MS-002","desc":"Anthropology and Medicine方向审稿完成，需按意见修改引言/讨论/制度层"},{"id":"BLK-MS-003","desc":"Abstract不成型"}] -->
 
