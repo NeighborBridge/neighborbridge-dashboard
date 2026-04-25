@@ -4,893 +4,380 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FASD护理路径（简化版）- NeighborBridge</title>
-
-  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Simple config -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            brand: "#0ea5e9",
-            urgent: "#ef4444",
-            warning: "#f59e0b",
-            neutral: "#6b7280",
-            completed: "#10b981"
+            brand: "#0ea5e9", urgent: "#ef4444", warning: "#f59e0b",
+            neutral: "#6b7280", completed: "#10b981",
+            orange: { 500: "#f59e0b" }, blue: { 500: "#60a5fa" },
+            green: { 500: "#34d399" }, purple: { 500: "#a78bfa" }
           }
         }
       }
     }
   </script>
-
-  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+  <link rel="stylesheet" href="shared.css">
   <style>
-    /* Simplified styles */
-    .pathway-step {
-      border-left: 4px solid;
-      padding-left: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .action-button {
-      transition: all 0.2s ease;
-    }
-    
-    .action-button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    
-    .bullet-list {
-      list-style-type: disc;
-      padding-left: 1.5rem;
-    }
-    
-    .bullet-list li {
-      margin-bottom: 0.25rem;
-    }
-    
-    .mode-toggle {
-      transition: all 0.3s ease;
-    }
-    
-    .mode-toggle.active {
-      background-color: #3b82f6;
-      color: white;
-    }
-    
-    .value-card {
-      border-radius: 0.75rem;
-      border: 1px solid #e5e7eb;
-      background: white;
-      padding: 1.5rem;
-    }
-    
-    /* Two-column layout */
-    .two-col-layout {
-      display: grid;
-      grid-template-columns: 60% 40%;
-      gap: 2rem;
-    }
-    
-    @media (max-width: 1024px) {
-      .two-col-layout {
-        grid-template-columns: 1fr;
-      }
-    }
+    .sec-card { @apply bg-white rounded-lg p-3 border shadow-sm mb-3; }
+    .badge { display: inline-flex; align-items: center; padding: 1px 10px; border-radius: 9999px; font-size: 11px; font-weight: 500; }
+    .mode-btn { padding: 2px 10px; border-radius: 9999px; font-size: 11px; border: 1px solid #e5e7eb; background: #f9fafb; color: #6b7280; cursor: pointer; transition: all .15s; }
+    .mode-btn.active { background: #0ea5e9; color: white; border-color: #0ea5e9; }
+    .acc-blue { border-left: 4px solid #60a5fa; }
+    .acc-green { border-left: 4px solid #34d399; }
+    .acc-purple { border-left: 4px solid #a78bfa; }
+    .acc-red { border-left: 4px solid #ef4444; }
+    .acc-orange { border-left: 4px solid #f59e0b; }
+    .action-chip { display: flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 6px; border: 1px solid #e5e7eb; background: #f9fafb; cursor: pointer; transition: all .15s; font-size: 11px; }
+    .action-chip:hover { background: #e5e7eb; }
+    .action-chip.secondary { opacity: 0.6; font-size: 10px; padding: 4px 8px; }
   </style>
 </head>
-<body class="bg-gray-50">
+<body>
 
   <!-- Header -->
   <header class="bg-white shadow-sm border-b">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="flex items-center space-x-4">
-        <a href="/" class="text-sm text-gray-600 hover:text-brand font-medium">
-          <i class="fas fa-arrow-left mr-1"></i> 主仪表板
-        </a>
-        <h1 class="text-2xl font-bold">FASD护理路径：用于FQHC与支付方的早期识别与成本控制模型</h1>
-      </div>
-      <div class="flex items-center space-x-4">
-        <span class="text-sm text-gray-500" id="last-updated">最后更新: 刚刚</span>
-        <button class="px-4 py-2 bg-blue-100 text-blue-700 text-sm font-medium rounded hover:bg-blue-200 transition" onclick="refreshDashboard()">
-          <i class="fas fa-sync-alt mr-1"></i> 刷新
-        </button>
+    <div class="max-w-6xl mx-auto px-3 py-2 flex justify-between items-center">
+      <h1 class="text-base font-bold">NeighborBridge</h1>
+      <div class="flex flex-wrap gap-x-3 gap-y-0.5 text-[11px]">
+        <a href="/" class="text-gray-500 hover:text-brand">主面板</a>
+        <a href="/fqhc" class="text-gray-500 hover:text-brand">FQHC</a>
+        <a href="/trillium" class="text-gray-500 hover:text-brand">Trillium</a>
+        <a href="/stakeholders" class="text-gray-500 hover:text-brand">Stakeholders</a>
+        <a href="/adoption" class="text-gray-500 hover:text-brand">Adoption</a>
+        <a href="/emergency-plan" class="text-gray-500 hover:text-brand">🛡️Emergency</a>
+        <a href="/fasd-care-pathway" class="text-brand font-semibold">🧠FASD</a>
+        <a href="/tax-strategy" class="text-gray-500 hover:text-brand">💰Tax</a>
+        <a href="/faculty-pathway" class="text-gray-500 hover:text-brand">🎓教职</a>
       </div>
     </div>
   </header>
 
-  <!-- Main Layout -->
-  <div class="max-w-7xl mx-auto px-6 py-6">
+  <!-- Main -->
+  <div class="max-w-6xl mx-auto px-3 py-3">
 
-    <!-- Mode Toggle -->
-    <div class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+    <!-- Page title + mode bar (compressed) -->
+    <div class="mb-3">
       <div class="flex items-center justify-between">
-        <div>
-          <h2 class="font-bold text-gray-800">
-            <i class="fas fa-user-cog text-blue-600 mr-2"></i> 当前模式: 支付方 (Trillium)
-          </h2>
-          <p class="text-sm text-gray-600 mt-1">专注于成本控制、早期识别和支付方价值</p>
-        </div>
-        <div class="flex space-x-2">
-          <button onclick="switchMode('payer')" 
-                  class="mode-toggle px-4 py-2 rounded-lg border bg-blue-500 text-white">
-            <i class="fas fa-money-bill-wave mr-2"></i>支付方
-          </button>
-          <button onclick="switchMode('fqhc')" 
-                  class="mode-toggle px-4 py-2 rounded-lg border bg-gray-50 hover:bg-gray-100">
-            <i class="fas fa-hospital mr-2"></i>FQHC
-          </button>
-          <button onclick="switchMode('community')" 
-                  class="mode-toggle px-4 py-2 rounded-lg border bg-gray-50 hover:bg-gray-100">
-            <i class="fas fa-handshake mr-2"></i>社区
-          </button>
+        <h2 class="text-base font-bold">🧠 FASD护理路径 <span class="text-[10px] text-gray-400 font-normal">/ 支付方·FQHC模型</span></h2>
+        <div class="flex gap-1">
+          <button class="mode-btn active" onclick="switchMode('payer')">支付方</button>
+          <button class="mode-btn" onclick="switchMode('fqhc')">FQHC</button>
+          <button class="mode-btn" onclick="switchMode('community')">社区</button>
         </div>
       </div>
+      <p class="text-[10px] text-gray-400 mt-0.5" id="mode-desc">当前：支付方（Trillium）· 成本控制 / 早期识别</p>
     </div>
 
-    <!-- Two-Column Layout -->
-    <div class="two-col-layout">
+    <!-- Two-col: 4-step pathway (left) + payer/actions (right) -->
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-3">
 
-      <!-- LEFT COLUMN (60%) - Care Pathway -->
-      <div>
-        <div class="value-card mb-6">
-          <h2 class="text-xl font-bold text-gray-800 mb-4">
-            <i class="fas fa-brain text-blue-600 mr-2"></i> 🧠 FASD护理路径（简化）
-          </h2>
-          
-          <!-- Step 1: Identification -->
-          <div class="pathway-step" style="border-color: #3b82f6;">
-            <h3 class="font-bold text-gray-800 text-lg mb-2">1. 识别（Identification）</h3>
-            <ul class="bullet-list text-gray-700">
-              <li><strong>FQHC就诊</strong> - 初级保健访问</li>
-              <li><strong>学校关注</strong> - 教师/辅导员转介</li>
-              <li><strong>CHW外展</strong> - 社区筛查</li>
-            </ul>
-            <p class="text-sm text-gray-500 mt-2">触发信号: 注意力问题、行为关注、学习困难</p>
+      <!-- LEFT: Pathway (3/5) -->
+      <div class="lg:col-span-3">
+
+        <!-- 4-step pathway - compact -->
+        <div class="sec-card">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-sm font-bold">📋 护理路径：4步流程</h3>
+            <span class="badge bg-blue-100 text-blue-700 text-[10px]">FQHC → 支付方</span>
           </div>
-          
-          <!-- Step 2: Family Support -->
-          <div class="pathway-step" style="border-color: #8b5cf6;">
-            <h3 class="font-bold text-gray-800 text-lg mb-2">2. 支持（Family Support）</h3>
-            <ul class="bullet-list text-gray-700">
-              <li><strong>照顾者教育</strong> - FASD基本认知</li>
-              <li><strong>FMF模型</strong> - 循证家庭支持框架</li>
-              <li><strong>实际作息</strong> - 结构化日常支持</li>
-            </ul>
-            <p class="text-sm text-gray-500 mt-2">重点: 简单、实用的指导，非理论性内容</p>
+
+          <!-- Step 1 -->
+          <div class="mb-2">
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="w-5 h-5 rounded-full bg-blue-500 text-white text-[10px] flex items-center justify-center font-medium">1</span>
+              <span class="text-xs font-medium">识别 <span class="text-[9px] text-gray-400">Identification</span></span>
+            </div>
+            <div class="flex flex-wrap gap-1">
+              <span class="badge bg-blue-50 text-blue-600 text-[9px]">FQHC就诊</span>
+              <span class="badge bg-blue-50 text-blue-600 text-[9px]">学校关注</span>
+              <span class="badge bg-blue-50 text-blue-600 text-[9px]">CHW外展</span>
+            </div>
+            <p class="text-[9px] text-gray-400 mt-0.5">触发：注意力/行为/学习困难</p>
           </div>
-          
-          <!-- Step 3: Referral -->
-          <div class="pathway-step" style="border-color: #06b6d4;">
-            <h3 class="font-bold text-gray-800 text-lg mb-2">3. 转诊（Referral）</h3>
-            <ul class="bullet-list text-gray-700">
-              <li><strong>行为支持</strong> - 行为治疗师/心理学家</li>
-              <li><strong>神经心理评估</strong> - 全面认知评估</li>
-              <li><strong>专科医生</strong> - 儿童精神科/发育行为儿科</li>
-            </ul>
-            <p class="text-sm text-gray-500 mt-2">转诊触发: 初级干预无效、功能显著受损、安全关注</p>
+
+          <!-- Step 2 -->
+          <div class="mb-2">
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="w-5 h-5 rounded-full bg-purple-500 text-white text-[10px] flex items-center justify-center font-medium">2</span>
+              <span class="text-xs font-medium">支持 <span class="text-[9px] text-gray-400">Family Support</span></span>
+            </div>
+            <div class="flex flex-wrap gap-1">
+              <span class="badge bg-purple-50 text-purple-600 text-[9px]">照顾者教育</span>
+              <span class="badge bg-purple-50 text-purple-600 text-[9px]">FMF框架</span>
+              <span class="badge bg-purple-50 text-purple-600 text-[9px]">实际作息</span>
+            </div>
+            <p class="text-[9px] text-gray-400 mt-0.5">重点：实用指导，非理论</p>
           </div>
-          
-          <!-- Step 4: Ongoing Management -->
-          <div class="pathway-step" style="border-color: #10b981;">
-            <h3 class="font-bold text-gray-800 text-lg mb-2">4. 管理（Ongoing）</h3>
-            <ul class="bullet-list text-gray-700">
-              <li><strong>学校协调</strong> - IEP/504计划、定期会议</li>
-              <li><strong>行为管理</strong> - 家庭+学校一致性</li>
-              <li><strong>药物治疗</strong> - 专科转诊、定期监测</li>
-            </ul>
-            <p class="text-sm text-gray-500 mt-2">重点: 实用、现实世界、基于初级保健</p>
+
+          <!-- Step 3 -->
+          <div class="mb-2">
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="w-5 h-5 rounded-full bg-cyan-500 text-white text-[10px] flex items-center justify-center font-medium">3</span>
+              <span class="text-xs font-medium">转诊 <span class="text-[9px] text-gray-400">Referral</span></span>
+            </div>
+            <div class="flex flex-wrap gap-1">
+              <span class="badge bg-cyan-50 text-cyan-600 text-[9px]">行为支持</span>
+              <span class="badge bg-cyan-50 text-cyan-600 text-[9px]">神经心理评估</span>
+              <span class="badge bg-cyan-50 text-cyan-600 text-[9px]">专科医生</span>
+            </div>
+            <p class="text-[9px] text-gray-400 mt-0.5">触发：初级干预无效 / 功能受损</p>
           </div>
-          
-          <!-- Community Integration (1 line) -->
-          <div class="mt-6 pt-4 border-t">
-            <p class="text-gray-700">
-              <i class="fas fa-users text-yellow-600 mr-2"></i>
-              <strong>🤝 社区整合</strong>: 社区 → PCP → 支持 → 转诊协作模型
-            </p>
+
+          <!-- Step 4 -->
+          <div>
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="w-5 h-5 rounded-full bg-green-500 text-white text-[10px] flex items-center justify-center font-medium">4</span>
+              <span class="text-xs font-medium">管理 <span class="text-[9px] text-gray-400">Ongoing</span></span>
+            </div>
+            <div class="flex flex-wrap gap-1">
+              <span class="badge bg-green-50 text-green-600 text-[9px]">学校协调</span>
+              <span class="badge bg-green-50 text-green-600 text-[9px]">行为管理</span>
+              <span class="badge bg-green-50 text-green-600 text-[9px]">药物监测</span>
+            </div>
+            <p class="text-[9px] text-gray-400 mt-0.5">重点：务实，以初级保健为基础</p>
+          </div>
+
+          <!-- Community integration (1-line) -->
+          <div class="mt-2 pt-1.5 border-t text-[10px] text-gray-500">
+            <i class="fas fa-users text-yellow-500 mr-1"></i> 社区整合：社区入口 → PCP锚定 → 支持 → 转诊协作
           </div>
         </div>
       </div>
 
-      <!-- RIGHT COLUMN (40%) - Action & Value -->
-      <div>
-        <!-- Value Section -->
-        <div class="value-card mb-6">
-          <h2 class="text-xl font-bold text-gray-800 mb-4">
-            <i class="fas fa-cog text-green-600 mr-2"></i> ⚙️ 支付方视角（Trillium）
-          </h2>
-          
-          <!-- Value -->
-          <div class="mb-6">
-            <h3 class="font-bold text-gray-700 mb-3">🎯 价值</h3>
-            <div class="bg-green-50 p-4 rounded-lg border border-green-200">
-              <ul class="bullet-list text-gray-700">
-                <li><strong>减少急诊/住院</strong> - 早期干预降低急性服务使用</li>
-                <li><strong>提前识别 → 降低成本</strong> - 在FQHC层面解决问题</li>
-                <li><strong>FQHC内解决问题</strong> - 减少专科转诊和等待时间</li>
+      <!-- RIGHT: Payer + Actions (2/5) -->
+      <div class="lg:col-span-2">
+
+        <!-- Payer value + triggers (compressed) -->
+        <div class="sec-card acc-green">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-sm font-bold">⚙️ 支付方视角 <span class="text-[10px] text-gray-400 font-normal">Trillium</span></h3>
+            <span class="badge bg-green-100 text-green-700 text-[10px]">成本控制</span>
+          </div>
+          <div class="space-y-1.5">
+            <div class="p-1.5 rounded bg-green-50 border border-green-100 text-[10px]">
+              <p class="font-medium text-green-700 mb-0.5">支付方价值</p>
+              <ul class="text-green-600 space-y-0.5">
+                <li class="flex items-start gap-1"><span class="text-green-500 mt-0.5">•</span>早识别，少急诊/住院</li>
+                <li class="flex items-start gap-1"><span class="text-green-500 mt-0.5">•</span>FQHC先处理，少碎片化转诊</li>
+                <li class="flex items-start gap-1"><span class="text-green-500 mt-0.5">•</span>家庭支持前移，降高成本使用</li>
               </ul>
             </div>
-          </div>
-          
-          <!-- Trigger Timing -->
-          <div class="mb-6">
-            <h3 class="font-bold text-gray-700 mb-3">🚨 触发时机</h3>
-            <div class="bg-red-50 p-4 rounded-lg border border-red-200">
-              <ul class="bullet-list text-red-700">
-                <li><strong>多次就诊 + 未解决行为问题</strong></li>
-                <li><strong>学校功能受损</strong> - 学术表现下降</li>
-                <li><strong>家庭支持不足</strong> - 照顾者无法应对</li>
+            <div class="p-1.5 rounded bg-red-50 border border-red-100 text-[10px]">
+              <p class="font-medium text-red-700 mb-0.5">触发点</p>
+              <ul class="text-red-600 space-y-0.5">
+                <li class="flex items-start gap-1"><span class="text-red-500 mt-0.5">•</span>多次就诊未解决</li>
+                <li class="flex items-start gap-1"><span class="text-red-500 mt-0.5">•</span>学校功能下降</li>
+                <li class="flex items-start gap-1"><span class="text-red-500 mt-0.5">•</span>caregiver支持不足</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <!-- Action Panel -->
-        <div class="value-card">
-          <h2 class="text-xl font-bold text-gray-800 mb-4">
-            <i class="fas fa-bolt text-purple-600 mr-2"></i> 📞 可执行动作
-          </h2>
-          
-          <div class="space-y-3">
-            <!-- Generate Caregiver Education -->
-            <button onclick="generateCaregiverEducation()" 
-                    class="action-button w-full flex items-center justify-between p-4 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                  <i class="fas fa-file-alt text-blue-600"></i>
-                </div>
-                <div>
-                  <p class="font-bold text-gray-800">生成家庭教育材料</p>
-                  <p class="text-sm text-gray-600">照顾者教育手册</p>
-                </div>
-              </div>
-              <i class="fas fa-chevron-right text-gray-400"></i>
+        <!-- Actions - top 3 primary -->
+        <div class="sec-card">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-sm font-bold">📞 可执行动作</h3>
+            <span class="badge bg-purple-100 text-purple-700 text-[10px]">优先</span>
+          </div>
+          <div class="space-y-1">
+            <button class="action-chip" onclick="generateCaregiverEducation()">
+              <i class="fas fa-file-alt text-blue-500 text-[10px]"></i>
+              <span class="font-medium">生成家庭教育材料</span>
+              <span class="text-gray-400 font-normal">· 照顾者教育手册</span>
             </button>
-            
-            <!-- Generate Referral Guidance -->
-            <button onclick="generateReferralGuidance()" 
-                    class="action-button w-full flex items-center justify-between p-4 bg-cyan-50 border border-cyan-200 rounded-lg hover:bg-cyan-100 transition">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-cyan-100 rounded-full flex items-center justify-center mr-3">
-                  <i class="fas fa-directions text-cyan-600"></i>
-                </div>
-                <div>
-                  <p class="font-bold text-gray-800">生成转诊路径说明</p>
-                  <p class="text-sm text-gray-600">转诊指南和流程</p>
-                </div>
-              </div>
-              <i class="fas fa-chevron-right text-gray-400"></i>
+            <button class="action-chip" onclick="generatePayerSummary()">
+              <i class="fas fa-file-invoice-dollar text-green-500 text-[10px]"></i>
+              <span class="font-medium">生成Payer摘要</span>
+              <span class="text-gray-400 font-normal">· 支付方价值摘要</span>
             </button>
-            
-            <!-- Generate Collaboration Message -->
-            <button onclick="generateCollaborationMessage()" 
-                    class="action-button w-full flex items-center justify-between p-4 bg-yellow-50 border border-yellow-200 rounded-lg hover:bg-yellow-100 transition">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-3">
-                  <i class="fas fa-mail-bulk text-yellow-600"></i>
-                </div>
-                <div>
-                  <p class="font-bold text-gray-800">生成合作沟通邮件</p>
-                  <p class="text-sm text-gray-600">合作伙伴沟通模板</p>
-                </div>
-              </div>
-              <i class="fas fa-chevron-right text-gray-400"></i>
-            </button>
-            
-            <!-- Generate Payer Summary (NEW) -->
-            <button onclick="generatePayerSummary()" 
-                    class="action-button w-full flex items-center justify-between p-4 bg-green-50 border border-green-200 rounded-lg hover:bg-green-100 transition">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
-                  <i class="fas fa-file-invoice-dollar text-green-600"></i>
-                </div>
-                <div>
-                  <p class="font-bold text-gray-800">📄 生成Payer摘要</p>
-                  <p class="text-sm text-gray-600">支付方价值摘要</p>
-                </div>
-              </div>
-              <i class="fas fa-chevron-right text-gray-400"></i>
-            </button>
-            
-            <!-- Generate ROI Explanation (NEW) -->
-            <button onclick="generateROIExplanation()" 
-                    class="action-button w-full flex items-center justify-between p-4 bg-purple-50 border border-purple-200 rounded-lg hover:bg-purple-100 transition">
-              <div class="flex items-center">
-                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
-                  <i class="fas fa-chart-line text-purple-600"></i>
-                </div>
-                <div>
-                  <p class="font-bold text-gray-800">📊 生成ROI说明</p>
-                  <p class="text-sm text-gray-600">投资回报分析</p>
-                </div>
-              </div>
-              <i class="fas fa-chevron-right text-gray-400"></i>
+            <button class="action-chip" onclick="generateCollaborationMessage()">
+              <i class="fas fa-mail-bulk text-yellow-500 text-[10px]"></i>
+              <span class="font-medium">生成合作沟通邮件</span>
+              <span class="text-gray-400 font-normal">· 合作伙伴模板</span>
             </button>
           </div>
-          
-          <div class="mt-6 pt-4 border-t">
-            <div class="flex items-center text-sm text-gray-600">
-              <i class="fas fa-clock text-blue-500 mr-2"></i>
-              <span>最后生成: <span id="last-generated">2026-04-03</span></span>
+          <!-- Secondary actions (collapsed) -->
+          <details class="mt-1.5">
+            <summary class="text-[10px] text-gray-400 cursor-pointer hover:text-gray-600">其他动作 <span class="text-[9px]">· 转诊路径说明 · ROI分析</span></summary>
+            <div class="mt-1 space-y-1">
+              <button class="action-chip secondary" onclick="generateReferralGuidance()">
+                <i class="fas fa-directions text-cyan-500 text-[9px]"></i>
+                <span>生成转诊路径说明</span>
+              </button>
+              <button class="action-chip secondary" onclick="generateROIExplanation()">
+                <i class="fas fa-chart-line text-purple-500 text-[9px]"></i>
+                <span>生成ROI说明</span>
+              </button>
             </div>
-          </div>
+          </details>
         </div>
+
       </div>
     </div>
 
-    <!-- Quick Stats -->
-    <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="bg-white p-4 rounded-lg border">
-        <div class="text-sm text-gray-600 mb-1">扫描时间</div>
-        <div class="text-2xl font-bold text-blue-600">≤10秒</div>
-        <div class="text-xs text-gray-500">快速理解完整路径</div>
-      </div>
-      
-      <div class="bg-white p-4 rounded-lg border">
-        <div class="text-sm text-gray-600 mb-1">核心步骤</div>
-        <div class="text-2xl font-bold text-green-600">4步</div>
-        <div class="text-xs text-gray-500">识别→支持→转诊→管理</div>
-      </div>
-      
-      <div class="bg-white p-4 rounded-lg border">
-        <div class="text-sm text-gray-600 mb-1">可执行动作</div>
-        <div class="text-2xl font-bold text-purple-600">5个</div>
-        <div class="text-xs text-gray-500">立即生成文档和模板</div>
-      </div>
+    <!-- Footer -->
+    <div class="text-center text-[10px] text-gray-400 py-3">
+      最后更新: <span id="last-updated">2026-04-25</span> · 支付方/FQHC运营路径模型 · 非家庭通用文档
     </div>
+
   </div>
 
-  <!-- JavaScript -->
   <script>
-    // Simplified FASD Dashboard JavaScript
-    
-    // Current mode
     let currentMode = 'payer';
-    
-    // Mode descriptions
-    const modeDescriptions = {
-      payer: {
-        title: "支付方 (Trillium)",
-        description: "专注于成本控制、早期识别和支付方价值"
-      },
-      fqhc: {
-        title: "FQHC内部",
-        description: "初级保健临床使用，适合FQHC工作人员"
-      },
-      community: {
-        title: "社区合作伙伴",
-        description: "社区外展和家庭支持重点"
-      }
+    const modeData = {
+      payer: { title: '支付方 (Trillium)', desc: '成本控制 / 早期识别' },
+      fqhc: { title: 'FQHC内部', desc: '初级保健临床使用' },
+      community: { title: '社区合作伙伴', desc: '外展与家庭支持' }
     };
 
-    // Initialize dashboard
-    function initDashboard() {
-      updateLastUpdated();
-      updateModeDisplay();
-    }
-
-    // Update last updated timestamp
-    function updateLastUpdated() {
-      const now = new Date();
-      const options = { 
-        year: 'numeric', 
-        month: 'short', 
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      };
-      
-      const formatted = now.toLocaleDateString('zh-CN', options);
-      const element = document.getElementById('last-updated');
-      if (element) {
-        element.textContent = `最后更新: ${formatted}`;
-      }
-    }
-
-    // Switch mode
     function switchMode(mode) {
       currentMode = mode;
-      
-      // Update toggle buttons
-      document.querySelectorAll('.mode-toggle').forEach(button => {
-        const buttonMode = button.textContent.includes('支付方') ? 'payer' :
-                          button.textContent.includes('FQHC') ? 'fqhc' : 'community';
-        
-        if (buttonMode === mode) {
-          button.classList.add('bg-blue-500', 'text-white');
-          button.classList.remove('bg-gray-50');
-        } else {
-          button.classList.remove('bg-blue-500', 'text-white');
-          button.classList.add('bg-gray-50');
-        }
-      });
-      
-      // Update header description
-      const headerDesc = document.querySelector('.text-sm.text-gray-600.mt-1');
-      if (headerDesc && modeDescriptions[mode]) {
-        headerDesc.textContent = modeDescriptions[mode].description;
-      }
-      
-      showNotification(`已切换到${modeDescriptions[mode].title}模式`, 'info');
+      document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.mode-btn')[['payer','fqhc','community'].indexOf(mode)].classList.add('active');
+      document.getElementById('mode-desc').textContent = '当前：' + modeData[mode].title + ' · ' + modeData[mode].desc;
+      updateLastUpdated();
     }
 
-    // Update mode display
-    function updateModeDisplay() {
-      const headerTitle = document.querySelector('h2.font-bold.text-gray-800');
-      if (headerTitle && modeDescriptions[currentMode]) {
-        headerTitle.innerHTML = `
-          <i class="fas fa-user-cog text-blue-600 mr-2"></i> 当前模式: ${modeDescriptions[currentMode].title}
-        `;
-      }
+    function updateLastUpdated() {
+      const now = new Date();
+      document.getElementById('last-updated').textContent =
+        now.toLocaleDateString('zh-CN', { year:'numeric', month:'short', day:'numeric' });
     }
 
-    // Generate caregiver education sheet
+    // Action stubs (same logic as before, shortened)
     function generateCaregiverEducation() {
-      const content = `
-FASD家庭教育材料（支付方视角）
-============================
-生成日期: ${new Date().toLocaleDateString('zh-CN')}
-模式: ${modeDescriptions[currentMode].title}
-
-FASD基本认知
-------------
-• FASD（胎儿酒精谱系障碍）是由孕期酒精暴露引起的神经发育障碍
-• 核心特征：注意力困难、执行功能挑战、学习困难
-• 不是行为问题，而是神经发育差异
-
-现实期望设定
-------------
-• 根据儿童的实际能力设定目标
-• 关注进步而非完美
-• 庆祝小成功
-
-日常支持策略
-------------
-1. 结构化环境
-   - 建立可预测的日常作息
-   - 使用视觉时间表
-   - 提前预告变化
-
-2. 清晰沟通
-   - 使用简单、直接的语言
-   - 一次只给一个指令
-   - 确认理解
-
-3. 积极行为支持
-   - 关注和奖励适当行为
-   - 教授替代行为
-
-情绪调节支持
-------------
-• 帮助儿童识别情绪
-• 教授简单的调节策略
-• 建立情绪安全的环境
-
-照顾者自我照顾
-------------
-• 寻求支持（支持小组、其他家长）
-• 设定合理界限
-• 照顾自己的身心健康
-
-支付方价值
-------------
-• 早期识别和干预可减少急诊使用
-• 家庭支持可提高治疗依从性
-• 结构化支持可降低长期成本
-
-      `;
-      
-      // Create download link
-      const blob = new Blob([content], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `FASD家庭教育材料_${currentMode}_${new Date().toISOString().split('T')[0]}.txt`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      
-      updateLastGenerated();
-      showNotification('家庭教育材料已生成并下载', 'success');
+      download('FASD家庭教育材料_' + currentMode + '_' + getDate() + '.txt', generateCaregiverContent());
+      notify('家庭教育材料已生成');
     }
-
-    // Generate referral guidance
-    function generateReferralGuidance() {
-      const content = `
-FASD转诊路径指南（支付方视角）
-=============================
-生成日期: ${new Date().toLocaleDateString('zh-CN')}
-模式: ${modeDescriptions[currentMode].title}
-
-转诊决策流程
-------------
-1. 评估需求层级
-   - 轻度: 基础行为支持、家长教育
-   - 中度: 行为治疗、学校支持
-   - 重度: 专科评估、药物治疗
-
-2. 转诊选项
-   a) 行为支持转诊
-      • 适合: 行为问题、情绪调节困难
-      • 目标: 行为管理技能、家长培训
-      • 成本效益: 中等，预防升级
-
-   b) 神经心理评估
-      • 适合: 学习困难、诊断不明确
-      • 目标: 全面认知和行为评估
-      • 成本效益: 较高，但可避免误诊
-
-   c) 专科医生转诊
-      • 适合: 复杂病例、药物治疗评估
-      • 目标: 专科诊断、药物治疗管理
-      • 成本效益: 最高，但必要
-
-转诊触发标准
-------------
-立即转诊（高风险）:
-• 自杀意念或自伤行为
-• 严重攻击行为
-• 物质使用问题
-
-优先转诊（中风险）:
-• 学校功能显著受损
-• 家庭危机
-• 多种行为问题共存
-
-常规转诊（低风险）:
-• 学习困难但无安全风险
-• 轻度行为问题
-• 家长教育需求
-
-支付方价值分析
----------------
-• 适当转诊可避免不必要的专科服务
-• 早期干预可减少长期成本
-• 协调护理可提高效率
-
-      `;
-      
-      // Create download link
-      const blob = new Blob([content], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `FASD转诊指南_${currentMode}_${new Date().toISOString().split('T')[0]}.txt`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      
-      updateLastGenerated();
-      showNotification('转诊路径说明已生成并下载', 'success');
+    function generatePayerSummary() {
+      download('FASD支付方摘要_' + getDate() + '.txt', generatePayerContent());
+      notify('支付方摘要已生成');
     }
-
-    // Generate collaboration message
     function generateCollaborationMessage() {
-      let content = '';
-      
-      if (currentMode === 'payer') {
-        content = `
-主题: FASD护理路径 - 支付方价值摘要
+      navigator.clipboard.writeText(generateCollaborationContent()).then(() => notify('合作沟通邮件已复制到剪贴板'));
+    }
+    function generateReferralGuidance() {
+      download('FASD转诊指南_' + currentMode + '_' + getDate() + '.txt', generateReferralContent());
+      notify('转诊路径说明已生成');
+    }
+    function generateROIExplanation() {
+      download('FASD_ROI分析_' + getDate() + '.txt', generateROIContent());
+      notify('ROI说明已生成');
+    }
 
-尊敬的Trillium管理团队,
+    function getDate() { return new Date().toISOString().split('T')[0]; }
+    function download(name, content) {
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([content], {type:'text/plain'}));
+      a.download = name; a.click(); URL.revokeObjectURL(a.href);
+    }
+    function notify(msg) {
+      const n = document.createElement('div');
+      n.className = 'fixed top-4 right-4 z-50 px-4 py-2 rounded-lg shadow-lg bg-green-100 text-green-800 border border-green-200 text-xs';
+      n.innerHTML = '<i class="fas fa-check-circle mr-1"></i> ' + msg;
+      document.body.appendChild(n);
+      setTimeout(() => { n.style.opacity='0'; n.style.transition='opacity .5s'; setTimeout(() => n.remove(), 500); }, 2500);
+      updateLastUpdated();
+    }
 
-本摘要概述了FASD综合护理路径的支付方价值。
+    // Content generators
+    function generateCaregiverContent() {
+      return `FASD家庭教育材料（${modeData[currentMode].title}视角）
+生成日期: ${getDate()}
+
+核心原则:
+• FASD是神经发育障碍，非行为问题
+• 设定符合儿童实际能力的目标
+• 关注进步而非完美
+
+日常支持策略:
+1. 结构化环境 — 可预测作息、视觉时间表
+2. 清晰沟通 — 简单直接、一次一个指令
+3. 积极行为支持 — 奖励适当行为、教授替代策略
+
+支付方价值:
+• 早期干预减少急诊使用
+• 家庭支持提高治疗依从性
+• 结构化支持降低长期成本`;
+    }
+
+    function generatePayerContent() {
+      return `FASD护理路径 - 支付方价值摘要
+生成日期: ${getDate()}
 
 核心价值主张:
-1. 成本控制
-   • 早期识别和干预可减少急诊使用 15-20%
-   • 在FQHC层面解决问题可降低专科转诊 30-40%
-   • 结构化家庭支持可提高治疗依从性 25-35%
+1. 成本控制 — 减少急诊15-20%、降低专科转诊30-40%
+2. 质量改善 — 标准化路径、家庭参与改善结果
+3. 风险缓解 — 减少未识别病例长期成本
 
-2. 质量改善
-   • 标准化护理路径提高服务一致性
-   • 家庭参与改善临床结果
-   • 社区整合扩大服务覆盖
+投资回报时间表:
+• 短期(0-12月): 基础设施建立
+• 中期(13-24月): 成本节约实现
+• 长期(25-36月): 3-5倍ROI`;
+    }
 
-3. 风险缓解
-   • 减少未识别病例的长期成本
-   • 预防行为问题升级为危机
-   • 提高患者和家庭满意度
+    function generateCollaborationContent() {
+      return `主题: FASD护理路径 - 支付方价值摘要
 
-投资回报预期:
-• 短期 (0-12个月): 建立基础设施，实现质量改善
-• 中期 (13-24个月): 实现成本节约，扩大覆盖
-• 长期 (25-36个月): 可持续的成本效益
+尊敬的Trillium团队,
+
+核心价值主张:
+1. 早期识别和干预可减少急诊使用15-20%
+2. FQHC层面解决问题可降低专科转诊30-40%
+3. 结构化家庭支持可提高治疗依从性25-35%
 
 建议下一步:
 1. 试点项目评估
 2. 成本效益分析
 3. 扩大实施计划
 
-期待进一步讨论。
-
-此致,
-[您的姓名]
-[您的职位]
-        `;
-      } else if (currentMode === 'fqhc') {
-        content = `
-主题: FQHC内部FASD护理路径实施
-
-致: FQHC临床团队
-
-目标: 建立标准化的FASD识别、支持和转诊流程。
-
-实施步骤:
-1. 筛查和识别
-   • 在所有儿童健康检查中纳入FASD筛查
-   • 培训临床工作人员识别危险信号
-
-2. 基础支持
-   • 提供家庭教育材料
-   • 建立行为支持基础策略
-
-3. 转诊协调
-   • 明确转诊标准和流程
-   • 建立转诊合作伙伴网络
-
-资源需求:
-• 临床培训材料
-• 家庭教育手册
-• 转诊指南和表格
-
-        `;
-      } else {
-        content = `
-主题: 社区-FQHC FASD护理协作提案
-
-尊敬的[合作伙伴名称]团队,
-
-提议建立FASD护理协作，整合社区资源和初级保健服务。
-
-协作模式:
-1. 社区识别和外展
-   • 您的组织: 社区筛查、意识培训
-   • 我们的角色: 临床评估确认
-
-2. 家庭支持协调
-   • 您的组织: 照顾者支持小组
-   • 我们的角色: 临床指导
-
-3. 持续护理协调
-   • 定期协调会议
-   • 共享进展更新
-
-期待与您合作。
-
-        `;
-      }
-      
-      // Copy to clipboard
-      navigator.clipboard.writeText(content).then(() => {
-        updateLastGenerated();
-        showNotification('合作沟通邮件已复制到剪贴板', 'success');
-      }).catch(err => {
-        console.error('复制失败:', err);
-        showNotification('复制失败，请手动复制文本', 'error');
-      });
+期待进一步讨论。`;
     }
 
-    // Generate payer summary (NEW)
-    function generatePayerSummary() {
-      const content = `
-FASD护理路径 - 支付方价值摘要
-==============================
-生成日期: ${new Date().toLocaleDateString('zh-CN')}
+    function generateReferralContent() {
+      return `FASD转诊路径指南（${modeData[currentMode].title}视角）
+生成日期: ${getDate()}
 
-核心价值主张
-------------
-1. 成本控制
-   • 减少急诊使用: 15-20%
-   • 降低专科转诊: 30-40%
-   • 提高治疗依从性: 25-35%
+转诊层级:
+• 轻度: 基础行为支持、家长教育
+• 中度: 行为治疗、学校支持
+• 重度: 专科评估、药物治疗
 
-2. 质量改善
-   • 标准化护理路径
-   • 家庭参与改善结果
-   • 社区整合扩大覆盖
+转诊触发标准:
+• 立即转诊: 自杀风险、严重攻击、物质使用
+• 优先转诊: 学校功能显著受损、家庭危机
+• 常规转诊: 学习困难、轻度行为问题
 
-3. 风险缓解
-   • 减少未识别病例的长期成本
-   • 预防行为问题升级
-   • 提高患者满意度
-
-护理路径概述
-------------
-1. 识别 (FQHC/学校/CHW)
-   • 早期识别危险信号
-   • 简化筛查流程
-
-2. 支持 (家庭支持)
-   • 照顾者教育
-   • 实际作息支持
-
-3. 转诊 (适当转诊)
-   • 行为支持
-   • 专科评估
-
-4. 管理 (持续协调)
-   • 学校协调
-   • 行为管理
-
-投资回报时间表
----------------
-• 短期 (0-12个月): 建立基础设施
-• 中期 (13-24个月): 实现成本节约
-• 长期 (25-36个月): 可持续效益
-
-关键指标
---------
-• 临床指标: 识别率提高 30%，转诊率提高 40%
-• 财务指标: 专科服务减少 20%，急诊使用减少 15%
-• 质量指标: 治疗依从性提高 35%，满意度提高 25%
-
-建议行动
---------
-1. 试点项目评估
-2. 成本效益分析
-3. 扩大实施计划
-
-      `;
-      
-      // Create download link
-      const blob = new Blob([content], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `FASD支付方摘要_${new Date().toISOString().split('T')[0]}.txt`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      
-      updateLastGenerated();
-      showNotification('支付方摘要已生成并下载', 'success');
+支付方价值:
+• 适当转诊避免不必要专科服务
+• 早期干预减少长期成本
+• 协调护理提高效率`;
     }
 
-    // Generate ROI explanation (NEW)
-    function generateROIExplanation() {
-      const content = `
-FASD护理路径 - 投资回报分析
-===========================
-生成日期: ${new Date().toLocaleDateString('zh-CN')}
+    function generateROIContent() {
+      return `FASD护理路径 - 投资回报分析
+生成日期: ${getDate()}
 
-投资领域
---------
-1. 早期识别和干预
-   • 成本: 筛查工具、临床培训
-   • 回报: 减少后期专科服务使用 20-30%
+每患者年度成本节约: $2,500-$3,500
+投资回收期: 18-24个月
+长期价值: 3-5倍投资回报
 
-2. 家庭支持计划
-   • 成本: 家长教育、支持小组
-   • 回报: 减少急诊使用 15-20%，提高治疗依从性 25-35%
+预期成果:
+• 识别率提高: 30%
+• 专科服务减少: 20%
+• 急诊使用减少: 15%
+• 治疗依从性提高: 35%
 
-3. 社区协作
-   • 成本: 合作伙伴资助、协调人员
-   • 回报: 扩大覆盖 30-40%，文化响应服务
-
-成本效益分析
-------------
-• 每患者年度成本节约: $2,500-$3,500
-• 投资回收期: 18-24个月
-• 长期价值: 3-5倍投资回报
-
-预期成果指标
-------------
-• 临床指标:
-  - FASD识别率提高: 30%
-  - 适当转诊率提高: 40%
-  - 家庭满意度提高: 25%
-
-• 财务指标:
-  - 专科服务使用减少: 20%
-  - 急诊使用减少: 15%
-  - 住院率减少: 10%
-
-• 质量指标:
-  - 治疗依从性提高: 35%
-  - 学校出勤率提高: 20%
-  - 家庭功能改善: 30%
-
-风险缓解
---------
-• 未识别病例的长期成本: 减少 40-50%
-• 行为问题升级为危机: 减少 60-70%
-• 患者流失率: 降低 25-30%
-
-实施时间表
-----------
-• 第1-3个月: 试点准备和培训
-• 第4-9个月: 试点实施和数据收集
-• 第10-12个月: 评估和优化
-• 第13-24个月: 扩大实施和成本节约实现
-
-建议评估框架
-------------
-1. 基线数据收集 (实施前3个月)
-2. 中期评估 (实施后6个月)
-3. 全面评估 (实施后12个月)
-4. 长期跟踪 (实施后24个月)
-
-      `;
-      
-      // Create download link
-      const blob = new Blob([content], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `FASD_ROI分析_${new Date().toISOString().split('T')[0]}.txt`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      
-      updateLastGenerated();
-      showNotification('ROI说明已生成并下载', 'success');
+风险缓解:
+• 未识别病例长期成本减少: 40-50%
+• 行为问题升级为危机减少: 60-70%`;
     }
 
-    // Update last generated timestamp
-    function updateLastGenerated() {
-      const today = new Date().toISOString().split('T')[0];
-      const element = document.getElementById('last-generated');
-      if (element) {
-        element.textContent = today;
-      }
-    }
-
-    // Refresh dashboard
-    function refreshDashboard() {
-      updateLastUpdated();
-      showNotification('仪表板已刷新', 'info');
-    }
-
-    // Show notification
-    function showNotification(message, type = 'info') {
-      // Create notification element
-      const notification = document.createElement('div');
-      notification.className = `fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg max-w-sm ${
-        type === 'success' ? 'bg-green-100 text-green-800 border border-green-200' :
-        type === 'error' ? 'bg-red-100 text-red-800 border border-red-200' :
-        type === 'warning' ? 'bg-yellow-100 text-yellow-800 border border-yellow-200' :
-        'bg-blue-100 text-blue-800 border border-blue-200'
-      }`;
-      
-      notification.innerHTML = `
-        <div class="flex items-center">
-          <i class="fas ${
-            type === 'success' ? 'fa-check-circle' :
-            type === 'error' ? 'fa-exclamation-circle' :
-            type === 'warning' ? 'fa-exclamation-triangle' :
-            'fa-info-circle'
-          } mr-2"></i>
-          <span>${message}</span>
-        </div>
-      `;
-      
-      // Add to body
-      document.body.appendChild(notification);
-      
-      // Remove after 3 seconds
-      setTimeout(() => {
-        notification.style.opacity = '0';
-        notification.style.transition = 'opacity 0.5s';
-        setTimeout(() => {
-          if (notification.parentNode) {
-            notification.parentNode.removeChild(notification);
-          }
-        }, 500);
-      }, 3000);
-    }
-
-    // Initialize on load
-    document.addEventListener('DOMContentLoaded', initDashboard);
+    document.addEventListener('DOMContentLoaded', () => updateLastUpdated());
   </script>
+
 </body>
 </html>
