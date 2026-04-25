@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>稿件面板 - NeighborBridge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: "#0ea5e9", urgent: "#ef4444", warning: "#f59e0b",
+            neutral: "#6b7280", completed: "#10b981",
+            orange: { 500: "#f59e0b" }, blue: { 500: "#60a5fa" },
+            green: { 500: "#34d399" }, purple: { 500: "#a78bfa" }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .sec-card { @apply bg-white rounded-lg p-3 border shadow-sm mb-3; }
+    .badge { display: inline-flex; align-items: center; padding: 1px 10px; border-radius: 9999px; font-size: 11px; font-weight: 500; }
+    .acc-blue { border-left: 4px solid #60a5fa; }
+    .acc-green { border-left: 4px solid #34d399; }
+    .acc-purple { border-left: 4px solid #a78bfa; }
+    .acc-red { border-left: 4px solid #ef4444; }
+    .acc-orange { border-left: 4px solid #f59e0b; }
+    .acc-cyan { border-left: 4px solid #22d3ee; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-6xl mx-auto px-3 py-2 flex justify-between items-center">
+      <h1 class="text-base font-bold">NeighborBridge</h1>
+      <div class="flex flex-wrap gap-x-3 gap-y-0.5 text-[11px]">
+        <a href="/" class="text-gray-500 hover:text-brand">主面板</a>
+        <a href="/fqhc" class="text-gray-500 hover:text-brand">FQHC</a>
+        <a href="/trillium" class="text-gray-500 hover:text-brand">Trillium</a>
+        <a href="/stakeholders" class="text-gray-500 hover:text-brand">Stakeholders</a>
+        <a href="/adoption" class="text-gray-500 hover:text-brand">Adoption</a>
+        <a href="/emergency-plan" class="text-gray-500 hover:text-brand">🛡️Emergency</a>
+        <a href="/fasd-care-pathway" class="text-gray-500 hover:text-brand">🧠FASD</a>
+        <a href="/tax-strategy" class="text-gray-500 hover:text-brand">💰Tax</a>
+        <a href="/faculty-pathway" class="text-gray-500 hover:text-brand">🎓教职</a>
+        <a href="/manuscript-dashboard" class="text-brand font-semibold">📄稿件</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <div class="max-w-6xl mx-auto px-3 py-3">
+
+    <!-- Page title -->
+    <div class="mb-3">
+      <h2 class="text-base font-bold">📄 稿件面板 <span class="text-[10px] text-gray-400 font-normal">/ Manuscript Dashboard</span></h2>
+      <p class="text-[10px] text-gray-400">单篇 peer-reviewed article 工作流 · 决策与进度面板</p>
+    </div>
+
+    <!-- 2-col: left (target/claim/struct) / right (journal/blocks/actions) -->
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-3">
+
+      <!-- LEFT (3/5) -->
+      <div class="lg:col-span-3 space-y-3">
+
+        <!-- 1. 稿件总目标 -->
+        <div class="sec-card acc-blue">
+          <div class="flex justify-between items-center mb-1">
+            <h3 class="text-sm font-bold">稿件总目标</h3>
+            <span class="badge bg-blue-100 text-blue-700 text-[10px]">待评估</span>
+          </div>
+          <div class="space-y-1 text-[11px]">
+            <p>目标：完成并投稿一篇 peer-reviewed article</p>
+            <p>
+              <span class="text-gray-400">源文档：</span>
+              <a href="https://docs.google.com/document/d/1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI/edit" target="_blank" class="text-brand underline">Google Doc</a>
+            </p>
+            <p><span class="text-gray-400">读取状态：</span><span class="text-green-600 font-medium">✅ 已成功读取</span></p>
+            <p><span class="text-gray-400">中文标题：</span>信任如道德经验——湘西乡村关系伦理与初级保健</p>
+            <p><span class="text-gray-400">英文标题：</span>Trust as Moral Experience: Relational Ethics and Primary Care in Rural Western Hunan</p>
+          </div>
+        </div>
+
+        <!-- 2. 核心主张 -->
+        <div class="sec-card acc-green">
+          <div class="flex justify-between items-center mb-1">
+            <h3 class="text-sm font-bold">核心主张</h3>
+            <span class="badge bg-yellow-100 text-yellow-700 text-[10px]">需收敛</span>
+          </div>
+          <div class="space-y-1 text-[11px]">
+            <div class="p-1.5 rounded bg-yellow-50 border border-yellow-100">
+              <p class="text-yellow-700">一句话主线（草稿）：</p>
+              <p class="text-yellow-800">湘西乡村基层医疗中的信任并非抽象心理态度，而是在差序格局（费孝通）的关系伦理与道德经验（Kleinman）的具身化关怀中，于制度—社区—个人三层动态生成的实践过程。</p>
+            </div>
+            <p class="text-gray-400">评估：理论对话清晰（Fei × Kleinman），paper type 明确，但主线可再压缩为 1-2 句，结论需更强化"独家贡献"</p>
+          </div>
+        </div>
+
+        <!-- 3. 源文档与版本 -->
+        <div class="sec-card acc-purple">
+          <div class="flex justify-between items-center mb-1">
+            <h3 class="text-sm font-bold">源文档与版本</h3>
+          </div>
+          <div class="space-y-1 text-[11px]">
+            <div class="grid grid-cols-2 gap-1">
+              <div>
+                <p class="text-gray-400">来源</p>
+                <p class="text-gray-700">Google Doc（~18KB）</p>
+              </div>
+              <div>
+                <p class="text-gray-400">草稿状态</p>
+                <p class="text-yellow-600">多版本草稿·书写中</p>
+              </div>
+              <div>
+                <p class="text-gray-400">Agent 笔记</p>
+                <p class="text-green-600">✅ 首轮评估完成</p>
+              </div>
+              <div>
+                <p class="text-gray-400">下次版本</p>
+                <p class="text-gray-700">收缩主线 + fix 结论</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. 文章结构 -->
+        <div class="sec-card acc-orange">
+          <div class="flex justify-between items-center mb-1">
+            <h3 class="text-sm font-bold">文章结构</h3>
+            <span class="badge bg-orange-100 text-orange-700 text-[10px]">草稿阶段</span>
+          </div>
+          <div class="space-y-0.5 text-[11px]">
+            <div class="flex items-center justify-between p-1 rounded even:bg-gray-50">
+              <span>Title</span>
+              <span class="badge bg-green-100 text-green-700 text-[9px]">✅ 有草案</span>
+            </div>
+            <div class="flex items-center justify-between p-1 rounded even:bg-gray-50">
+              <span>Abstract</span>
+              <span class="badge bg-yellow-100 text-yellow-700 text-[9px]">需重写</span>
+            </div>
+            <div class="flex items-center justify-between p-1 rounded even:bg-gray-50">
+              <span>Introduction</span>
+              <span class="badge bg-green-100 text-green-700 text-[9px]">✅ 有稿</span>
+            </div>
+            <div class="flex items-center justify-between p-1 rounded even:bg-gray-50">
+              <span>背景/文献</span>
+              <span class="badge bg-green-100 text-green-700 text-[9px]">✅ 有稿</span>
+            </div>
+            <div class="flex items-center justify-between p-1 rounded even:bg-gray-50">
+              <span>Methods</span>
+              <span class="badge bg-green-100 text-green-700 text-[9px]">✅ 有稿</span>
+            </div>
+            <div class="flex items-center justify-between p-1 rounded even:bg-gray-50">
+              <span>Findings（3 个子层）</span>
+              <span class="badge bg-yellow-100 text-yellow-700 text-[9px]">🔄 整理中</span>
+            </div>
+            <div class="flex items-center justify-between p-1 rounded even:bg-gray-50">
+              <span>Discussion/Conclusion</span>
+              <span class="badge bg-red-100 text-red-700 text-[9px]">需强化</span>
+            </div>
+            <div class="flex items-center justify-between p-1 rounded even:bg-gray-50">
+              <span>References</span>
+              <span class="badge bg-yellow-100 text-yellow-700 text-[9px]">🔄 补充中</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT (2/5) -->
+      <div class="lg:col-span-2 space-y-3">
+
+        <!-- 5. 目标期刊 -->
+        <div class="sec-card acc-cyan">
+          <div class="flex justify-between items-center mb-1">
+            <h3 class="text-sm font-bold">目标期刊</h3>
+            <span class="badge bg-cyan-100 text-cyan-700 text-[10px]">待定</span>
+          </div>
+          <div class="space-y-1.5 text-[11px]">
+            <div class="p-1.5 rounded bg-gray-50 border border-gray-100">
+              <p class="text-gray-400 text-[10px]">推荐方向（基于内容判断）</p>
+              <ul class="text-gray-700 space-y-0.5 text-[10px]">
+                <li>• Culture, Medicine, and Psychiatry（CMPS，最匹配）</li>
+                <li>• Medical Anthropology Quarterly（MAQ，次选）</li>
+                <li>• Social Science &amp; Medicine（SSM，如转为政策）</li>
+              </ul>
+            </div>
+            <div class="grid grid-cols-2 gap-1 text-[10px]">
+              <div><span class="text-gray-400">Article type</span><br><span class="text-gray-700">Original research</span></div>
+              <div><span class="text-gray-400">Fit status</span><br><span class="text-yellow-600">待确认</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. 当前阻塞 -->
+        <div class="sec-card acc-red">
+          <div class="flex justify-between items-center mb-1">
+            <h3 class="text-sm font-bold">当前阻塞</h3>
+            <span class="badge bg-red-100 text-red-700 text-[10px]">3 项</span>
+          </div>
+          <div class="space-y-1 text-[11px]">
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-red-50 border border-red-100">
+              <span class="text-red-500 shrink-0">🔴</span>
+              <span class="text-red-700"><span class="font-medium">核心论点未收敛</span> — 需压缩为 1-2 句可作为 paper 命题的那句</span>
+            </div>
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-yellow-50 border border-yellow-100">
+              <span class="text-yellow-500 shrink-0">🟡</span>
+              <span class="text-yellow-700"><span class="font-medium">Target journal 未定</span> — 需确认投稿方向后再优化格式</span>
+            </div>
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-orange-50 border border-orange-100">
+              <span class="text-orange-500 shrink-0">🟠</span>
+              <span class="text-orange-700"><span class="font-medium">Abstract 不成型</span> — 当前 draft 偏长，缺乏论点浓缩版</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. 下一步动作 -->
+        <div class="sec-card acc-green">
+          <div class="flex justify-between items-center mb-1">
+            <h3 class="text-sm font-bold">下一步动作</h3>
+            <span class="badge bg-green-100 text-green-700 text-[10px]">优先</span>
+          </div>
+          <div class="space-y-1">
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-blue-50 border border-blue-100 cursor-pointer hover:bg-blue-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ 主线压缩完成'; this.style.opacity='0.5'">
+              <i class="fas fa-compress-arrows-alt text-blue-500 text-[10px]"></i>
+              <span class="text-blue-700">压缩核心论点为 1-2 句命题</span>
+            </div>
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-purple-50 border border-purple-100 cursor-pointer hover:bg-purple-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ 期刊分析完成'; this.style.opacity='0.5'">
+              <i class="fas fa-book-open text-purple-500 text-[10px]"></i>
+              <span class="text-purple-700">选 3 个候选期刊 + 确认方向</span>
+            </div>
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-green-50 border border-green-100 cursor-pointer hover:bg-green-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ Abstract 重写完成'; this.style.opacity='0.5'">
+              <i class="fas fa-pen text-green-500 text-[10px]"></i>
+              <span class="text-green-700">重写 abstract（1 段焦点版）</span>
+            </div>
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-amber-50 border border-amber-100 cursor-pointer hover:bg-amber-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ Findings 结构调整说明生成'; this.style.opacity='0.5'">
+              <i class="fas fa-sitemap text-amber-500 text-[10px]"></i>
+              <span class="text-amber-700">明确 Findings 三层的结构逻辑</span>
+            </div>
+            <p id="action-status" class="text-[10px] text-gray-400 mt-1">点击动作标记完成</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Assessment summary -->
+    <div class="sec-card mt-1">
+      <details>
+        <summary class="text-xs font-medium text-gray-500 cursor-pointer hover:text-gray-700">📋 Agent 首轮评估摘要</summary>
+        <div class="mt-2 space-y-2 text-[11px] text-gray-700">
+          <div class="p-2 rounded bg-gray-50">
+            <p class="font-medium text-gray-600 mb-1">1. 文章在讲什么</p>
+            <p>湘西乡村基层医疗中的信任生成机制，整合费孝通"差序格局"与 Kleinman "道德经验"，在制度-社区-个人三层分析信任如何通过关系伦理与具身关怀被动态构建。</p>
+          </div>
+          <div class="p-2 rounded bg-gray-50">
+            <p class="font-medium text-gray-600 mb-1">2. 最清楚的主线</p>
+            <p>Fei × Kleinman 的理论对话作为分析框架，将医疗信任分解为制度层（政策地方化）、社区层（关系网络中道德声望）、个人层（具身化关怀的伦理意义）。</p>
+          </div>
+          <div class="p-2 rounded bg-gray-50">
+            <p class="font-medium text-gray-600 mb-1">3. 最大结构问题</p>
+            <p>Discussion/Conclusion 尚未充分展开；Findings 三层的逻辑关系可以更明确（当前存在交叉和过度重复叙述）；Abstract 过长且不够聚焦。</p>
+          </div>
+          <div class="p-2 rounded bg-gray-50">
+            <p class="font-medium text-gray-600 mb-1">4. 最像哪类 paper</p>
+            <p>医学人类学民族志论文（original research），以田野材料驱动的理论构建论文。非综述、非纯理论、非政策分析。</p>
+          </div>
+          <div class="p-2 rounded bg-gray-50">
+            <p class="font-medium text-gray-600 mb-1">5. 适合期刊类型</p>
+            <p>首选：Culture, Medicine, and Psychiatry（CMPS）—— 民族志深描 + 理论对话型论文；备选：Medical Anthropology Quarterly（MAQ）；如强化政策讨论可考虑 SSM。</p>
+          </div>
+          <div class="p-2 rounded bg-gray-50">
+            <p class="font-medium text-gray-600 mb-1">6. 立即下一步</p>
+            <p>1）压缩核心论点为 1-2 句命题；2）确认 target journal 方向后再做细节调整；3）重写 abstract 为焦点版 1 段。</p>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <!-- Structured metadata -->
+    <!-- #nb-manuscript: {"id":"MS-001","title":"Trust as Moral Experience","source":"Google Doc / 1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI","phase":"待评估","doc_read":true,"core_claim":"mixed","journal_primary":null,"journal_backup":null,"created":"2026-04-25"} -->
+    <!-- #nb-manuscript-sections: {"title":"draft","abstract":"needs-rewrite","introduction":"draft","background":"draft","methods":"draft","findings":"organizing","conclusion":"needs-work","references":"in-progress"} -->
+    <!-- #nb-blockers: [{"id":"BLK-MS-001","desc":"核心论点未收敛"},{"id":"BLK-MS-002","desc":"Target journal未定"},{"id":"BLK-MS-003","desc":"Abstract不成型"}] -->
+
+    <!-- Footer -->
+    <div class="text-center text-[10px] text-gray-400 py-3">
+      稿件面板 · 源文档已读取 · 首轮评估完成 · 最后更新: <span id="update-time"></span>
+    </div>
+
+  </div>
+
+  <script>
+    document.getElementById('update-time').textContent = new Date().toLocaleDateString('zh-CN', {
+      year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+    });
+  </script>
+
+</body>
+</html>
