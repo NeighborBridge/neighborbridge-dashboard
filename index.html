@@ -65,7 +65,7 @@
         <a href="/trillium" class="text-gray-500 hover:text-brand">Trillium</a>
         <a href="/stakeholders" class="text-gray-500 hover:text-brand">Stakeholders</a>
         <a href="/adoption" class="text-gray-500 hover:text-brand">Adoption</a>
-        <a href="/emergency-plan" class="text-gray-500 hover:text-brand">🛡️Emergency</a>
+        <a href="/emergency-plan" class="text-gray-400 hover:text-brand" title="原型归档，活跃页面为照护与行动自由">🛡️⏺参考</a>
         <a href="/fasd-care-pathway" class="text-gray-500 hover:text-brand">🧠FASD</a>
         <a href="/tax-strategy" class="text-gray-500 hover:text-brand">Tax</a>
         <a href="/faculty-pathway" class="text-gray-500 hover:text-brand">🎓教职</a>
@@ -148,10 +148,10 @@
           <div class="text-[10px] text-gray-400">采用规划</div>
           <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-gray-100 text-gray-800">⏸待更新</span>
         </a>
-        <a href="/emergency-plan" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
-          <div class="text-xs font-medium text-gray-700">🛡️Emergency</div>
-          <div class="text-[10px] text-gray-400">家庭应急保障</div>
-          <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-purple-100 text-purple-800">🆕新建</span>
+        <a href="/emergency-plan" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors" title="原型归档">
+          <div class="text-xs font-medium text-gray-400">🛡️⏺参考</div>
+          <div class="text-[10px] text-gray-400">原型/归档</div>
+          <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-yellow-100 text-yellow-800">⏺归档</span>
         </a>
         <a href="/fasd-care-pathway" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
           <div class="text-xs font-medium text-gray-700">🧠FASD</div>
@@ -321,11 +321,11 @@
       "/fqhc": "FQHC基础试点",
       "/stakeholders": "关系网络",
       "/adoption": "采用规划",
-      "/emergency-plan": "🛡️家庭应急保障",
+      "/emergency-plan": "🛡️⏺原型归档参考",
       "/fasd-care-pathway": "🧠FASD护理路径",
       "/tax-strategy": "💰税务策略",
       "/manuscript-dashboard": "📄稿件面板",
-      "/caregiving-mobility": "🏠照护与行动自由"
+      "/caregiving-mobility": "🏠照护与行动自由 (活跃)"
     },
     "agent_behavior_flags": {
       "use_workspace_recovery_first": true,
@@ -335,7 +335,8 @@
     },
     "recommended_agent_start_point": "Read #nb-dashboard-meta first, then follow bootstrap_read_order. This is a compact executive dashboard. Read sections in order, do not generate content unless the task explicitly requests it.",
     "recommended_next_structured_object_type": "nb-metrics (dashboard-level KPIs and health indicators)",
-    "auto_push_rule": "On the NeighborBridge dashboard, production-ready edits are auto-committed and pushed to GitHub main by default. Richard must explicitly say 'don\u2019t deploy yet' to skip. Applies to: index.html, stakeholders.html, fqhc.html, trillium.html, adoption.html, emergency-plan.html, fasd-care-pathway.html, shared.css, related docs. Skip conditions: Richard says no, draft/preview, GitHub auth unavailable, local verification fails, content awaiting approval.",
+    "auto_push_rule": "On the NeighborBridge dashboard, production-ready edits are auto-committed and pushed to GitHub main by default. Richard must explicitly say 'don\u2019t deploy yet' to skip. Applies to: index.html, stakeholders.html, fqhc.html, trillium.html, adoption.html, caregiving-mobility.html, fasd-care-pathway.html, shared.css, related docs. Skip conditions: Richard says no, draft/preview, GitHub auth unavailable, local verification fails, content awaiting approval.",
+    "archived_pages": {"/emergency-plan":"原型归档", "active_replacement":"/caregiving-mobility"}
     "notes_for_agents": [
       "This is an executive command dashboard \u2014 high signal density, minimal prose. Read, don\u2019t narrate.",
       "All visible content is Chinese-first. English is only used for proper nouns (names, brands) and code/machine references.",
