@@ -3,336 +3,231 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FQHC — 基础试点面板</title>
-
-  <!-- Tailwind CDN -->
+  <title>FQHC（基础试点）- NeighborBridge</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Simple config -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            brand: "#0ea5e9",
-            urgent: "#ef4444",
-            warning: "#f59e0b",
-            neutral: "#6b7280",
-            completed: "#10b981",
-            orange: {
-              500: "#f59e0b"
-            },
-            blue: {
-              500: "#60a5fa"
-            },
-            green: {
-              500: "#34d399"
-            },
-            purple: {
-              500: "#a78bfa"
-            }
+            brand: "#0ea5e9", urgent: "#ef4444", warning: "#f59e0b",
+            neutral: "#6b7280", completed: "#10b981",
+            orange: { 500: "#f59e0b" }, blue: { 500: "#60a5fa" },
+            green: { 500: "#34d399" }, purple: { 500: "#a78bfa" }
           }
         }
       }
     }
   </script>
-  
-  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Shared Design System - Single Source of Truth -->
   <link rel="stylesheet" href="shared.css">
-  
   <style>
-    /* [DESIGN SYSTEM UNIFIED] - FQHC now uses shared design system from stakeholders.html */
-    /* All custom color definitions removed - using shared.css only */
-    
-    /* Page-specific styles (non-color related) */
-    .section-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-    }
-    
-    /* Ensure consistent card styling */
-    .execution-card {
-      composes: dashboard-card from shared.css;
-    }
+    .sec-card { @apply bg-white rounded-lg p-3 border shadow-sm mb-3; }
+    .badge { display: inline-flex; align-items: center; padding: 1px 10px; border-radius: 9999px; font-size: 11px; font-weight: 500; }
+    .acc-blue { border-left: 4px solid #60a5fa; }
+    .acc-green { border-left: 4px solid #34d399; }
+    .acc-purple { border-left: 4px solid #a78bfa; }
+    .acc-red { border-left: 4px solid #ef4444; }
+    .acc-orange { border-left: 4px solid #f59e0b; }
   </style>
 </head>
-
 <body>
 
-  <!-- Header with Navigation -->
-  <header class="bg-card shadow-sm border-b">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="flex items-center space-x-4">
-        <h1 class="text-xl font-bold">NeighborBridge 执行面板</h1>
-        <span class="text-sm text-gray-500">› <span class="font-medium text-brand">FQHC（基础试点）</span></span>
-      </div>
-      <div class="flex space-x-4">
-        <a href="/" class="text-sm text-gray-600 hover:text-brand">主面板</a>
-        <a href="/adoption" class="text-sm text-gray-600 hover:text-brand">采用规划</a>
-        <a href="/trillium" class="text-sm text-gray-600 hover:text-brand">Trillium Health</a>
-        <a href="/stakeholders" class="text-sm text-gray-600 hover:text-brand">Stakeholders（关系网络）</a>
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-6xl mx-auto px-3 py-2 flex justify-between items-center">
+      <h1 class="text-base font-bold">NeighborBridge</h1>
+      <div class="flex flex-wrap gap-x-3 gap-y-0.5 text-[11px]">
+        <a href="/" class="text-gray-500 hover:text-brand">主面板</a>
+        <a href="/fqhc" class="text-brand font-semibold">FQHC</a>
+        <a href="/trillium" class="text-gray-500 hover:text-brand">Trillium</a>
+        <a href="/stakeholders" class="text-gray-500 hover:text-brand">Stakeholders</a>
+        <a href="/adoption" class="text-gray-500 hover:text-brand">Adoption</a>
+        <a href="/emergency-plan" class="text-gray-500 hover:text-brand">🛡️Emergency</a>
+        <a href="/fasd-care-pathway" class="text-gray-500 hover:text-brand">🧠FASD</a>
+        <a href="/tax-strategy" class="text-gray-500 hover:text-brand">💰Tax</a>
+        <a href="/faculty-pathway" class="text-gray-500 hover:text-brand">🎓教职</a>
       </div>
     </div>
   </header>
 
-  <!-- Main Content -->
-  <div class="max-w-6xl mx-auto px-6 py-8">
-    
-    <!-- Title -->
-    <div class="mb-8">
-      <h1 class="text-2xl font-bold text-gray-900 mb-2">FQHC — 基础试点面板</h1>
-      <p class="text-gray-600">最小化UI，执行导向，无虚假声明</p>
+  <!-- Main -->
+  <div class="max-w-6xl mx-auto px-3 py-3">
+
+    <!-- Page title -->
+    <div class="mb-3">
+      <h2 class="text-base font-bold">🏥 FQHC（基础试点） <span class="text-[10px] text-gray-400 font-normal">/ 低风险alignment页面</span></h2>
+      <p class="text-[10px] text-gray-400">当前目标：FQHC leadership对齐 · Medical Director初步态度</p>
     </div>
 
-    <!-- Simplified Content - 4 Sections Only -->
-    <div class="space-y-6">
+    <!-- 2-col: Status+Risk (left) / Execution (right) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
 
-      <!-- 1. 当前状态 -->
-      <div class="dashboard-card bg-card rounded-lg p-5">
-        <div class="flex justify-between items-start mb-4">
-          <div>
-            <h2 class="text-lg font-semibold text-gray-800 mb-2">当前状态</h2>
+      <!-- LEFT: Status + Risk -->
+      <div class="space-y-3">
+
+        <!-- 1. 当前状态 -->
+        <div class="sec-card acc-orange">
+          <div class="flex justify-between items-center mb-1">
+            <h3 class="text-sm font-bold">当前状态</h3>
+            <span class="badge bg-orange-100 text-orange-700 text-[10px]">待对齐</span>
           </div>
-          <span class="status-badge status-pending">待对齐</span>
+          <p class="text-[11px] text-gray-600">尚未取得FQHC leadership初步态度</p>
         </div>
-        <div class="space-y-3">
-          <p class="text-gray-700 text-lg">未与FQHC leadership对齐</p>
+
+        <!-- 2. 核心风险 -->
+        <div class="sec-card acc-red">
+          <div class="flex justify-between items-center mb-1">
+            <h3 class="text-sm font-bold">核心风险 <span class="text-[10px] text-gray-400 font-normal">需对齐</span></h3>
+            <span class="badge bg-red-100 text-red-700 text-[10px]">关键</span>
+          </div>
+          <div class="space-y-1 text-[11px]">
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-red-50 border border-red-100">
+              <span class="text-red-500 font-medium w-20">诊断边界</span>
+              <span class="text-red-700">只做 screening + referral</span>
+            </div>
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-yellow-50 border border-yellow-100">
+              <span class="text-yellow-600 font-medium w-20">流程负担</span>
+              <span class="text-yellow-700">控制在 ≤5 分钟</span>
+            </div>
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-blue-50 border border-blue-100">
+              <span class="text-blue-600 font-medium w-20">支付路径</span>
+              <span class="text-blue-700">优先 CHW / 支持层</span>
+            </div>
+          </div>
         </div>
+
+        <!-- 3. 下一步决策逻辑 -->
+        <div class="sec-card acc-green">
+          <div class="flex justify-between items-center mb-1">
+            <h3 class="text-sm font-bold">下一步决策</h3>
+            <span class="badge bg-green-100 text-green-700 text-[10px]">按响应</span>
+          </div>
+          <div class="space-y-1 text-[11px]">
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-green-50 border border-green-100">
+              <span class="inline-block w-2 h-2 bg-green-500 rounded-full shrink-0"></span>
+              <span class="text-green-700"><span class="font-medium">支持</span> → 推pilot提案</span>
+            </div>
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-yellow-50 border border-yellow-100">
+              <span class="inline-block w-2 h-2 bg-yellow-500 rounded-full shrink-0"></span>
+              <span class="text-yellow-700"><span class="font-medium">中性</span> → 再解释risk边界</span>
+            </div>
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-red-50 border border-red-100">
+              <span class="inline-block w-2 h-2 bg-red-500 rounded-full shrink-0"></span>
+              <span class="text-red-700"><span class="font-medium">保留</span> → 降低风险再提</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. 试点状态 -->
+        <div class="sec-card acc-blue">
+          <div class="flex justify-between items-center mb-1">
+            <h3 class="text-sm font-bold">试点状态</h3>
+            <span class="badge bg-blue-100 text-blue-700 text-[10px]">信息</span>
+          </div>
+          <div class="flex gap-3 text-[11px]">
+            <span><span class="text-gray-400">阶段：</span><span class="text-orange-500 font-medium">准备阶段</span></span>
+            <span><span class="text-gray-400">优先级：</span><span class="text-orange-500 font-medium">高</span></span>
+          </div>
+        </div>
+
       </div>
 
-      <!-- 2. 核心风险（需对齐） -->
-      <div class="dashboard-card bg-card rounded-lg p-5">
-        <div class="flex justify-between items-start mb-4">
+      <!-- RIGHT: Medical Director 沟通卡 -->
+      <div class="sec-card acc-purple">
+        <div class="flex justify-between items-center mb-2">
           <div>
-            <h2 class="text-lg font-semibold text-gray-800 mb-2">核心风险（需对齐）</h2>
+            <h3 class="text-sm font-bold">Medical Director 沟通</h3>
+            <p class="text-[10px] text-gray-400">获取对pilot的初步态度</p>
           </div>
-          <span class="status-badge status-critical">关键</span>
+          <span class="badge bg-orange-100 text-orange-700 text-[10px]">未启动</span>
         </div>
-        <div class="space-y-3">
-          <div class="text-gray-700">
-            <div class="flex items-start mb-2">
-              <span class="text-orange-500 mr-2">•</span>
-              <span>诊断边界 → screening + referral</span>
-            </div>
-            <div class="flex items-start mb-2">
-              <span class="text-orange-500 mr-2">•</span>
-              <span>workflow负担 → ≤5分钟</span>
-            </div>
-            <div class="flex items-start">
-              <span class="text-orange-500 mr-2">•</span>
-              <span>reimbursement路径 → CHW</span>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- 3. Medical Director 沟通（执行卡） -->
-      <div class="dashboard-card bg-card rounded-lg p-5">
-        <div class="flex justify-between items-start mb-4">
-          <div>
-            <h2 class="text-lg font-semibold text-gray-800 mb-2">Medical Director 沟通（执行卡）</h2>
-          </div>
-          <span class="status-badge status-pending">未启动</span>
-        </div>
-        
-        <div class="space-y-4">
-          <!-- 状态和目标 -->
-          <div class="space-y-2">
-            <div class="flex items-center">
-              <span class="text-sm font-medium text-gray-700 mr-2">目标：</span>
-              <span class="text-sm text-gray-600">获取对pilot的初步态度（支持 / 中性 / 保留）</span>
-            </div>
-          </div>
-          
+        <div class="space-y-2">
           <!-- 关键一句话 -->
-          <div class="space-y-2">
-            <div class="text-sm font-medium text-gray-700">关键一句话（可复制）</div>
-            <div class="bg-gray-50 border border-gray-200 rounded p-3">
-              <p class="text-sm text-gray-800 font-mono">
-                我在探索一个Trillium相关的pilot，可能在FQHC中作为一个轻量的screening + referral支持层，不改变现有workflow，想听听您的看法
-              </p>
-            </div>
-          </div>
-          
-          <!-- 操作 -->
-          <div class="space-y-2">
-            <div class="text-sm font-medium text-gray-700">操作</div>
-            <div class="flex space-x-3">
-              <button onclick="copyMessage()" class="px-3 py-1.5 text-sm bg-blue-50 text-blue-700 border border-blue-200 rounded hover:bg-blue-100 transition-colors">
-                <i class="fas fa-copy mr-1"></i>复制消息
-              </button>
-              <button onclick="markAsSent()" class="px-3 py-1.5 text-sm bg-green-50 text-green-700 border border-green-200 rounded hover:bg-green-100 transition-colors">
-                <i class="fas fa-check mr-1"></i>标记已发送
-              </button>
-            </div>
-          </div>
-          
-          <!-- 结果记录 -->
-          <div class="space-y-2">
-            <div class="text-sm font-medium text-gray-700">结果记录（简短）</div>
-            <textarea 
-              id="resultInput" 
-              placeholder="例如：对方表示支持，愿意进一步讨论细节..."
-              class="w-full px-3 py-2 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              rows="2"
-            ></textarea>
-          </div>
-          
-          <!-- 下一步提示 -->
-          <div class="space-y-2">
-            <div class="text-sm font-medium text-gray-700">下一步提示</div>
-            <div class="text-sm text-gray-600 space-y-1">
-              <div class="flex items-center">
-                <span class="inline-block w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                <span>支持 → 推pilot</span>
-              </div>
-              <div class="flex items-center">
-                <span class="inline-block w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
-                <span>中性 → 再解释risk</span>
-              </div>
-              <div class="flex items-center">
-                <span class="inline-block w-2 h-2 bg-red-500 rounded-full mr-2"></span>
-                <span>保留 → 降低风险再提</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- [EXECUTION CARD ADDED] -->
-
-      <!-- 4. 试点状态 -->
-      <div class="dashboard-card bg-card rounded-lg p-5">
-        <div class="flex justify-between items-start mb-4">
           <div>
-            <h2 class="text-lg font-semibold text-gray-800 mb-2">试点状态</h2>
+            <p class="text-[10px] font-medium text-gray-600 mb-1">关键一句话</p>
+            <div class="bg-gray-50 border border-gray-200 rounded p-2 text-xs font-mono text-gray-800" id="message-text">
+              我在探索一个Trillium相关的pilot，可能在FQHC中作为一个轻量的screening + referral支持层，不改变现有workflow，想听听您的看法
+            </div>
           </div>
-          <span class="status-badge status-info">信息</span>
-        </div>
-        <div class="space-y-3">
-          <div class="text-gray-700">
-            <div class="flex items-start mb-2">
-              <span class="text-blue-500 mr-2">阶段：</span>
-              <span class="text-orange-500">准备阶段</span>
+
+          <!-- 操作按钮 -->
+          <div class="flex gap-2">
+            <button onclick="copyMessage()" class="px-2.5 py-1 text-[10px] bg-blue-50 text-blue-700 border border-blue-200 rounded hover:bg-blue-100 transition-colors">
+              <i class="fas fa-copy mr-0.5"></i>复制消息
+            </button>
+            <button onclick="markAsSent()" class="px-2.5 py-1 text-[10px] bg-green-50 text-green-700 border border-green-200 rounded hover:bg-green-100 transition-colors">
+              <i class="fas fa-check mr-0.5"></i>标记已发送
+            </button>
+          </div>
+
+          <!-- 结果记录 -->
+          <div>
+            <p class="text-[10px] font-medium text-gray-600 mb-1">回应记录</p>
+            <div class="grid grid-cols-3 gap-1 text-[10px]">
+              <button onclick="recordResponse('support')" class="p-1.5 rounded border border-green-200 bg-green-50 text-green-700 hover:bg-green-100">✅ 支持</button>
+              <button onclick="recordResponse('neutral')" class="p-1.5 rounded border border-yellow-200 bg-yellow-50 text-yellow-700 hover:bg-yellow-100">⚖️ 中性</button>
+              <button onclick="recordResponse('hold')" class="p-1.5 rounded border border-red-200 bg-red-50 text-red-700 hover:bg-red-100">🔴 保留</button>
             </div>
-            <div class="flex items-start">
-              <span class="text-blue-500 mr-2">优先级：</span>
-              <span class="text-orange-500">高</span>
-            </div>
+            <p id="response-log" class="text-[10px] text-gray-400 mt-1">尚未记录回应</p>
           </div>
         </div>
       </div>
 
     </div>
 
-  </div>
-
-  <!-- Footer -->
-  <div class="max-w-6xl mx-auto px-6 py-4">
-    <div class="text-xs text-gray-400 text-center">
-      FQHC基础试点面板 • 最后更新: <span id="update-time"></span>
-      <div class="mt-2 text-xs font-medium text-brand">
-        [FQHC DASHBOARD CREATED]
-      </div>
-      <div class="mt-1 text-xs font-medium text-purple-500">
-        [MULTI-COLOR SYSTEM APPLIED]
-      </div>
-      <div class="mt-1 text-xs font-medium text-green-500">
-        [FQHC SIMPLIFIED]
-      </div>
-      <div class="mt-1 text-xs font-medium text-gray-500">
-        [GIT ROLLBACK DISABLED]
-      </div>
+    <!-- Footer -->
+    <div class="text-center text-[10px] text-gray-400 py-3">
+      FQHC基础试点 · 低风险pilot alignment · 非完整临床部署 · 最后更新: <span id="update-time"></span>
     </div>
+
   </div>
 
   <script>
-    // Set update time
     const now = new Date();
     document.getElementById('update-time').textContent = now.toLocaleDateString('zh-CN', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+      year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
     });
 
-    // Execution Card Functions
     function copyMessage() {
-      const message = "我在探索一个Trillium相关的pilot，可能在FQHC中作为一个轻量的screening + referral支持层，不改变现有workflow，想听听您的看法";
-      
-      navigator.clipboard.writeText(message)
-        .then(() => {
-          // Show success feedback
-          const button = document.querySelector('button[onclick="copyMessage()"]');
-          const originalHTML = button.innerHTML;
-          button.innerHTML = '<i class="fas fa-check mr-1"></i>已复制';
-          button.classList.remove('bg-blue-50', 'text-blue-700', 'border-blue-200');
-          button.classList.add('bg-green-50', 'text-green-700', 'border-green-200');
-          
-          // Reset after 2 seconds
-          setTimeout(() => {
-            button.innerHTML = originalHTML;
-            button.classList.remove('bg-green-50', 'text-green-700', 'border-green-200');
-            button.classList.add('bg-blue-50', 'text-blue-700', 'border-blue-200');
-          }, 2000);
-        })
-        .catch(err => {
-          console.error('复制失败:', err);
-          alert('复制失败，请手动复制文本');
-        });
-    }
-
-    function markAsSent() {
-      const statusBadge = document.querySelector('.status-badge.status-pending');
-      if (statusBadge) {
-        statusBadge.textContent = '已发送';
-        statusBadge.classList.remove('status-pending');
-        statusBadge.classList.add('status-info');
-        
-        // Show success feedback
-        const button = document.querySelector('button[onclick="markAsSent()"]');
-        const originalHTML = button.innerHTML;
-        button.innerHTML = '<i class="fas fa-check-double mr-1"></i>已标记';
-        button.disabled = true;
-        button.classList.remove('bg-green-50', 'text-green-700', 'border-green-200', 'hover:bg-green-100');
-        button.classList.add('bg-gray-100', 'text-gray-500', 'border-gray-300');
-        
-        // Update timestamp
-        const now = new Date();
-        const timeString = now.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-        
-        // Add sent time indicator
-        const cardHeader = document.querySelector('.dashboard-card .flex.justify-between.items-start');
-        if (cardHeader && !document.querySelector('.sent-time')) {
-          const timeIndicator = document.createElement('div');
-          timeIndicator.className = 'sent-time text-xs text-gray-500 mt-1';
-          timeIndicator.textContent = `发送时间: ${timeString}`;
-          cardHeader.querySelector('div').appendChild(timeIndicator);
-        }
-      }
-    }
-
-    // Auto-save result input
-    const resultInput = document.getElementById('resultInput');
-    if (resultInput) {
-      // Load saved result
-      const savedResult = localStorage.getItem('fqhc_medical_director_result');
-      if (savedResult) {
-        resultInput.value = savedResult;
-      }
-      
-      // Save on input
-      resultInput.addEventListener('input', function() {
-        localStorage.setItem('fqhc_medical_director_result', this.value);
+      const msg = document.getElementById('message-text').textContent.trim();
+      navigator.clipboard.writeText(msg).then(() => {
+        showFeedback('已复制', 'blue-500');
       });
     }
 
-    // [EXECUTION CARD ADDED]
+    function markAsSent() {
+      const badge = document.querySelector('.badge.bg-orange-100');
+      if (badge) {
+        badge.textContent = '已发送';
+        badge.className = 'badge bg-blue-100 text-blue-700 text-[10px]';
+      }
+      showFeedback('已标记发送', 'green-500');
+    }
+
+    function recordResponse(type) {
+      const log = document.getElementById('response-log');
+      const labels = { support: '✅ 支持 — 推pilot', neutral: '⚖️ 中性 — 再解释risk', hold: '🔴 保留 — 降低风险再提' };
+      log.textContent = labels[type] + '（' + new Date().toLocaleTimeString('zh-CN') + '）';
+      localStorage.setItem('fqhc_response', type);
+      showFeedback('已记录', 'purple-500');
+    }
+
+    function showFeedback(text, color) {
+      const n = document.createElement('div');
+      n.className = 'fixed top-4 right-4 z-50 px-3 py-1.5 rounded shadow-lg bg-gray-800 text-white text-xs';
+      n.textContent = text;
+      document.body.appendChild(n);
+      setTimeout(() => { n.style.opacity = '0'; n.style.transition = 'opacity .3s'; setTimeout(() => n.remove(), 300); }, 1500);
+    }
+
+    // Restore saved response
+    const saved = localStorage.getItem('fqhc_response');
+    if (saved) {
+      const labels = { support: '✅ 支持 — 推pilot', neutral: '⚖️ 中性 — 再解释risk', hold: '🔴 保留 — 降低风险再提' };
+      document.getElementById('response-log').textContent = labels[saved] + '（已保存）';
+    }
   </script>
 
 </body>
