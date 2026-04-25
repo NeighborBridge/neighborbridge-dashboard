@@ -177,20 +177,23 @@
         <div class="sec-card acc-cyan">
           <div class="flex justify-between items-center mb-1">
             <h3 class="text-sm font-bold">目标期刊</h3>
-            <span class="badge bg-cyan-100 text-cyan-700 text-[10px]">待定</span>
+            <span class="badge bg-cyan-100 text-cyan-700 text-[10px]">首选评估中</span>
           </div>
           <div class="space-y-1.5 text-[11px]">
+            <div class="p-1.5 rounded bg-blue-50 border border-blue-200">
+              <p class="text-blue-700 font-medium">当前优先评估：Anthropology and Medicine</p>
+              <p class="text-blue-600 text-[10px] mt-0.5">尚未最终确定 · 需进一步确认贴合度</p>
+            </div>
             <div class="p-1.5 rounded bg-gray-50 border border-gray-100">
-              <p class="text-gray-400 text-[10px]">推荐方向（基于内容判断）</p>
-              <ul class="text-gray-700 space-y-0.5 text-[10px]">
-                <li>• Culture, Medicine, and Psychiatry（CMPS，最匹配）</li>
-                <li>• Medical Anthropology Quarterly（MAQ，次选）</li>
-                <li>• Social Science &amp; Medicine（SSM，如转为政策）</li>
-              </ul>
+              <p class="text-gray-400 text-[10px]">初步判断</p>
+              <p class="text-gray-700 text-[10px]">适合医学人类学 / clinical anthropology / care / system / implementation 表述框架，能把照护、地方社会关系、医疗实践、实施逻辑联系起来。需确认文章主线与期刊范围的具体贴合度。</p>
+            </div>
+            <div class="p-1.5 rounded bg-yellow-50 border border-yellow-100">
+              <p class="text-yellow-700 text-[10px]">投稿方向初步收敛 · 仍需按期刊风格调整主线与结构</p>
             </div>
             <div class="grid grid-cols-2 gap-1 text-[10px]">
               <div><span class="text-gray-400">Article type</span><br><span class="text-gray-700">Original research</span></div>
-              <div><span class="text-gray-400">Fit status</span><br><span class="text-yellow-600">待确认</span></div>
+              <div><span class="text-gray-400">Fit status</span><br><span class="text-blue-600 font-medium">评估中</span></div>
             </div>
           </div>
         </div>
@@ -212,7 +215,7 @@
             </div>
             <div class="flex items-center gap-1.5 p-1.5 rounded bg-yellow-50 border border-yellow-100">
               <span class="text-yellow-500 shrink-0">🟡</span>
-              <span class="text-yellow-700"><span class="font-medium">Target journal 未定</span> — 需确认投稿方向后再优化格式</span>
+              <span class="text-yellow-700"><span class="font-medium">文章主线与 Anthropology and Medicine 尚未完全对齐</span> — 需重审核心主张并按期刊风格调整</span>
             </div>
             <div class="flex items-center gap-1.5 p-1.5 rounded bg-orange-50 border border-orange-100">
               <span class="text-orange-500 shrink-0">🟠</span>
@@ -236,9 +239,17 @@
               <i class="fas fa-compress-arrows-alt text-blue-500 text-[10px]"></i>
               <span class="text-blue-700">压缩核心论点为 1-2 句命题</span>
             </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-purple-50 border border-purple-100 cursor-pointer hover:bg-purple-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ 期刊分析完成'; this.style.opacity='0.5'">
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-purple-50 border border-purple-100 cursor-pointer hover:bg-purple-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ 期刊对齐评估完成'; this.style.opacity='0.5'">
               <i class="fas fa-book-open text-purple-500 text-[10px]"></i>
-              <span class="text-purple-700">选 3 个候选期刊 + 确认方向</span>
+              <span class="text-purple-700">按 Anthropology and Medicine 方向重审核心主张</span>
+            </div>
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-indigo-50 border border-indigo-100 cursor-pointer hover:bg-indigo-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ 主线判断完成'; this.style.opacity='0.5'">
+              <i class="fas fa-compass text-indigo-500 text-[10px]"></i>
+              <span class="text-indigo-700">判断文章更偏 medical anthropology / care / implementation / local moral worlds 哪条主线</span>
+            </div>
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-teal-50 border border-teal-100 cursor-pointer hover:bg-teal-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ 结构调整完成'; this.style.opacity='0.5'">
+              <i class="fas fa-pen-fancy text-teal-500 text-[10px]"></i>
+              <span class="text-teal-700">据此调整标题、摘要、引言与讨论</span>
             </div>
             <div class="flex items-center gap-1.5 p-1.5 rounded bg-green-50 border border-green-100 cursor-pointer hover:bg-green-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ Abstract 重写完成'; this.style.opacity='0.5'">
               <i class="fas fa-pen text-green-500 text-[10px]"></i>
@@ -278,20 +289,20 @@
           </div>
           <div class="p-2 rounded bg-gray-50">
             <p class="font-medium text-gray-600 mb-1">5. 适合期刊类型</p>
-            <p>首选：Culture, Medicine, and Psychiatry（CMPS）—— 民族志深描 + 理论对话型论文；备选：Medical Anthropology Quarterly（MAQ）；如强化政策讨论可考虑 SSM。</p>
+            <p>当前优先评估：<strong>Anthropology and Medicine</strong> —— 适合医学人类学 / care / implementation 表述框架。之前推荐的 CMPS（民族志深描型）仍为备选。</p>
           </div>
           <div class="p-2 rounded bg-gray-50">
             <p class="font-medium text-gray-600 mb-1">6. 立即下一步</p>
-            <p>1）压缩核心论点为 1-2 句命题；2）确认 target journal 方向后再做细节调整；3）重写 abstract 为焦点版 1 段。</p>
+            <p>1）按 Anthropology and Medicine 方向重审核心主张；2）判断文章主线（medical anthropology / care / implementation / local moral worlds）；3）据此调整标题、摘要、引言与讨论。</p>
           </div>
         </div>
       </details>
     </div>
 
     <!-- Structured metadata -->
-    <!-- #nb-manuscript: {"id":"MS-001","title":"Trust as Moral Experience","source":"Google Doc / 1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI","phase":"待评估","doc_read":true,"core_claim":"mixed","journal_primary":null,"journal_backup":null,"created":"2026-04-25"} -->
+    <!-- #nb-manuscript: {"id":"MS-001","title":"Trust as Moral Experience","source":"Google Doc / 1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI","phase":"待评估","doc_read":true,"core_claim":"mixed","journal_primary":"Anthropology and Medicine","journal_status":"preferred candidate / not finalized","fit_assessment":"in progress","journal_backup":null,"created":"2026-04-25"} -->
     <!-- #nb-manuscript-sections: {"title":"draft","abstract":"needs-rewrite","introduction":"draft","background":"draft","methods":"draft","findings":"organizing","conclusion":"needs-work","references":"in-progress"} -->
-    <!-- #nb-blockers: [{"id":"BLK-MS-000","desc":"连续深度写作时间受照护打断"},{"id":"BLK-MS-001","desc":"核心论点未收敛"},{"id":"BLK-MS-002","desc":"Target journal未定"},{"id":"BLK-MS-003","desc":"Abstract不成型"}] -->
+    <!-- #nb-blockers: [{"id":"BLK-MS-000","desc":"连续深度写作时间受照护打断"},{"id":"BLK-MS-001","desc":"核心论点未收敛"},{"id":"BLK-MS-002","desc":"文章主线与Anthropology and Medicine风格尚未完全对齐"},{"id":"BLK-MS-003","desc":"Abstract不成型"}] -->
 
     <!-- Footer -->
     <div class="text-center text-[10px] text-gray-400 py-3">
