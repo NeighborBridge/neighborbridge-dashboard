@@ -27,9 +27,6 @@
     .acc-blue { border-left: 4px solid #60a5fa; }
     .acc-green { border-left: 4px solid #34d399; }
     .acc-purple { border-left: 4px solid #a78bfa; }
-    .acc-red { border-left: 4px solid #ef4444; }
-    .acc-orange { border-left: 4px solid #f59e0b; }
-    .acc-cyan { border-left: 4px solid #22d3ee; }
     .acc-amber { border-left: 4px solid #f59e0b; }
     .btn-write { @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-colors; }
   </style>
@@ -59,441 +56,196 @@
 
     <!-- Page title -->
     <div class="mb-3">
-      <h2 class="text-base font-bold">📄 稿件面板 <span class="text-[10px] text-gray-400 font-normal">/ 写作指挥</span></h2>
+      <h2 class="text-base font-bold">📄 稿件面板 <span class="text-[10px] text-gray-400 font-normal">/ 写作启动面板</span></h2>
       <p class="text-[10px] text-gray-400">打开后10秒内知道：文章定位 · 现在只写哪一小块 · 点哪里进入Google Doc · 写多少算完成</p>
     </div>
 
-    <!-- 🚨 你现在不用想整篇 -->
-    <div class="px-3 py-2 mb-2 rounded bg-yellow-100 border border-yellow-300 text-yellow-800 text-sm font-medium shadow-sm" style="border-left: 5px solid #d97706;">
-      🚨 你现在不用想整篇。你这 30–45 分钟只做这一件事：<strong>重写 Introduction 开头 2 段</strong>。
+    <!-- Step 1: 文章定位 / Core Claim -->
+    <div class="px-3 py-2 mb-3 rounded bg-gray-900 text-white text-xs leading-relaxed shadow-sm" style="border-left: 5px solid #f59e0b;">
+      <p class="font-medium">🎯 文章定位</p>
+      <p class="mt-0.5">这不是一篇实施项目报告，而是一篇关于"实施如何在中国农村的关系性临床实践中变得可能"的医学人类学文章。</p>
+      <p class="mt-0.5 text-gray-400">目标期刊：<span class="text-yellow-300">Anthropology and Medicine</span></p>
+      <a href="https://docs.google.com/document/d/1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI/edit" target="_blank" class="inline-flex items-center gap-1 mt-1 text-[10px] text-yellow-300 underline hover:text-yellow-200">
+        <i class="fas fa-external-link-alt"></i> 打开 Google Doc 全文
+      </a>
+      <span class="text-gray-500 ml-2">|</span>
+      <span class="text-gray-500 text-[10px]">所有 sample draft / reference draft 默认用中文，除非作者明确要求英文。</span>
     </div>
 
-    <!-- === A. 下一写作块 / Next Writing Block === -->
-    <div class="sec-card acc-blue" style="border-left-color: #1d4ed8; border-left-width: 5px;">
+    <!-- === Active Writing Block: P1 Abstract === -->
+    <div class="sec-card acc-blue" style="border-left-color: #2563eb; border-left-width: 5px;">
       <div class="flex justify-between items-center mb-1.5">
-        <h3 class="text-sm font-bold">🎯 下一写作块 <span class="text-[10px] text-gray-400 font-normal">/ Next Writing Block</span></h3>
-        <span class="badge bg-green-100 text-green-700 text-[10px]">✅ P0 · 作者已修改 · 可推进</span>
+        <h3 class="text-sm font-bold">🎯 当前唯一任务 <span class="text-[10px] text-gray-400 font-normal">/ Active Writing Block</span></h3>
+        <span class="badge bg-blue-100 text-blue-700 text-[10px]">P1 · 30–45 分钟</span>
       </div>
 
-      <!-- 1. 当前唯一任务 -->
       <div class="p-2 rounded bg-blue-50 border border-blue-200 mb-2">
-        <p class="text-[10px] text-blue-600 font-medium mb-1">当前唯一任务</p>
-        <p class="text-green-900 text-sm font-semibold">✅ P0：Introduction opening — 作者已修改，通过审阅</p>
-        <p class="text-blue-700 text-[11px] mt-0.5">把文章从 implementation / public health / policy translation 的开头，改成 care / trust / moral worlds / relational clinical practice 的医学人类学开头</p>
+        <p class="text-blue-900 text-sm font-semibold">P1：Abstract focus rewrite — 中文参考草稿</p>
       </div>
 
+      <!-- 本次只做 / 本次不做 -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2">
-        <!-- 2. 本次只做什么 -->
         <div class="p-1.5 rounded bg-green-50 border border-green-200">
           <p class="text-[10px] text-green-700 font-medium mb-0.5">✅ 本次只做</p>
-          <ul class="text-[11px] text-green-800 space-y-0.5 list-disc list-inside">
-            <li>重写 Introduction 前 2 段</li>
-            <li>第1段提出 anthropology 问题：trust 如何在农村临床遭遇中生成</li>
-            <li>第2段说明 implementation 不是主角，而是被关系性临床实践支撑的现场</li>
-            <li>保留 Fei × Kleinman 作为理论对话</li>
-            <li>保留 implementation work，从主角降为场景</li>
+          <ul class="text-[10px] text-green-800 space-y-0.5 list-disc list-inside">
+            <li>基于 Google Doc 当前 Abstract 原文生成 1 段中文 Abstract reference draft</li>
+            <li>保留原文的田野材料、理论方向和核心问题</li>
+            <li>将 implementation 降为经验现场/解释对象</li>
+            <li>trust / care / moral experience 成为摘要主线</li>
+            <li>自然出现 Fei × Kleinman 的理论方向</li>
           </ul>
         </div>
-        <!-- 3. 本次不要做什么 -->
         <div class="p-1.5 rounded bg-red-50 border border-red-200">
           <p class="text-[10px] text-red-700 font-medium mb-0.5">🚫 本次不做</p>
-          <ul class="text-[11px] text-red-800 space-y-0.5 list-disc list-inside">
-            <li>不写成 implementation report</li>
-            <li>不从 public health / policy / governance 开头</li>
-            <li>不把项目经验压成纯理论说明</li>
-            <li>不删除 implementation，但也不让它主导 genre</li>
-            <li>不处理 Methods / Findings / References</li>
+          <ul class="text-[10px] text-red-800 space-y-0.5 list-disc list-inside">
+            <li>不修改 Introduction / Methods / Findings / Discussion</li>
+            <li>不直接替换 Google Doc 正文</li>
+            <li>不把摘要写成 implementation report / 政策项目介绍</li>
+            <li>不生成英文版本</li>
           </ul>
         </div>
       </div>
 
-      <!-- 4. 完成标准 (已达成) -->
-      <div class="p-1.5 rounded bg-green-50 border border-green-200 mb-2 opacity-75">
-        <p class="text-[10px] text-green-600 font-medium mb-0.5">🎯 完成标准 ✅ 已达成</p>
-        <p class="text-[11px] text-green-700 line-through">产出 2 段新 Introduction opening draft：</p>
-        <p class="text-[11px] text-green-700 line-through"><span class="text-gray-500">第1段明确提出 trust / care / moral experience 的人类学问题 · 第2段明确说明 implementation work becomes possible through relational clinical practice · 读者能立刻看出这是一篇 Anthropology and Medicine 风格的文章，而不是项目报告</span></p>
-        <p class="text-[11px] text-green-800 mt-0.5">✅ 作者已于 2026-04-27 在 Google Doc 中完成 Introduction opening 修改，符合 Anthropology and Medicine 写作方向。</p>
+      <!-- 完成标准 -->
+      <div class="p-1.5 rounded bg-gray-50 border border-gray-200 mb-2">
+        <p class="text-[10px] text-gray-600 font-medium mb-0.5">🎯 完成标准</p>
+        <p class="text-[10px] text-gray-700">产出 1 段中文 Abstract reference draft（180–220 words 对应长度）· 首句直接提出人类学核心问题 · 摘要中自然出现 Fei × Kleinman · 结尾说明文章贡献 · 作为 dashboard 参考稿供作者下次写作块使用</p>
       </div>
 
-      <!-- 5. 完成后状态 -->
-      <div class="flex items-center justify-between">
-        <div class="text-[11px] text-gray-500">
-          <span class="text-gray-400">完成后显示：</span>
-          <span id="writing-block-status" class="text-green-700 font-medium">✅ P0 Introduction opening rewrite — author revised; ready to move on</span>
-          <span class="text-[10px] text-gray-400">2026-04-27 作者修改完成 · 已通过审阅</span>
-        </div>
-        <!-- 6. 立即开始按钮 -->
-        <a href="https://docs.google.com/document/d/1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI/edit#heading=h.introduction" target="_blank" class="btn-write bg-blue-600 text-white hover:bg-blue-700 shadow-sm">
-          <i class="fas fa-pen-fancy text-[10px]"></i> 立即写
+      <!-- Google Doc 直达链接 -->
+      <div class="flex items-center gap-2 mb-2">
+        <a href="https://docs.google.com/document/d/1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI/edit#heading=h.abstract" target="_blank" class="btn-write bg-blue-600 text-white hover:bg-blue-700 shadow-sm text-[11px]">
+          <i class="fas fa-pen-fancy text-[10px]"></i> 打开 Google Doc Abstract
         </a>
-      </div>
-      <p class="text-[9px] text-gray-400 mt-1">打开后定位到：Introduction > opening 2 paragraphs</p>
-    </div>
-
-    <!-- === A2. Reference Draft v2 (P0) === -->
-    <div class="sec-card" style="border-left: 5px solid #8b5cf6;">
-      <div class="flex justify-between items-center mb-1.5">
-        <h3 class="text-sm font-bold">📝 Reference Draft v2 for Author Review <span class="text-[10px] text-gray-400 font-normal">/ 中文参考草稿 v2</span></h3>
-        <span class="badge bg-green-100 text-green-700 text-[10px]">✅ P0 · 作者已修改，草稿归档</span>
+        <span class="text-[9px] text-gray-400">定位到：Abstract</span>
       </div>
 
-      <div class="p-2 rounded bg-yellow-50 border border-yellow-200 mb-2">
-        <p class="text-[10px] text-yellow-700 font-medium">⚠️ 说明</p>
-        <p class="text-[11px] text-yellow-800">This is a reference draft generated for the author's next 30-45 minute writing block. It is not a final replacement text and should not be treated as completed manuscript writing.</p>
-        <p class="text-[11px] text-yellow-800 mt-0.5">这是供作者下一次 30-45 分钟写作块参考的草稿，不是最终替换文本，也不表示该部分已经正式完成。</p>
-        <p class="text-[11px] text-yellow-800 mt-0.5">v1 论点方向可用，但文体过于宣告式，不够像 Anthropology and Medicine。v2 改为从乡村临床遭遇进入，让 trust / care / moral experience 从经验现场中浮现。</p>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2">
-        <div class="p-1.5 rounded bg-green-50 border border-green-200">
-          <p class="text-[10px] text-green-700 font-medium">📌 Current status</p>
-          <p class="text-[11px] text-green-800 font-medium">v2 → 作者已在 Google Doc 中修改完成，参考稿归档。</p>
-        </div>
-        <div class="p-1.5 rounded bg-blue-50 border border-blue-200">
-          <p class="text-[10px] text-blue-700 font-medium">👉 Next human action</p>
-          <p class="text-[11px] text-blue-800">Review the v2 Chinese reference draft below and decide whether to adapt, revise, or replace the current Introduction opening in the Google Doc.</p>
-        </div>
-      </div>
-
-      <div class="p-2 rounded bg-gray-50 border border-gray-200 text-[11px] text-gray-700 space-y-1">
-        <p class="text-[10px] text-gray-400 font-medium mb-1">中文参考草稿 — Introduction opening 2 段 (v2)</p>
-
-        <p class="leading-relaxed">湘西乡镇卫生院的中医馆里，老人在长椅上坐着，手里捧着暖水杯，等着并不急着叫号的医生。他们彼此认识，有的人已经看了同一个村医几十年。医生记得他们的慢病，也知道哪家的儿子外出打工了、谁的老伴去年走了。问诊的时候不单问哪里不舒服，也会问家里有没有人照顾、最近能不能睡好。按压脉象的时候，医生的手指停留得比规程需要的时间更长。这种停留不是技术性的——它是一种在场的确认：我在这里，我听到了，我记得你。</p>
-
-        <p class="leading-relaxed mt-1">这样的临床遭遇在中国西南乡村并非例外，而是基层医疗日常运转的基础。国家基本公共卫生服务、慢病管理、重型精神疾病随访、疫苗接种——这些制度要求在乡镇卫生院和村卫生室的落实，并不简单地依赖政策指令或行政考核。它们必须经过乡村社会中人与人的关系网络才能被真正执行。村医出诊时敲开的门，往往是自己生活了半辈子的村寨里熟人的家门；随访表上的名字，是同村的老者，是小学同学的父母，是婚丧嫁娶中走动了几十年的邻人。正是在这种关系性的照护实践中，政策要求的"服务"才获得了被接受的可能。费孝通所描述的差序格局——以亲疏远近组织义务与信任的关系秩序——在这里不是文化背景板，而是医疗实践得以展开的结构性前提。而 Arthur Kleinman 所说的道德经验——痛苦如何在倾听中被承认、照护如何在身体接触中被赋予意义——则揭示了临床遭遇中那种超越技术规程的伦理厚度。本文关心的不是如何优化实施，而是在什么样的关系性照护实践中，实施才变得可能。</p>
+      <!-- 中文 reference draft (P1 Abstract) -->
+      <div class="p-2 rounded bg-blue-50 border border-blue-200">
+        <p class="text-[10px] text-gray-500 font-medium mb-1">中文参考草稿 — Abstract (P1)</p>
+        <p class="text-[11px] text-gray-700 leading-relaxed">在中国湖南西部乡村，公共卫生政策并不自动转化为医疗服务，而是经过乡村社会中人与人的关系网络——村医与患者之间数十年的相识、随访制度嵌入熟人社区的方式、以及患者对从业者道德责任的长期体验——才真正得以落实。本文基于湘西乡镇卫生院、村卫生室与中医馆的民族志田野工作，考察医疗信任如何在这一过程中被生成与维系。研究整合费孝通的"差序格局"——一种以亲疏远近组织义务与信任的关系秩序——与 Arthur Kleinman 的"道德经验"——痛苦如何在倾听与身体接触中获得伦理意义——以分析信任在制度、社区与个人三层面的生成机制。本文发现，信任既不是制度权威的自动产物，也不是纯粹的人际情感，而是在关系性临床实践中通过反复的倾听、记忆与责任回应被逐步建构。文章由此提出，理解中国农村初级保健的关键不在于追问"政策的实施效果如何"，而在于追问"在什么样的关系性照护实践中，实施才变得可能"——这一追问将 trust / care / moral experience 置于乡村医疗分析的核心，并为全球医学人类学关于制度、关系与身体经验的研究提供来自中国西南的经验性补充。</p>
       </div>
 
       <div class="flex items-center justify-between mt-2">
-        <p class="text-[10px] text-gray-500">📍 替换位置：Google Doc Introduction 开头——从"基层医疗体系的运作是宏观规范..." 到 "...来自中国西南的经验性补充" （当前 Introduction 前 2 段）</p>
-        <a href="https://docs.google.com/document/d/1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI/edit#heading=h.introduction" target="_blank" class="btn-write bg-purple-600 text-white hover:bg-purple-700 shadow-sm">
-          <i class="fas fa-external-link-alt text-[10px]"></i> 打开 Google Doc
-        </a>
+        <p class="text-[10px] text-gray-500">
+          <span class="text-blue-700 font-medium">P1 Abstract focus rewrite — reference draft prepared; author review needed.</span>
+        </p>
+        <span class="text-[9px] text-gray-400">基于 Google Doc 当前 Abstract 原文生成</span>
       </div>
-      <p class="text-[9px] text-gray-400 mt-1">打开后定位到：Introduction > opening 2 paragraphs — 人工粘贴或改写</p>
     </div>
 
-    <!-- === B. 写作块队列 / Writing Block Queue === -->
-    <div class="sec-card acc-purple">
+    <!-- === Writing Block Queue === -->
+    <div class="sec-card acc-purple" style="border-left-color: #9333ea; border-left-width: 5px;">
       <div class="flex justify-between items-center mb-1.5">
         <h3 class="text-sm font-bold">📋 写作块队列 <span class="text-[10px] text-gray-400 font-normal">/ Writing Block Queue</span></h3>
-        <span class="badge bg-blue-100 text-blue-700 text-[10px]">3 个任务 · P1 Abstract 进行中</span>
+        <span class="badge bg-blue-100 text-blue-700 text-[10px]">3 个任务</span>
       </div>
+
       <div class="space-y-2">
 
-        <!-- Task 1: Introduction (completed) -->
-        <div class="p-2 rounded bg-green-50 border border-green-200 opacity-80">
-          <div class="flex justify-between items-start">
-            <div>
-              <p class="text-sm font-semibold text-green-700">Task 1 <span class="text-[10px] text-green-500 font-normal">✅ 已完成 · 作者修改通过</span></p>
-              <p class="text-green-700 text-[11px] font-medium">Introduction opening rewrite</p>
-            </div>
-            <a href="https://docs.google.com/document/d/1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI/edit#heading=h.introduction" target="_blank" class="text-[10px] text-green-600 underline hover:text-green-700 flex items-center gap-1"><i class="fas fa-external-link-alt text-[9px]"></i> 查看</a>
-          </div>
-          <div class="mt-1 text-[10px] text-gray-500 line-through">
-            <p><span class="font-medium">目标：</span>把文章开头从 implementation/public health 改为 anthropology/trust/care/moral worlds</p>
-            <p><span class="font-medium">只做：</span>前 2 段</p>
-            <p><span class="font-medium">完成：</span>第1段 anthropology 问题，第2段 implementation 作为关系性实践现场</p>
-          </div>
-          <p class="text-[9px] text-green-600 mt-1">✅ 作者已完成（2026-04-27）</p>
-        </div>
-
-        <!-- Task 2: Abstract (current, active) -->
+        <!-- Task 1: Abstract (P1, current) -->
         <div class="p-2 rounded bg-blue-50 border border-blue-200">
           <div class="flex justify-between items-start">
             <div>
-              <p class="text-sm font-semibold text-blue-800">Task 2 <span class="text-[10px] text-blue-500 font-normal">· 当前</span></p>
+              <p class="text-sm font-semibold text-blue-800">Task 1 <span class="text-[10px] text-blue-500 font-normal">· 当前 · 草稿待作者审阅</span></p>
               <p class="text-blue-700 text-[11px] font-medium">Abstract focus rewrite — 中文参考草稿</p>
             </div>
             <a href="https://docs.google.com/document/d/1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI/edit#heading=h.abstract" target="_blank" class="text-[10px] text-blue-600 underline hover:text-blue-700 flex items-center gap-1"><i class="fas fa-external-link-alt text-[9px]"></i> 打开</a>
           </div>
           <div class="mt-1 text-[10px] text-blue-800">
-            <p><span class="font-medium">目标：</span>把 Abstract 从较长、分散的背景/政策说明压缩为 1 段清晰的人类学论点摘要（180–220 words 对应长度）</p>
-            <p><span class="font-medium">本次只做：</span>
-              读取当前 Google Doc Abstract → 基于原文生成 1 段中文 Abstract reference draft；
-              保留田野材料、理论方向和核心问题；将 implementation 降为经验现场/解释对象；
-              trust / care / moral experience 成为摘要主线</p>
-            <p><span class="font-medium">本次不做：</span>不修改 Introduction / Methods / Findings / Discussion；
-              不直接替换 Google Doc 正文；
-              不把摘要写成政策/实施项目报告</p>
-          </div>
-          <div class="mt-1.5 p-1.5 rounded bg-yellow-50 border border-yellow-100">
-            <p class="text-[10px] text-yellow-700">所有 sample draft / reference draft 默认用中文，除非作者明确要求英文。</p>
+            <p><span class="font-medium">目标：</span>压缩为 1 段中文人类学论点摘要</p>
+            <p><span class="font-medium">完成：</span>首句 core anthropological claim · Fei × Kleinman 自然出现 · trust / care 为主线</p>
           </div>
           <p class="text-[9px] text-gray-400 mt-1">打开后定位到：Abstract</p>
         </div>
 
-        <!-- Task 3: Discussion -->
+        <!-- Task 2: Discussion (P2, upcoming) -->
         <div class="p-2 rounded bg-gray-50 border border-gray-200">
           <div class="flex justify-between items-start">
             <div>
-              <p class="text-sm font-semibold text-gray-400">Task 3 <span class="text-[10px] text-gray-400 font-normal">· 即将到来</span></p>
-              <p class="text-gray-700 text-[11px] font-medium">Discussion ending rewrite</p>
+              <p class="text-sm font-semibold text-gray-400">Task 2 <span class="text-[10px] text-gray-400 font-normal">· 即将到来</span></p>
+              <p class="text-gray-500 text-[11px] font-medium">Discussion ending rewrite — policy → interpretive anthropology</p>
             </div>
-            <a href="https://docs.google.com/document/d/1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI/edit#heading=h.discussion" target="_blank" class="text-[10px] text-gray-500 underline hover:text-blue-600 flex items-center gap-1"><i class="fas fa-external-link-alt text-[9px]"></i> 打开</a>
+            <a href="https://docs.google.com/document/d/1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI/edit#heading=h.discussion" target="_blank" class="text-[10px] text-gray-400 underline hover:text-blue-600 flex items-center gap-1"><i class="fas fa-external-link-alt text-[9px]"></i> 打开</a>
           </div>
-          <div class="mt-1 text-[10px] text-gray-500">
-            <p><span class="font-medium">目标：</span>把结论从 policy recommendation 改为 interpretive anthropological contribution</p>
-            <p><span class="font-medium">只做：</span>重写最后 2 段</p>
-            <p><span class="font-medium">核心句：</span>implementation is not simply delivered through systems, but made possible through situated relationships, moral responsibility, and embodied care</p>
+          <div class="mt-1 text-[10px] text-gray-400">
+            <p><span class="font-medium">目标：</span>结论从 policy recommendation 改为 interpretive anthropological contribution</p>
+            <p><span class="font-medium">完成：</span>重写最后 2 段，implementation makes possible through situated relationships</p>
           </div>
           <p class="text-[9px] text-gray-400 mt-1">打开后定位到：Discussion > final 2 paragraphs</p>
         </div>
 
-      </div>
-    </div>
-
-    <!-- 2-col: left (target/claim/struct) / right (journal/blocks/actions) -->
-    <div class="grid grid-cols-1 lg:grid-cols-5 gap-3">
-
-      <!-- LEFT (3/5) -->
-      <div class="lg:col-span-3 space-y-3">
-
-        <!-- 1. 稿件总目标 -->
-        <div class="sec-card acc-blue">
-          <div class="flex justify-between items-center mb-1">
-            <h3 class="text-sm font-bold">稿件总目标</h3>
-            <span class="badge bg-blue-100 text-blue-700 text-[10px]">待评估</span>
+        <!-- Task 3: Policy/governance compression (P3, upcoming) -->
+        <div class="p-2 rounded bg-gray-50 border border-gray-200">
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="text-sm font-semibold text-gray-400">Task 3 <span class="text-[10px] text-gray-400 font-normal">· 即将到来</span></p>
+              <p class="text-gray-500 text-[11px] font-medium">Policy / governance layer compression</p>
+            </div>
+            <a href="https://docs.google.com/document/d/1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI/edit" target="_blank" class="text-[10px] text-gray-400 underline hover:text-blue-600 flex items-center gap-1"><i class="fas fa-external-link-alt text-[9px]"></i> 打开</a>
           </div>
-          <div class="space-y-1 text-[11px]">
-            <p>目标：完成并投稿一篇 peer-reviewed article</p>
-            <p>
-              <span class="text-gray-400">源文档：</span>
-              <a href="https://docs.google.com/document/d/1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI/edit" target="_blank" class="text-brand underline">Google Doc</a>
-            </p>
-            <p><span class="text-gray-400">读取状态：</span><span class="text-green-600 font-medium">✅ 已成功读取</span></p>
-            <p><span class="text-gray-400">中文标题：</span>信任如道德经验——湘西乡村关系伦理与初级保健</p>
-            <p><span class="text-gray-400">英文标题：</span>Trust as Moral Experience: Relational Ethics and Primary Care in Rural Western Hunan</p>
+          <div class="mt-1 text-[10px] text-gray-400">
+            <p><span class="font-medium">目标：</span>压缩 Background 中制度/政策分析部分30-40%，保留人类学分析主线</p>
           </div>
-        </div>
-
-        <!-- 2. 核心主张 -->
-        <div class="sec-card acc-green">
-          <div class="flex justify-between items-center mb-1">
-            <h3 class="text-sm font-bold">核心主张</h3>
-            <span class="badge bg-yellow-100 text-yellow-700 text-[10px]">需收敛</span>
-          </div>
-          <div class="space-y-1 text-[11px]">
-            <div class="p-1.5 rounded bg-yellow-50 border border-yellow-100">
-              <p class="text-yellow-700">一句话定位：</p>
-              <p class="text-yellow-800 font-medium text-xs">This article is <strong>not an implementation report</strong>, but an anthropological account of <strong>how implementation work becomes possible through relational clinical practice</strong> in rural China.</p>
-              <p class="text-yellow-800 text-xs mt-1">这不是一篇实施项目报告，而是一篇关于<span class="font-medium">“实施如何在中国农村的关系性临床实践中变得可能”</span>的医学人类学文章。</p>
-            </div>
-            <p class="text-gray-400">理论依据：Fei × Kleinman 对话，trust / care / moral worlds 主线 · implementation 从主角降为场景，不作为 paper genre</p>
-          </div>"独家贡献"</p>
-          </div>
-        </div>
-
-        <!-- 3. 源文档与版本 -->
-        <div class="sec-card acc-purple">
-          <div class="flex justify-between items-center mb-1">
-            <h3 class="text-sm font-bold">源文档与版本</h3>
-          </div>
-          <div class="space-y-1 text-[11px]">
-            <div class="grid grid-cols-2 gap-1">
-              <div>
-                <p class="text-gray-400">来源</p>
-                <p class="text-gray-700">Google Doc（~18KB）</p>
-              </div>
-              <div>
-                <p class="text-gray-400">草稿状态</p>
-                <p class="text-yellow-600">多版本草稿·书写中</p>
-              </div>
-              <div>
-                <p class="text-gray-400">Agent 笔记</p>
-                <p class="text-green-600">✅ 首轮评估完成</p>
-              </div>
-              <div>
-                <p class="text-gray-400">下次版本</p>
-                <p class="text-gray-700">收缩主线 + fix 结论</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 4. 文章结构 -->
-        <div class="sec-card acc-orange">
-          <div class="flex justify-between items-center mb-1">
-            <h3 class="text-sm font-bold">文章结构</h3>
-            <span class="badge bg-orange-100 text-orange-700 text-[10px]">草稿阶段</span>
-          </div>
-          <div class="space-y-0.5 text-[11px]">
-            <div class="flex items-center justify-between p-1 rounded even:bg-gray-50">
-              <span>Title</span>
-              <span class="badge bg-green-100 text-green-700 text-[9px]">✅ 有草案</span>
-            </div>
-            <div class="flex items-center justify-between p-1 rounded even:bg-gray-50">
-              <span>Abstract</span>
-              <span class="badge bg-yellow-100 text-yellow-700 text-[9px]">需重写</span>
-            </div>
-            <div class="flex items-center justify-between p-1 rounded even:bg-gray-50">
-              <span>Introduction</span>
-              <span class="badge bg-green-100 text-green-700 text-[9px]">✅ 有稿</span>
-            </div>
-            <div class="flex items-center justify-between p-1 rounded even:bg-gray-50">
-              <span>背景/文献</span>
-              <span class="badge bg-green-100 text-green-700 text-[9px]">✅ 有稿</span>
-            </div>
-            <div class="flex items-center justify-between p-1 rounded even:bg-gray-50">
-              <span>Methods</span>
-              <span class="badge bg-green-100 text-green-700 text-[9px]">✅ 有稿</span>
-            </div>
-            <div class="flex items-center justify-between p-1 rounded even:bg-gray-50">
-              <span>Findings（3 个子层）</span>
-              <span class="badge bg-yellow-100 text-yellow-700 text-[9px]">🔄 整理中</span>
-            </div>
-            <div class="flex items-center justify-between p-1 rounded even:bg-gray-50">
-              <span>Discussion/Conclusion</span>
-              <span class="badge bg-red-100 text-red-700 text-[9px]">需强化</span>
-            </div>
-            <div class="flex items-center justify-between p-1 rounded even:bg-gray-50">
-              <span>References</span>
-              <span class="badge bg-yellow-100 text-yellow-700 text-[9px]">🔄 补充中</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT (2/5) -->
-      <div class="lg:col-span-2 space-y-3">
-
-        <!-- 5. 目标期刊 -->
-        <div class="sec-card acc-cyan">
-          <div class="flex justify-between items-center mb-1">
-            <h3 class="text-sm font-bold">目标期刊</h3>
-            <span class="badge bg-cyan-100 text-cyan-700 text-[10px]">首选评估中</span>
-          </div>
-          <div class="space-y-1.5 text-[11px]">
-            <div class="p-1.5 rounded bg-blue-50 border border-blue-200">
-              <p class="text-blue-700 font-medium">当前优先评估：Anthropology and Medicine</p>
-              <p class="text-blue-600 text-[10px] mt-0.5">尚未最终确定 · 需进一步确认贴合度</p>
-            </div>
-            <div class="p-1.5 rounded bg-gray-50 border border-gray-100">
-              <p class="text-gray-400 text-[10px]">审稿判断（2026-04-25）</p>
-              <p class="text-gray-700 text-[10px]">最强主线：<strong>医学人类学 / local moral worlds / care</strong>。这不是实施项目报告，而是关于实施如何在中国农村的关系性临床实践中变得可能的医学人类学文章。implementation 应保留为经验性实践现场，不作为主 genre。中文评论草稿（可直接粘贴 Google Doc）见 <code>docs/manuscript-anth-med-comments-cn.md</code>。</p>
-            </div>
-            <div class="p-1.5 rounded bg-yellow-50 border border-yellow-100">
-              <p class="text-yellow-700 text-[10px]">Anthropology and Medicine 方向审稿完成 · implementation 作为实践现场保留，anthropology 作为主线 · 需按平衡框架重写标题、摘要、引言、讨论</p>
-            </div>
-            <div class="grid grid-cols-2 gap-1 text-[10px]">
-              <div><span class="text-gray-400">Article type</span><br><span class="text-gray-700">Original research</span></div>
-              <div><span class="text-gray-400">Fit status</span><br><span class="text-green-600 font-medium">审稿完成</span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 5b. 当前阻塞 -->
-        <div class="sec-card acc-red">
-          <div class="flex justify-between items-center mb-1">
-            <h3 class="text-sm font-bold">当前阻塞</h3>
-            <span class="badge bg-red-100 text-red-700 text-[10px]">4 项</span>
-          </div>
-          <div class="space-y-1 text-[11px]">
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-red-50 border border-red-100">
-              <span class="text-red-500 shrink-0">🔴</span>
-              <span class="text-red-700"><span class="font-medium">连续深度写作时间受照护打断</span> — 需划定最小30–45分钟写作块，agent每次只推进一个section</span>
-            </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-red-50 border border-red-100">
-              <span class="text-red-500 shrink-0">🔴</span>
-              <span class="text-red-700"><span class="font-medium">核心论点未收敛</span> — 需压缩为 1-2 句可作为 paper 命题的那句</span>
-            </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-blue-50 border border-blue-200">
-              <span class="text-blue-500 shrink-0">🔵</span>
-              <span class="text-blue-700"><span class="font-medium">审稿完成：Anthropology and Medicine 方向已确认</span> — 需按审稿意见调整引言框架、重写Discussion、压缩制度层</span>
-            </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-orange-50 border border-orange-100">
-              <span class="text-orange-500 shrink-0">🟠</span>
-              <span class="text-orange-700"><span class="font-medium">Abstract 不成型</span> — 当前 draft 偏长，缺乏论点浓缩版</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 6. 可执行任务列表 -->
-        <div class="sec-card acc-green">
-          <div class="flex justify-between items-center mb-1">
-            <h3 class="text-sm font-bold">可执行任务列表</h3>
-            <span class="badge bg-green-100 text-green-700 text-[10px]">按颗粒度拆分</span>
-          </div>
-          <div class="space-y-1">
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-red-50 border border-red-100 cursor-pointer hover:bg-red-100 text-[11px]" onclick="document.getElementById('exec-status').textContent='✅ 写作块管理中'; this.style.opacity='0.5'">
-              <i class="fas fa-clock text-red-500 text-[10px]"></i>
-              <span class="text-red-700">设定最小写作块：30–45分钟无打断</span>
-            </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-red-50 border border-red-100 cursor-pointer hover:bg-red-100 text-[11px]" onclick="document.getElementById('exec-status').textContent='✅ agent单section推进已安排'; this.style.opacity='0.5'">
-              <i class="fas fa-microchip text-red-500 text-[10px]"></i>
-              <span class="text-red-700">让agent每次只处理一个section，把长评论拆成可执行小任务</span>
-            </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-blue-50 border border-blue-100 cursor-pointer hover:bg-blue-100 text-[11px]" onclick="document.getElementById('exec-status').textContent='✅ 引言重写中'; this.style.opacity='0.5'">
-              <i class="fas fa-pen-fancy text-blue-500 text-[10px]"></i>
-              <span class="text-blue-700">Introduction：重写开头 2 段——从 anthropology/trust/care/moral worlds 切入，implementation 从主角降为场景</span>
-            </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-purple-50 border border-purple-100 cursor-pointer hover:bg-purple-100 text-[11px]" onclick="document.getElementById('exec-status').textContent='✅ Abstract 重写完成'; this.style.opacity='0.5'">
-              <i class="fas fa-pen text-purple-500 text-[10px]"></i>
-              <span class="text-purple-700">Abstract：1 段 180-220 words，首句直接提出 anthropological claim</span>
-            </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-amber-50 border border-amber-100 cursor-pointer hover:bg-amber-100 text-[11px]" onclick="document.getElementById('exec-status').textContent='✅ Discussion 结束段重写完成'; this.style.opacity='0.5'">
-              <i class="fas fa-message text-amber-500 text-[10px]"></i>
-              <span class="text-amber-700">Discussion：重写最后 2 段——政策建议改为 interpretive anthropological contribution</span>
-            </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-green-50 border border-green-100 cursor-pointer hover:bg-green-100 text-[11px]" onclick="document.getElementById('exec-status').textContent='✅ 制度层压缩完成'; this.style.opacity='0.5'">
-              <i class="fas fa-compress-arrows-alt text-green-500 text-[10px]"></i>
-              <span class="text-green-700">制度层：删去 30–40% 的 policy / governance 叙述，只保留支撑 ethnographic argument 的部分</span>
-            </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-green-50 border border-green-100 opacity-50 text-[11px]">
-              <i class="fas fa-check-circle text-green-500 text-[10px]"></i>
-              <span class="text-green-700"><s>按 Anthropology and Medicine 方向重审核心主张 — 已完成</s></span>
-            </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-green-50 border border-green-100 opacity-50 text-[11px]">
-              <i class="fas fa-check-circle text-green-500 text-[10px]"></i>
-              <span class="text-green-700"><s>判断文章主线 — 已完成，最强为医学人类学 / local moral worlds</s></span>
-            </div>
-            <p id="exec-status" class="text-[10px] text-gray-400 mt-1">点击任务标记完成</p>
-          </div>
+          <p class="text-[9px] text-gray-400 mt-1">全文档</p>
         </div>
 
       </div>
     </div>
 
-    <!-- Assessment summary -->
+    <!-- === Archive / Completed Blocks === -->
     <div class="sec-card mt-1">
       <details>
-        <summary class="text-xs font-medium text-gray-500 cursor-pointer hover:text-gray-700">📋 Agent 首轮评估摘要 · 已补充 Anthropology & Medicine 方向审稿</summary>
+        <summary class="text-xs font-medium text-gray-500 cursor-pointer hover:text-gray-700">📦 Archive / Completed Blocks · Agent 首轮评估摘要</summary>
         <div class="mt-2 space-y-2 text-[11px] text-gray-700">
-          <div class="p-2 rounded bg-gray-50">
-            <p class="font-medium text-gray-600 mb-1">1. 文章在讲什么</p>
-            <p>湘西乡村基层医疗中的信任生成机制，整合费孝通"差序格局"与 Kleinman "道德经验"，在制度-社区-个人三层分析信任如何通过关系伦理与具身关怀被动态构建。</p>
+
+          <!-- P0 completed -->
+          <div class="p-2 rounded bg-green-50 border border-green-200">
+            <p class="text-[11px] text-green-700 font-medium">✅ P0 Introduction opening rewrite — author revised (2026-04-27)</p>
+            <p class="text-[10px] text-green-600">作者已在 Google Doc 中完成 Introduction opening 修改，符合 Anthropology and Medicine 写作方向。参考草稿归档。</p>
+            <details class="mt-1">
+              <summary class="text-[10px] text-green-500 cursor-pointer hover:text-green-600">展开查看 P0 归档参考稿</summary>
+              <div class="mt-1 p-2 rounded bg-green-50/50 text-[10px] text-gray-600 leading-relaxed">
+                <p>湘西乡镇卫生院的中医馆里，老人在长椅上坐着，手里捧着暖水杯，并不急着等叫号的医生。他们彼此认识，有的人已经看了同一个医生几十年。医生记得他们的慢病，也知道哪家的儿子外出打工了、谁的老伴去年走了。问诊的时候不单问哪里不舒服，也会问家里有没有人照顾、最近能不能睡好。</p>
+                <p class="mt-1">这样的临床遭遇在中国西南乡村并非例外，而是基层医疗日常运转的基础。国家基本公共卫生服务、慢病管理、重型精神疾病随访、疫苗接种——这些制度要求在乡镇卫生院和村卫生室的落实，并不简单地依赖政策指令或行政考核。它们必须经过乡村社会中人与人的关系网络才能被真正执行。村医出诊时敲开的门，往往是自己生活了半辈子的村寨里熟人的家门；随访表上的名字，是同村的老者，是小学同学的父母，是婚丧嫁娶中走动了几十年的邻人。正是在这种关系性的照护实践中，政策要求的"服务"才获得了被接受的可能。费孝通所描述的差序格局——以亲疏远近组织义务与信任的关系秩序——在这里是医疗实践得以展开的结构性前提。而 Arthur Kleinman 所说的道德经验——痛苦如何在倾听中被承认、照护如何在身体接触中被赋予意义——则揭示了临床遭遇中那种超越技术规程的伦理厚度。本文关心的不是如何优化实施，而是在什么样的关系性照护实践中，实施才变得可能。</p>
+              </div>
+            </details>
           </div>
+
+          <!-- Original assessment summary -->
           <div class="p-2 rounded bg-gray-50">
-            <p class="font-medium text-gray-600 mb-1">2. 最清楚的主线</p>
-            <p>Fei × Kleinman 的理论对话作为分析框架，将医疗信任分解为制度层（政策地方化）、社区层（关系网络中道德声望）、个人层（具身化关怀的伦理意义）。</p>
+            <p class="font-medium text-gray-600 mb-1">Agent 首轮评估摘要（2026-04-25）</p>
+            <p class="text-[10px] text-gray-500 mb-1">以下为早期审稿记录，已全部吸收到当前写作块规划中。</p>
+            <ul class="text-[10px] text-gray-600 space-y-0.5 list-disc list-inside">
+              <li>文章定位：湘西乡村基层医疗中的信任生成机制，整合费孝通"差序格局"与 Kleinman "道德经验"</li>
+              <li>最清楚的主线：Fei × Kleinman 理论对话，制度-社区-个人三层信任分析</li>
+              <li>最大结构问题（已处理）：Introduction 已改为人类学开头；Abstract 本次处理；Discussion 待处理</li>
+              <li>期刊目标：Anthropology and Medicine</li>
+            </ul>
+            <details class="mt-1">
+              <summary class="text-[10px] text-gray-400 cursor-pointer hover:text-gray-500">展开完整评估</summary>
+              <div class="mt-1 space-y-1 text-[10px] text-gray-600">
+                <p><strong>1. 文章在讲什么：</strong>湘西乡村基层医疗中的信任生成机制，整合费孝通"差序格局"与 Kleinman "道德经验"，在制度-社区-个人三层分析信任如何通过关系伦理与具身关怀被动态构建。</p>
+                <p><strong>2. 最清楚的主线：</strong>Fei × Kleinman 的理论对话作为分析框架，将医疗信任分解为制度层（政策地方化）、社区层（关系网络中道德声望）、个人层（具身化关怀的伦理意义）。</p>
+                <p><strong>3. 最大结构问题：</strong>Discussion/Conclusion 尚未充分展开；Findings 三层的逻辑关系可以更明确（当前存在交叉和过度重复叙述）；Abstract 过长且不够聚焦。</p>
+                <p><strong>4. 最像哪类 paper：</strong>医学人类学民族志论文（original research），以田野材料驱动的理论构建论文。</p>
+                <p><strong>5. 适合期刊类型：</strong>当前优先评估：<strong>Anthropology and Medicine</strong>。</p>
+                <p><strong>6. 立即下一步：</strong>已处理：Introduction 重写。本次：Abstract 重写。待处理：Discussion 重写。</p>
+              </div>
+            </details>
           </div>
-          <div class="p-2 rounded bg-gray-50">
-            <p class="font-medium text-gray-600 mb-1">3. 最大结构问题</p>
-            <p>Discussion/Conclusion 尚未充分展开；Findings 三层的逻辑关系可以更明确（当前存在交叉和过度重复叙述）；Abstract 过长且不够聚焦。</p>
-          </div>
-          <div class="p-2 rounded bg-gray-50">
-            <p class="font-medium text-gray-600 mb-1">4. 最像哪类 paper</p>
-            <p>医学人类学民族志论文（original research），以田野材料驱动的理论构建论文。非综述、非纯理论、非政策分析。</p>
-          </div>
-          <div class="p-2 rounded bg-gray-50">
-            <p class="font-medium text-gray-600 mb-1">5. 适合期刊类型</p>
-            <p>当前优先评估：<strong>Anthropology and Medicine</strong> —— 适合医学人类学 / care / implementation 表述框架。之前推荐的 CMPS（民族志深描型）仍为备选。</p>
-          </div>
-          <div class="p-2 rounded bg-gray-50">
-            <p class="font-medium text-gray-600 mb-1">6. 立即下一步（审稿后）</p>
-            <p>已完成方向评估。下一步：1）重写引言框架，从人类学问题切入；2）压缩制度层30-40%，改为人类学分析；3）重写Discussion，以阐释性发现结尾而非政策建议。详细审稿见 <code>docs/manuscript-anth-med-review-comments.md</code>。</p>
-          </div>
+
         </div>
       </details>
     </div>
 
     <!-- Structured metadata -->
-    <!-- #nb-manuscript: {"id":"MS-001","title":"Trust as Moral Experience","source":"Google Doc / 1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI","phase":"writing","doc_read":true,"core_claim":"not_implementation_report_but_anthropological_account_of_how_implementation_becomes_possible_through_relational_clinical_practice","journal_primary":"Anthropology and Medicine","journal_status":"preferred candidate / not finalized","fit_assessment":"reviewed / needs revision","strongest_line":"medical anthropology / local moral worlds / care","implementation_role":"scene_not_genre","p0_status":"author revised / ready to move on","p0_last_action":"author rewrote Introduction opening in Google Doc (2026-04-27)","current_writing_block":"P1: Abstract focus rewrite — Chinese reference draft needed","current_task":"Read current Google Doc Abstract → generate 1-paragraph Chinese Abstract reference draft (180-220 words equiv)","default_draft_language":"Chinese (中文)","next_action":"agent: read Abstract → produce Chinese reference draft for author review","created":"2026-04-25","writing_queue":["P0: Introduction opening rewrite — author revised ✅","P1: Abstract focus rewrite — current (Chinese reference draft needed)","P2: Discussion ending rewrite (upcoming)"],"page_mode":"writing_command_center"} -->
-    <!-- #nb-manuscript-sections: {"title":"draft","abstract":"needs-rewrite","introduction":"draft","background":"draft","methods":"draft","findings":"organizing","conclusion":"needs-work","references":"in-progress"} -->
-    <!-- #nb-blockers: [{"id":"BLK-MS-000","desc":"连续深度写作时间受照护打断","priority":"high","mitigation":"最小30-45分钟写作块 + agent单section推进","status":"P0 resolved; agent can draft Abstract independently"},{"id":"BLK-MS-001","desc":"核心论点未收敛（anthropology × implementation 平衡框架）"},{"id":"BLK-MS-002","desc":"Anthropology and Medicine方向审稿完成，需按平衡框架修改标题/引言/讨论"},{"id":"BLK-MS-003","desc":"Abstract不成型"}] -->
+    <!-- #nb-manuscript: {"id":"MS-001","title":"Trust as Moral Experience","source":"Google Doc / 1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI","phase":"writing","doc_read":true,"core_claim":"not_implementation_report_but_anthropological_account_of_how_implementation_becomes_possible_through_relational_clinical_practice","journal_primary":"Anthropology and Medicine","journal_status":"preferred candidate / not finalized","fit_assessment":"reviewed / needs revision","strongest_line":"medical anthropology / local moral worlds / care","implementation_role":"scene_not_genre","p0_status":"author revised / ready to move on","p0_last_action":"author rewrote Introduction opening in Google Doc (2026-04-27)","current_writing_block":"P1: Abstract focus rewrite — Chinese reference draft","current_task":"Author review: P1 Chinese Abstract reference draft ready for 30-45 min writing block","default_draft_language":"Chinese (中文)","p1_reference_draft":"ready for author review (embedded in dashboard)","next_action":"author: review P1 Chinese Abstract draft and adapt/replace in Google Doc","created":"2026-04-25","page_mode":"writing_launch_panel","writing_queue":["P1: Abstract focus rewrite — current (Chinese reference draft ready)","P2: Discussion ending rewrite — upcoming","P3: Policy/governance layer compression — upcoming"],"archive":["P0 Introduction opening rewrite — author revised ✅"]} -->
+    <!-- #nb-blockers: [{"id":"BLK-MS-003","desc":"Abstract不成型","priority":"high","status":"reference draft prepared; author review needed"}] -->
 
     <!-- Footer -->
     <div class="text-center text-[10px] text-gray-400 py-3">
-      稿件面板 · 写作启动模式 · 当前：Introduction opening rewrite · 文章定位：anthropological account of implementation through relational clinical practice
+      稿件面板 · 写作启动模式 · 当前：P1 Abstract focus rewrite — 中文参考草稿待作者审阅
     </div>
 
   </div>
