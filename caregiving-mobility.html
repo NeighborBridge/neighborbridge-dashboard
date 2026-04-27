@@ -253,6 +253,10 @@
               <span class="text-orange-600 font-bold shrink-0">P1</span>
               <span class="text-orange-700">为高价值机会建立最低可行coverage方案</span>
             </div>
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-rose-50 border border-rose-100 cursor-pointer hover:bg-rose-100" onclick="markDone('a5')">
+              <span class="text-rose-600 font-bold shrink-0">P0</span>
+              <span class="text-rose-700">建立最小写作窗口：每天至少1个30–45分钟无打断块；其余由agent拆分推进</span>
+            </div>
             <p id="action-progress" class="text-[10px] text-gray-400 mt-1">点击标记完成</p>
           </div>
         </div>
@@ -275,8 +279,8 @@
     </div>
 
     <!-- Structured metadata -->
-    <!-- #nb-caregiving-blockers: [{"id":"CG-BLK-001","desc":"照护约束限制外出行动自由","status":"active","priority":"critical","impact":"cross-cutting","affected_dashboards":["/faculty-pathway","/trillium","/manuscript-dashboard"]}] -->
-    <!-- #nb-caregiving-actions: [{"id":"CG-ACT-001","desc":"增加备份支持人（2–3天目标）","status":"in_progress","identified_backup":"William Cox"},{"id":"CG-ACT-002","desc":"明确2–3天最低覆盖方案"},{"id":"CG-ACT-003","desc":"测试短时外出验证系统"},{"id":"CG-ACT-004","desc":"为高价值机会建立最低coverage方案"}] -->
+    <!-- #nb-caregiving-blockers: [{"id":"CG-BLK-001","desc":"照护约束限制外出行动自由","status":"active","priority":"critical","impact":"cross-cutting","affects":["travel/networking","deep_work/manuscript_revision"],"affected_dashboards":["/faculty-pathway","/trillium","/manuscript-dashboard"]}] -->
+    <!-- #nb-caregiving-actions: [{"id":"CG-ACT-001","desc":"增加备份支持人（2–3天目标）","status":"in_progress","identified_backup":"William Cox"},{"id":"CG-ACT-002","desc":"明确2–3天最低覆盖方案"},{"id":"CG-ACT-003","desc":"测试短时外出验证系统"},{"id":"CG-ACT-004","desc":"为高价值机会建立最低coverage方案"},{"id":"CG-ACT-005","desc":"建立最小写作窗口（30-45分钟块+agent拆分）","target":"manuscript_revision","agent_execution_level":"execute_with_review","requires_user_approval":true}] -->
     <!-- #nb-caregiving-meta: {"active_page":"caregiving-mobility.html","source_archive":"/archive/emergency-plan.html","source_status":"archived/moved","travel_readiness":"1天推荐·2-3天有条件·4-7天不推荐·7+天强烈不推荐","travel_coverage_standards":"6条底线要求","pre_travel_checklist":"6项核心交接","updated_at":"2026-04-25","support_resources":[{"name":"William Cox","role":"church deacon","phone":"(919) 272-4315","category":"backup_support","status":"pending_confirmation","related_goal":"2-3 day travel readiness","related_action":"CG-ACT-001"}]} -->
 
     <!-- Footer -->

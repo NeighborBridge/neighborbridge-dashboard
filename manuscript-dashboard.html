@@ -241,7 +241,7 @@
           <div class="space-y-1 text-[11px]">
             <div class="flex items-center gap-1.5 p-1.5 rounded bg-red-50 border border-red-100">
               <span class="text-red-500 shrink-0">🔴</span>
-              <span class="text-red-700"><span class="font-medium">连续深度写作时间受照护打断</span> — 需划定最小写作时段、让agent将任务切小</span>
+              <span class="text-red-700"><span class="font-medium">连续深度写作时间受照护打断</span> — 需划定最小30–45分钟写作块，agent每次只推进一个section</span>
             </div>
             <div class="flex items-center gap-1.5 p-1.5 rounded bg-red-50 border border-red-100">
               <span class="text-red-500 shrink-0">🔴</span>
@@ -267,7 +267,11 @@
           <div class="space-y-1">
             <div class="flex items-center gap-1.5 p-1.5 rounded bg-red-50 border border-red-100 cursor-pointer hover:bg-red-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ 写作时段管理已纳入计划'; this.style.opacity='0.5'">
               <i class="fas fa-clock text-red-500 text-[10px]"></i>
-              <span class="text-red-700">划定最小连续写作时段 · 让agent将写作任务切小</span>
+              <span class="text-red-700">设定最小写作块：30–45分钟无打断</span>
+            </div>
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-red-50 border border-red-100 cursor-pointer hover:bg-red-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ agent单section推进已安排'; this.style.opacity='0.5'">
+              <i class="fas fa-microchip text-red-500 text-[10px]"></i>
+              <span class="text-red-700">让agent每次只处理一个section，把长评论拆成可执行小任务</span>
             </div>
             <div class="flex items-center gap-1.5 p-1.5 rounded bg-blue-50 border border-blue-100 cursor-pointer hover:bg-blue-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ 主线压缩完成'; this.style.opacity='0.5'">
               <i class="fas fa-compress-arrows-alt text-blue-500 text-[10px]"></i>
@@ -344,7 +348,7 @@
     <!-- Structured metadata -->
     <!-- #nb-manuscript: {"id":"MS-001","title":"Trust as Moral Experience","source":"Google Doc / 1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI","phase":"reviewed","doc_read":true,"core_claim":"medical_anthropology / care / local_moral_worlds","journal_primary":"Anthropology and Medicine","journal_status":"preferred candidate / not finalized","fit_assessment":"reviewed / needs revision","strongest_line":"medical anthropology / local moral worlds / care","implementation_role":"practice_field_not_main_genre","review_location":"docs/manuscript-anth-med-review-comments.md","comments_cn_location":"docs/manuscript-anth-med-comments-cn.md","p0_comments_visible":true,"p0_comment_count":5,"google_doc_direct_comment":"blocked_by_oauth","next_action":"revise title / abstract / introduction / discussion with balanced anthropology-implementation framing","created":"2026-04-25"} -->
     <!-- #nb-manuscript-sections: {"title":"draft","abstract":"needs-rewrite","introduction":"draft","background":"draft","methods":"draft","findings":"organizing","conclusion":"needs-work","references":"in-progress"} -->
-    <!-- #nb-blockers: [{"id":"BLK-MS-000","desc":"连续深度写作时间受照护打断"},{"id":"BLK-MS-001","desc":"核心论点未收敛（anthropology × implementation 平衡框架）"},{"id":"BLK-MS-002","desc":"Anthropology and Medicine方向审稿完成，需按平衡框架修改标题/引言/讨论"},{"id":"BLK-MS-003","desc":"Abstract不成型"}] -->
+    <!-- #nb-blockers: [{"id":"BLK-MS-000","desc":"连续深度写作时间受照护打断","priority":"high","mitigation":"最小30-45分钟写作块 + agent单section推进"},{"id":"BLK-MS-001","desc":"核心论点未收敛（anthropology × implementation 平衡框架）"},{"id":"BLK-MS-002","desc":"Anthropology and Medicine方向审稿完成，需按平衡框架修改标题/引言/讨论"},{"id":"BLK-MS-003","desc":"Abstract不成型"}] -->
 
     <!-- Footer -->
     <div class="text-center text-[10px] text-gray-400 py-3">
