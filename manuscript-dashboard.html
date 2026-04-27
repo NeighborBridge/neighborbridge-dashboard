@@ -31,6 +31,7 @@
     .acc-orange { border-left: 4px solid #f59e0b; }
     .acc-cyan { border-left: 4px solid #22d3ee; }
     .acc-amber { border-left: 4px solid #f59e0b; }
+    .btn-write { @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-colors; }
   </style>
 </head>
 <body>
@@ -58,8 +59,126 @@
 
     <!-- Page title -->
     <div class="mb-3">
-      <h2 class="text-base font-bold">📄 稿件面板 <span class="text-[10px] text-gray-400 font-normal">/ Manuscript Dashboard</span></h2>
-      <p class="text-[10px] text-gray-400">单篇 peer-reviewed article 工作流 · 决策与进度面板</p>
+      <h2 class="text-base font-bold">📄 稿件面板 <span class="text-[10px] text-gray-400 font-normal">/ 写作指挥</span></h2>
+      <p class="text-[10px] text-gray-400">当前写作块：Introduction opening rewrite · 点「立即写」进入 Google Doc</p>
+    </div>
+
+    <!-- === A. 下一写作块 / Next Writing Block === -->
+    <div class="sec-card acc-blue" style="border-left-color: #1d4ed8; border-left-width: 5px;">
+      <div class="flex justify-between items-center mb-1.5">
+        <h3 class="text-sm font-bold">🎯 下一写作块 <span class="text-[10px] text-gray-400 font-normal">/ Next Writing Block</span></h3>
+        <span class="badge bg-blue-100 text-blue-700 text-[10px]">P0 · 30–45 分钟</span>
+      </div>
+
+      <!-- 1. 当前唯一任务 -->
+      <div class="p-2 rounded bg-blue-50 border border-blue-200 mb-2">
+        <p class="text-[10px] text-blue-600 font-medium mb-1">当前唯一任务</p>
+        <p class="text-blue-900 text-sm font-semibold">重写 Introduction 开头 2 段</p>
+        <p class="text-blue-700 text-[11px] mt-0.5">使文章从 anthropology / moral experience 问题切入，而不是从 implementation / policy language 切入</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2">
+        <!-- 2. 本次只做什么 -->
+        <div class="p-1.5 rounded bg-green-50 border border-green-200">
+          <p class="text-[10px] text-green-700 font-medium mb-0.5">✅ 本次只做什么</p>
+          <ul class="text-[11px] text-green-800 space-y-0.5 list-disc list-inside">
+            <li>只改 Introduction 第一、二段</li>
+            <li>保留 Fei × Kleinman 主线</li>
+            <li>从 anthropology / trust / moral experience 切入</li>
+            <li>implementation 只作为实践现场，不作为主 genre</li>
+          </ul>
+        </div>
+        <!-- 3. 本次不要做什么 -->
+        <div class="p-1.5 rounded bg-red-50 border border-red-200">
+          <p class="text-[10px] text-red-700 font-medium mb-0.5">🚫 本次不要做什么</p>
+          <ul class="text-[11px] text-red-800 space-y-0.5 list-disc list-inside">
+            <li>不展开政策背景</li>
+            <li>不写 literature review 全段</li>
+            <li>不修改 findings</li>
+            <li>不处理 references</li>
+            <li>不追求整篇统一润色</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 4. 完成标准 -->
+      <div class="p-1.5 rounded bg-gray-50 border border-gray-200 mb-2">
+        <p class="text-[10px] text-gray-600 font-medium mb-0.5">🎯 完成标准</p>
+        <p class="text-[11px] text-gray-700">产出 2 段可用 opening draft：<span class="text-gray-500">第1段提出人类学问题 · 第2段交代中国农村临床关系性实践与 trust / moral experience 的关联 · 不再以 policy translation 作为开头</span></p>
+      </div>
+
+      <!-- 5. 完成后状态 -->
+      <div class="flex items-center justify-between">
+        <div class="text-[11px] text-gray-500">
+          <span class="text-gray-400">完成后显示：</span>
+          <span id="writing-block-status" class="text-gray-700 font-medium">Introduction opening rewrite draft v1</span>
+          <button onclick="document.getElementById('writing-block-status').textContent='✅ 已完成：Introduction opening rewrite draft v1'; this.style.display='none'" class="ml-2 text-[10px] text-green-600 underline hover:text-green-700">标记完成</button>
+        </div>
+        <!-- 6. 立即开始按钮 -->
+        <a href="https://docs.google.com/document/d/1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI/edit#heading=h.introduction" target="_blank" class="btn-write bg-blue-600 text-white hover:bg-blue-700 shadow-sm">
+          <i class="fas fa-pen-fancy text-[10px]"></i> 立即写
+        </a>
+      </div>
+      <p class="text-[9px] text-gray-400 mt-1">打开后定位到：Introduction > opening 2 paragraphs</p>
+    </div>
+
+    <!-- === B. 写作块队列 / Writing Block Queue === -->
+    <div class="sec-card acc-purple">
+      <div class="flex justify-between items-center mb-1.5">
+        <h3 class="text-sm font-bold">📋 写作块队列 <span class="text-[10px] text-gray-400 font-normal">/ Writing Block Queue</span></h3>
+        <span class="badge bg-purple-100 text-purple-700 text-[10px]">3 个任务</span>
+      </div>
+      <div class="space-y-2">
+
+        <!-- Task 1: Introduction (current, active) -->
+        <div class="p-2 rounded bg-blue-50 border border-blue-200">
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="text-sm font-semibold text-blue-800">Task 1 <span class="text-[10px] text-blue-500 font-normal">· 当前</span></p>
+              <p class="text-blue-700 text-[11px] font-medium">Introduction opening rewrite</p>
+            </div>
+            <a href="https://docs.google.com/document/d/1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI/edit#heading=h.introduction" target="_blank" class="text-[10px] text-blue-600 underline hover:text-blue-700 flex items-center gap-1"><i class="fas fa-external-link-alt text-[9px]"></i> 打开</a>
+          </div>
+          <div class="mt-1 grid grid-cols-1 sm:grid-cols-3 gap-1">
+            <div class="text-[10px] text-gray-600"><span class="font-medium">目标：</span>anthropology 切入，删 policy 主轴</div>
+            <div class="text-[10px] text-gray-600"><span class="font-medium">只做：</span>开头 2 段</div>
+            <div class="text-[10px] text-gray-600"><span class="font-medium">完成：</span>2 段可用 draft，Fei × Kleinman 主线</div>
+          </div>
+        </div>
+
+        <!-- Task 2: Abstract -->
+        <div class="p-2 rounded bg-gray-50 border border-gray-200">
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="text-sm font-semibold text-gray-700">Task 2</p>
+              <p class="text-gray-700 text-[11px] font-medium">Abstract 1-paragraph focus rewrite</p>
+            </div>
+            <a href="https://docs.google.com/document/d/1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI/edit#heading=h.abstract" target="_blank" class="text-[10px] text-gray-500 underline hover:text-blue-600 flex items-center gap-1"><i class="fas fa-external-link-alt text-[9px]"></i> 打开</a>
+          </div>
+          <div class="mt-1 grid grid-cols-1 sm:grid-cols-3 gap-1">
+            <div class="text-[10px] text-gray-500"><span class="font-medium">目标：</span>压缩成 1 段 180–220 词</div>
+            <div class="text-[10px] text-gray-500"><span class="font-medium">只做：</span>首句直接提出 anthropological claim</div>
+            <div class="text-[10px] text-gray-500"><span class="font-medium">完成：</span>1 段焦点版 abstract</div>
+          </div>
+        </div>
+
+        <!-- Task 3: Discussion -->
+        <div class="p-2 rounded bg-gray-50 border border-gray-200">
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="text-sm font-semibold text-gray-700">Task 3</p>
+              <p class="text-gray-700 text-[11px] font-medium">Discussion ending rewrite</p>
+            </div>
+            <a href="https://docs.google.com/document/d/1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI/edit#heading=h.discussion" target="_blank" class="text-[10px] text-gray-500 underline hover:text-blue-600 flex items-center gap-1"><i class="fas fa-external-link-alt text-[9px]"></i> 打开</a>
+          </div>
+          <div class="mt-1 grid grid-cols-1 sm:grid-cols-3 gap-1">
+            <div class="text-[10px] text-gray-500"><span class="font-medium">目标：</span>删除政策建议式结尾</div>
+            <div class="text-[10px] text-gray-500"><span class="font-medium">只做：</span>重写最后 2 段</div>
+            <div class="text-[10px] text-gray-500"><span class="font-medium">完成：</span>改为 interpretive conclusion</div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
     <!-- 2-col: left (target/claim/struct) / right (journal/blocks/actions) -->
@@ -199,40 +318,7 @@
           </div>
         </div>
 
-        <!-- 5b. P0 必须修改 -->
-        <div class="sec-card acc-amber">
-          <div class="flex justify-between items-center mb-1">
-            <h3 class="text-sm font-bold">P0 必须修改</h3>
-            <span class="badge bg-amber-100 text-amber-700 text-[10px]">按此方向改</span>
-          </div>
-          <div class="space-y-1 text-[11px]">
-            <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
-              <p class="text-amber-700 font-medium">核心主张</p>
-              <p class="text-amber-600 text-[10px]">保留 implementation 作为实践现场，但不写成 implementation report。主线应是：信任、照护与关系性责任如何在农村临床实践中生成，并使基层实施成为可能。</p>
-            </div>
-            <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
-              <p class="text-amber-700 font-medium">标题</p>
-              <p class="text-amber-600 text-[10px]">避免 'Primary Care' 作为主框架（偏政策语调），但不删除 implementation。考虑: Trust as Moral Practice: Relational Care and the Clinical Encounter in Rural Western Hunan。</p>
-            </div>
-            <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
-              <p class="text-amber-700 font-medium">摘要</p>
-              <p class="text-amber-600 text-[10px]">以人类学主张开头，保留 implementation 作为问题背景。不应以 policy translation 开头，应说明关系性临床实践如何生成信任并为基层实施创造条件。</p>
-            </div>
-            <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
-              <p class="text-amber-700 font-medium">引言</p>
-              <p class="text-amber-600 text-[10px]">从临床实践中的信任、照护和关系性责任切入；global health / governance / resource allocation 只作背景，不作主轴。</p>
-            </div>
-            <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
-              <p class="text-amber-700 font-medium">讨论</p>
-              <p class="text-amber-600 text-[10px]">用 Fei × Kleinman 解释 implementation 如何在地方关系、道德经验与临床实践中被共同生产，而不是重复项目模型。</p>
-            </div>
-            <div class="p-1 rounded bg-gray-50">
-              <p class="text-gray-400 text-[9px]">完整版见 <code>docs/manuscript-anth-med-comments-cn.md</code> · Google Doc 直接评论因 OAuth 未配置不可用</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 6. 当前阻塞 -->
+        <!-- 5b. 当前阻塞 -->
         <div class="sec-card acc-red">
           <div class="flex justify-between items-center mb-1">
             <h3 class="text-sm font-bold">当前阻塞</h3>
@@ -258,54 +344,46 @@
           </div>
         </div>
 
-        <!-- 7. 下一步动作 -->
+        <!-- 6. 可执行任务列表 -->
         <div class="sec-card acc-green">
           <div class="flex justify-between items-center mb-1">
-            <h3 class="text-sm font-bold">下一步动作</h3>
-            <span class="badge bg-green-100 text-green-700 text-[10px]">优先</span>
+            <h3 class="text-sm font-bold">可执行任务列表</h3>
+            <span class="badge bg-green-100 text-green-700 text-[10px]">按颗粒度拆分</span>
           </div>
           <div class="space-y-1">
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-red-50 border border-red-100 cursor-pointer hover:bg-red-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ 写作时段管理已纳入计划'; this.style.opacity='0.5'">
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-red-50 border border-red-100 cursor-pointer hover:bg-red-100 text-[11px]" onclick="document.getElementById('exec-status').textContent='✅ 写作块管理中'; this.style.opacity='0.5'">
               <i class="fas fa-clock text-red-500 text-[10px]"></i>
               <span class="text-red-700">设定最小写作块：30–45分钟无打断</span>
             </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-red-50 border border-red-100 cursor-pointer hover:bg-red-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ agent单section推进已安排'; this.style.opacity='0.5'">
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-red-50 border border-red-100 cursor-pointer hover:bg-red-100 text-[11px]" onclick="document.getElementById('exec-status').textContent='✅ agent单section推进已安排'; this.style.opacity='0.5'">
               <i class="fas fa-microchip text-red-500 text-[10px]"></i>
               <span class="text-red-700">让agent每次只处理一个section，把长评论拆成可执行小任务</span>
             </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-blue-50 border border-blue-100 cursor-pointer hover:bg-blue-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ 主线压缩完成'; this.style.opacity='0.5'">
-              <i class="fas fa-compress-arrows-alt text-blue-500 text-[10px]"></i>
-              <span class="text-blue-700">压缩核心论点为 1-2 句命题</span>
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-blue-50 border border-blue-100 cursor-pointer hover:bg-blue-100 text-[11px]" onclick="document.getElementById('exec-status').textContent='✅ 引言重写中'; this.style.opacity='0.5'">
+              <i class="fas fa-pen-fancy text-blue-500 text-[10px]"></i>
+              <span class="text-blue-700">Introduction：重写开头 2 段，从 anthropology / trust / moral experience 切入，删除 global health / policy 主轴</span>
             </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-green-50 border border-green-100 opacity-50" title="已完成">
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-purple-50 border border-purple-100 cursor-pointer hover:bg-purple-100 text-[11px]" onclick="document.getElementById('exec-status').textContent='✅ Abstract 重写完成'; this.style.opacity='0.5'">
+              <i class="fas fa-pen text-purple-500 text-[10px]"></i>
+              <span class="text-purple-700">Abstract：压缩成 1 段 180–220 词，首句直接提出 anthropological claim</span>
+            </div>
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-amber-50 border border-amber-100 cursor-pointer hover:bg-amber-100 text-[11px]" onclick="document.getElementById('exec-status').textContent='✅ Discussion 结束段重写完成'; this.style.opacity='0.5'">
+              <i class="fas fa-message text-amber-500 text-[10px]"></i>
+              <span class="text-amber-700">Discussion：重写最后 2 段，删除政策建议式结尾，改为 interpretive conclusion</span>
+            </div>
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-green-50 border border-green-100 cursor-pointer hover:bg-green-100 text-[11px]" onclick="document.getElementById('exec-status').textContent='✅ 制度层压缩完成'; this.style.opacity='0.5'">
+              <i class="fas fa-compress-arrows-alt text-green-500 text-[10px]"></i>
+              <span class="text-green-700">制度层：删去 30–40% 的 policy / governance 叙述，只保留支撑 ethnographic argument 的部分</span>
+            </div>
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-green-50 border border-green-100 opacity-50 text-[11px]">
               <i class="fas fa-check-circle text-green-500 text-[10px]"></i>
               <span class="text-green-700"><s>按 Anthropology and Medicine 方向重审核心主张 — 已完成</s></span>
             </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-green-50 border border-green-100 opacity-50" title="已完成">
+            <div class="flex items-center gap-1.5 p-1.5 rounded bg-green-50 border border-green-100 opacity-50 text-[11px]">
               <i class="fas fa-check-circle text-green-500 text-[10px]"></i>
               <span class="text-green-700"><s>判断文章主线 — 已完成，最强为医学人类学 / local moral worlds</s></span>
             </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-red-50 border border-red-100 cursor-pointer hover:bg-red-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ 引言框架重写完成'; this.style.opacity='0.5'">
-              <i class="fas fa-pen-fancy text-red-500 text-[10px]"></i>
-              <span class="text-red-700">P0: 重写引言框架—从人类学问题切入，去掉global health语言</span>
-            </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-red-50 border border-red-100 cursor-pointer hover:bg-red-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ 制度层压缩完成'; this.style.opacity='0.5'">
-              <i class="fas fa-compress-arrows-alt text-red-500 text-[10px]"></i>
-              <span class="text-red-700">P0: 压缩制度层分析—改为人类学问询，或缩减30-40%</span>
-            </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-purple-50 border border-purple-100 cursor-pointer hover:bg-purple-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ Discussion重写完成'; this.style.opacity='0.5'">
-              <i class="fas fa-message text-purple-500 text-[10px]"></i>
-              <span class="text-purple-700">重写Discussion—以阐释性发现结尾，非政策建议</span>
-            </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-green-50 border border-green-100 cursor-pointer hover:bg-green-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ Abstract 重写完成'; this.style.opacity='0.5'">
-              <i class="fas fa-pen text-green-500 text-[10px]"></i>
-              <span class="text-green-700">重写 abstract（1 段焦点版）</span>
-            </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-amber-50 border border-amber-100 cursor-pointer hover:bg-amber-100 text-[11px]" onclick="document.getElementById('action-status').textContent='✅ Findings 结构调整说明生成'; this.style.opacity='0.5'">
-              <i class="fas fa-sitemap text-amber-500 text-[10px]"></i>
-              <span class="text-amber-700">明确 Findings 三层的结构逻辑</span>
-            </div>
-            <p id="action-status" class="text-[10px] text-gray-400 mt-1">点击动作标记完成</p>
+            <p id="exec-status" class="text-[10px] text-gray-400 mt-1">点击任务标记完成</p>
           </div>
         </div>
 
@@ -346,13 +424,13 @@
     </div>
 
     <!-- Structured metadata -->
-    <!-- #nb-manuscript: {"id":"MS-001","title":"Trust as Moral Experience","source":"Google Doc / 1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI","phase":"reviewed","doc_read":true,"core_claim":"medical_anthropology / care / local_moral_worlds","journal_primary":"Anthropology and Medicine","journal_status":"preferred candidate / not finalized","fit_assessment":"reviewed / needs revision","strongest_line":"medical anthropology / local moral worlds / care","implementation_role":"practice_field_not_main_genre","review_location":"docs/manuscript-anth-med-review-comments.md","comments_cn_location":"docs/manuscript-anth-med-comments-cn.md","p0_comments_visible":true,"p0_comment_count":5,"google_doc_direct_comment":"blocked_by_oauth","next_action":"revise title / abstract / introduction / discussion with balanced anthropology-implementation framing","created":"2026-04-25"} -->
+    <!-- #nb-manuscript: {"id":"MS-001","title":"Trust as Moral Experience","source":"Google Doc / 1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI","phase":"writing","doc_read":true,"core_claim":"medical_anthropology / care / local_moral_worlds","journal_primary":"Anthropology and Medicine","journal_status":"preferred candidate / not finalized","fit_assessment":"reviewed / needs revision","strongest_line":"medical anthropology / local moral worlds / care","implementation_role":"practice_field_not_main_genre","review_location":"docs/manuscript-anth-med-review-comments.md","comments_cn_location":"docs/manuscript-anth-med-comments-cn.md","p0_comments_visible":true,"p0_comment_count":5,"google_doc_direct_comment":"blocked_by_oauth","current_writing_block":"P0: Introduction opening rewrite","current_task":"重写Introduction开头2段，从anthropology/moral experience切入","next_action":"write: introduction opening rewrite","created":"2026-04-25","writing_queue":["introduction opening rewrite","abstract 1-paragraph rewrite","discussion ending rewrite"],"page_mode":"writing_command_center"} -->
     <!-- #nb-manuscript-sections: {"title":"draft","abstract":"needs-rewrite","introduction":"draft","background":"draft","methods":"draft","findings":"organizing","conclusion":"needs-work","references":"in-progress"} -->
     <!-- #nb-blockers: [{"id":"BLK-MS-000","desc":"连续深度写作时间受照护打断","priority":"high","mitigation":"最小30-45分钟写作块 + agent单section推进"},{"id":"BLK-MS-001","desc":"核心论点未收敛（anthropology × implementation 平衡框架）"},{"id":"BLK-MS-002","desc":"Anthropology and Medicine方向审稿完成，需按平衡框架修改标题/引言/讨论"},{"id":"BLK-MS-003","desc":"Abstract不成型"}] -->
 
     <!-- Footer -->
     <div class="text-center text-[10px] text-gray-400 py-3">
-      稿件面板 · 源文档已读取 · Anthropology & Medicine 方向审稿完成 · 更新: <span id="update-time"></span>
+      稿件面板 · 写作指挥模式 · 当前任务：Introduction opening rewrite · 更新时间: <span id="update-time"></span>
     </div>
 
   </div>
