@@ -72,7 +72,7 @@
     <div class="sec-card acc-blue" style="border-left-color: #1d4ed8; border-left-width: 5px;">
       <div class="flex justify-between items-center mb-1.5">
         <h3 class="text-sm font-bold">🎯 下一写作块 <span class="text-[10px] text-gray-400 font-normal">/ Next Writing Block</span></h3>
-        <span class="badge bg-blue-100 text-blue-700 text-[10px]">P0 · 30–45 分钟</span>
+        <span class="badge bg-blue-100 text-blue-700 text-[10px]">P0 · 30–45 分钟 · 参考草稿就绪</span>
       </div>
 
       <!-- 1. 当前唯一任务 -->
@@ -118,8 +118,8 @@
       <div class="flex items-center justify-between">
         <div class="text-[11px] text-gray-500">
           <span class="text-gray-400">完成后显示：</span>
-          <span id="writing-block-status" class="text-gray-700 font-medium">Introduction opening rewrite draft v1</span>
-          <button onclick="document.getElementById('writing-block-status').textContent='✅ 已完成：Introduction opening rewrite draft v1'; this.style.display='none'" class="ml-2 text-[10px] text-green-600 underline hover:text-green-700">标记完成</button>
+          <span id="writing-block-status" class="text-gray-700 font-medium">P0 Introduction opening rewrite — reference draft available / ready for author review</span>
+          <button onclick="document.getElementById('writing-block-status').textContent='✅ 作者已审阅：Introduction opening rewrite draft v1'; this.style.display='none'" class="ml-2 text-[10px] text-yellow-600 underline hover:text-yellow-700">标记为已审阅</button>
         </div>
         <!-- 6. 立即开始按钮 -->
         <a href="https://docs.google.com/document/d/1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI/edit#heading=h.introduction" target="_blank" class="btn-write bg-blue-600 text-white hover:bg-blue-700 shadow-sm">
@@ -129,11 +129,52 @@
       <p class="text-[9px] text-gray-400 mt-1">打开后定位到：Introduction > opening 2 paragraphs</p>
     </div>
 
+    <!-- === A2. Reference Draft (P0) === -->
+    <div class="sec-card" style="border-left: 5px solid #8b5cf6;">
+      <div class="flex justify-between items-center mb-1.5">
+        <h3 class="text-sm font-bold">📝 Reference Draft for Author Review <span class="text-[10px] text-gray-400 font-normal">/ 参考草稿供审阅</span></h3>
+        <span class="badge bg-purple-100 text-purple-700 text-[10px]">P0 · 需作者审阅</span>
+      </div>
+
+      <div class="p-2 rounded bg-yellow-50 border border-yellow-200 mb-2">
+        <p class="text-[10px] text-yellow-700 font-medium">⚠️ 说明</p>
+        <p class="text-[11px] text-yellow-800">This is a reference draft generated for the author's next 30-45 minute writing block. It is not a final replacement text and should not be treated as completed manuscript writing.</p>
+        <p class="text-[11px] text-yellow-800 mt-0.5">这是供作者下一次 30-45 分钟写作块参考的草稿，不是最终替换文本，也不表示该部分已经正式完成。</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2">
+        <div class="p-1.5 rounded bg-green-50 border border-green-200">
+          <p class="text-[10px] text-green-700 font-medium">📌 Current status</p>
+          <p class="text-[11px] text-green-800 font-medium">Reference draft prepared; author review needed.</p>
+        </div>
+        <div class="p-1.5 rounded bg-blue-50 border border-blue-200">
+          <p class="text-[10px] text-blue-700 font-medium">👉 Next human action</p>
+          <p class="text-[11px] text-blue-800">Review the reference draft below and decide whether to adapt, revise, or replace the current Introduction opening in the Google Doc.</p>
+        </div>
+      </div>
+
+      <div class="p-2 rounded bg-gray-50 border border-gray-200 text-[11px] text-gray-700 space-y-1">
+        <p class="text-[10px] text-gray-400 font-medium mb-1">Revised Introduction opening draft (2 paragraphs)</p>
+
+        <p class="leading-relaxed">How is trust generated in the clinical encounter when institutional authority is weak, resources are scarce, and patients and healers share lifetimes of living in the same village? In the mountainous countryside of western Hunan, China, where township health centers serve communities shaped by migration, aging, and ethnic diversity — Miao and Tujia populations alongside Han — trust in medical care is not an automatic product of policy design or institutional credentialing. It is built slowly, through repeated acts of clinical presence: the village doctor who remembers a grandmother's chronic back pain across seasons, the township physician who pauses to listen to a patient's account of family hardship before reaching for the stethoscope, the practitioner who touches an elderly patient's pulse not only to read the body but to signal attentiveness. These are not merely gestures of kindness. They are the relational and ethical fabric through which clinical care becomes meaningful — and through which trust is made possible.</p>
+
+        <p class="leading-relaxed mt-1">This article offers an anthropological account of how implementation work in rural primary care becomes possible through relational clinical practice — not the other way around. The national health policies that mandate chronic disease management, mental health follow-up, and basic public health services in China's village and township clinics do not simply flow from Beijing into local practice. They are translated, reinterpreted, and remade through the moral relationships that structure daily life in rural communities — what Fei Xiaotong described as the differential mode of association (<em>chaxu geju</em>), a relational social order in which obligations and trust radiate outward from kin and locality. At the same time, the clinical encounter is not merely a site of policy delivery; it is a space of moral experience in Arthur Kleinman's sense — where suffering is witnessed, care is embodied, and trust accumulates through shared narratives of illness and responsiveness over time. Bringing Fei's relational ethics into dialogue with Kleinman's moral experience, this article asks a single question that neither implementation science nor policy analysis alone can answer: How does trust emerge and endure in the rural clinical encounter, and what does its emergence tell us about the kind of care that makes implementation work actually possible?</p>
+      </div>
+
+      <div class="flex items-center justify-between mt-2">
+        <p class="text-[10px] text-gray-500">📍 替换位置：Google Doc Introduction 开头——从"基层医疗体系的运作是宏观规范..." 到 "...来自中国西南的经验性补充" （当前 Introduction 前 2 段）</p>
+        <a href="https://docs.google.com/document/d/1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI/edit#heading=h.introduction" target="_blank" class="btn-write bg-purple-600 text-white hover:bg-purple-700 shadow-sm">
+          <i class="fas fa-external-link-alt text-[10px]"></i> 打开 Google Doc
+        </a>
+      </div>
+      <p class="text-[9px] text-gray-400 mt-1">打开后定位到：Introduction > opening 2 paragraphs — 人工粘贴或改写</p>
+    </div>
+
     <!-- === B. 写作块队列 / Writing Block Queue === -->
     <div class="sec-card acc-purple">
       <div class="flex justify-between items-center mb-1.5">
         <h3 class="text-sm font-bold">📋 写作块队列 <span class="text-[10px] text-gray-400 font-normal">/ Writing Block Queue</span></h3>
-        <span class="badge bg-purple-100 text-purple-700 text-[10px]">3 个任务</span>
+        <span class="badge bg-purple-100 text-purple-700 text-[10px]">3 个任务 · P0 审阅中</span>
       </div>
       <div class="space-y-2">
 
@@ -141,7 +182,7 @@
         <div class="p-2 rounded bg-blue-50 border border-blue-200">
           <div class="flex justify-between items-start">
             <div>
-              <p class="text-sm font-semibold text-blue-800">Task 1 <span class="text-[10px] text-blue-500 font-normal">· 当前</span></p>
+              <p class="text-sm font-semibold text-blue-800">Task 1 <span class="text-[10px] text-blue-500 font-normal">· 审阅中 (草稿就绪)</span></p>
               <p class="text-blue-700 text-[11px] font-medium">Introduction opening rewrite</p>
             </div>
             <a href="https://docs.google.com/document/d/1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI/edit#heading=h.introduction" target="_blank" class="text-[10px] text-blue-600 underline hover:text-blue-700 flex items-center gap-1"><i class="fas fa-external-link-alt text-[9px]"></i> 打开</a>
@@ -436,7 +477,7 @@
     </div>
 
     <!-- Structured metadata -->
-    <!-- #nb-manuscript: {"id":"MS-001","title":"Trust as Moral Experience","source":"Google Doc / 1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI","phase":"writing","doc_read":true,"core_claim":"not_implementation_report_but_anthropological_account_of_how_implementation_becomes_possible_through_relational_clinical_practice","journal_primary":"Anthropology and Medicine","journal_status":"preferred candidate / not finalized","fit_assessment":"reviewed / needs revision","strongest_line":"medical anthropology / local moral worlds / care","implementation_role":"scene_not_genre","review_location":"docs/manuscript-anth-med-review-comments.md","comments_cn_location":"docs/manuscript-anth-med-comments-cn.md","p0_comments_visible":true,"p0_comment_count":5,"google_doc_direct_comment":"blocked_by_oauth","current_writing_block":"P0: Introduction opening rewrite — from implementation/policy to care/trust/moral worlds","current_task":"重写Introduction开头2段：第1段提出anthropology问题·第2段说明implementation被关系性临床实践支撑","next_action":"write: introduction opening rewrite","created":"2026-04-25","writing_queue":["Introduction opening rewrite","Abstract focus rewrite (180-220 words, anthropological claim first)","Discussion ending rewrite (policy → interpretive conclusion)"],"page_mode":"writing_command_center"} -->
+    <!-- #nb-manuscript: {"id":"MS-001","title":"Trust as Moral Experience","source":"Google Doc / 1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI","phase":"writing","doc_read":true,"core_claim":"not_implementation_report_but_anthropological_account_of_how_implementation_becomes_possible_through_relational_clinical_practice","journal_primary":"Anthropology and Medicine","journal_status":"preferred candidate / not finalized","fit_assessment":"reviewed / needs revision","strongest_line":"medical anthropology / local moral worlds / care","implementation_role":"scene_not_genre","review_location":"docs/manuscript-anth-med-review-comments.md","comments_cn_location":"docs/manuscript-anth-med-comments-cn.md","p0_comments_visible":true,"p0_comment_count":5,"google_doc_direct_comment":"blocked_by_oauth","current_writing_block":"P0: Introduction opening rewrite — author review stage","current_task":"作者审阅参考草稿，决定是否改编/替换 Google Doc 中的 Introduction 开头","p0_reference_draft":"available for author review (embedded in dashboard)","p0_reference_draft_status":"not_final_replace_text","next_action":"author: review reference draft and adapt/replace in Google Doc","created":"2026-04-25","writing_queue":["P0: Introduction opening rewrite — author review stage (reference draft ready)","P1: Abstract focus rewrite (upcoming)","P2: Discussion ending rewrite (upcoming)"],"page_mode":"writing_command_center"} -->
     <!-- #nb-manuscript-sections: {"title":"draft","abstract":"needs-rewrite","introduction":"draft","background":"draft","methods":"draft","findings":"organizing","conclusion":"needs-work","references":"in-progress"} -->
     <!-- #nb-blockers: [{"id":"BLK-MS-000","desc":"连续深度写作时间受照护打断","priority":"high","mitigation":"最小30-45分钟写作块 + agent单section推进"},{"id":"BLK-MS-001","desc":"核心论点未收敛（anthropology × implementation 平衡框架）"},{"id":"BLK-MS-002","desc":"Anthropology and Medicine方向审稿完成，需按平衡框架修改标题/引言/讨论"},{"id":"BLK-MS-003","desc":"Abstract不成型"}] -->
 
