@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trillium Partnership Structure — 联合推进结构</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: "#0ea5e9", urgent: "#ef4444", warning: "#f59e0b",
+            neutral: "#6b7280", completed: "#10b981",
+            orange: { 500: "#f59e0b" }, blue: { 500: "#60a5fa" },
+            green: { 500: "#34d399" }, purple: { 500: "#a78bfa" }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .sec-card { @apply bg-white rounded-lg p-3 border shadow-sm mb-3; }
+    .badge { display: inline-flex; align-items: center; padding: 1px 10px; border-radius: 9999px; font-size: 11px; font-weight: 500; }
+    .blocker { padding: 8px 12px; border-radius: 6px; border: 1px solid #fca5a5; background: #fef2f2; }
+    .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-6xl mx-auto px-3 py-2 flex justify-between items-center">
+      <h1 class="text-base font-bold">NeighborBridge</h1>
+      <div class="flex flex-wrap gap-x-3 gap-y-0.5 text-[11px]">
+        <a href="/" class="text-gray-500 hover:text-brand">主面板</a>
+        <a href="/fqhc" class="text-gray-500 hover:text-brand">FQHC</a>
+        <a href="/trillium" class="text-gray-500 hover:text-brand">Trillium</a>
+        <a href="/trillium-partnership-structure" class="text-brand font-semibold">🤝Trillium联合推进</a>
+        <a href="/stakeholders" class="text-gray-500 hover:text-brand">Stakeholders</a>
+        <a href="/adoption" class="text-gray-500 hover:text-brand">Adoption</a>
+        <a href="/fasd-care-pathway" class="text-gray-500 hover:text-brand">🧠FASD</a>
+        <a href="/tax-strategy" class="text-gray-500 hover:text-brand">💰Tax</a>
+        <a href="/faculty-pathway" class="text-gray-500 hover:text-brand">🎓教职</a>
+        <a href="/manuscript-dashboard" class="text-gray-500 hover:text-brand">📄稿件</a>
+        <a href="/caregiving-mobility" class="text-gray-500 hover:text-brand">🏠照护</a>
+        <a href="/compliance" class="text-gray-500 hover:text-brand">🛡️合规</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="max-w-6xl mx-auto px-3 py-3">
+
+    <!-- Page title + back link -->
+    <div class="mb-3 flex justify-between items-center">
+      <div>
+        <h2 class="text-base font-bold">🤝 Trillium Partnership Structure / 联合推进结构</h2>
+        <p class="text-[10px] text-gray-400">Richard 与 Holly 如何共同推进 Trillium-facing work · 角色边界 · 对外表述 · 风险管控</p>
+      </div>
+      <a href="/trillium" class="text-[11px] text-blue-600 hover:text-blue-800">← 返回 Trillium 主面板</a>
+    </div>
+
+    <!-- ======== 1. Current strategic question ======== -->
+    <div class="sec-card" style="border-left: 4px solid #60a5fa;">
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-sm font-bold">🧭 当前战略问题</h3>
+        <span class="badge bg-blue-100 text-blue-700 text-[10px]">核心问题</span>
+      </div>
+      <div class="text-xs space-y-1.5">
+        <p>Richard 如何主导 <strong>clinical logic</strong>、<strong>implementation design</strong>、<strong>FASD pathway</strong> 和 <strong>academic narrative</strong>，同时让 Holly 提供本地 <strong>public health legitimacy</strong>、<strong>community credibility</strong> 和 <strong>relationship bridge</strong>？</p>
+        <div class="p-2 rounded border border-blue-100 bg-blue-50 text-[10px] mt-1">
+          <p class="font-medium text-blue-700">核心判断：</p>
+          <p class="text-gray-600">核心问题不是"谁拥有项目"，而是如何形成一个稳妥的 Trillium-facing partnership structure。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== 2. Role boundary ======== -->
+    <div class="sec-card" style="border-left: 4px solid #34d399;">
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-sm font-bold">🎯 角色边界</h3>
+        <span class="badge bg-green-100 text-green-700 text-[10px]">按领域划分</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+        <div class="p-2 rounded border border-blue-200 bg-blue-50">
+          <p class="font-medium text-blue-700 mb-1">👤 Richard 主导</p>
+          <ul class="list-disc pl-4 text-[10px] text-gray-600 space-y-0.5">
+            <li>clinical logic</li>
+            <li>implementation design</li>
+            <li>FASD early identification pathway</li>
+            <li>pilot structure</li>
+            <li>measurement</li>
+            <li>academic narrative</li>
+            <li>payer-facing value logic</li>
+          </ul>
+        </div>
+        <div class="p-2 rounded border border-purple-200 bg-purple-50">
+          <p class="font-medium text-purple-700 mb-1">🤝 Holly 提供</p>
+          <ul class="list-disc pl-4 text-[10px] text-gray-600 space-y-0.5">
+            <li>local public health legitimacy</li>
+            <li>FASD community credibility</li>
+            <li>relationship bridge</li>
+            <li>funding landscape insight</li>
+            <li>local trust</li>
+            <li>public health alignment</li>
+          </ul>
+        </div>
+      </div>
+      <div class="p-1.5 rounded border border-green-100 bg-green-50 mt-2">
+        <p class="font-medium text-green-700 text-[10px]">Preferred external framing:</p>
+        <p class="text-[10px] text-gray-600">local public health partnership + clinical / implementation leadership</p>
+      </div>
+    </div>
+
+    <!-- ======== 3. What not to do ======== -->
+    <div class="sec-card" style="border-left: 4px solid #ef4444;">
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-sm font-bold">⛔ 不该做什么</h3>
+        <span class="badge bg-red-100 text-red-700 text-[10px]">边界</span>
+      </div>
+      <div class="space-y-1.5 text-[10px]">
+        <div class="flex items-start gap-2 p-1.5 rounded border border-red-200 bg-red-50">
+          <span class="font-medium text-red-600">🚫</span>
+          <span>不让 Holly 变成 project owner</span>
+        </div>
+        <div class="flex items-start gap-2 p-1.5 rounded border border-red-200 bg-red-50">
+          <span class="font-medium text-red-600">🚫</span>
+          <span>不把 Richard 放成 Holly 的 assistant</span>
+        </div>
+        <div class="flex items-start gap-2 p-1.5 rounded border border-red-200 bg-red-50">
+          <span class="font-medium text-red-600">🚫</span>
+          <span>不让 Richard 显得单打独斗</span>
+        </div>
+        <div class="flex items-start gap-2 p-1.5 rounded border border-orange-200 bg-orange-50">
+          <span class="font-medium text-orange-600">⚠️</span>
+          <span>不在结构未清楚前谈太具体 pilot budget</span>
+        </div>
+        <div class="flex items-start gap-2 p-1.5 rounded border border-orange-200 bg-orange-50">
+          <span class="font-medium text-orange-600">⚠️</span>
+          <span>不过早暴露 NeighborBridge 的完整 pathway / workflow IP</span>
+        </div>
+        <div class="flex items-start gap-2 p-1.5 rounded border border-orange-200 bg-orange-50">
+          <span class="font-medium text-orange-600">⚠️</span>
+          <span>不把 Trillium conversation 变成 sales pitch</span>
+        </div>
+        <div class="flex items-start gap-2 p-1.5 rounded border border-orange-200 bg-orange-50">
+          <span class="font-medium text-orange-600">⚠️</span>
+          <span>不在 partner interest 还不明确时承诺 formal pilot</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== 4. External wording ======== -->
+    <div class="sec-card" style="border-left: 4px solid #a78bfa;">
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-sm font-bold">📢 对外表述原则</h3>
+        <span class="badge bg-purple-100 text-purple-700 text-[10px]">统一措辞</span>
+      </div>
+      <div class="space-y-1.5 text-xs">
+        <div class="grid grid-cols-2 gap-1.5">
+          <div class="p-2 rounded border border-purple-100 bg-purple-50 text-[10px]">
+            <p class="font-medium text-purple-700">❌ 非</p>
+            <p>Holly 主导 / Richard 协助</p>
+          </div>
+          <div class="p-2 rounded border border-purple-100 bg-purple-50 text-[10px]">
+            <p class="font-medium text-purple-700">❌ 非</p>
+            <p>Richard 单打独斗</p>
+          </div>
+        </div>
+        <div class="p-2 rounded border border-green-200 bg-green-50 text-[10px]">
+          <p class="font-medium text-green-700">✅ 优选框架</p>
+          <p class="text-gray-600">local public health partnership + clinical / implementation leadership</p>
+        </div>
+        <div class="p-2 rounded border border-blue-200 bg-blue-50 text-[10px]">
+          <p class="font-medium text-blue-700">英文对外建议</p>
+          <p class="text-gray-600">Richard leads the clinical logic, implementation design, pathway structure, and measurement framework. Holly provides local public health credibility, community legitimacy, and guidance on how this work may fit within North Carolina's FASD and public health landscape.</p>
+        </div>
+        <div class="p-2 rounded border border-blue-200 bg-blue-50 text-[10px]">
+          <p class="font-medium text-blue-700">中文对应</p>
+          <p class="text-gray-600">Richard 主导临床逻辑、实施设计、路径结构和评估框架；Holly 提供本地公共卫生可信度、社区合法性，以及关于该工作如何嵌入北卡 FASD 与公共卫生格局的判断。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== 5. Alignment question for Holly ======== -->
+    <div class="sec-card" style="border-left: 4px solid #f59e0b;">
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-sm font-bold">💬 给 Holly 的轻量对齐问题</h3>
+        <span class="badge bg-yellow-100 text-yellow-700 text-[10px]">建议提问</span>
+      </div>
+      <div class="space-y-1.5 text-xs">
+        <div class="p-2 rounded border border-yellow-200 bg-yellow-50 text-[10px]">
+          <p class="font-medium text-gray-700">英文：</p>
+          <p class="text-gray-600">"Given your understanding of the North Carolina FASD and public health landscape, where do you think this work would be most naturally positioned — as clinical education, early identification pathway development, or a small exploratory collaboration with Trillium?"</p>
+        </div>
+        <div class="p-2 rounded border border-yellow-200 bg-yellow-50 text-[10px]">
+          <p class="font-medium text-gray-700">中文理解：</p>
+          <p class="text-gray-600">"从你对北卡 FASD 和公共卫生格局的了解来看，你觉得这个工作最自然的定位是什么？是临床教育、早期识别路径建设，还是与 Trillium 的小范围探索性合作？"</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== 6. Decision triggers ======== -->
+    <div class="sec-card" style="border-left: 4px solid #6b7280;">
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-sm font-bold">📋 进入下一步的触发条件</h3>
+        <span class="badge bg-gray-100 text-gray-600 text-[10px]">Decision triggers</span>
+      </div>
+      <div class="space-y-1.5 text-[10px]">
+        <p class="text-gray-500">只有在以下情况出现后，才推进到更具体 pilot / funding / formal brief：</p>
+        <div class="p-1.5 rounded border border-blue-100 bg-blue-50">
+          <span class="status-dot bg-blue-500"></span> Trillium asks for more detail
+        </div>
+        <div class="p-1.5 rounded border border-blue-100 bg-blue-50">
+          <span class="status-dot bg-blue-500"></span> Holly confirms she is comfortable being a local legitimacy / relationship bridge
+        </div>
+        <div class="p-1.5 rounded border border-blue-100 bg-blue-50">
+          <span class="status-dot bg-blue-500"></span> Cindy or another Trillium leader asks about next step
+        </div>
+        <div class="p-1.5 rounded border border-blue-100 bg-blue-50">
+          <span class="status-dot bg-blue-500"></span> A specific FQHC site becomes plausible
+        </div>
+        <div class="p-1.5 rounded border border-blue-100 bg-blue-50">
+          <span class="status-dot bg-blue-500"></span> There is an opportunity to discuss exploratory learning phase rather than formal pilot
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== 7. Risk notes ======== -->
+    <div class="sec-card" style="border-left: 4px solid #ef4444;">
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-sm font-bold">⚠️ 风险提醒</h3>
+        <span class="badge bg-red-100 text-red-700 text-[10px]">需持续关注</span>
+      </div>
+      <div class="space-y-1.5 text-[10px]">
+        <div class="p-1.5 rounded border border-orange-200 bg-orange-50">
+          <p><span class="font-medium text-orange-700">IP risk:</span> 不提前展示完整 NeighborBridge workflow / proprietary pathway</p>
+        </div>
+        <div class="p-1.5 rounded border border-orange-200 bg-orange-50">
+          <p><span class="font-medium text-orange-700">Role confusion risk:</span> 不让 Holly 或 Trillium 误解 ownership</p>
+        </div>
+        <div class="p-1.5 rounded border border-orange-200 bg-orange-50">
+          <p><span class="font-medium text-orange-700">Sales pitch risk:</span> 不把 conversation 变成 product pitch</p>
+        </div>
+        <div class="p-1.5 rounded border border-orange-200 bg-orange-50">
+          <p><span class="font-medium text-orange-700">Funding timing risk:</span> 资金构想未成熟前，不主动提出具体 budget</p>
+        </div>
+        <div class="p-1.5 rounded border border-orange-200 bg-orange-50">
+          <p><span class="font-medium text-orange-700">Contracting risk:</span> 如涉及 speaker reimbursement 或 vendor contract，需另行检查 IP / insurance / audit 条款</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== 8. Next actions ======== -->
+    <div class="sec-card" style="border-left: 4px solid #10b981;">
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-sm font-bold">📌 下一步</h3>
+        <span class="badge bg-green-100 text-green-700 text-[10px]">行动项</span>
+      </div>
+      <div class="space-y-1.5 text-[10px]">
+        <div class="flex items-start gap-1.5 p-1.5 rounded bg-yellow-50 border border-yellow-100">
+          <input type="checkbox" class="w-3 h-3 mt-0.5"> 与 Holly 做一次轻量角色对齐
+        </div>
+        <div class="flex items-start gap-1.5 p-1.5 rounded bg-blue-50 border border-blue-100">
+          <input type="checkbox" class="w-3 h-3 mt-0.5"> 保持 Trillium 主线为 education / exploration / early identification pathway
+        </div>
+        <div class="flex items-start gap-1.5 p-1.5 rounded bg-gray-50 border border-gray-200">
+          <input type="checkbox" class="w-3 h-3 mt-0.5"> 等 Trillium 明确兴趣后，再准备 formal brief
+        </div>
+        <div class="flex items-start gap-1.5 p-1.5 rounded bg-gray-50 border border-gray-200">
+          <input type="checkbox" class="w-3 h-3 mt-0.5"> 如需与 Cindy follow-up，先用 general update，不直接抛完整 pilot budget
+        </div>
+        <div class="flex items-start gap-1.5 p-1.5 rounded bg-blue-50 border border-blue-100">
+          <input type="checkbox" class="w-3 h-3 mt-0.5"> 在 Trillium 主 dashboard 中保留 payer strategy，不把 partnership governance 内容混在主页面
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== Back link ======== -->
+    <div class="text-center py-3">
+      <a href="/trillium" class="text-[11px] text-blue-600 hover:text-blue-800">← 返回 Trillium 支付方策略总览</a>
+    </div>
+
+    <!-- Last updated -->
+    <div class="text-center text-[10px] text-gray-400 py-1">
+      最后更新: 2026-05-01 · 与 Trillium 主面板分离管理
+    </div>
+
+  </div>
+
+</body>
+</html>
