@@ -48,61 +48,79 @@
   <div class="max-w-4xl mx-auto px-3 py-3">
 
     <!-- Page title -->
-    <div class="mb-3 flex justify-between items-center">
-      <div>
-        <h2 class="text-base font-bold">🎯 Career / Field Contribution</h2>
-        <p class="text-[10px] text-gray-400">职业定位与学术贡献 — 10 秒看清主线</p>
+    <div class="mb-3">
+      <h2 class="text-sm font-bold">职业定位与学术贡献</h2>
+      <p class="text-[10px] text-gray-400">从北卡农村基层医疗经验出发，提炼 global mental health、primary care、医学人类学与实施科学之间的共同主线</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 1. 当前核心行动问题 (醒目阻塞项风格)                            -->
+    <!-- ============================================================ -->
+    <div class="card" style="border-left: 4px solid #ef4444; background: #fef2f2;">
+      <div class="flex items-center gap-1.5 mb-2">
+        <span class="text-xs font-bold text-red-700">🔥 当前核心行动问题</span>
       </div>
-      <a href="/" class="text-[11px] text-blue-600 hover:text-blue-800">← 返回主面板</a>
+      <div class="p-3 rounded-lg bg-red-50 border border-red-200 text-xs space-y-2">
+        <p class="text-gray-800 font-medium leading-relaxed">
+          如何把 Eastern North Carolina rural FQHC 的经验，提炼成一个 global mental health + primary care + FASD/NDD early-identification pathway 的主场域叙事？
+        </p>
+        <div class="space-y-1">
+          <p class="text-[11px] text-red-600 font-medium">引导问题：</p>
+          <ol class="space-y-1 text-[11px] text-gray-600 list-decimal list-inside">
+            <li>北卡农村经验到底贡献了什么？</li>
+            <li>它如何区别于一般 FASD 项目、一般 rural health 项目、或一般 primary care integration 项目？</li>
+            <li>它如何成为未来 multi-site 比较的 primary site？</li>
+          </ol>
+        </div>
+      </div>
     </div>
 
     <!-- ============================================================ -->
-    <!-- UPPER POSITIONING — Core identity, always visible              -->
+    <!-- 2. 当前下一步                                                 -->
     <!-- ============================================================ -->
-    <div class="card" style="border-left: 4px solid #0ea5e9;">
-      <p class="text-[10px] font-medium text-gray-400 mb-1">上位定位</p>
-      <p class="text-xs text-gray-800 leading-relaxed font-medium">
-        Global mental health and primary care framework for building early identification
-        and longitudinal support pathways for children with neurodevelopmental and behavioral
-        health needs in underserved communities.
-      </p>
-      <p class="text-[11px] text-gray-500 leading-relaxed mt-1">
-        在低资源基层医疗场景中，建立儿童神经发育与行为健康问题的早期识别和连续支持路径，
-        并从全球精神卫生、基层医疗、医学人类学和实施科学角度解释这些路径如何在地方社会中真正运行。
-      </p>
+    <div class="card" style="border-left: 4px solid #f97316;">
+      <div class="flex items-center gap-1.5 mb-2">
+        <span class="text-xs font-medium text-gray-500">📋 当前下一步</span>
+      </div>
+      <div class="p-3 rounded-lg bg-orange-50 border border-orange-200 text-xs space-y-2">
+        <p class="text-gray-700">不是立刻扩点，而是先写出 <strong class="text-orange-700">North Carolina rural FQHC primary site narrative</strong>。</p>
+        <div class="space-y-1.5 text-[11px]">
+          <label class="flex items-start gap-2 cursor-pointer">
+            <input type="checkbox" class="mt-0.5 rounded border-gray-300 text-orange-500 focus:ring-orange-400">
+            <span>写出北卡农村 FQHC 场域的一段定位</span>
+          </label>
+          <label class="flex items-start gap-2 cursor-pointer">
+            <input type="checkbox" class="mt-0.5 rounded border-gray-300 text-orange-500 focus:ring-orange-400">
+            <span>说明它为什么是 global mental health / primary care / FASD-NDD pathway 的主场域</span>
+          </label>
+          <label class="flex items-start gap-2 cursor-pointer">
+            <input type="checkbox" class="mt-0.5 rounded border-gray-300 text-orange-500 focus:ring-orange-400">
+            <span>再决定是否加入 St. Louis 或另一个美国 comparison site</span>
+          </label>
+        </div>
+      </div>
     </div>
 
     <!-- ============================================================ -->
-    <!-- 1. One-Line Positioning                                       -->
+    <!-- 3. 一句话职业定位                                             -->
     <!-- ============================================================ -->
     <div class="card" style="border-left: 4px solid #3b82f6;">
       <div class="flex items-center gap-1.5 mb-2">
-        <span class="text-xs font-medium text-gray-500">📌 一句话定位</span>
-        <span class="top-tag bg-blue-100 text-blue-700">模块-1</span>
+        <span class="text-xs font-medium text-gray-500">📌 一句话职业定位</span>
       </div>
-      <div class="p-3 rounded-lg bg-blue-50 border border-blue-100 text-xs space-y-2">
-        <p class="text-gray-800 leading-relaxed">
-          "My work sits at the intersection of <strong>global mental health</strong>,
-          <strong>primary care</strong>, and <strong>medical anthropology</strong>.
-          I study and build early identification pathways for neurodevelopmental and
-          behavioral health needs in underserved communities, focusing on how
-          <strong>trust, family systems, community relationships, and primary care workflows</strong>
-          make implementation possible."
-        </p>
-        <p class="text-gray-500 text-[11px] leading-relaxed">
-          我的工作位于全球精神卫生、基层医疗和医学人类学的交界处。我关注在资源不足的农村和安全网医疗场景中，
-          如何建立儿童神经发育和行为健康问题的早期识别路径，并研究信任、家庭、社区关系和基层流程如何让这些路径真正运行起来。
+      <div class="p-3 rounded-lg bg-blue-50 border border-blue-100 text-xs">
+        <p class="text-gray-700 leading-relaxed">
+          我的工作位于全球精神卫生、基层医疗、医学人类学和实施科学的交界处。核心关注是在资源不足的农村和安全网医疗场景中，如何建立儿童神经发育与行为健康问题的早期识别和连续支持路径，并解释这些路径如何通过<strong>信任、家庭、社区关系和基层流程</strong>真正运行起来。
         </p>
       </div>
     </div>
 
     <!-- ============================================================ -->
-    <!-- 2. Core Field Contribution                                    -->
+    <!-- 4. 核心学术贡献                                               -->
     <!-- ============================================================ -->
     <div class="card" style="border-left: 4px solid #22c55e;">
       <div class="flex items-center gap-1.5 mb-2">
         <span class="text-xs font-medium text-gray-500">🌟 核心学术贡献</span>
-        <span class="top-tag bg-green-100 text-green-700">模块-2</span>
       </div>
       <div class="p-3 rounded-lg bg-green-50 border border-green-100">
         <p class="text-sm font-semibold text-green-700 mb-1">Relational pathway-building in primary care</p>
@@ -116,30 +134,28 @@
     </div>
 
     <!-- ============================================================ -->
-    <!-- 3. North Carolina as Primary Site                             -->
+    <!-- 5. 北卡农村作为主场域                                          -->
     <!-- ============================================================ -->
     <div class="card" style="border-left: 4px solid #f59e0b;">
       <div class="flex items-center gap-1.5 mb-2">
         <span class="text-xs font-medium text-gray-500">🌾 北卡农村作为主场域</span>
-        <span class="top-tag bg-amber-100 text-amber-700">模块-3</span>
       </div>
       <div class="text-[11px] text-gray-600 space-y-1.5">
         <div class="flex items-start gap-2"><span class="text-amber-500 mt-0.5">▸</span> <span><strong>FQHC</strong> — 美国农村低资源场景中的 primary care 实验场</span></div>
         <div class="flex items-start gap-2"><span class="text-amber-500 mt-0.5">▸</span> <span><strong>Medicaid / MCO</strong> — payer alignment 成为美国全球精神卫生实践的重要变量</span></div>
         <div class="flex items-start gap-2"><span class="text-amber-500 mt-0.5">▸</span> <span><strong>FASD / NDD</strong> — 儿童行为健康与神经发育服务断裂的高价值切入点</span></div>
         <div class="flex items-start gap-2"><span class="text-amber-500 mt-0.5">▸</span> <span><strong>家庭 / 学校 / 基层医疗 / 精神科 / 社区资源之间的断裂</strong> — pathway-building 的核心问题</span></div>
-        <div class="flex items-start gap-2"><span class="text-amber-500 mt-0.5">▸</span> <span><strong>CHW / family navigation</strong> — 把 early identification 转化为 continuous support 的关键机制</span></div>
+        <div class="flex items-start gap-2"><span class="text-amber-500 mt-0.5">▸</span> <span><strong>CHW / family navigation</strong> — 把早期识别转化为持续支持的关键机制</span></div>
       </div>
     </div>
 
     <!-- ============================================================ -->
-    <!-- 4 + 5: Anthropology + Implementation Science (side by side)   -->
+    <!-- 6 + 7: 人类学层 + 实施科学层 (side by side)                    -->
     <!-- ============================================================ -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
       <div class="card mb-0" style="border-left: 4px solid #a78bfa;">
         <div class="flex items-center gap-1.5 mb-2">
           <span class="text-xs font-medium text-gray-500">🧬 人类学层</span>
-          <span class="top-tag bg-purple-100 text-purple-700">模块-4</span>
         </div>
         <div class="text-[11px] text-gray-600 space-y-1.5">
           <div class="p-2 rounded-lg bg-purple-50 border border-purple-100">
@@ -155,7 +171,6 @@
       <div class="card mb-0" style="border-left: 4px solid #f97316;">
         <div class="flex items-center gap-1.5 mb-2">
           <span class="text-xs font-medium text-gray-500">🔬 实施科学层</span>
-          <span class="top-tag bg-orange-100 text-orange-700">模块-5</span>
         </div>
         <div class="text-[11px] text-gray-600 space-y-1.5">
           <div class="p-2 rounded-lg bg-orange-50 border border-orange-100">
@@ -175,17 +190,16 @@
     </div>
 
     <!-- ============================================================ -->
-    <!-- 6. Multi-Site Strategy                                        -->
+    <!-- 8. 多点布局策略                                               -->
     <!-- ============================================================ -->
     <div class="card" style="border-left: 4px solid #6366f1;">
       <div class="flex items-center gap-1.5 mb-2">
         <span class="text-xs font-medium text-gray-500">🌍 多点布局策略</span>
-        <span class="top-tag bg-indigo-100 text-indigo-700">模块-6</span>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
         <div class="p-2.5 rounded-lg border border-blue-200 bg-blue-50">
           <p class="font-semibold text-blue-700 text-[10px] mb-0.5">A. NC Rural FQHC / Medicaid</p>
-          <p class="text-gray-600">主场域 · FQHC、Medicaid MCO、FASD/NDD、<br>CHW、school-family-primary care pathway</p>
+          <p class="text-gray-600">主场域 · FQHC、Medicaid MCO、FASD/NDD、CHW、school-family-primary care pathway</p>
         </div>
         <div class="p-2.5 rounded-lg border border-green-200 bg-green-50">
           <p class="font-semibold text-green-700 text-[10px] mb-0.5">B. US Rural (Appalachia / MS Delta)</p>
@@ -197,18 +211,17 @@
         </div>
         <div class="p-2.5 rounded-lg border border-amber-200 bg-amber-50">
           <p class="font-semibold text-amber-700 text-[10px] mb-0.5">D. 湘西 (Western Hunan)</p>
-          <p class="text-gray-600">International comparative / anthropological mirror，不是简单类比，而是理论提炼</p>
+          <p class="text-gray-600">international comparative / anthropological mirror，不是简单类比，而是理论提炼</p>
         </div>
       </div>
     </div>
 
     <!-- ============================================================ -->
-    <!-- 7. Key Comparative Questions                                  -->
+    <!-- 9. 核心比较问题                                                -->
     <!-- ============================================================ -->
     <div class="card" style="border-left: 4px solid #ec4899;">
       <div class="flex items-center gap-1.5 mb-2">
         <span class="text-xs font-medium text-gray-500">❓ 核心比较问题</span>
-        <span class="top-tag bg-pink-100 text-pink-700">模块-7</span>
       </div>
       <div class="space-y-1 text-[11px] text-gray-600">
         <div class="flex items-start gap-2 p-1.5 rounded bg-pink-50 border border-pink-100">
@@ -233,12 +246,11 @@
     </div>
 
     <!-- ============================================================ -->
-    <!-- 8. Practical Uses                                             -->
+    <!-- 10. 这个面板用来做什么                                          -->
     <!-- ============================================================ -->
     <div class="card" style="border-left: 4px solid #14b8a6;">
       <div class="flex items-center gap-1.5 mb-2">
         <span class="text-xs font-medium text-gray-500">🛠 这个面板用来做什么</span>
-        <span class="top-tag bg-teal-100 text-teal-700">模块-8</span>
       </div>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-[10px]">
         <div class="p-2 rounded-lg bg-teal-50 border border-teal-100 text-center text-teal-700 font-medium">🎓 Faculty framing</div>
@@ -252,44 +264,9 @@
       </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- 9. Current Next Action                                        -->
-    <!-- ============================================================ -->
-    <div class="card" style="border-left: 4px solid #ef4444;">
-      <div class="flex items-center gap-1.5 mb-2">
-        <span class="text-xs font-medium text-gray-500">🎯 当前下一步</span>
-        <span class="top-tag bg-red-100 text-red-700">模块-9 · 待办</span>
-      </div>
-      <div class="p-3 rounded-lg bg-red-50 border border-red-100 text-xs space-y-1.5">
-        <p class="text-gray-700">
-          下一步不是立刻扩点，而是先把 <strong class="text-red-700">North Carolina rural FQHC 经验</strong>
-          整理成一个清晰的 primary site narrative。
-        </p>
-        <div class="space-y-1 text-[11px] text-gray-600">
-          <label class="flex items-start gap-2 cursor-pointer">
-            <input type="checkbox" class="mt-0.5 rounded border-gray-300 text-red-500 focus:ring-red-400">
-            <span>写出 North Carolina site 的一段定位</span>
-          </label>
-          <label class="flex items-start gap-2 cursor-pointer">
-            <input type="checkbox" class="mt-0.5 rounded border-gray-300 text-red-500 focus:ring-red-400">
-            <span>明确它作为 global mental health / primary care / FASD/NDD pathway site 的意义</span>
-          </label>
-          <label class="flex items-start gap-2 cursor-pointer">
-            <input type="checkbox" class="mt-0.5 rounded border-gray-300 text-red-500 focus:ring-red-400">
-            <span>再决定是否加入 St. Louis 或另一个 US comparison site</span>
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- 10. Footprint indicator                                       -->
-    <!-- ============================================================ -->
-    <div class="text-center py-2">
-      <a href="/" class="text-[11px] text-blue-600 hover:text-blue-800">← 返回主面板</a>
-    </div>
-    <div class="text-center text-[10px] text-gray-400 pb-4">
-      最后更新: 2026-05-01 · 10 模块 · 部署于 Cloudflare Workers (内部)
+    <!-- Footer -->
+    <div class="text-center text-[10px] text-gray-400 pb-4 pt-1">
+      部署于 Cloudflare Workers 内部 dashboard · 不公开
     </div>
 
   </div>
