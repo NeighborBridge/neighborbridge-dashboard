@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>📚 Dashboard Directory — 全部面板</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { brand: "#0ea5e9", urgent: "#ef4444", warning: "#f59e0b", neutral: "#6b7280", completed: "#10b981" }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .card { @apply bg-white rounded-xl border shadow-sm overflow-hidden; }
+    .cat-title { @apply text-xs font-semibold text-gray-400 mb-2; }
+    .dir-item { @apply flex items-center justify-between p-2.5 bg-white rounded-lg border hover:shadow transition-shadow; }
+    .dir-link { @apply text-xs font-medium text-blue-600 hover:text-blue-800 whitespace-nowrap; }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+  <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+    <div class="max-w-6xl mx-auto px-3 py-2 flex justify-between items-center">
+      <h1 class="text-base font-bold">NeighborBridge</h1>
+      <div class="flex flex-wrap gap-x-3 gap-y-0.5 text-[11px]">
+        <a href="/" class="text-gray-500 hover:text-brand">主面板</a>
+        <a href="/fqhc" class="text-gray-500 hover:text-brand">FQHC</a>
+        <a href="/trillium" class="text-gray-500 hover:text-brand">Trillium</a>
+        <a href="/stakeholders" class="text-gray-500 hover:text-brand">Stakeholders</a>
+        <a href="/manuscript-dashboard" class="text-gray-500 hover:text-brand">📄稿件</a>
+        <a href="/compliance" class="text-gray-500 hover:text-brand">🛡️合规</a>
+        <a href="/dashboard-directory" class="text-brand font-semibold">📚全部面板</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Content -->
+  <div class="max-w-4xl mx-auto px-3 py-4">
+
+    <!-- Title -->
+    <div class="mb-4">
+      <h2 class="text-base font-bold">📚 Dashboard Directory / 全部面板</h2>
+      <p class="text-[10px] text-gray-400">统一导航中心 · 分类列出所有 dashboard</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 1. Core / 主工作面板                                         -->
+    <!-- ============================================================ -->
+    <div class="mb-4">
+      <p class="cat-title">1. Core / 主工作面板</p>
+      <div class="space-y-2">
+        <a href="/" class="dir-item">
+          <div>
+            <p class="text-xs font-medium text-gray-800">Main Dashboard / 主面板</p>
+            <p class="text-[10px] text-gray-400">高层战略执行指挥面板 — 行动优先</p>
+          </div>
+          <span class="dir-link">进入 →</span>
+        </a>
+        <a href="/fqhc" class="dir-item">
+          <div>
+            <p class="text-xs font-medium text-gray-800">FQHC 基础试点面板</p>
+            <p class="text-[10px] text-gray-400">FQHC 试点启动、风险监控、对齐检查</p>
+          </div>
+          <span class="dir-link">进入 →</span>
+        </a>
+        <a href="/trillium" class="dir-item">
+          <div>
+            <p class="text-xs font-medium text-gray-800">Trillium 主面板</p>
+            <p class="text-[10px] text-gray-400">Payer 策略、阶段推进、项目跟踪</p>
+          </div>
+          <span class="dir-link">进入 →</span>
+        </a>
+        <a href="/stakeholders" class="dir-item">
+          <div>
+            <p class="text-xs font-medium text-gray-800">Stakeholders / 关系网络</p>
+            <p class="text-[10px] text-gray-400">利益相关者联系与关系管理</p>
+          </div>
+          <span class="dir-link">进入 →</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 2. Trillium / Payer Strategy                                 -->
+    <!-- ============================================================ -->
+    <div class="mb-4">
+      <p class="cat-title">2. Trillium / Payer Strategy</p>
+      <div class="space-y-2">
+        <a href="/trillium" class="dir-item">
+          <div>
+            <p class="text-xs font-medium text-gray-800">Trillium 主面板</p>
+            <p class="text-[10px] text-gray-400">支付方演示文稿、阶段推进、优先级</p>
+          </div>
+          <span class="dir-link">进入 →</span>
+        </a>
+        <a href="/trillium-partnership-structure" class="dir-item">
+          <div>
+            <p class="text-xs font-medium text-gray-800">Trillium Partnership Structure / 联合推进结构</p>
+            <p class="text-[10px] text-gray-400">Richard + Holly 角色分工与合作对齐</p>
+          </div>
+          <span class="dir-link">进入 →</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 3. Academic / Career                                         -->
+    <!-- ============================================================ -->
+    <div class="mb-4">
+      <p class="cat-title">3. Academic / Career</p>
+      <div class="space-y-2">
+        <a href="/career-contribution" class="dir-item">
+          <div>
+            <p class="text-xs font-medium text-gray-800">Career / Field Contribution / 职业定位与学术贡献</p>
+            <p class="text-[10px] text-gray-400">学术定位、核心贡献、multi-site 策略</p>
+          </div>
+          <span class="dir-link">进入 →</span>
+        </a>
+        <a href="/faculty-pathway" class="dir-item">
+          <div>
+            <p class="text-xs font-medium text-gray-800">Faculty Pathway / 教职路径</p>
+            <p class="text-[10px] text-gray-400">耶鲁/Duke/UNC 教职策略与推进</p>
+          </div>
+          <span class="dir-link">进入 →</span>
+        </a>
+        <a href="/manuscript-dashboard" class="dir-item">
+          <div>
+            <p class="text-xs font-medium text-gray-800">Manuscript Dashboard / 稿件面板</p>
+            <p class="text-[10px] text-gray-400">学术稿件写作管理与参考草稿</p>
+          </div>
+          <span class="dir-link">进入 →</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 4. Clinical / Program                                        -->
+    <!-- ============================================================ -->
+    <div class="mb-4">
+      <p class="cat-title">4. Clinical / Program</p>
+      <div class="space-y-2">
+        <a href="/fasd-care-pathway" class="dir-item">
+          <div>
+            <p class="text-xs font-medium text-gray-800">FASD Care Pathway</p>
+            <p class="text-[10px] text-gray-400">FASD 识别→支持→管理路径</p>
+          </div>
+          <span class="dir-link">进入 →</span>
+        </a>
+        <a href="/adoption" class="dir-item">
+          <div>
+            <p class="text-xs font-medium text-gray-800">Adoption Planning</p>
+            <p class="text-[10px] text-gray-400">采用规划与评估</p>
+          </div>
+          <span class="dir-link">进入 →</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 5. Operations / Risk                                         -->
+    <!-- ============================================================ -->
+    <div class="mb-4">
+      <p class="cat-title">5. Operations / Risk</p>
+      <div class="space-y-2">
+        <a href="/compliance" class="dir-item">
+          <div>
+            <p class="text-xs font-medium text-gray-800">Compliance / 合规</p>
+            <p class="text-[10px] text-gray-400">合规检查、风险评估与审计跟踪</p>
+          </div>
+          <span class="dir-link">进入 →</span>
+        </a>
+        <a href="/tax-strategy" class="dir-item">
+          <div>
+            <p class="text-xs font-medium text-gray-800">Tax Strategy</p>
+            <p class="text-[10px] text-gray-400">税务策略执行与跟踪</p>
+          </div>
+          <span class="dir-link">进入 →</span>
+        </a>
+        <a href="/caregiving-mobility" class="dir-item">
+          <div>
+            <p class="text-xs font-medium text-gray-800">Caregiving Mobility / 照护行动约束</p>
+            <p class="text-[10px] text-gray-400">照护职责管理与行动自由评估</p>
+          </div>
+          <span class="dir-link">进入 →</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center text-[10px] text-gray-400 pb-4 mt-4">
+      📚 Dashboard Directory · 所有面板入口 · 部署于 Cloudflare Workers (内部)
+    </div>
+
+  </div>
+
+</body>
+</html>
