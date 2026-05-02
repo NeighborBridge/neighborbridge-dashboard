@@ -25,16 +25,53 @@
 
     /* ===== Dark Theme — Dashboard Directory only ===== */
     @media (prefers-color-scheme: dark) {
+
+      /* --- 1. Page background: subtle deep navy→charcoal gradient --- */
       body {
-        background: #0c1222;  /* deep navy background */
+        background: linear-gradient(180deg, #0b1120 0%, #0d1324 40%, #0f1628 100%) !important;
+        min-height: 100vh;
       }
-      body > div.max-w-5xl {
-        background: transparent;
+
+      /* --- 2. Category section grouping --- */
+      .max-w-5xl > .mb-3,
+      .max-w-5xl > .mb-2 {
+        background: rgba(15, 23, 42, 0.5);
+        border-radius: 8px;
+        padding: 8px 10px;
+        margin-left: -10px;
+        margin-right: -10px;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.06);
       }
+
+      /* Category labels: muted cyan accent + subtle underline */
+      .cat-label {
+        color: #5eead4 !important;  /* teal-300 — muted cyan accent */
+        letter-spacing: 0.05em;
+        padding-bottom: 3px;
+        border-bottom: 1px solid rgba(94, 234, 212, 0.12);
+      }
+
+      /* --- 3. Dashboard cards --- */
+      .dash-card {
+        background: #1e293b !important;  /* slate-800 — brighter than page bg */
+        border: 1px solid rgba(71, 85, 105, 0.5) !important;  /* subtle blue-gray */
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        transition: all 0.2s ease;
+      }
+      .dash-card:hover {
+        background: #253447 !important;  /* slightly lighter */
+        border-color: rgba(56, 189, 248, 0.45) !important;  /* sky glow */
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+        transform: translateY(-1px);
+      }
+
+      /* --- 4. Typography hierarchy --- */
       /* Header */
       header {
-        background: #111827 !important;  /* slate-900, just above body */
-        border-bottom: 1px solid rgba(148, 163, 184, 0.15) !important;
+        background: rgba(15, 23, 42, 0.85) !important;  /* glass-like */
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12) !important;
       }
       header h1 {
         color: #e2e8f0;
@@ -43,58 +80,49 @@
         color: #94a3b8 !important;
       }
       header a:hover {
-        color: #38bdf8 !important;  /* sky-400 for hover */
+        color: #38bdf8 !important;  /* sky-400 */
       }
       header a.text-brand {
         color: #38bdf8 !important;
+        text-shadow: 0 0 8px rgba(56, 189, 248, 0.15);
       }
 
-      /* Title area */
+      /* Page title */
       h2 {
         color: #f1f5f9;
       }
-      /* Subtitle */
+
+      /* Subtitle under page title */
       .mb-2\.5 p.text-\[9px\] {
         color: #94a3b8 !important;
       }
 
-      /* Category labels */
-      .cat-label {
-        color: #7dd3fc !important;  /* sky-300 — visible category heading */
-      }
-
-      /* Cards */
-      .dash-card {
-        background: #1e293b !important;  /* slate-800 */
-        border: 1px solid rgba(148, 163, 184, 0.15) !important;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-      }
-      .dash-card:hover {
-        background: #263548 !important;  /* slightly lighter on hover */
-        border-color: rgba(56, 189, 248, 0.4) !important;  /* subtle sky glow */
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-      }
-
-      /* Card title — dashboard name */
+      /* Card title — dashboard name (brightest) */
       .dash-card p.font-medium {
-        color: #f1f5f9 !important;  /* bright slate-100 */
+        color: #f1f5f9 !important;  /* slate-100 — brightest */
       }
 
-      /* Card subtitle — short purpose (all text-gray-400 inside cards) */
+      /* Card subtitle — short purpose (softer but clear) */
       .dash-card p.text-gray-400 {
-        color: #94a3b8 !important;  /* slate-400 — muted but readable */
+        color: #94a3b8 !important;  /* slate-400 */
       }
 
-      /* "进入 →" link */
+      /* "进入 →" link — more visible on hover */
       .dash-card p.text-blue-600 {
-        color: #38bdf8 !important;  /* sky-400 — clear call to action */
+        color: #38bdf8 !important;  /* sky-400 */
+        transition: color 0.15s ease;
+      }
+      .dash-card:hover p.text-blue-600 {
+        color: #7dd3fc !important;  /* sky-300 — brighter on hover */
       }
 
-      /* Footer */
+      /* Footer: visible but quiet */
       .pt-2.pb-3.text-gray-400,
       div.max-w-5xl > .text-center.text-\[9px\] {
-        color: #64748b !important;  /* slate-500 — footer visible enough */
+        color: #787f94 !important;  /* warm slate — footer readable */
+        letter-spacing: 0.02em;
       }
+
     }
   </style>
 </head>
