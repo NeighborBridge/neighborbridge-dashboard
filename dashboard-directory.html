@@ -22,6 +22,80 @@
       @apply flex flex-col justify-between bg-white rounded-lg border border-gray-200 p-2.5
              hover:border-blue-300 hover:shadow transition-all min-h-[60px];
     }
+
+    /* ===== Dark Theme — Dashboard Directory only ===== */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: #0c1222;  /* deep navy background */
+      }
+      body > div.max-w-5xl {
+        background: transparent;
+      }
+      /* Header */
+      header {
+        background: #111827 !important;  /* slate-900, just above body */
+        border-bottom: 1px solid rgba(148, 163, 184, 0.15) !important;
+      }
+      header h1 {
+        color: #e2e8f0;
+      }
+      header a {
+        color: #94a3b8 !important;
+      }
+      header a:hover {
+        color: #38bdf8 !important;  /* sky-400 for hover */
+      }
+      header a.text-brand {
+        color: #38bdf8 !important;
+      }
+
+      /* Title area */
+      h2 {
+        color: #f1f5f9;
+      }
+      /* Subtitle */
+      .mb-2\.5 p.text-\[9px\] {
+        color: #94a3b8 !important;
+      }
+
+      /* Category labels */
+      .cat-label {
+        color: #7dd3fc !important;  /* sky-300 — visible category heading */
+      }
+
+      /* Cards */
+      .dash-card {
+        background: #1e293b !important;  /* slate-800 */
+        border: 1px solid rgba(148, 163, 184, 0.15) !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      }
+      .dash-card:hover {
+        background: #263548 !important;  /* slightly lighter on hover */
+        border-color: rgba(56, 189, 248, 0.4) !important;  /* subtle sky glow */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      }
+
+      /* Card title — dashboard name */
+      .dash-card p.font-medium {
+        color: #f1f5f9 !important;  /* bright slate-100 */
+      }
+
+      /* Card subtitle — short purpose (all text-gray-400 inside cards) */
+      .dash-card p.text-gray-400 {
+        color: #94a3b8 !important;  /* slate-400 — muted but readable */
+      }
+
+      /* "进入 →" link */
+      .dash-card p.text-blue-600 {
+        color: #38bdf8 !important;  /* sky-400 — clear call to action */
+      }
+
+      /* Footer */
+      .pt-2.pb-3.text-gray-400,
+      div.max-w-5xl > .text-center.text-\[9px\] {
+        color: #64748b !important;  /* slate-500 — footer visible enough */
+      }
+    }
   </style>
 </head>
 <body class="bg-gray-50">
