@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHW Early Detection Sandbox — 早期识别沙盒面板</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { brand: "#0ea5e9", urgent: "#ef4444", warning: "#f59e0b", neutral: "#6b7280", completed: "#10b981" }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .card { @apply bg-white rounded-xl p-4 border shadow-sm mb-3; }
+    .stat-pill { @apply inline-block px-2 py-0.5 rounded-full text-[9px] font-medium; }
+    .step-card { @apply bg-white rounded-lg border p-2.5 text-center; }
+    .tag-noted { @apply stat-pill bg-gray-100 text-gray-600; }
+    .tag-monitor { @apply stat-pill bg-yellow-50 text-yellow-700 border border-yellow-200; }
+    .tag-followup { @apply stat-pill bg-orange-50 text-orange-700 border border-orange-200; }
+    .tag-escalation { @apply stat-pill bg-red-50 text-red-700 border border-red-200; }
+    .tag-done { @apply stat-pill bg-green-50 text-green-700 border border-green-200; }
+    .tag-pending { @apply stat-pill bg-gray-50 text-gray-400 border border-gray-200; }
+    .tag-scheduled { @apply stat-pill bg-blue-50 text-blue-700 border border-blue-200; }
+    .tag-requested { @apply stat-pill bg-purple-50 text-purple-700 border border-purple-200; }
+    .tag-moderate { @apply stat-pill bg-yellow-50 text-yellow-700 border border-yellow-200; }
+
+    @media (prefers-color-scheme: dark) {
+      body { background: #0b1120 !important; }
+      .card { background: #1e293b !important; border-color: rgba(71,85,105,0.4) !important; }
+      .step-card { background: #1e293b !important; border-color: rgba(71,85,105,0.4) !important; }
+      .card h3, .card h4, .card p.font-medium { color: #e2e8f0 !important; }
+      .card p, .card li, .step-card p { color: #94a3b8 !important; }
+      header { background: rgba(15,23,42,0.85) !important; backdrop-filter: blur(6px); border-bottom: 1px solid rgba(148,163,184,0.12) !important; }
+      header h1 { color: #e2e8f0; }
+      header a { color: #94a3b8 !important; }
+      header a:hover, header a.text-brand { color: #38bdf8 !important; }
+      .tag-noted { background: rgba(100,116,139,0.15) !important; color: #94a3b8 !important; }
+      .tag-monitor { background: rgba(234,179,8,0.1) !important; color: #fbbf24 !important; border-color: rgba(234,179,8,0.2) !important; }
+      .tag-followup { background: rgba(251,146,60,0.1) !important; color: #fb923c !important; border-color: rgba(251,146,60,0.2) !important; }
+      .tag-escalation { background: rgba(239,68,68,0.1) !important; color: #f87171 !important; border-color: rgba(239,68,68,0.2) !important; }
+      .tag-done { background: rgba(16,185,129,0.1) !important; color: #34d399 !important; border-color: rgba(16,185,129,0.2) !important; }
+      .tag-pending { background: rgba(100,116,139,0.1) !important; color: #64748b !important; }
+      .tag-scheduled { background: rgba(56,189,248,0.1) !important; color: #38bdf8 !important; border-color: rgba(56,189,248,0.2) !important; }
+      .tag-requested { background: rgba(167,139,250,0.1) !important; color: #a78bfa !important; border-color: rgba(167,139,250,0.2) !important; }
+      .tag-moderate { background: rgba(234,179,8,0.1) !important; color: #fbbf24 !important; border-color: rgba(234,179,8,0.2) !important; }
+      .bg-gray-50 { background: rgba(15,23,42,0.4) !important; }
+      .bg-blue-50 { background: rgba(56,189,248,0.06) !important; }
+      .bg-amber-50 { background: rgba(234,179,8,0.06) !important; }
+      .bg-green-50 { background: rgba(16,185,129,0.06) !important; }
+      .bg-red-50 { background: rgba(239,68,68,0.06) !important; }
+      .bg-purple-50 { background: rgba(167,139,250,0.06) !important; }
+      .bg-yellow-50 { background: rgba(234,179,8,0.06) !important; }
+      .bg-orange-50 { background: rgba(251,146,60,0.06) !important; }
+      .bg-indigo-50 { background: rgba(99,102,241,0.06) !important; }
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+  <!-- ===== HEADER ===== -->
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-6xl mx-auto px-3 py-2 flex justify-between items-center">
+      <h1 class="text-base font-bold">NeighborBridge</h1>
+      <div class="flex flex-wrap gap-x-3 gap-y-0.5 text-[11px]">
+        <a href="/" class="text-gray-500 hover:text-brand">主面板</a>
+        <a href="/fqhc" class="text-gray-500 hover:text-brand">FQHC</a>
+        <a href="/trillium" class="text-gray-500 hover:text-brand">Trillium</a>
+        <a href="/stakeholders" class="text-gray-500 hover:text-brand">Stakeholders</a>
+        <a href="/manuscript-dashboard" class="text-gray-500 hover:text-brand">📄稿件</a>
+        <a href="/compliance" class="text-gray-500 hover:text-brand">🛡️合规</a>
+        <a href="/dashboard-directory" class="text-gray-500 hover:text-brand">📚全部面板</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-5xl mx-auto px-3 py-3">
+
+    <!-- ===== 1. HEADER / DISCLAIMER ===== -->
+    <div class="card">
+      <!-- Title -->
+      <h2 class="text-base font-bold text-gray-800 mb-1">CHW Early Detection Sandbox Dashboard</h2>
+      <p class="text-[10px] font-medium text-blue-700 mb-2">CHW 早期识别沙盒面板</p>
+      <p class="text-[9px] text-gray-500 mb-2">A non-PHI prototype showing how early signals, family education, referral navigation, and payer-facing value can be connected into one continuous pathway.</p>
+      <p class="text-[9px] text-gray-400 mb-2">一个非 PHI 原型，用来展示早期信号、家庭教育、转诊导航和支付方价值逻辑如何被连接成一条连续路径。</p>
+      <!-- Disclaimer -->
+      <div class="p-2 rounded bg-red-50 border border-red-200">
+        <p class="text-[9px] font-medium text-red-700"><i class="fas fa-exclamation-triangle text-[9px] mr-1"></i> Disclaimer</p>
+        <p class="text-[9px] text-red-600 mt-0.5"><strong>English:</strong> Non-PHI sandbox demo only. Not for diagnosis, treatment, or clinical decision-making.</p>
+        <p class="text-[9px] text-red-600">中文：本页面仅为非 PHI 沙盒演示，不用于诊断、治疗或临床决策。</p>
+      </div>
+    </div>
+
+    <!-- ===== 1b. DASHBOARD TARGET ===== -->
+    <div class="card">
+      <h3 class="text-sm font-bold text-gray-800 mb-1">Dashboard 目标 / Purpose</h3>
+      <p class="text-[10px] text-gray-600 mb-1">CHW / family navigator 作为 early detection workflow 的连接层，把家庭、学校、基层医疗、转诊、家庭教育和 payer-facing value logic 串起来，减少 fragmentation。</p>
+      <div class="p-1.5 rounded bg-gray-50 border mt-2">
+        <p class="text-[9px] font-medium text-gray-600">核心定位 / Core Positioning</p>
+        <p class="text-[9px] text-gray-500 mt-0.5">CHW dashboard = early detection workflow 的连接层。</p>
+        <ul class="text-[9px] text-gray-400 mt-0.5 list-disc list-inside space-y-0.5">
+          <li>不是 EHR</li>
+          <li>不是 clinical decision support</li>
+          <li>不是正式 patient registry</li>
+          <li>不是 live care management system</li>
+        </ul>
+        <p class="text-[9px] text-gray-500 mt-0.5">它是一个 non-PHI sandbox prototype，用来展示 workflow logic。</p>
+      </div>
+    </div>
+
+    <!-- ===== 2. WORKFLOW STEPPER ===== -->
+    <div class="card">
+      <h3 class="text-sm font-bold text-gray-800 mb-2">核心 Workflow / Core Workflow</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-1.5">
+        <div class="step-card border-l-4 border-l-blue-500">
+          <p class="text-[10px] font-bold text-blue-700">1</p>
+          <p class="text-[9px] text-gray-700">Early signals identified</p>
+          <p class="text-[8px] text-gray-400">早期信号被发现</p>
+        </div>
+        <div class="step-card border-l-4 border-l-indigo-500">
+          <p class="text-[10px] font-bold text-indigo-700">2</p>
+          <p class="text-[9px] text-gray-700">Pattern recognized</p>
+          <p class="text-[8px] text-gray-400">跨场景模式被识别</p>
+        </div>
+        <div class="step-card border-l-4 border-l-violet-500">
+          <p class="text-[10px] font-bold text-violet-700">3</p>
+          <p class="text-[9px] text-gray-700">Risk stratified</p>
+          <p class="text-[8px] text-gray-400">风险初步分层</p>
+        </div>
+        <div class="step-card border-l-4 border-l-amber-500">
+          <p class="text-[10px] font-bold text-amber-700">4</p>
+          <p class="text-[9px] text-gray-700">Family education</p>
+          <p class="text-[8px] text-gray-400">家庭教育介入</p>
+        </div>
+        <div class="step-card border-l-4 border-l-orange-500">
+          <p class="text-[10px] font-bold text-orange-700">5</p>
+          <p class="text-[9px] text-gray-700">Referral / coordination</p>
+          <p class="text-[8px] text-gray-400">转诊与衔接</p>
+        </div>
+        <div class="step-card border-l-4 border-l-emerald-500">
+          <p class="text-[10px] font-bold text-emerald-700">6</p>
+          <p class="text-[9px] text-gray-700">Follow-up completed</p>
+          <p class="text-[8px] text-gray-400">随访完成</p>
+        </div>
+        <div class="step-card border-l-4 border-l-green-500">
+          <p class="text-[10px] font-bold text-green-700">7</p>
+          <p class="text-[9px] text-gray-700">Escalation prevented</p>
+          <p class="text-[8px] text-gray-400">危机被更早处理</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 3. SYNTHETIC FAMILY PROFILE ===== -->
+    <div class="card">
+      <h3 class="text-sm font-bold text-gray-800 mb-1">Synthetic Family Profile / 合成案例</h3>
+      <p class="text-[8px] text-gray-400 mb-1.5">Synthetic demo only — no real patient data. 仅为演示合成数据。</p>
+      <div class="p-2 rounded bg-amber-50 border border-amber-200">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <div>
+            <p class="text-[9px] font-medium text-gray-600">Child / 儿童</p>
+            <p class="text-[10px] font-bold text-gray-800">Demo Child A</p>
+            <p class="text-[9px] text-gray-500">Age 8 · 8岁</p>
+          </div>
+          <div>
+            <p class="text-[9px] font-medium text-gray-600">Setting / 场景</p>
+            <p class="text-[10px] text-gray-700">Rural NC FQHC</p>
+            <p class="text-[9px] text-gray-500">school-family-primary care interface</p>
+          </div>
+          <div>
+            <p class="text-[9px] font-medium text-gray-600">Status / 状态</p>
+            <span class="inline-block px-2 py-0.5 rounded-full text-[9px] font-medium bg-yellow-50 text-yellow-700 border border-yellow-200">In review 审查中</span>
+          </div>
+        </div>
+        <div class="mt-2 pt-1.5 border-t border-amber-100">
+          <p class="text-[9px] font-medium text-gray-600 mb-0.5">Current concerns / 当前关注</p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-1 text-[9px] text-gray-700">
+            <span>• attention difficulty 注意力困难</span>
+            <span>• emotional dysregulation 情绪失调</span>
+            <span>• school conflict 学校冲突</span>
+            <span>• caregiver stress 照护者压力</span>
+            <span>• possible sensory concerns 感觉关注</span>
+            <span>• possible learning concerns 学习关注</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 4. EARLY SIGNAL TRACKER ===== -->
+    <div class="card">
+      <h3 class="text-sm font-bold text-gray-800 mb-2">Early Signal Tracker / 早期信号追踪</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-1.5">
+        <div class="p-1.5 rounded bg-white border text-center">
+          <p class="text-[9px] font-medium text-gray-600">Behavior</p>
+          <p class="text-[7px] text-gray-400">情绪与行为</p>
+          <span class="tag-followup mt-1">Needs follow-up 需跟进</span>
+        </div>
+        <div class="p-1.5 rounded bg-white border text-center">
+          <p class="text-[9px] font-medium text-gray-600">Language</p>
+          <p class="text-[7px] text-gray-400">语言</p>
+          <span class="tag-monitor">Monitor 继续观察</span>
+        </div>
+        <div class="p-1.5 rounded bg-white border text-center">
+          <p class="text-[9px] font-medium text-gray-600">Sensory</p>
+          <p class="text-[7px] text-gray-400">感觉调节</span></p>
+          <span class="tag-followup">Needs follow-up 需跟进</span>
+        </div>
+        <div class="p-1.5 rounded bg-white border text-center">
+          <p class="text-[9px] font-medium text-gray-600">Learning</p>
+          <p class="text-[7px] text-gray-400">学习</p>
+          <span class="tag-monitor">Monitor 继续观察</span>
+        </div>
+        <div class="p-1.5 rounded bg-white border text-center">
+          <p class="text-[9px] font-medium text-gray-600">Safety</p>
+          <p class="text-[7px] text-gray-400">安全风险</p>
+          <span class="tag-noted">Noted 已发现</span>
+        </div>
+        <div class="p-1.5 rounded bg-white border text-center">
+          <p class="text-[9px] font-medium text-gray-600">Family Stress</p>
+          <p class="text-[7px] text-gray-400">家庭压力</p>
+          <span class="tag-escalation">Escalation concern 升级风险</span>
+        </div>
+        <div class="p-1.5 rounded bg-white border text-center">
+          <p class="text-[9px] font-medium text-gray-600">School Func.</p>
+          <p class="text-[7px] text-gray-400">学校功能</p>
+          <span class="tag-followup">Needs follow-up 需跟进</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 5. RISK STRATIFICATION ===== -->
+    <div class="card">
+      <h3 class="text-sm font-bold text-gray-800 mb-2">Risk Stratification / 风险分层</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+        <div class="p-2 rounded bg-green-50 border border-green-200">
+          <span class="inline-block px-1.5 py-0.5 rounded text-[8px] font-bold bg-green-200 text-green-800">Low 低</span>
+          <p class="text-[9px] text-green-800 mt-0.5">Education + monitoring / 教育 + 监测</p>
+        </div>
+        <div class="p-2 rounded bg-yellow-50 border border-yellow-200">
+          <span class="inline-block px-1.5 py-0.5 rounded text-[8px] font-bold bg-yellow-200 text-yellow-800">Moderate 中</span>
+          <p class="text-[9px] text-yellow-800 mt-0.5">Family education + PCP follow-up + school communication</p>
+        </div>
+        <div class="p-2 rounded bg-red-50 border border-red-200">
+          <span class="inline-block px-1.5 py-0.5 rounded text-[8px] font-bold bg-red-200 text-red-800">High 高</span>
+          <p class="text-[9px] text-red-800 mt-0.5">Safety planning + behavioral health referral + urgent escalation pathway if needed</p>
+        </div>
+      </div>
+      <div class="mt-2 p-1.5 rounded bg-gray-50 border">
+        <p class="text-[8px] text-gray-500"><i class="fas fa-info-circle mr-0.5"></i> This is workflow triage for demo purposes only, not a clinical diagnosis or treatment recommendation.</p>
+        <p class="text-[8px] text-gray-400">这只是沙盒演示中的流程分层，不是临床诊断或治疗建议。</p>
+      </div>
+    </div>
+
+    <!-- ===== 6. CHW / FAMILY NAVIGATOR ACTION LIST ===== -->
+    <div class="card">
+      <h3 class="text-sm font-bold text-gray-800 mb-2">CHW / Family Navigator Action List / 行动清单</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <div class="p-2 rounded bg-green-50 border border-green-200">
+          <p class="text-[9px] font-medium text-green-700 mb-1">✅ Allowed CHW Actions / 允许</p>
+          <ul class="text-[9px] text-green-800 space-y-0.5 list-disc list-inside">
+            <li>provide family education handout</li>
+            <li>explain early signs in plain language</li>
+            <li>help caregiver prepare questions for PCP</li>
+            <li>remind family of referral / appointment</li>
+            <li>help coordinate school feedback</li>
+            <li>document non-clinical barriers</li>
+            <li>support follow-up completion</li>
+            <li>flag concern back to licensed clinician</li>
+          </ul>
+        </div>
+        <div class="p-2 rounded bg-red-50 border border-red-200">
+          <p class="text-[9px] font-medium text-red-700 mb-1">❌ Not CHW Actions / 不允许</p>
+          <ul class="text-[9px] text-red-800 space-y-0.5 list-disc list-inside">
+            <li>diagnose FASD / ASD / ADHD</li>
+            <li>recommend medication</li>
+            <li>interpret lab / imaging / formal testing</li>
+            <li>provide psychotherapy</li>
+            <li>override physician plan</li>
+            <li>manage crisis independently</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 7. PATHWAY STATUS VIEW ===== -->
+    <div class="card">
+      <h3 class="text-sm font-bold text-gray-800 mb-2">Pathway Status / 路径状态</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+        <div class="p-1.5 rounded bg-white border text-center">
+          <p class="text-[8px] text-gray-400">Identified</p>
+          <p class="text-[9px] font-medium text-green-600">识别 ✓</p>
+          <span class="tag-done">yes</span>
+        </div>
+        <div class="p-1.5 rounded bg-white border text-center">
+          <p class="text-[8px] text-gray-400">Screened</p>
+          <p class="text-[9px] font-medium text-yellow-600">筛查</p>
+          <span class="tag-pending">pending</span>
+        </div>
+        <div class="p-1.5 rounded bg-white border text-center">
+          <p class="text-[8px] text-gray-400">Risk Stratified</p>
+          <p class="text-[9px] font-medium text-yellow-600">风险分层</p>
+          <span class="tag-moderate">moderate</span>
+        </div>
+        <div class="p-1.5 rounded bg-white border text-center">
+          <p class="text-[8px] text-gray-400">Family Education</p>
+          <p class="text-[9px] font-medium text-green-600">家庭教育</p>
+          <span class="tag-done">provided</span>
+        </div>
+        <div class="p-1.5 rounded bg-white border text-center">
+          <p class="text-[8px] text-gray-400">PCP Follow-up</p>
+          <p class="text-[9px] font-medium text-blue-600">基层随访</p>
+          <span class="tag-scheduled">scheduled</span>
+        </div>
+        <div class="p-1.5 rounded bg-white border text-center">
+          <p class="text-[8px] text-gray-400">School Feedback</p>
+          <p class="text-[9px] font-medium text-purple-600">学校反馈</p>
+          <span class="tag-requested">requested</span>
+        </div>
+        <div class="p-1.5 rounded bg-white border text-center">
+          <p class="text-[8px] text-gray-400">Referral</p>
+          <p class="text-[9px] font-medium text-amber-600">转诊</p>
+          <span class="tag-monitor">under consideration</span>
+        </div>
+        <div class="p-1.5 rounded bg-white border text-center">
+          <p class="text-[8px] text-gray-400">Follow-up</p>
+          <p class="text-[9px] font-medium text-gray-500">随访</p>
+          <span class="tag-scheduled">due in 2 weeks</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 8. FRAGMENTATION MAP ===== -->
+    <div class="card">
+      <h3 class="text-sm font-bold text-gray-800 mb-2">Fragmentation Points / 断裂点地图</h3>
+      <p class="text-[9px] text-gray-400 mb-0.5">Workflow 想打通的断裂 / Fragmentation the workflow aims to connect</p>
+      <div class="space-y-1 text-[9px]">
+        <div class="p-1.5 rounded bg-gray-50 border-l-4 border-l-red-400">
+          <p class="text-gray-700"><strong>1.</strong> Family sees behavior, school sees function, clinic sees symptoms — but no one sees the full pattern.</p>
+          <p class="text-gray-400">家庭看到行为，学校看到功能，诊所看到症状，但没人看到完整模式。</p>
+        </div>
+        <div class="p-1.5 rounded bg-gray-50 border-l-4 border-l-amber-400">
+          <p class="text-gray-700"><strong>2.</strong> Screening happens, but next step is unclear.</p>
+          <p class="text-gray-400">筛查后下一步不清楚。</p>
+        </div>
+        <div class="p-1.5 rounded bg-gray-50 border-l-4 border-l-orange-400">
+          <p class="text-gray-700"><strong>3.</strong> Family receives concern but no education / coaching.</p>
+          <p class="text-gray-400">家庭听到问题，但缺少解释和支持。</p>
+        </div>
+        <div class="p-1.5 rounded bg-gray-50 border-l-4 border-l-blue-400">
+          <p class="text-gray-700"><strong>4.</strong> Referral is made but follow-up is not completed.</p>
+          <p class="text-gray-400">转诊已提出，但随访没有完成。</p>
+        </div>
+        <div class="p-1.5 rounded bg-gray-50 border-l-4 border-l-purple-400">
+          <p class="text-gray-700"><strong>5.</strong> Payer sees ED / crisis cost, but not earlier upstream signals.</p>
+          <p class="text-gray-400">支付方看到急诊和危机成本，却看不到前端早期信号。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 9. PAYER-FACING VALUE VIEW ===== -->
+    <div class="card">
+      <h3 class="text-sm font-bold text-gray-800 mb-1">Payer-facing Value Logic / 支付方价值逻辑</h3>
+      <p class="text-[9px] text-gray-600 mb-1.5">This sandbox illustrates how earlier identification and navigation may help shift care from crisis-driven utilization toward earlier, lower-intensity support.</p>
+      <p class="text-[9px] text-gray-400 mb-2">这个沙盒展示的是：早期识别与导航如何可能把服务从危机驱动型高成本利用，前移到更早、更低强度、更连续的支持。</p>
+      <div class="p-1.5 rounded bg-blue-50 border border-blue-200">
+        <p class="text-[9px] font-medium text-blue-700 mb-0.5">Potential Value Signals / 潜在价值信号 <span class="text-[8px] font-normal text-gray-400">(exploratory — not validated 探索性，非已验证)</span></p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-1 text-[9px] text-blue-800">
+          <span>• reduced fragmentation</span>
+          <span>• earlier family support</span>
+          <span>• improved follow-up completion</span>
+          <span>• shorter time to intervention</span>
+          <span>• fewer crisis escalations (to observe)</span>
+          <span>• better cross-domain coordination</span>
+        </div>
+      </div>
+      <div class="mt-1.5 p-1 rounded bg-gray-50 border">
+        <p class="text-[8px] text-gray-500"><i class="fas fa-search mr-0.5"></i> This is a hypothesis for exploratory collaboration — not a validated outcome or guaranteed cost reduction.</p>
+        <p class="text-[8px] text-gray-400">这是一个用于探索性合作的假设，不是已经验证的结果或成本减少保证。</p>
+      </div>
+    </div>
+
+    <!-- ===== 10. WORKFLOW EFFECTIVENESS METRICS ===== -->
+    <div class="card">
+      <h3 class="text-sm font-bold text-gray-800 mb-1">Workflow Effectiveness — What We Would Observe</h3>
+      <p class="text-[9px] font-medium text-gray-500 mb-1.5">工作流有效性：我们会观察什么</p>
+      <p class="text-[8px] text-gray-400 mb-2">These are proposed workflow effectiveness indicators for exploratory review, not validated outcome claims.</p>
+      <p class="text-[8px] text-gray-400 mb-1.5">这些是用于探索性评估的工作流有效性指标，不是已经验证的结果声明。</p>
+
+      <div class="space-y-1.5">
+        <!-- A. Process Metrics -->
+        <div class="p-1.5 rounded bg-gray-50 border">
+          <p class="text-[9px] font-medium text-blue-700">A. Process Metrics / 流程指标</p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-0.5 text-[8px] text-gray-600 mt-0.5">
+            <span>• time from concern to first follow-up</span>
+            <span>• % families receiving education</span>
+            <span>• referral completion rate</span>
+            <span>• school feedback received y/n</span>
+            <span>• PCP follow-up completed y/n</span>
+          </div>
+        </div>
+        <!-- B. Continuity Metrics -->
+        <div class="p-1.5 rounded bg-gray-50 border">
+          <p class="text-[9px] font-medium text-green-700">B. Continuity Metrics / 连续性指标</p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-0.5 text-[8px] text-gray-600 mt-0.5">
+            <span>• missed handoffs count</span>
+            <span>• follow-up within 30 days</span>
+            <span>• family understands next step</span>
+            <span>• school-family-clinic communication</span>
+          </div>
+        </div>
+        <!-- C. Risk Escalation Metrics -->
+        <div class="p-1.5 rounded bg-gray-50 border">
+          <p class="text-[9px] font-medium text-red-700">C. Risk Escalation Metrics / 升级风险指标</p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-0.5 text-[8px] text-gray-600 mt-0.5">
+            <span>• ED visit noted</span>
+            <span>• crisis call noted</span>
+            <span>• school removal / suspension</span>
+            <span>• caregiver overwhelmed flag</span>
+            <span>• safety concern flag</span>
+          </div>
+        </div>
+        <!-- D. Payer-facing Exploratory Metrics -->
+        <div class="p-1.5 rounded bg-gray-50 border">
+          <p class="text-[9px] font-medium text-purple-700">D. Payer-facing Exploratory Metrics / 支付方探索性指标</p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-0.5 text-[8px] text-gray-600 mt-0.5">
+            <span>• high-cost utilization trend</span>
+            <span>• time to lower-intensity support</span>
+            <span>• repeat urgent utilization</span>
+            <span>• care coordination touchpoints</span>
+            <span>• potential avoided crisis pathway</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-2 p-1 rounded bg-yellow-50 border border-yellow-200">
+        <p class="text-[8px] text-yellow-700"><i class="fas fa-flask mr-0.5"></i> These are proposed workflow effectiveness indicators for exploratory review, not validated outcome claims.</p>
+        <p class="text-[8px] text-yellow-600">这些是用于探索性评估的工作流有效性指标，不是已经验证的结果声明。</p>
+      </div>
+    </div>
+
+    <!-- ===== 11. COMPLIANCE BOUNDARY ===== -->
+    <div class="card">
+      <h3 class="text-sm font-bold text-gray-800 mb-1">Compliance Boundary / 合规边界</h3>
+      <div class="p-1.5 rounded bg-red-50 border border-red-200 mb-1.5">
+        <p class="text-[9px] text-red-700">This demo uses only synthetic information. It is designed for education, workflow demonstration, and implementation planning. It does not store PHI and is not used for clinical decision-making.</p>
+        <p class="text-[9px] text-red-600 mt-0.5">本演示仅使用合成信息，用于教育、流程演示和实施规划。不储存 PHI，不用于临床决策。</p>
+      </div>
+      <a href="/compliance" class="inline-block px-3 py-1 rounded text-[10px] font-medium bg-blue-600 text-white hover:bg-blue-700">
+        <i class="fas fa-external-link-alt mr-0.5"></i> Open Compliance Dashboard / 打开合规面板
+      </a>
+    </div>
+
+    <!-- ===== 12. RELATIONSHIP TO EXISTING DASHBOARDS ===== -->
+    <div class="card">
+      <h3 class="text-sm font-bold text-gray-800 mb-1">Related Dashboards / 相关面板</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-1.5">
+        <a href="/trillium" class="p-1.5 rounded bg-gray-50 border hover:border-blue-300 text-center block">
+          <p class="text-[9px] font-medium text-blue-700">Trillium</p>
+          <p class="text-[8px] text-gray-400">payer strategy</p>
+        </a>
+        <a href="/trillium-partnership-structure" class="p-1.5 rounded bg-gray-50 border hover:border-blue-300 text-center block">
+          <p class="text-[9px] font-medium text-blue-700">Trillium Partnership</p>
+          <p class="text-[8px] text-gray-400">role alignment with Holly</p>
+        </a>
+        <a href="/fasd-care-pathway" class="p-1.5 rounded bg-gray-50 border hover:border-blue-300 text-center block">
+          <p class="text-[9px] font-medium text-blue-700">FASD Care Pathway</p>
+          <p class="text-[8px] text-gray-400">clinical pathway logic</p>
+        </a>
+        <a href="/compliance" class="p-1.5 rounded bg-gray-50 border hover:border-blue-300 text-center block">
+          <p class="text-[9px] font-medium text-blue-700">Compliance</p>
+          <p class="text-[8px] text-gray-400">sandbox boundary</p>
+        </a>
+        <a href="/career-contribution" class="p-1.5 rounded bg-gray-50 border hover:border-blue-300 text-center block">
+          <p class="text-[9px] font-medium text-blue-700">Career / Field</p>
+          <p class="text-[8px] text-gray-400">broader positioning</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- ===== 13. NEXT STEP ===== -->
+    <div class="card">
+      <h3 class="text-sm font-bold text-gray-800 mb-1">Next Practical Step / 下一步</h3>
+      <div class="space-y-1 text-[9px] text-gray-700">
+        <div class="p-1.5 rounded bg-blue-50 border border-blue-200">
+          <p class="font-medium text-blue-700">1. Review with Holly</p>
+          <p>Review this sandbox with Holly for local public health fit — from county Health Director and NC FASD board perspective.</p>
+          <p class="text-[8px] text-gray-400">先请 Holly 从 county Health Director 和 NC FASD board perspective 看这个沙盒是否符合本地公共卫生现实。</p>
+        </div>
+        <div class="p-1.5 rounded bg-blue-50 border border-blue-200">
+          <p class="font-medium text-blue-700">2. Identify Entry Point</p>
+          <p>Ask Holly which entry points are most realistic: school health, county public health, family education, FQHC, or Trillium.</p>
+          <p class="text-[8px] text-gray-400">请她判断最现实的入口：学校健康、县公共卫生、家庭教育、FQHC，还是 Trillium。</p>
+        </div>
+        <div class="p-1.5 rounded bg-blue-50 border border-blue-200">
+          <p class="font-medium text-blue-700">3. Prepare Concept Note</p>
+          <p>If positioning is strong, prepare a one-page Trillium-facing concept note showing the dashboard as a non-PHI workflow demo.</p>
+          <p class="text-[8px] text-gray-400">如果定位清楚，再准备一页 Trillium-facing concept note。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 14. FOOTER ===== -->
+    <div class="text-center text-[9px] text-gray-400 pt-2 pb-3">
+      <p>CHW Early Detection Sandbox · Non-PHI · Cloudflare Workers (内部)</p>
+      <p class="mt-0.5">v1.0 · 2026-05-04</p>
+    </div>
+
+  </div>
+
+</body>
+</html>
