@@ -246,15 +246,21 @@
           </div>
         </div>
 
-        <!-- 6. 标准 IP / Confidentiality Disclaimer -->
+        <!-- 6. 标准 IP / Confidentiality Disclaimer (双语) -->
         <div class="sec-card acc-rose">
           <div class="flex justify-between items-center mb-2">
             <h3 class="text-sm font-bold">标准 IP / Confidentiality Disclaimer</h3>
-            <span class="badge bg-rose-100 text-rose-700 text-[10px]">可复制</span>
+            <span class="badge bg-rose-100 text-rose-700 text-[10px]">可复制 · 双语</span>
           </div>
 
           <div class="p-2 rounded bg-rose-50 border border-rose-200 text-[11px] font-mono text-gray-700 mb-1.5 leading-relaxed">
-            "Materials shared for discussion are for education, planning, and exploratory collaboration only. They do not constitute a commitment, partnership agreement, or transfer of intellectual property rights. All proprietary workflows, dashboard logic, implementation design, and strategic materials remain the sole property of NeighborBridge / Richard Hu unless a separate written agreement is executed. No clinical advice is implied or should be acted upon without independent professional review."
+            <p><strong>English:</strong></p>
+            <p>"Materials shared for discussion are for education, planning, and exploratory collaboration only. They do not constitute a commitment, partnership agreement, or transfer of intellectual property rights. Richard Hu / NeighborBridge retains ownership of all pre-existing slides, educational materials, workflow concepts, dashboard designs, implementation logic, and related intellectual property. No ownership transfer or license for reuse is granted unless separately agreed in writing."</p>
+          </div>
+
+          <div class="p-2 rounded bg-rose-50 border border-rose-200 text-[11px] font-mono text-gray-700 mb-1.5 leading-relaxed">
+            <p><strong>中文：</strong></p>
+            <p>"为讨论而分享的材料仅用于教育、规划和探索性合作。Richard Hu / NeighborBridge 保留所有既有幻灯片、教育材料、工作流程概念、dashboard 设计、实施逻辑及相关知识产权。除非另有书面约定，不视为转让所有权，也不授予再使用许可。"</p>
           </div>
 
           <div class="p-2 rounded bg-gray-50 border border-gray-200 text-[10px] text-gray-500">
@@ -263,19 +269,106 @@
           </div>
         </div>
 
-        <!-- 7. Compliance vs IP 区隔说明 -->
+        <!-- 7. Meeting checklist / 会前检查 -->
+        <div class="sec-card acc-cyan">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-sm font-bold">每次外部分享前检查 / Meeting Checklist</h3>
+            <span class="badge bg-blue-100 text-blue-700 text-[10px]">⚠️ 跑一遍</span>
+          </div>
+          <div class="space-y-1.5">
+            <div class="list-item p-1.5 rounded bg-blue-50 border-blue-100 text-[11px]">
+              <input type="checkbox" class="mt-0.5 w-3 h-3 shrink-0" onclick="">
+              <span>是否含有 PHI？如有，<strong>删除</strong></span>
+            </div>
+            <div class="list-item p-1.5 rounded bg-blue-50 border-blue-100 text-[11px]">
+              <input type="checkbox" class="mt-0.5 w-3 h-3 shrink-0" onclick="">
+              <span>是否是 <strong>synthetic data</strong>？必须确认</span>
+            </div>
+            <div class="list-item p-1.5 rounded bg-blue-50 border-blue-100 text-[11px]">
+              <input type="checkbox" class="mt-0.5 w-3 h-3 shrink-0" onclick="">
+              <span>是否包含 <strong>完整 workflow logic</strong>？如有，压缩</span>
+            </div>
+            <div class="list-item p-1.5 rounded bg-blue-50 border-blue-100 text-[11px]">
+              <input type="checkbox" class="mt-0.5 w-3 h-3 shrink-0" onclick="">
+              <span>是否包含 <strong>private stakeholder strategy</strong>？如有，删除</span>
+            </div>
+            <div class="list-item p-1.5 rounded bg-blue-50 border-blue-100 text-[11px]">
+              <input type="checkbox" class="mt-0.5 w-3 h-3 shrink-0" onclick="">
+              <span>是否需要 <strong>IP disclaimer</strong>？通常需要</span>
+            </div>
+            <div class="list-item p-1.5 rounded bg-blue-50 border-blue-100 text-[11px]">
+              <input type="checkbox" class="mt-0.5 w-3 h-3 shrink-0" onclick="">
+              <span>是否只是 <strong>exploratory discussion</strong>？请明确说明</span>
+            </div>
+            <div class="list-item p-1.5 rounded bg-blue-50 border-blue-100 text-[11px]">
+              <input type="checkbox" class="mt-0.5 w-3 h-3 shrink-0" onclick="">
+              <span>是否可能被误解为 <strong>正式 pilot proposal</strong>？如有，弱化</span>
+            </div>
+            <div class="list-item p-1.5 rounded bg-blue-50 border-blue-100 text-[11px]">
+              <input type="checkbox" class="mt-0.5 w-3 h-3 shrink-0" onclick="">
+              <span>是否可能被误解为 <strong>ownership sharing</strong>？如有，加 disclaimer</span>
+            </div>
+            <div class="list-item p-1.5 rounded bg-blue-50 border-blue-100 text-[11px]">
+              <input type="checkbox" class="mt-0.5 w-3 h-3 shrink-0" onclick="">
+              <span>是否需要 <strong>NDA / written agreement</strong>？如不确定，先不分享完整材料</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. 与 Compliance dashboard 的关系 -->
+        <div class="sec-card acc-purple">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-sm font-bold">与 Compliance dashboard 的关系</h3>
+            <span class="badge bg-purple-100 text-purple-700 text-[10px]">互补</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-[11px]">
+            <div class="p-1.5 rounded bg-blue-50 border border-blue-200">
+              <p class="font-medium text-blue-700">🛡️ Compliance 负责</p>
+              <ul class="list-disc pl-3 mt-0.5 text-[10px] text-gray-600 space-y-0.5">
+                <li>PHI / HIPAA boundary</li>
+                <li>sandbox rules</li>
+                <li>clinical decision-making boundary</li>
+                <li>non-PHI demo rules</li>
+              </ul>
+            </div>
+            <div class="p-1.5 rounded bg-purple-50 border border-purple-200">
+              <p class="font-medium text-purple-700">🔐 IP 负责</p>
+              <ul class="list-disc pl-3 mt-0.5 text-[10px] text-gray-600 space-y-0.5">
+                <li>ownership boundary</li>
+                <li>what to share / what to hold back</li>
+                <li>partner-facing disclosure level</li>
+                <li>pre-existing IP protection</li>
+                <li>external meeting disclaimers</li>
+              </ul>
+            </div>
+          </div>
+          <div class="mt-1.5">
+            <a href="/compliance" class="inline-block px-2 py-1 rounded bg-blue-100 text-blue-700 text-[10px] font-medium hover:bg-blue-200">Open Compliance Dashboard →</a>
+          </div>
+        </div>
+
+        <!-- 9. 当前下一步 -->
+        <div class="sec-card acc-green">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-sm font-bold">当前下一步 / Next Step</h3>
+            <span class="badge bg-green-100 text-green-700 text-[10px]">行动项</span>
+          </div>
+          <div class="p-2 rounded bg-green-50 border border-green-200 text-[11px] text-gray-700">
+            <p>在准备 CHW Early Detection Sandbox 和 Trillium / Holly / public health entry-point discussions 时，先使用 <strong>high-level concept + synthetic demo + IP disclaimer</strong>。</p>
+            <p class="mt-1"><strong>不要先分享 full workflow playbook。</strong></p>
+          </div>
+        </div>
+
+        <!-- 10. Related dashboards -->
         <div class="sec-card">
           <details>
-            <summary class="text-xs font-medium text-gray-500 cursor-pointer hover:text-gray-700">📌 与 Compliance dashboard 的区隔</summary>
-            <div class="mt-2 text-[10px] text-gray-500 space-y-1">
-              <div class="p-1.5 rounded bg-blue-50 border-blue-100">
-                <p class="font-medium text-blue-700">🛡️ Compliance dashboard 主要管：</p>
-                <p>PHI · HIPAA · sandbox · clinical decision-making boundary</p>
-              </div>
-              <div class="p-1.5 rounded bg-purple-50 border-purple-100">
-                <p class="font-medium text-purple-700">🔐 IP / Confidentiality dashboard 主要管：</p>
-                <p>ownership · pre-existing materials · workflow concepts · dashboard design · disclosure boundaries · partner-facing language</p>
-              </div>
+            <summary class="text-xs font-medium text-gray-500 cursor-pointer hover:text-gray-700">🔗 相关面板 / Related Dashboards</summary>
+            <div class="mt-2 flex flex-wrap gap-1.5">
+              <a href="/compliance" class="px-2 py-1 rounded bg-gray-100 text-gray-600 text-[10px] hover:bg-blue-100 hover:text-blue-700">🛡️ Compliance</a>
+              <a href="/chw-early-detection-sandbox" class="px-2 py-1 rounded bg-gray-100 text-gray-600 text-[10px] hover:bg-blue-100 hover:text-blue-700">🧪 CHW Early Detection Sandbox</a>
+              <a href="/trillium-partnership-structure" class="px-2 py-1 rounded bg-gray-100 text-gray-600 text-[10px] hover:bg-blue-100 hover:text-blue-700">🤝 Trillium Partnership Structure</a>
+              <a href="/trillium" class="px-2 py-1 rounded bg-gray-100 text-gray-600 text-[10px] hover:bg-blue-100 hover:text-blue-700">🏥 Trillium</a>
+              <a href="/fasd-care-pathway" class="px-2 py-1 rounded bg-gray-100 text-gray-600 text-[10px] hover:bg-blue-100 hover:text-blue-700">🧬 FASD Care Pathway</a>
             </div>
           </details>
         </div>
