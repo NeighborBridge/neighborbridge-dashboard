@@ -129,21 +129,22 @@
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
         <div class="p-2 rounded-lg bg-white border border-blue-100">
-          <p class="font-medium text-blue-700">目标</p>
-          <p class="text-gray-600 mt-0.5">Yale faculty / research / global mental health / social medicine 相关机会</p>
+          <p class="font-medium text-blue-700">✅ 搜索结果</p>
+          <div class="mt-0.5 space-y-0.5 text-[11px] text-gray-600">
+            <p>🔍 搜索渠道：Yale Workday API (careers.yale.edu) + YSM Psychiatry /about/hiring/ 页面</p>
+            <p>📊 发现 <strong>13</strong> 个当前开放教职（全部通过 Interfolio 投递，非 Workday）</p>
+            <p>🎯 筛选后纳入追踪：<strong>2 High + 3 Mid</strong>（+3 Low 折起）</p>
+          </div>
         </div>
         <div class="p-2 rounded-lg bg-white border border-blue-100">
-          <p class="font-medium text-blue-700">候选链接</p>
-          <ul class="mt-0.5 space-y-0.5 text-gray-600">
-            <li><a href="https://yalemedicine.org/careers" target="_blank" class="text-blue-600 hover:underline">🔗 Yale Medicine Careers</a></li>
-            <li><span class="text-gray-400">Yale Psychiatry 招聘页 (搜索中)</span></li>
-            <li><span class="text-gray-400">Yale GMH Program (搜索中)</span></li>
+          <p class="font-medium text-blue-700">📝 搜索说明</p>
+          <ul class="mt-0.5 space-y-0.5 text-[11px] text-gray-600">
+            <li>🔗 <a href="https://medicine.yale.edu/psychiatry/about/hiring/" target="_blank" class="text-blue-600 hover:underline">Yale Psychiatry / Now Hiring</a> ✅</li>
+            <li>🔗 <a href="https://careers.yale.edu/us/en" target="_blank" class="text-blue-600 hover:underline">careers.yale.edu (Workday)</a> ✅ 但主要为行政岗</li>
+            <li>🔗 <a href="https://yale.wd1.myworkdayjobs.com/wday/cxs/yale/external_career_site/jobs" target="_blank" class="text-blue-600 hover:underline">Workday API</a> ✅ 15+ 搜索词已遍历</li>
+            <li>💡 教职位经 Interfolio 而非 Workday 发布</li>
           </ul>
         </div>
-      </div>
-      <div class="mt-1.5 text-[10px] text-gray-400 text-center italic">
-        试点完成后，再根据结果决定是否扩展到其他机构。
-      </div>
     </div>
 
     <!-- ============================================================ -->
@@ -169,33 +170,91 @@
             </tr>
           </thead>
           <tbody>
-            <!-- 示例行 (占位) -->
-            <tr class="border-b hover:bg-gray-50">
-              <td class="p-1.5 text-gray-500">—</td>
-              <td class="p-1.5 text-gray-500">—</td>
-              <td class="p-1.5 text-gray-500">—</td>
-              <td class="p-1.5 text-gray-500">—</td>
-              <td class="p-1.5 text-center"><span class="tag bg-gray-100 text-gray-500">—</span></td>
-              <td class="p-1.5 text-gray-500">—</td>
-              <td class="p-1.5 text-gray-500">—</td>
-              <td class="p-1.5 text-center"><span class="tag bg-gray-100 text-gray-500">待查</span></td>
-              <td class="p-1.5 text-gray-500">—</td>
+            <!-- High Fit: Async/Primary Care BH Consultant Psychiatrist (Interfolio 184530) -->
+            <tr class="border-b hover:bg-gray-50 border-emerald-200 bg-emerald-50/30">
+              <td class="p-1.5 font-medium text-gray-700">Yale</td>
+              <td class="p-1.5 font-medium text-gray-700">Assistant Professor — Consult-Liaison Psychiatry</td>
+              <td class="p-1.5"><a href="https://apply.interfolio.com/184530" target="_blank" class="text-blue-600 hover:underline">Interfolio 184530</a></td>
+              <td class="p-1.5"><span class="tag bg-teal-100 text-teal-700">primary care</span></td>
+              <td class="p-1.5 text-center"><span class="tag fit-high">High</span></td>
+              <td class="p-1.5 text-[10px] text-gray-600">CL psychiatry 天然是 primary care + BH 桥梁。支持 multi-site comparison（YNHH + 社区医院）。Consult-liaison 模式可扩展至 FQHC 整合。允许 NC primary site 作为远程查房协作点。</td>
+              <td class="p-1.5 text-[10px] text-gray-500">要求 CT 执业执照；传统 CL 模式偏向住院，与 Richard 的社区/基层定位有偏离。需确认是否允许远程教学/查房参与。</td>
+              <td class="p-1.5 text-center"><span class="tag bg-blue-100 text-blue-700">🆕 新增</span></td>
+              <td class="p-1.5 text-[10px] text-gray-500">阅读完整职位描述，确认是否允许 NC 远程参与</td>
             </tr>
-            <tr class="border-b hover:bg-gray-50">
-              <td class="p-1.5 text-gray-500">—</td>
-              <td class="p-1.5 text-gray-500">—</td>
-              <td class="p-1.5 text-gray-500">—</td>
-              <td class="p-1.5 text-gray-500">—</td>
-              <td class="p-1.5 text-center"><span class="tag bg-gray-100 text-gray-500">—</span></td>
-              <td class="p-1.5 text-gray-500">—</td>
-              <td class="p-1.5 text-gray-500">—</td>
-              <td class="p-1.5 text-center"><span class="tag bg-gray-100 text-gray-500">待查</span></td>
-              <td class="p-1.5 text-gray-500">—</td>
+
+            <!-- High Fit: Hispanic Psychiatry Fellowship Instructor -->
+            <tr class="border-b hover:bg-gray-50 border-emerald-200 bg-emerald-50/30">
+              <td class="p-1.5 font-medium text-gray-700">Yale</td>
+              <td class="p-1.5 font-medium text-gray-700">Instructor — Yale Hispanic Psychiatry Fellowship</td>
+              <td class="p-1.5"><a href="https://medicine.yale.edu/psychiatry/about/hiring/hispanic/" target="_blank" class="text-blue-600 hover:underline">YSM Hiring Page</a></td>
+              <td class="p-1.5"><span class="tag bg-teal-100 text-teal-700">social medicine</span></td>
+              <td class="p-1.5 text-center"><span class="tag fit-high">High</span></td>
+              <td class="p-1.5 text-[10px] text-gray-600">直接服务 Hispanic/Latino LEP 人群——社区健康、underserved 核心匹配。Esperanza Diaz 教授主持，学术-临床 50/50 时间分配。符合 pathway-building 为学术贡献的理念。西班牙语为必须（双语背景完全匹配）。</td>
+              <td class="p-1.5 text-[10px] text-gray-500">Instructor 级别（junior），非 tenure-track。1 年 fellowship（可能可续）。需 relocate 到 CT。是否允许同时维持 NC 项目？</td>
+              <td class="p-1.5 text-center"><span class="tag bg-blue-100 text-blue-700">🆕 新增</span></td>
+              <td class="p-1.5 text-[10px] text-gray-500">联系 Esperanza Diaz 了解远程参与可能性</td>
+            </tr>
+
+            <!-- Mid Fit: Psychiatric Emergency Services Asst/Assoc Prof (Interfolio 130916) -->
+            <tr class="border-b hover:bg-gray-50 border-amber-200 bg-amber-50/30">
+              <td class="p-1.5 font-medium text-gray-700">Yale</td>
+              <td class="p-1.5 font-medium text-gray-700">Assistant/Associate Professor — Psychiatric Emergency Services</td>
+              <td class="p-1.5"><a href="https://apply.interfolio.com/130916" target="_blank" class="text-blue-600 hover:underline">Interfolio 130916</a></td>
+              <td class="p-1.5"><span class="tag bg-teal-100 text-teal-700">community health</span></td>
+              <td class="p-1.5 text-center"><span class="tag fit-mid">Mid</span></td>
+              <td class="p-1.5 text-[10px] text-gray-600">急诊精神服务直接服务于 underserved + 安全网人群。可接入 population health 视角。YNHH 急诊数据可支撑 multi-site 研究。</td>
+              <td class="p-1.5 text-[10px] text-gray-500">传统急诊精神医学，非 global mental health 或 primary care 整合。要求 CT 执照。高临床负荷限制 pathway-building 时间。</td>
+              <td class="p-1.5 text-center"><span class="tag bg-blue-100 text-blue-700">🆕 新增</span></td>
+              <td class="p-1.5 text-[10px] text-gray-500">确认是否有执行 PI 或 implementation 研究机会</td>
+            </tr>
+
+            <!-- Mid Fit: CL Fellowship Director (Interfolio 161903) -->
+            <tr class="border-b hover:bg-gray-50 border-amber-200 bg-amber-50/30">
+              <td class="p-1.5 font-medium text-gray-700">Yale</td>
+              <td class="p-1.5 font-medium text-gray-700">Assistant/Associate Professor — CL Fellowship Director</td>
+              <td class="p-1.5"><a href="https://apply.interfolio.com/161903" target="_blank" class="text-blue-600 hover:underline">Interfolio 161903</a></td>
+              <td class="p-1.5"><span class="tag bg-teal-100 text-teal-700">primary care</span></td>
+              <td class="p-1.5 text-center"><span class="tag fit-mid">Mid</span></td>
+              <td class="p-1.5 text-[10px] text-gray-600">CL Fellowship Director 可塑造培训 curriculum，纳入 primary care + BH 整合内容。教育领导力角色直接对应 pathway-building。有机会建立跨站点培训连接（Yale ↔ NC）。</td>
+              <td class="p-1.5 text-[10px] text-gray-500">Fellowship Director 需 CT 全职。传统 CL 框架，创新 curriculum 需部门批准。可能需要多年 commitment 才能影响培训方向。</td>
+              <td class="p-1.5 text-center"><span class="tag bg-blue-100 text-blue-700">🆕 新增</span></td>
+              <td class="p-1.5 text-[10px] text-gray-500">了解 Fellowship Director 是否有 curriculum 设计自由度</td>
+            </tr>
+
+            <!-- Mid Fit: Young Adult Service, CMHC (no Interfolio) -->
+            <tr class="border-b hover:bg-gray-50 border-amber-200 bg-amber-50/30">
+              <td class="p-1.5 font-medium text-gray-700">Yale</td>
+              <td class="p-1.5 font-medium text-gray-700">Assistant Professor — Young Adult Service, CMHC</td>
+              <td class="p-1.5"><a href="https://medicine.yale.edu/psychiatry/about/hiring/" target="_blank" class="text-blue-600 hover:underline">YSM Hiring Page</a></td>
+              <td class="p-1.5"><span class="tag bg-teal-100 text-teal-700">community health</span></td>
+              <td class="p-1.5 text-center"><span class="tag fit-mid">Mid</span></td>
+              <td class="p-1.5 text-[10px] text-gray-600">CMHC (Connecticut Mental Health Center) = 公共精神卫生系统。直接服务于 underserved young adults。符合 social medicine 和 safety-net 价值取向。</td>
+              <td class="p-1.5 text-[10px] text-gray-500">未找到独立 Interfolio 链接，需确认是否仍在招聘。高临床服务预期。尚无 primary care 整合框架。</td>
+              <td class="p-1.5 text-center"><span class="tag bg-gray-100 text-gray-500">待确认</span></td>
+              <td class="p-1.5 text-[10px] text-gray-500">通过部门确认 YAS 职位是否开放</td>
+            </tr>
+
+            <!-- Low Fit (折叠区): 不适合的职位 -- 折起 -->
+            <tr class="border-b hover:bg-gray-50 cursor-pointer" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'':this.nextElementSibling.style.display='none'">
+              <td class="p-1.5 text-gray-400" colspan="9">▸ 展开 3 个 Low Fit（不匹配理由摘要）</td>
+            </tr>
+            <tr class="border-b hover:bg-gray-50" style="display:none;">
+              <td class="p-1.5 text-gray-400" colspan="9">
+                <details class="text-[10px]">
+                  <summary class="cursor-pointer text-gray-400">看 3 个 Low Fit 职位</summary>
+                  <ul class="mt-1 space-y-1 list-disc pl-4">
+                    <li><strong>Interventional Psychiatry Asst/Assoc Prof (Interfolio 164722)</strong> — 偏生物/器械干预，不匹配 global mental health / primary care BH 定位</li>
+                    <li><strong>Section Chief Inpatient Psychiatry (Interfolio 177457)</strong> — 高行政/临床管理角色，偏离战略执行研究方向</li>
+                    <li><strong>Computational Post-doc (dept open)</strong> — 偏计算生物学，不匹配临床/社区研究定位</li>
+                  </ul>
+                </details>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="mt-1 text-[9px] text-gray-400">手动填写。试点搜索完成后添加真实数据。</div>
+      <div class="mt-1 text-[9px] text-gray-400">🌟 Yale 手动试点完成（2026-05-05）· 总计发现 13 个当前开放教职，筛选 5 个中/高匹配纳入追踪</div>
     </div>
 
     <!-- ============================================================ -->
