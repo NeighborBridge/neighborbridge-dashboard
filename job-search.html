@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job Search / Faculty Opportunities — 职位追踪</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { brand: "#0ea5e9", urgent: "#ef4444", warning: "#f59e0b", neutral: "#6b7280", completed: "#10b981" }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .card { @apply bg-white rounded-xl p-4 border shadow-sm mb-3; }
+    .fit-high { @apply bg-emerald-100 text-emerald-700; }
+    .fit-mid { @apply bg-amber-100 text-amber-700; }
+    .fit-low { @apply bg-gray-100 text-gray-500; }
+    .tag { @apply inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium; }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-6xl mx-auto px-3 py-2 flex justify-between items-center">
+      <h1 class="text-base font-bold">NeighborBridge</h1>
+      <div class="flex flex-wrap gap-x-3 gap-y-0.5 text-[11px]">
+        <a href="/" class="text-gray-500 hover:text-brand">主面板</a>
+        <a href="/career-contribution" class="text-gray-500 hover:text-brand">🎯职业定位</a>
+        <a href="/fqhc" class="text-gray-500 hover:text-brand">FQHC</a>
+        <a href="/stakeholders" class="text-gray-500 hover:text-brand">Stakeholders</a>
+        <a href="/manuscript-dashboard" class="text-gray-500 hover:text-brand">📄稿件</a>
+        <a href="/dashboard-directory" class="text-gray-500 hover:text-brand">📚全部面板</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="mb-3 flex items-center gap-1 text-[10px] text-gray-400">
+    <span class="text-gray-500">当前位置：</span>
+    <a href="/dashboard-directory" class="hover:text-blue-600">全部面板</a>
+    <span>/</span>
+    <span class="text-gray-700">Academic / Career →</span>
+    <span class="text-gray-800 font-medium">Job Search / Faculty Opportunities</span>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-3 py-3">
+
+    <!-- Page title -->
+    <div class="mb-3">
+      <h2 class="text-sm font-bold">🎯 Job Search / Faculty Opportunities</h2>
+      <p class="text-[10px] text-gray-400">职位追踪 · 基于 Career / Field Contribution 定位筛选</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 边界声明                                                      -->
+    <!-- ============================================================ -->
+    <div class="card" style="border-left: 4px solid #dc2626; background: #fef2f2;">
+      <div class="p-2 rounded-lg bg-red-50 border border-red-200 text-[10px] text-gray-600 leading-relaxed">
+        ⚠️ <strong>使用边界：</strong>本面板仅记录公开职位信息。不自动投递、不自动发送邮件。每次 outreach 前需人工审核。公开搜藏链接仅供追踪参考，非正式申请渠道。
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 目标机构 + 搜索分类 + 匹配标准 (三栏)                           -->
+    <!-- ============================================================ -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-3">
+
+      <!-- 目标机构 -->
+      <div class="card mb-0" style="border-left: 4px solid #6366f1;">
+        <p class="text-[11px] font-medium text-gray-700 mb-1.5">🏛️ 目标机构</p>
+        <div class="space-y-0.5 text-[11px]">
+          <div class="p-1 rounded bg-indigo-50 border border-indigo-100"><a href="https://yalemedicine.org/careers" target="_blank" class="text-indigo-700 hover:underline">Yale</a></div>
+          <div class="p-1 rounded bg-indigo-50 border border-indigo-100"><a href="https://careers.duke.edu" target="_blank" class="text-indigo-700 hover:underline">Duke</a></div>
+          <div class="p-1 rounded bg-indigo-50 border border-indigo-100"><a href="https://unc.peopleadmin.com" target="_blank" class="text-indigo-700 hover:underline">UNC</a></div>
+          <div class="p-1 rounded bg-indigo-50 border border-indigo-100"><a href="https://careers.harvard.edu" target="_blank" class="text-indigo-700 hover:underline">Harvard</a></div>
+          <div class="p-1 rounded bg-indigo-50 border border-indigo-100"><span class="text-gray-500">FQHC / safety-net systems</span><span class="text-[9px] text-gray-400 ml-1">(搜索中)</span></div>
+          <div class="p-1 rounded bg-indigo-50 border border-indigo-100"><span class="text-gray-500">Medicaid / population health orgs</span><span class="text-[9px] text-gray-400 ml-1">(搜索中)</span></div>
+        </div>
+      </div>
+
+      <!-- 搜索分类 -->
+      <div class="card mb-0" style="border-left: 4px solid #14b8a6;">
+        <p class="text-[11px] font-medium text-gray-700 mb-1.5">🔍 搜索分类</p>
+        <div class="flex flex-wrap gap-1">
+          <span class="tag bg-teal-100 text-teal-700">global mental health</span>
+          <span class="tag bg-teal-100 text-teal-700">primary care</span>
+          <span class="tag bg-teal-100 text-teal-700">social medicine</span>
+          <span class="tag bg-teal-100 text-teal-700">implementation science</span>
+          <span class="tag bg-teal-100 text-teal-700">community health</span>
+          <span class="tag bg-teal-100 text-teal-700">rural health</span>
+          <span class="tag bg-teal-100 text-teal-700">child behavioral health / NDD</span>
+          <span class="tag bg-teal-100 text-teal-700">population health / Medicaid innovation</span>
+        </div>
+      </div>
+
+      <!-- 匹配标准 -->
+      <div class="card mb-0" style="border-left: 4px solid #f97316;">
+        <p class="text-[11px] font-medium text-gray-700 mb-1.5">✅ 匹配标准</p>
+        <div class="space-y-0.5 text-[10px] text-gray-600">
+          <div class="p-1 rounded bg-amber-50 border border-amber-100">① 允许继续发展 NC primary site</div>
+          <div class="p-1 rounded bg-amber-50 border border-amber-100">② 重视 global mental health / underserved</div>
+          <div class="p-1 rounded bg-amber-50 border border-amber-100">③ 允许 primary care + BH 整合</div>
+          <div class="p-1 rounded bg-amber-50 border border-amber-100">④ 承认 pathway-building 为学术贡献</div>
+          <div class="p-1 rounded bg-amber-50 border border-amber-100">⑤ 允许 payer / FQHC / public health / school 连接</div>
+          <div class="p-1 rounded bg-amber-50 border border-amber-100">⑥ 支持 multi-site comparison</div>
+        </div>
+        <div class="mt-1 text-[9px] text-gray-400">
+          <span class="tag bg-emerald-100 text-emerald-700">High</span> 满足 5–6 项
+          <span class="tag bg-amber-100 text-amber-700 ml-1">Mid</span> 满足 3–4 项
+          <span class="tag bg-gray-100 text-gray-500 ml-1">Low</span> 满足 0–2 项
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 第一次手动试点: Yale                                         -->
+    <!-- ============================================================ -->
+    <div class="card" style="border-left: 4px solid #2563eb; background: #eff6ff;">
+      <div class="flex items-center gap-1.5 mb-2">
+        <span class="text-xs font-bold text-blue-800">🧪 第一次手动试点</span>
+        <span class="tag bg-blue-100 text-blue-700">进行中</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+        <div class="p-2 rounded-lg bg-white border border-blue-100">
+          <p class="font-medium text-blue-700">目标</p>
+          <p class="text-gray-600 mt-0.5">Yale faculty / research / global mental health / social medicine 相关机会</p>
+        </div>
+        <div class="p-2 rounded-lg bg-white border border-blue-100">
+          <p class="font-medium text-blue-700">候选链接</p>
+          <ul class="mt-0.5 space-y-0.5 text-gray-600">
+            <li><a href="https://yalemedicine.org/careers" target="_blank" class="text-blue-600 hover:underline">🔗 Yale Medicine Careers</a></li>
+            <li><span class="text-gray-400">Yale Psychiatry 招聘页 (搜索中)</span></li>
+            <li><span class="text-gray-400">Yale GMH Program (搜索中)</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-1.5 text-[10px] text-gray-400 text-center italic">
+        试点完成后，再根据结果决定是否扩展到其他机构。
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 机会追踪表                                                    -->
+    <!-- ============================================================ -->
+    <div class="card">
+      <div class="flex items-center gap-1.5 mb-2">
+        <span class="text-xs font-medium text-gray-500">📋 机会追踪表</span>
+      </div>
+      <div class="overflow-x-auto text-[10px]">
+        <table class="w-full border-collapse min-w-[750px]">
+          <thead>
+            <tr class="bg-gray-100 border-b">
+              <th class="p-1.5 text-left font-medium text-gray-600">机构</th>
+              <th class="p-1.5 text-left font-medium text-gray-600">职位</th>
+              <th class="p-1.5 text-left font-medium text-gray-600">链接</th>
+              <th class="p-1.5 text-left font-medium text-gray-600">分类</th>
+              <th class="p-1.5 text-center font-medium text-gray-600">匹配度</th>
+              <th class="p-1.5 text-left font-medium text-gray-600">匹配理由</th>
+              <th class="p-1.5 text-left font-medium text-gray-600">顾虑/不匹配</th>
+              <th class="p-1.5 text-center font-medium text-gray-600">状态</th>
+              <th class="p-1.5 text-left font-medium text-gray-600">下一步</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 示例行 (占位) -->
+            <tr class="border-b hover:bg-gray-50">
+              <td class="p-1.5 text-gray-500">—</td>
+              <td class="p-1.5 text-gray-500">—</td>
+              <td class="p-1.5 text-gray-500">—</td>
+              <td class="p-1.5 text-gray-500">—</td>
+              <td class="p-1.5 text-center"><span class="tag bg-gray-100 text-gray-500">—</span></td>
+              <td class="p-1.5 text-gray-500">—</td>
+              <td class="p-1.5 text-gray-500">—</td>
+              <td class="p-1.5 text-center"><span class="tag bg-gray-100 text-gray-500">待查</span></td>
+              <td class="p-1.5 text-gray-500">—</td>
+            </tr>
+            <tr class="border-b hover:bg-gray-50">
+              <td class="p-1.5 text-gray-500">—</td>
+              <td class="p-1.5 text-gray-500">—</td>
+              <td class="p-1.5 text-gray-500">—</td>
+              <td class="p-1.5 text-gray-500">—</td>
+              <td class="p-1.5 text-center"><span class="tag bg-gray-100 text-gray-500">—</span></td>
+              <td class="p-1.5 text-gray-500">—</td>
+              <td class="p-1.5 text-gray-500">—</td>
+              <td class="p-1.5 text-center"><span class="tag bg-gray-100 text-gray-500">待查</span></td>
+              <td class="p-1.5 text-gray-500">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-1 text-[9px] text-gray-400">手动填写。试点搜索完成后添加真实数据。</div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 相关面板                                                      -->
+    <!-- ============================================================ -->
+    <div class="card" style="border-left: 4px solid #0ea5e9;">
+      <div class="flex items-center gap-1.5 mb-2">
+        <span class="text-xs font-medium text-gray-500">🔗 相关面板</span>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-[10px]">
+        <a href="/career-contribution" class="p-2 rounded bg-sky-50 border border-sky-100 hover:bg-sky-100 text-gray-600 hover:text-sky-700">
+          <span class="font-medium">🎯 Career / Field Contribution</span>
+          <p class="text-[9px] text-gray-400">职业定位</p>
+        </a>
+        <a href="/faculty-pathway" class="p-2 rounded bg-sky-50 border border-sky-100 hover:bg-sky-100 text-gray-600 hover:text-sky-700">
+          <span class="font-medium">🪜 Faculty Pathway</span>
+          <p class="text-[9px] text-gray-400">教职路径</p>
+        </a>
+        <a href="/stakeholders" class="p-2 rounded bg-sky-50 border border-sky-100 hover:bg-sky-100 text-gray-600 hover:text-sky-700">
+          <span class="font-medium">👥 Stakeholders</span>
+          <p class="text-[9px] text-gray-400">合作关系</p>
+        </a>
+        <a href="/manuscript-dashboard" class="p-2 rounded bg-sky-50 border border-sky-100 hover:bg-sky-100 text-gray-600 hover:text-sky-700">
+          <span class="font-medium">📄 Manuscript Dashboard</span>
+          <p class="text-[9px] text-gray-400">稿件写作</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center text-[10px] text-gray-400 pb-4 pt-1">
+      部署于 Cloudflare Workers 内部 dashboard · 不公开 · 最后更新: <span id="update-time"></span>
+    </div>
+
+  </div>
+
+  <script>
+    document.getElementById('update-time').textContent = new Date().toLocaleDateString('zh-CN', {
+      year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+    });
+  </script>
+
+</body>
+</html>
