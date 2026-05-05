@@ -31,6 +31,7 @@
     .acc-orange { border-left: 4px solid #f59e0b; }
     .acc-cyan { border-left: 4px solid #22d3ee; }
     .acc-teal { border-left: 4px solid #14b8a6; }
+    .acc-amber { border-left: 4px solid #d97706; }
     .checklist-item { @apply flex items-start gap-2 p-1.5 rounded text-[11px] cursor-pointer hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-colors; }
     .checklist-item.done { opacity: 0.5; text-decoration: line-through; }
   </style>
@@ -38,7 +39,7 @@
 <body>
 
   <!-- Header -->
-    <header class="bg-white shadow-sm border-b">
+  <header class="bg-white shadow-sm border-b">
     <div class="max-w-6xl mx-auto px-3 py-2 flex justify-between items-center">
       <h1 class="text-base font-bold">NeighborBridge</h1>
       <div class="flex flex-wrap gap-x-3 gap-y-0.5 text-[11px]">
@@ -53,7 +54,7 @@
     </div>
   </header>
 
-<div class="mb-3 flex items-center gap-1 text-[10px] text-gray-400"><span class="text-gray-500">当前位置：</span><a href="/dashboard-directory" class="hover:text-blue-600">全部面板</a><span>/</span><span class="text-gray-700">Operations / Risk →</span><span class="text-gray-800 font-medium">Caregiving Mobility / 照护行动约束</span></div>
+  <div class="mb-3 flex items-center gap-1 text-[10px] text-gray-400"><span class="text-gray-500">当前位置：</span><a href="/dashboard-directory" class="hover:text-blue-600">全部面板</a><span>/</span><span class="text-gray-700">Operations / Risk →</span><span class="text-gray-800 font-medium">Caregiving Mobility / 照护行动约束</span></div>
 
   <!-- Main -->
   <div class="max-w-6xl mx-auto px-3 py-3">
@@ -61,7 +62,7 @@
     <!-- Page title -->
     <div class="mb-3">
       <h2 class="text-base font-bold">🏠 照护与行动自由 <span class="text-[10px] text-gray-400 font-normal">/ Caregiving &amp; Mobility</span></h2>
-      <p class="text-[10px] text-gray-400">聚焦可操作决策：可以外出吗？去多久？需要什么准备？</p>
+      <p class="text-[10px] text-gray-400">从静态约束转向动态恢复 / 可管理风险模型</p>
     </div>
 
     <!-- 2-col layout -->
@@ -70,91 +71,188 @@
       <!-- LEFT COLUMN -->
       <div class="space-y-3">
 
-        <!-- 1. 当前约束 -->
-        <div class="sec-card acc-red">
+        <!-- 1. Current Status: Managed Risk -->
+        <div class="sec-card acc-amber" style="border-left-color: #d97706;">
           <div class="flex justify-between items-center mb-1">
-            <h3 class="text-sm font-bold">当前约束</h3>
-            <span class="badge bg-red-100 text-red-700 text-[10px]">跨领域阻塞</span>
+            <h3 class="text-sm font-bold">当前状态 / Current Status</h3>
+            <span class="badge bg-amber-100 text-amber-700 text-[10px]">可管理风险</span>
           </div>
-          <p class="text-[11px] text-gray-700">caregiving 责任限制外出与时间自由度</p>
-          <p class="text-[10px] text-gray-500 mt-0.5">当前恢复期 · 对 travel / networking / deep work 构成主要限制</p>
+          <p class="text-[11px] text-gray-700">Managed Risk — recovery progress is gradually increasing Richard's mobility, but travel still depends on minimum safety standards and backup coverage.</p>
+          <p class="text-[10px] text-gray-500 mt-0.5">当前状态：可管理风险——母亲恢复进展正在逐步增加 Richard 的外出空间，但是否可出行仍取决于最低安全标准和 backup coverage。</p>
+          <div class="mt-1.5 p-1.5 rounded bg-blue-50 border border-blue-100 text-[10px] text-blue-700">
+            💡 照护责任仍然是重要规划约束，但随着恢复里程碑和 backup coverage 改善，它正在从硬性阻塞转为可管理风险。
+          </div>
         </div>
 
-        <!-- 2. 当前外出可行性 (核心决策区) -->
+        <!-- 2. Recovery Milestones -->
+        <div class="sec-card acc-green">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-sm font-bold">恢复里程碑 / Recovery Milestones</h3>
+            <span class="badge bg-green-100 text-green-700 text-[10px]">动态跟踪</span>
+          </div>
+          <p class="text-[10px] text-gray-500 mb-1.5">将康复进展直接链接到 Richard 的外出许可层级</p>
+          <div class="space-y-1.5 text-[11px]">
+            <div class="p-2 rounded border border-gray-200 bg-white">
+              <div class="flex items-center justify-between">
+                <span class="font-medium">🛁 Bathroom independence</span>
+                <span class="text-[10px] text-amber-600 bg-amber-50 px-1.5 rounded">improving / needs confirmation</span>
+              </div>
+              <p class="text-[10px] text-gray-500 mt-0.5">Mobility implication: if stable, shower supervision may shift from constant presence to periodic check-ins</p>
+            </div>
+            <div class="p-2 rounded border border-gray-200 bg-white">
+              <div class="flex items-center justify-between">
+                <span class="font-medium">💊 Medication self-management</span>
+                <span class="text-[10px] text-amber-600 bg-amber-50 px-1.5 rounded">needs confirmation</span>
+              </div>
+              <p class="text-[10px] text-gray-500 mt-0.5">Mobility implication: if reliable, daily caregiver burden decreases</p>
+            </div>
+            <div class="p-2 rounded border border-gray-200 bg-white">
+              <div class="flex items-center justify-between">
+                <span class="font-medium">🚶 Safe transfer / walking inside home</span>
+                <span class="text-[10px] text-blue-600 bg-blue-50 px-1.5 rounded">improving / PT-guided</span>
+              </div>
+              <p class="text-[10px] text-gray-500 mt-0.5">Mobility implication: increases feasibility of short local outings</p>
+            </div>
+            <div class="p-2 rounded border border-gray-200 bg-white">
+              <div class="flex items-center justify-between">
+                <span class="font-medium">📞 Ability to call for help</span>
+                <span class="text-[10px] text-red-600 bg-red-50 px-1.5 rounded">required</span>
+              </div>
+              <p class="text-[10px] text-gray-500 mt-0.5">Mobility implication: required before overnight absence</p>
+            </div>
+            <div class="p-2 rounded border border-gray-200 bg-white">
+              <div class="flex items-center justify-between">
+                <span class="font-medium">🛡️ Fall prevention plan</span>
+                <span class="text-[10px] text-amber-600 bg-amber-50 px-1.5 rounded">needs active safeguards</span>
+              </div>
+              <p class="text-[10px] text-gray-500 mt-0.5">Mobility implication: required before 2–3 day travel</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Outing Feasibility Matrix -->
         <div class="sec-card acc-cyan">
           <div class="flex justify-between items-center mb-2">
-            <h3 class="text-sm font-bold">当前外出可行性</h3>
-            <span class="badge bg-blue-100 text-blue-700 text-[10px]">快速评估</span>
+            <h3 class="text-sm font-bold">外出可行性 / Outing Feasibility Matrix</h3>
+            <span class="badge bg-blue-100 text-blue-700 text-[10px]">动态评估</span>
           </div>
           <div class="space-y-1.5 text-[11px]">
             <div class="flex items-center justify-between p-2 rounded bg-green-50 border border-green-200">
               <div class="flex items-center gap-2">
                 <span class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center text-[10px] text-green-700 font-bold">✅</span>
-                <span class="font-medium">1天</span>
-                <span class="text-gray-500">当日往返</span>
+                <div>
+                  <span class="font-medium">Same-day local</span>
+                  <span class="text-gray-500 ml-1">当日本地</span>
+                </div>
               </div>
-              <span class="text-green-700 font-semibold text-[10px]">推荐</span>
+              <span class="text-green-700 font-semibold text-[10px] text-right">Recommended if basic check-in coverage exists</span>
+            </div>
+            <div class="flex items-center justify-between p-2 rounded bg-green-50 border border-green-200">
+              <div class="flex items-center gap-2">
+                <span class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center text-[10px] text-green-700 font-bold">✅</span>
+                <div>
+                  <span class="font-medium">Overnight / 1 night</span>
+                  <span class="text-gray-500 ml-1">过夜</span>
+                </div>
+              </div>
+              <span class="text-green-700 font-semibold text-[10px] text-right">Feasible with confirmed backup + clear handover</span>
             </div>
             <div class="flex items-center justify-between p-2 rounded bg-amber-50 border border-amber-200">
               <div class="flex items-center gap-2">
                 <span class="w-5 h-5 bg-amber-100 rounded-full flex items-center justify-center text-[10px] text-amber-700 font-bold">⚠️</span>
-                <span class="font-medium">2–3天</span>
-                <span class="text-gray-500">短期出差</span>
+                <div>
+                  <span class="font-medium">2–3 days</span>
+                  <span class="text-gray-500 ml-1">短期出差</span>
+                </div>
               </div>
-              <span class="text-amber-700 font-semibold text-[10px]">有条件推荐</span>
+              <span class="text-amber-700 font-semibold text-[10px] text-right">Recommended once backup (e.g. William Cox) confirmed + handover checklist completed</span>
             </div>
             <div class="flex items-center justify-between p-2 rounded bg-orange-50 border border-orange-200">
               <div class="flex items-center gap-2">
-                <span class="w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center text-[10px] text-orange-700 font-bold">❌</span>
-                <span class="font-medium">4–7天</span>
-                <span class="text-gray-500">一周出差</span>
+                <span class="w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center text-[10px] text-orange-700 font-bold">⚠️</span>
+                <div>
+                  <span class="font-medium">4–7 days</span>
+                  <span class="text-gray-500 ml-1">一周</span>
+                </div>
               </div>
-              <span class="text-orange-700 font-semibold text-[10px]">不推荐</span>
+              <span class="text-orange-700 font-semibold text-[10px] text-right">Feasible with Professional Respite</span>
             </div>
             <div class="flex items-center justify-between p-2 rounded bg-red-50 border border-red-200">
               <div class="flex items-center gap-2">
                 <span class="w-5 h-5 bg-red-100 rounded-full flex items-center justify-center text-[10px] text-red-700 font-bold">🚫</span>
-                <span class="font-medium">7+天</span>
-                <span class="text-gray-500">长期外出</span>
+                <div>
+                  <span class="font-medium">7+ days</span>
+                  <span class="text-gray-500 ml-1">长期</span>
+                </div>
               </div>
-              <span class="text-red-700 font-semibold text-[10px]">强烈不推荐</span>
+              <span class="text-red-700 font-semibold text-[10px] text-right">High-risk unless professional respite + community rotation + remote monitoring in place</span>
             </div>
           </div>
-          <div class="mt-2 text-[10px] text-gray-400 p-1.5 rounded bg-gray-50 border">
-            ↑ 基于当前系统评估，2–3天需完成旅前交接清单
+          <div class="mt-2 p-1.5 rounded bg-gray-50 border border-gray-200 text-[10px] text-gray-400">
+            💡 4–7天：不是硬性"No"，而是需要更高层级的临时照护（paid respite/home care agency + community backup）
           </div>
         </div>
 
-        <!-- 3. 最低运行标准 -->
-        <div class="sec-card acc-purple">
-          <div class="flex justify-between items-center mb-1">
-            <h3 class="text-sm font-bold">最低运行标准</h3>
-            <span class="badge bg-purple-100 text-purple-700 text-[10px]">底线要求</span>
+        <!-- 4. Support Network -->
+        <div class="sec-card acc-teal">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-sm font-bold">支持网络 / Support Network</h3>
+            <span class="badge bg-teal-100 text-teal-700 text-[10px]">需扩展</span>
           </div>
-          <div class="space-y-1">
-            <div class="checklist-item" onclick="this.classList.toggle('done')">
-              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
-              <span>至少2人可作医疗决策，1人可去医院现场</span>
+
+          <div class="space-y-2 text-[11px]">
+            <div class="p-2 rounded bg-blue-50 border border-blue-200">
+              <p class="font-medium text-blue-700 mb-0.5">Tier 1 — Primary backup</p>
+              <div class="p-1.5 rounded bg-white border border-blue-100">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-blue-600 font-bold shrink-0">👤</span>
+                  <span class="text-blue-700 font-medium">William Cox</span>
+                  <span class="text-gray-400 text-[10px]">| 教会执事 | (919) 272-4315</span>
+                </div>
+                <p class="text-[10px] text-amber-600 mt-0.5">Status: backup identified; needs handover confirmation</p>
+              </div>
             </div>
-            <div class="checklist-item" onclick="this.classList.toggle('done')">
-              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
-              <span>每日安全检查（早晚各1次）</span>
+
+            <div class="p-2 rounded bg-purple-50 border border-purple-200">
+              <p class="font-medium text-purple-700 mb-0.5">Tier 2 — Church / Community Rotation</p>
+              <div class="overflow-x-auto">
+                <table class="w-full text-[10px] bg-white rounded border">
+                  <thead>
+                    <tr class="bg-gray-50">
+                      <th class="p-1 text-left border-r">Name</th>
+                      <th class="p-1 text-left border-r">Role</th>
+                      <th class="p-1 text-left border-r">Availability</th>
+                      <th class="p-1 text-left border-r">Can help with</th>
+                      <th class="p-1 text-left">Confirmed?</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="border-t"><td class="p-1 border-r text-gray-400" colspan="5">— placeholder for expansion —</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="text-[10px] text-gray-500 mt-0.5">Goal: move from "single point of failure" to "resilient network."</p>
             </div>
-            <div class="checklist-item" onclick="this.classList.toggle('done')">
-              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
-              <span>药物管理监督</span>
-            </div>
-            <div class="checklist-item" onclick="this.classList.toggle('done')">
-              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
-              <span>跌倒预防（洗澡/如厕时有人可到达）</span>
-            </div>
-            <div class="checklist-item" onclick="this.classList.toggle('done')">
-              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
-              <span>营养保障（每日至少2餐）</span>
-            </div>
-            <div class="checklist-item" onclick="this.classList.toggle('done')">
-              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
-              <span>每个关键角色有明确的备用人员</span>
+
+            <div class="p-2 rounded bg-amber-50 border border-amber-200">
+              <p class="font-medium text-amber-700 mb-0.5">Tier 3 — Professional / Paid Respite</p>
+              <div class="overflow-x-auto">
+                <table class="w-full text-[10px] bg-white rounded border">
+                  <thead>
+                    <tr class="bg-gray-50">
+                      <th class="p-1 text-left border-r">Agency / Contact</th>
+                      <th class="p-1 text-left border-r">Phone</th>
+                      <th class="p-1 text-left border-r">Services</th>
+                      <th class="p-1 text-left border-r">Min notice</th>
+                      <th class="p-1 text-left border-r">Cost</th>
+                      <th class="p-1 text-left">Confirmed?</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="border-t"><td class="p-1 border-r text-gray-400" colspan="6">— placeholder —</td></tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -164,100 +262,191 @@
       <!-- RIGHT COLUMN -->
       <div class="space-y-3">
 
-        <!-- 4. 旅前交接清单 -->
+        <!-- 5. Travel Handover Checklist -->
         <div class="sec-card acc-orange">
           <div class="flex justify-between items-center mb-1">
-            <h3 class="text-sm font-bold">旅前交接清单</h3>
-            <span class="badge bg-orange-100 text-orange-700 text-[10px]">出发前48h</span>
+            <h3 class="text-sm font-bold">出行交接清单 / Travel Handover Checklist</h3>
+            <span class="badge bg-orange-100 text-orange-700 text-[10px]">出发前完成</span>
           </div>
+          <p class="text-[10px] text-gray-500 mb-1">William Cox should be walked through this checklist before any 2–3 day travel is treated as "recommended."</p>
           <div class="space-y-1">
             <div class="checklist-item" onclick="this.classList.toggle('done')">
               <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
-              <span>医疗联系人确认（医生告知外出）</span>
+              <span>medication schedule reviewed</span>
             </div>
             <div class="checklist-item" onclick="this.classList.toggle('done')">
               <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
-              <span>药物覆盖检查（足够覆盖+3天缓冲）</span>
+              <span>emergency contacts shared</span>
             </div>
             <div class="checklist-item" onclick="this.classList.toggle('done')">
               <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
-              <span>主/备联系人确认可用性</span>
+              <span>physician / clinic contact shared</span>
             </div>
             <div class="checklist-item" onclick="this.classList.toggle('done')">
               <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
-              <span>教会排班确认</span>
+              <span>fall plan reviewed</span>
             </div>
             <div class="checklist-item" onclick="this.classList.toggle('done')">
               <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
-              <span>每日联系时间确认</span>
+              <span>shower / bathroom plan reviewed</span>
             </div>
             <div class="checklist-item" onclick="this.classList.toggle('done')">
               <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
-              <span>最后检查（紧急联系人卡片、医疗文件）</span>
+              <span>meal plan reviewed</span>
+            </div>
+            <div class="checklist-item" onclick="this.classList.toggle('done')">
+              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
+              <span>transportation plan reviewed</span>
+            </div>
+            <div class="checklist-item" onclick="this.classList.toggle('done')">
+              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
+              <span>backup person confirms comfort level</span>
+            </div>
+            <div class="checklist-item" onclick="this.classList.toggle('done')">
+              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
+              <span>what to do if symptoms worsen</span>
+            </div>
+            <div class="checklist-item" onclick="this.classList.toggle('done')">
+              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
+              <span>when to call Richard</span>
+            </div>
+            <div class="checklist-item" onclick="this.classList.toggle('done')">
+              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
+              <span>when to call 911</span>
             </div>
           </div>
         </div>
 
-        <!-- 5. 高价值必须争取的外出机会 -->
-        <div class="sec-card acc-green">
+        <!-- 6. Minimum Operating Standards v2 -->
+        <div class="sec-card acc-purple">
           <div class="flex justify-between items-center mb-1">
-            <h3 class="text-sm font-bold">高价值必须争取的外出机会</h3>
-            <span class="badge bg-green-100 text-green-700 text-[10px]">待评估</span>
+            <h3 class="text-sm font-bold">最低运行标准 v2 / Minimum Operating Standards</h3>
+            <span class="badge bg-purple-100 text-purple-700 text-[10px]">分层安全</span>
           </div>
-          <div class="text-[11px] text-gray-500 p-2 rounded bg-gray-50 border border-gray-100">
-            信息待补充：涉及教职路径的in-person meetings、高价值payer对话、必要学术会议和受邀演讲
+          <p class="text-[10px] text-gray-500 mb-1">从持续人工在场转为分层安全 / 远程监测</p>
+          <div class="space-y-1">
+            <div class="checklist-item" onclick="this.classList.toggle('done')">
+              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
+              <span>automated fall detection active</span>
+            </div>
+            <div class="checklist-item" onclick="this.classList.toggle('done')">
+              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
+              <span>phone reachable and charged</span>
+            </div>
+            <div class="checklist-item" onclick="this.classList.toggle('done')">
+              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
+              <span>emergency contact list visible</span>
+            </div>
+            <div class="checklist-item" onclick="this.classList.toggle('done')">
+              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
+              <span>backup person confirmed</span>
+            </div>
+            <div class="checklist-item" onclick="this.classList.toggle('done')">
+              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
+              <span>medication plan stable</span>
+            </div>
+            <div class="checklist-item" onclick="this.classList.toggle('done')">
+              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
+              <span>bathroom / shower plan clear (periodic check-ins or direct support per PT assessment)</span>
+            </div>
+            <div class="checklist-item" onclick="this.classList.toggle('done')">
+              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
+              <span>daily check-in schedule set</span>
+            </div>
+            <div class="checklist-item" onclick="this.classList.toggle('done')">
+              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
+              <span>professional respite identified for longer travel</span>
+            </div>
+            <div class="checklist-item" onclick="this.classList.toggle('done')">
+              <input type="checkbox" class="mt-0.5 w-3 h-3" onclick="event.stopPropagation()">
+              <span>travel handover checklist completed</span>
+            </div>
           </div>
         </div>
 
-        <!-- 5b. 可用支持资源 / backup support -->
-        <div class="sec-card acc-teal">
-          <div class="flex justify-between items-center mb-1">
-            <h3 class="text-sm font-bold">可用支持资源</h3>
-            <span class="badge bg-teal-100 text-teal-700 text-[10px]">部分完成</span>
-          </div>
-          <div class="space-y-1 text-[11px]">
-            <div class="p-1.5 rounded bg-teal-50 border border-teal-200">
-              <div class="flex items-center gap-1.5">
-                <span class="text-teal-600 font-bold shrink-0">✅</span>
-                <span class="text-teal-700">William Cox｜教会执事｜(919) 272-4315</span>
-              </div>
-              <p class="text-teal-600 text-[10px] ml-6">备份支持人 · 待确认可用性</p>
-            </div>
-            <div class="p-1 rounded bg-gray-50 border border-gray-100">
-              <p class="text-gray-400 text-[10px]">目标：增加备份支持容量，逐步达到可支持2–3天安全外出的水平</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 6. 下一步动作 -->
+        <!-- 7. High-Value Opportunities -->
         <div class="sec-card acc-blue">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-sm font-bold">高价值外出机会 / High-Value Opportunities</h3>
+            <span class="badge bg-blue-100 text-blue-700 text-[10px]">工程化覆盖</span>
+          </div>
+          <p class="text-[10px] text-gray-500 mb-1.5">使 Dashboard 从维护现状转向为具体高价值窗口工程化覆盖方案</p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-[10px] bg-white rounded border">
+              <thead>
+                <tr class="bg-gray-50">
+                  <th class="p-1 text-left border-r">Opportunity</th>
+                  <th class="p-1 text-left border-r">Date / Window</th>
+                  <th class="p-1 text-left border-r">Location</th>
+                  <th class="p-1 text-left border-r">Strategic Value</th>
+                  <th class="p-1 text-left border-r">Min Coverage</th>
+                  <th class="p-1 text-left">Feasibility</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-t">
+                  <td class="p-1 border-r text-gray-400">2026 academic conference</td>
+                  <td class="p-1 border-r text-gray-400">TBD</td>
+                  <td class="p-1 border-r text-gray-400">TBD</td>
+                  <td class="p-1 border-r text-gray-400">Strategic</td>
+                  <td class="p-1 border-r text-gray-400">2–3 day</td>
+                  <td class="p-1 text-gray-400">pending</td>
+                </tr>
+                <tr class="border-t">
+                  <td class="p-1 border-r text-gray-400">payer / Medicaid meeting</td>
+                  <td class="p-1 border-r text-gray-400">TBD</td>
+                  <td class="p-1 border-r text-gray-400">TBD</td>
+                  <td class="p-1 border-r text-gray-400">High</td>
+                  <td class="p-1 border-r text-gray-400">1 day</td>
+                  <td class="p-1 text-gray-400">pending</td>
+                </tr>
+                <tr class="border-t">
+                  <td class="p-1 border-r text-gray-400">Yale / Duke / UNC faculty meeting</td>
+                  <td class="p-1 border-r text-gray-400">TBD</td>
+                  <td class="p-1 border-r text-gray-400">TBD</td>
+                  <td class="p-1 border-r text-gray-400">Strategic</td>
+                  <td class="p-1 border-r text-gray-400">1–2 day</td>
+                  <td class="p-1 text-gray-400">pending</td>
+                </tr>
+                <tr class="border-t">
+                  <td class="p-1 border-r text-gray-400">Trillium / FASD stakeholder meeting</td>
+                  <td class="p-1 border-r text-gray-400">TBD</td>
+                  <td class="p-1 border-r text-gray-400">TBD</td>
+                  <td class="p-1 border-r text-gray-400">High</td>
+                  <td class="p-1 border-r text-gray-400">1–2 day</td>
+                  <td class="p-1 text-gray-400">pending</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 8. Current Decision Question -->
+        <div class="sec-card" style="border-left: 4px solid #d97706;">
           <div class="flex justify-between items-center mb-1">
-            <h3 class="text-sm font-bold">下一步动作</h3>
-            <span class="badge bg-blue-100 text-blue-700 text-[10px]">执行优先</span>
+            <h3 class="text-sm font-bold">当前决策问题 / Current Decision Question</h3>
+            <span class="badge bg-amber-100 text-amber-700 text-[10px]">需确认</span>
           </div>
-          <div class="space-y-1 text-[11px]">
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-red-50 border border-red-100 cursor-pointer hover:bg-red-100" onclick="markDone('a1')">
-              <span class="text-red-600 font-bold shrink-0">P0</span>
-              <span class="text-red-700">增加备份支持人（目标：可支持2–3天外出）</span><span class="text-green-600 text-[10px] ml-1">· 已新增1名（William Cox），待确认可用性</span>
-            </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-blue-50 border border-blue-100 cursor-pointer hover:bg-blue-100" onclick="markDone('a2')">
-              <span class="text-blue-600 font-bold shrink-0">P1</span>
-              <span class="text-blue-700">明确2–3天外出的最低覆盖方案</span>
-            </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-purple-50 border border-purple-100 cursor-pointer hover:bg-purple-100" onclick="markDone('a3')">
-              <span class="text-purple-600 font-bold shrink-0">P1</span>
-              <span class="text-purple-700">测试一次短时外出（半日/一日）验证系统</span>
-            </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-orange-50 border border-orange-100 cursor-pointer hover:bg-orange-100" onclick="markDone('a4')">
-              <span class="text-orange-600 font-bold shrink-0">P1</span>
-              <span class="text-orange-700">为高价值机会建立最低可行coverage方案</span>
-            </div>
-            <div class="flex items-center gap-1.5 p-1.5 rounded bg-rose-50 border border-rose-100 cursor-pointer hover:bg-rose-100" onclick="markDone('a5')">
-              <span class="text-rose-600 font-bold shrink-0">P0</span>
-              <span class="text-rose-700">建立最小写作窗口：每天至少1个30–45分钟无打断块；其余由agent拆分推进</span>
-            </div>
-            <p id="action-progress" class="text-[10px] text-gray-400 mt-1">点击标记完成</p>
+          <div class="p-2 rounded bg-amber-50 border border-amber-200 text-[11px]">
+            <p class="text-amber-800">Has William Cox been walked through the Travel Handover Checklist, and does he feel comfortable with the practical and medical escalation aspects of backup coverage?</p>
+            <p class="text-amber-600 text-[10px] mt-1">William Cox 是否已经完成出行交接清单演练？他是否对实际照护和医疗升级判断感到 comfortable？</p>
           </div>
+        </div>
+
+        <!-- 9. Archive: older static constraints -->
+        <div class="sec-card">
+          <details>
+            <summary class="text-xs font-medium text-gray-500 cursor-pointer hover:text-gray-700">📦 历史约束 / Archive</summary>
+            <div class="mt-2 space-y-1 text-[10px] text-gray-400">
+              <p>以下内容已被动态恢复模型取代，保留作为参考：</p>
+              <ul class="list-disc pl-4 space-y-0.5">
+                <li>旧：Caregiving 作为跨领域硬性阻塞 → 已更新为可管理风险模型</li>
+                <li>旧：4–7天不推荐 → 已更新为 "Feasible with Professional Respite"</li>
+                <li>旧：高价值机会 "信息待补充" → 已替换为结构化机会表</li>
+                <li>旧：最低运行标准 "有人可到达洗澡/如厕" → 已替换为 "bathroom / shower safety plan in place"</li>
+              </ul>
+            </div>
+          </details>
         </div>
 
       </div>
@@ -266,25 +455,26 @@
     <!-- Source note -->
     <div class="sec-card mt-1">
       <details>
-        <summary class="text-xs font-medium text-gray-500 cursor-pointer hover:text-gray-700">📌 逻辑来源</summary>
+        <summary class="text-xs font-medium text-gray-500 cursor-pointer hover:text-gray-700">📌 模型逻辑</summary>
         <div class="mt-2 space-y-1 text-[11px] text-gray-600">
           <ul class="list-disc pl-4 space-y-0.5 text-[10px]">
-            <li>外出可行性评级 → 来自先前方案中的照护可靠性评级</li>
-            <li>最低运行标准 → 压缩自先前方案，保留6条底线要求</li>
-            <li>旅前交接清单 → 压缩自先前方案，保留6项核心事项</li>
+            <li>从静态阻塞模型 → 动态恢复 / 可管理风险模型</li>
+            <li>外出可行性基于：恢复里程碑进展 + backup coverage + 最低安全标准</li>
+            <li>目标是逐步从 "单点故障" 转向 "弹性支持网络"</li>
+            <li>基于当前恢复轨迹，不暗示已通过医学评估或无风险</li>
           </ul>
         </div>
       </details>
     </div>
 
     <!-- Structured metadata -->
-    <!-- #nb-caregiving-blockers: [{"id":"CG-BLK-001","desc":"照护约束限制外出行动自由","status":"active","priority":"critical","impact":"cross-cutting","affects":["travel/networking","deep_work/manuscript_revision"],"affected_dashboards":["/faculty-pathway","/trillium","/manuscript-dashboard"]}] -->
-    <!-- #nb-caregiving-actions: [{"id":"CG-ACT-001","desc":"增加备份支持人（2–3天目标）","status":"in_progress","identified_backup":"William Cox"},{"id":"CG-ACT-002","desc":"明确2–3天最低覆盖方案"},{"id":"CG-ACT-003","desc":"测试短时外出验证系统"},{"id":"CG-ACT-004","desc":"为高价值机会建立最低coverage方案"},{"id":"CG-ACT-005","desc":"建立最小写作窗口（30-45分钟块+agent拆分）","target":"manuscript_revision","agent_execution_level":"execute_with_review","requires_user_approval":true}] -->
-    <!-- #nb-caregiving-meta: {"active_page":"caregiving-mobility.html","source_archive":"/archive/emergency-plan.html","source_status":"archived/moved","travel_readiness":"1天推荐·2-3天有条件·4-7天不推荐·7+天强烈不推荐","travel_coverage_standards":"6条底线要求","pre_travel_checklist":"6项核心交接","updated_at":"2026-04-25","support_resources":[{"name":"William Cox","role":"church deacon","phone":"(919) 272-4315","category":"backup_support","status":"pending_confirmation","related_goal":"2-3 day travel readiness","related_action":"CG-ACT-001"}]} -->
+    <!-- #nb-caregiving-blockers: [{"id":"CG-BLK-001","desc":"照护约束限制外出行动自由","status":"dynamic_managed_risk","priority":"high","impact":"cross-cutting","affects":["travel/networking","deep_work/manuscript_revision"],"affected_dashboards":["/faculty-pathway","/trillium","/manuscript-dashboard"],"last_updated":"2026-05-05","model":"dynamic_recovery"}] -->
+    <!-- #nb-caregiving-actions: [{"id":"CG-ACT-001","desc":"验证William Cox handover checklist","status":"pending","related_milestone":"2-3 day travel readiness","decision_question":true},{"id":"CG-ACT-002","desc":"扩展社区支持网络Tier 2（教会轮换）"},{"id":"CG-ACT-003","desc":"确认professional respite联系人"},{"id":"CG-ACT-004","desc":"为具体高价值机会工程化覆盖方案"},{"id":"CG-ACT-005","desc":"建立最小写作窗口（30-45分钟块+agent拆分）","target":"manuscript_revision","agent_execution_level":"execute_with_review","requires_user_approval":true}] -->
+    <!-- #nb-caregiving-meta: {"active_page":"caregiving-mobility.html","model":"dynamic_recovery_v2","updated_at":"2026-05-05","travel_readiness":"1天推荐(有check-in)·过夜可行(有backup+交接)·2-3天推荐(William确认后)·4-7天可行(专业喘息)·7+天高风险","support_tiers":{"tier1":"William Cox (needs handover)","tier2":"church/community rotation (placeholder)","tier3":"professional respite (placeholder)"},"decision_question":"William Cox handover checklist completed?"} -->
 
     <!-- Footer -->
     <div class="text-center text-[10px] text-gray-400 py-3">
-      照护与行动自由 · 职业执行约束管理 · 最后更新: <span id="update-time"></span>
+      照护与行动自由 · 动态恢复模型 · 最后更新: <span id="update-time"></span>
     </div>
 
   </div>
@@ -293,14 +483,6 @@
     document.getElementById('update-time').textContent = new Date().toLocaleDateString('zh-CN', {
       year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
     });
-    let doneCount = 0;
-    function markDone(id) {
-      const el = document.querySelector('[onclick*="' + id + '"]');
-      if (!el || el.style.opacity === '0.5') return;
-      el.style.opacity = '0.5';
-      doneCount++;
-      document.getElementById('action-progress').textContent = '✅ ' + doneCount + '/4 项已完成';
-    }
   </script>
 
 </body>
