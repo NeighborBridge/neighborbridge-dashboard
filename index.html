@@ -74,6 +74,114 @@
   <!-- Main Content -->
   <div class="max-w-6xl mx-auto px-3 py-3">
 
+    <!-- ============================================================ -->
+    <!-- 1a. 3秒决策栏                                                  -->
+    <!-- ============================================================ -->
+    <div class="sec-card" style="border-left: 4px solid #0ea5e9; background: #f0f9ff;">
+      <div class="flex items-center gap-1.5 mb-2">
+        <span class="text-sm font-bold text-sky-800">⚡ 3秒决策栏 / 3-Second Decision Bar</span>
+        <span class="badge bg-sky-100 text-sky-700 text-[10px]">今日优先</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+        <div class="p-2 rounded-lg bg-white border border-sky-100">
+          <p class="text-[10px] font-medium text-sky-600 mb-0.5">🔵 当前状态</p>
+          <p class="text-[11px] text-gray-600">多线推进中，但最大上游约束仍是照护责任与可用深度工作窗口。</p>
+        </div>
+        <div class="p-2 rounded-lg bg-white border border-sky-100">
+          <p class="text-[10px] font-medium text-sky-600 mb-0.5">🎯 今天唯一行动</p>
+          <p class="text-[11px] text-gray-600">从以下三项中选择一个推进：</p>
+          <ul class="text-[10.5px] text-gray-500 mt-0.5 space-y-0.5 list-disc pl-3.5">
+            <li>Vinod 进展更新</li>
+            <li>Cindy / Trillium 轻量重新联系</li>
+            <li>North Carolina primary site narrative 1-page draft</li>
+          </ul>
+        </div>
+        <div class="p-2 rounded-lg bg-white border border-sky-100">
+          <p class="text-[10px] font-medium text-sky-600 mb-0.5">⚠️ 最近阻塞</p>
+          <p class="text-[11px] text-gray-600">如果照护 coverage / backup / handover 未明确，则外出 networking 和深度写作仍受限。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 1b. 跨面板依赖链路图                                          -->
+    <!-- ============================================================ -->
+    <div class="sec-card accent-purple">
+      <div class="flex items-center gap-1.5 mb-2">
+        <span class="text-sm font-bold text-purple-800">🔗 跨面板依赖链路 / Dependency Map</span>
+        <span class="badge bg-purple-100 text-purple-700 text-[10px]">解锁关系</span>
+      </div>
+      <div class="space-y-1.5 text-[11px]">
+        <div class="p-2 rounded-lg bg-white border border-purple-100 flex flex-wrap items-center gap-0.5 leading-5">
+          <span class="font-medium text-purple-700">① 照护约束</span><span class="text-gray-400"> ⇢ </span>
+          <span class="text-gray-600">最小写作窗口</span><span class="text-gray-400"> ⇢ </span>
+          <span class="text-gray-600">Manuscript P4A</span><span class="text-gray-400"> ⇢ </span>
+          <span class="text-gray-600">学术可信度</span><span class="text-gray-400"> ⇢ </span>
+          <span class="font-medium text-purple-700">Faculty Pathway</span>
+        </div>
+        <div class="p-2 rounded-lg bg-white border border-purple-100 flex flex-wrap items-center gap-0.5 leading-5">
+          <span class="font-medium text-purple-700">② Holly entry points</span><span class="text-gray-400"> ⇢ </span>
+          <span class="text-gray-600">CHW Early Detection Sandbox</span><span class="text-gray-400"> ⇢ </span>
+          <span class="text-gray-600">Trillium-facing concept note</span><span class="text-gray-400"> ⇢ </span>
+          <span class="font-medium text-purple-700">Cindy / Trillium 对话</span>
+        </div>
+        <div class="p-2 rounded-lg bg-white border border-purple-100 flex flex-wrap items-center gap-0.5 leading-5">
+          <span class="font-medium text-purple-700">③ Medical Director 对齐</span><span class="text-gray-400"> ⇢ </span>
+          <span class="text-gray-600">FQHC 试点入口</span><span class="text-gray-400"> ⇢ </span>
+          <span class="text-gray-600">Trillium payer pathway</span><span class="text-gray-400"> ⇢ </span>
+          <span class="font-medium text-purple-700">Medicaid value logic</span>
+        </div>
+        <div class="p-2 rounded-lg bg-white border border-purple-100 flex flex-wrap items-center gap-0.5 leading-5">
+          <span class="font-medium text-purple-700">④ Vinod / Rohrbaugh / Yale lineage</span><span class="text-gray-400"> ⇢ </span>
+          <span class="text-gray-600">学术可信度</span><span class="text-gray-400"> ⇢ </span>
+          <span class="font-medium text-purple-700">Faculty positioning</span>
+        </div>
+        <div class="p-2 rounded-lg bg-white border border-purple-100 flex flex-wrap items-center gap-0.5 leading-5">
+          <span class="font-medium text-purple-700">⑤ Career strategic frame</span><span class="text-gray-400"> ⇢ </span>
+          <span class="text-gray-600">Job Search filter</span><span class="text-gray-400"> ⇢ </span>
+          <span class="font-medium text-purple-700">Duke warm outreach clarification</span>
+        </div>
+      </div>
+      <p class="mt-1.5 text-[10px] text-gray-400">每个上游动作解锁一列下游面板。照护约束松动是最大杠杆点。</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 1c. 时间紧迫性视图                                            -->
+    <!-- ============================================================ -->
+    <div class="sec-card" style="border-left: 4px solid #6366f1; background: #f5f3ff;">
+      <div class="flex items-center gap-1.5 mb-2">
+        <span class="text-sm font-bold text-indigo-800">⏱ 时间紧迫性 / Urgency View</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+        <div class="p-2 rounded-lg bg-white border border-red-200">
+          <p class="text-[10px] font-medium text-red-600 mb-0.5">🔴 本周必须动</p>
+          <ul class="text-[10.5px] text-gray-600 space-y-0.5 list-disc pl-3.5">
+            <li>Holly entry-point follow-up / workflow sketch</li>
+            <li>Vinod 进展更新草稿确认</li>
+            <li>Cindy / Trillium 轻量重新联系判断</li>
+          </ul>
+        </div>
+        <div class="p-2 rounded-lg bg-white border border-amber-200">
+          <p class="text-[10px] font-medium text-amber-600 mb-0.5">🟡 本月推进</p>
+          <ul class="text-[10.5px] text-gray-600 space-y-0.5 list-disc pl-3.5">
+            <li>North Carolina primary site narrative 1-page draft</li>
+            <li>Manuscript P4A Finding 1 顺序修改</li>
+            <li>CHW Early Detection Sandbox review</li>
+            <li>Duke warm outreach clarification</li>
+          </ul>
+        </div>
+        <div class="p-2 rounded-lg bg-white border border-green-200">
+          <p class="text-[10px] font-medium text-green-600 mb-0.5">🟢 等待时机</p>
+          <ul class="text-[10.5px] text-gray-600 space-y-0.5 list-disc pl-3.5">
+            <li>Yale relationship renewal</li>
+            <li>Robert Rohrbaugh update</li>
+            <li>Formal job application</li>
+            <li>Full Trillium pilot / funding discussion</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <!-- 1. 今日可执行 -->
     <div class="sec-card accent-green">
       <div class="flex justify-between items-center mb-2">
