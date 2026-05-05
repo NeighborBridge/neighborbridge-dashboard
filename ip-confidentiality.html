@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>知识产权与保密边界 - NeighborBridge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: "#0ea5e9", urgent: "#ef4444", warning: "#f59e0b",
+            neutral: "#6b7280", completed: "#10b981",
+            orange: { 500: "#f59e0b" }, blue: { 500: "#60a5fa" },
+            green: { 500: "#34d399" }, purple: { 500: "#a78bfa" },
+            rose: { 500: "#f43f5e" }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .sec-card { @apply bg-white rounded-lg p-3 border shadow-sm mb-3; }
+    .badge { display: inline-flex; align-items: center; padding: 1px 10px; border-radius: 9999px; font-size: 11px; font-weight: 500; }
+    .acc-blue { border-left: 4px solid #60a5fa; }
+    .acc-green { border-left: 4px solid #34d399; }
+    .acc-purple { border-left: 4px solid #a78bfa; }
+    .acc-red { border-left: 4px solid #ef4444; }
+    .acc-orange { border-left: 4px solid #f59e0b; }
+    .acc-cyan { border-left: 4px solid #22d3ee; }
+    .acc-rose { border-left: 4px solid #f43f5e; }
+    .acc-amber { border-left: 4px solid #d97706; }
+    .list-item { @apply flex items-start gap-2 p-1.5 rounded text-[11px] border border-transparent; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-6xl mx-auto px-3 py-2 flex justify-between items-center">
+      <h1 class="text-base font-bold">NeighborBridge</h1>
+      <div class="flex flex-wrap gap-x-3 gap-y-0.5 text-[11px]">
+        <a href="/" class="text-gray-500 hover:text-brand">主面板</a>
+        <a href="/fqhc" class="text-gray-500 hover:text-brand">FQHC</a>
+        <a href="/trillium" class="text-gray-500 hover:text-brand">Trillium</a>
+        <a href="/stakeholders" class="text-gray-500 hover:text-brand">Stakeholders</a>
+        <a href="/manuscript-dashboard" class="text-gray-500 hover:text-brand">📄稿件</a>
+        <a href="/compliance" class="text-gray-500 hover:text-brand">🛡️合规</a>
+        <a href="/ip-confidentiality" class="text-brand font-semibold">🔐IP保密</a>
+        <a href="/dashboard-directory" class="text-gray-500 hover:text-brand">📚全部面板</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="mb-3 flex items-center gap-1 text-[10px] text-gray-400"><span class="text-gray-500">当前位置：</span><a href="/dashboard-directory" class="hover:text-blue-600">全部面板</a><span>/</span><span class="text-gray-800 font-medium">🔐 IP / Confidentiality</span></div>
+
+  <!-- Main -->
+  <div class="max-w-6xl mx-auto px-3 py-3">
+
+    <!-- Page title -->
+    <div class="mb-3">
+      <h2 class="text-base font-bold">🔐 知识产权与保密边界 <span class="text-[10px] text-gray-400 font-normal">/ IP &amp; Confidentiality Dashboard</span></h2>
+      <p class="text-[10px] text-gray-400">界定在 Trillium、Holly、FQHC、school nurses、CHW sandbox 等合作场景中的分享边界</p>
+    </div>
+
+    <!-- 2-col layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+
+      <!-- LEFT COLUMN -->
+      <div class="space-y-3">
+
+        <!-- 1. 当前核心问题 -->
+        <div class="sec-card acc-amber">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-sm font-bold">当前核心问题</h3>
+            <span class="badge bg-amber-100 text-amber-700 text-[10px]">价值 vs 暴露</span>
+          </div>
+          <div class="p-2 rounded bg-amber-50 border border-amber-200 text-[11px] text-amber-800">
+            <p>在推进 FASD early-identification workflow、CHW sandbox dashboard 和 Trillium / public health 合作时，如何既展示足够价值，又不提前暴露完整 NeighborBridge pathway、dashboard logic、implementation playbook 和 partner strategy？</p>
+          </div>
+        </div>
+
+        <!-- 2. Pre-existing IP / 既有知识产权 -->
+        <div class="sec-card acc-purple">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-sm font-bold">既有知识产权 / Pre-existing IP</h3>
+            <span class="badge bg-purple-100 text-purple-700 text-[10px]">Richard / NeighborBridge</span>
+          </div>
+          <p class="text-[10px] text-gray-500 mb-1.5">以下内容属于 Richard / NeighborBridge 的既有材料或概念资产。即使在合作讨论中被展示，也不代表 ownership 转移。</p>
+          <div class="space-y-1 text-[11px]">
+            <div class="list-item p-1.5 rounded bg-purple-50 border-purple-100">
+              <span class="text-purple-500 shrink-0">•</span>
+              <span>Trillium-facing slides and educational materials</span>
+            </div>
+            <div class="list-item p-1.5 rounded bg-purple-50 border-purple-100">
+              <span class="text-purple-500 shrink-0">•</span>
+              <span>FASD early-identification pathway language</span>
+            </div>
+            <div class="list-item p-1.5 rounded bg-purple-50 border-purple-100">
+              <span class="text-purple-500 shrink-0">•</span>
+              <span>CHW / family navigator dashboard logic</span>
+            </div>
+            <div class="list-item p-1.5 rounded bg-purple-50 border-purple-100">
+              <span class="text-purple-500 shrink-0">•</span>
+              <span>Synthetic workflow demo design</span>
+            </div>
+            <div class="list-item p-1.5 rounded bg-purple-50 border-purple-100">
+              <span class="text-purple-500 shrink-0">•</span>
+              <span>Caregiver education materials</span>
+            </div>
+            <div class="list-item p-1.5 rounded bg-purple-50 border-purple-100">
+              <span class="text-purple-500 shrink-0">•</span>
+              <span>Payer-facing value logic</span>
+            </div>
+            <div class="list-item p-1.5 rounded bg-purple-50 border-purple-100">
+              <span class="text-purple-500 shrink-0">•</span>
+              <span>Implementation framing</span>
+            </div>
+            <div class="list-item p-1.5 rounded bg-purple-50 border-purple-100">
+              <span class="text-purple-500 shrink-0">•</span>
+              <span>Dashboard structure and visual organization</span>
+            </div>
+            <div class="list-item p-1.5 rounded bg-purple-50 border-purple-100">
+              <span class="text-purple-500 shrink-0">•</span>
+              <span>Stakeholder strategy notes</span>
+            </div>
+            <div class="list-item p-1.5 rounded bg-purple-50 border-purple-100">
+              <span class="text-purple-500 shrink-0">•</span>
+              <span>Manuscript / career field contribution framing</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. 可以分享 / Safe to Share -->
+        <div class="sec-card acc-green">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-sm font-bold">可以分享 / Safe to Share</h3>
+            <span class="badge bg-green-100 text-green-700 text-[10px]">高层级概念</span>
+          </div>
+          <div class="space-y-1 text-[11px]">
+            <div class="list-item p-1 rounded bg-green-50 border-green-100"><span class="text-green-600 shrink-0">✅</span><span>General FASD education</span></div>
+            <div class="list-item p-1 rounded bg-green-50 border-green-100"><span class="text-green-600 shrink-0">✅</span><span>Early-identification rationale</span></div>
+            <div class="list-item p-1 rounded bg-green-50 border-green-100"><span class="text-green-600 shrink-0">✅</span><span>High-level pathway concept</span></div>
+            <div class="list-item p-1 rounded bg-green-50 border-green-100"><span class="text-green-600 shrink-0">✅</span><span>Synthetic demo screenshots</span></div>
+            <div class="list-item p-1 rounded bg-green-50 border-green-100"><span class="text-green-600 shrink-0">✅</span><span>Non-PHI sandbox workflow</span></div>
+            <div class="list-item p-1 rounded bg-green-50 border-green-100"><span class="text-green-600 shrink-0">✅</span><span>Public health framing</span></div>
+            <div class="list-item p-1 rounded bg-green-50 border-green-100"><span class="text-green-600 shrink-0">✅</span><span>Family education concepts</span></div>
+            <div class="list-item p-1 rounded bg-green-50 border-green-100"><span class="text-green-600 shrink-0">✅</span><span>School nurse education concept</span></div>
+            <div class="list-item p-1 rounded bg-green-50 border-green-100"><span class="text-green-600 shrink-0">✅</span><span>WIC / health department entry-point framing</span></div>
+            <div class="list-item p-1 rounded bg-green-50 border-green-100"><span class="text-green-600 shrink-0">✅</span><span>General ROI logic without specific claims</span></div>
+            <div class="list-item p-1 rounded bg-green-50 border-green-100"><span class="text-green-600 shrink-0">✅</span><span>One-page concept note</span></div>
+          </div>
+          <p class="text-[10px] text-gray-500 mt-2">这些内容可以用于建立共同理解、获得反馈和推动探索性讨论，但应保持高层级，不暴露完整执行细节。</p>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="space-y-3">
+
+        <!-- 4. 暂不分享 / Hold Back for Now -->
+        <div class="sec-card acc-red">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-sm font-bold">暂不分享 / Hold Back for Now</h3>
+            <span class="badge bg-red-100 text-red-700 text-[10px]">需保护</span>
+          </div>
+          <div class="space-y-1 text-[11px]">
+            <div class="list-item p-1 rounded bg-red-50 border-red-100"><span class="text-red-500 shrink-0">🔴</span><span>Full implementation playbook</span></div>
+            <div class="list-item p-1 rounded bg-red-50 border-red-100"><span class="text-red-500 shrink-0">🔴</span><span>Complete CHW dashboard logic</span></div>
+            <div class="list-item p-1 rounded bg-red-50 border-red-100"><span class="text-red-500 shrink-0">🔴</span><span>Detailed workflow rules</span></div>
+            <div class="list-item p-1 rounded bg-red-50 border-red-100"><span class="text-red-500 shrink-0">🔴</span><span>Proprietary pathway sequencing</span></div>
+            <div class="list-item p-1 rounded bg-red-50 border-red-100"><span class="text-red-500 shrink-0">🔴</span><span>County-specific strategy map</span></div>
+            <div class="list-item p-1 rounded bg-red-50 border-red-100"><span class="text-red-500 shrink-0">🔴</span><span>Payer negotiation strategy</span></div>
+            <div class="list-item p-1 rounded bg-red-50 border-red-100"><span class="text-red-500 shrink-0">🔴</span><span>Detailed budget before partner interest is clear</span></div>
+            <div class="list-item p-1 rounded bg-red-50 border-red-100"><span class="text-red-500 shrink-0">🔴</span><span>Non-public stakeholder map</span></div>
+            <div class="list-item p-1 rounded bg-red-50 border-red-100"><span class="text-red-500 shrink-0">🔴</span><span>Internal dashboard screenshots with private notes</span></div>
+            <div class="list-item p-1 rounded bg-red-50 border-red-100"><span class="text-red-500 shrink-0">🔴</span><span>Manuscript strategy or faculty strategy content</span></div>
+          </div>
+          <p class="text-[10px] text-gray-500 mt-2">这些内容只有在角色边界、合作结构、IP 使用范围和保密条件更明确后，才考虑分享。</p>
+        </div>
+
+        <!-- 5. 场景化分享边界 -->
+        <div class="sec-card acc-blue">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-sm font-bold">不同合作场景下的分享边界</h3>
+            <span class="badge bg-blue-100 text-blue-700 text-[10px]">场景化</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-[10px] bg-white rounded border">
+              <thead>
+                <tr class="bg-gray-50">
+                  <th class="p-1.5 text-left border-r w-[12%]">场景</th>
+                  <th class="p-1.5 text-left border-r w-[30%]">可以分享</th>
+                  <th class="p-1.5 text-left border-r w-[30%]">暂不分享</th>
+                  <th class="p-1.5 text-left">注意事项</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-t">
+                  <td class="p-1.5 border-r font-medium align-top">Trillium</td>
+                  <td class="p-1.5 border-r align-top">high-level payer value logic、early identification pathway、non-PHI demo</td>
+                  <td class="p-1.5 border-r align-top text-red-600">full dashboard logic、detailed budget、proprietary workflow</td>
+                  <td class="p-1.5 align-top text-gray-500">先 exploratory conversation，不先 funding ask</td>
+                </tr>
+                <tr class="border-t">
+                  <td class="p-1.5 border-r font-medium align-top">Holly</td>
+                  <td class="p-1.5 border-r align-top">workflow entry points、public health fit、school nurse/WIC/health department framing</td>
+                  <td class="p-1.5 border-r align-top text-red-600">完整 IP package、payer negotiation strategy</td>
+                  <td class="p-1.5 align-top text-gray-500">她是 local public health legitimacy / relationship bridge，不是 project owner</td>
+                </tr>
+                <tr class="border-t">
+                  <td class="p-1.5 border-r font-medium align-top">FQHC</td>
+                  <td class="p-1.5 border-r align-top">clinical pathway logic、screening / referral concept、care coordination language</td>
+                  <td class="p-1.5 border-r align-top text-red-600">payer-facing strategy、complete proprietary dashboard</td>
+                  <td class="p-1.5 align-top text-gray-500">明确 workflow burden、billing、clinical responsibility boundary</td>
+                </tr>
+                <tr class="border-t">
+                  <td class="p-1.5 border-r font-medium align-top">School nurses</td>
+                  <td class="p-1.5 border-r align-top">FASD education、early signs、family support language</td>
+                  <td class="p-1.5 border-r align-top text-red-600">clinical diagnosis workflow、payer strategy、full dashboard logic</td>
+                  <td class="p-1.5 align-top text-gray-500">education only，不做诊断或治疗建议</td>
+                </tr>
+                <tr class="border-t">
+                  <td class="p-1.5 border-r font-medium align-top">Proof Alliance / NC FASD</td>
+                  <td class="p-1.5 border-r align-top">training/resource alignment、family education fit</td>
+                  <td class="p-1.5 border-r align-top text-red-600">NeighborBridge full pathway design、payer strategy</td>
+                  <td class="p-1.5 align-top text-gray-500">角色是 training/resource layer，不是 clinical workflow owner</td>
+                </tr>
+                <tr class="border-t">
+                  <td class="p-1.5 border-r font-medium align-top">WIC / health department care managers</td>
+                  <td class="p-1.5 border-r align-top">family education、upstream recognition、referral awareness</td>
+                  <td class="p-1.5 border-r align-top text-red-600">clinical triage rules、diagnostic pathway details</td>
+                  <td class="p-1.5 align-top text-gray-500">public health education / navigation framing</td>
+                </tr>
+                <tr class="border-t">
+                  <td class="p-1.5 border-r font-medium align-top">CHW sandbox demo</td>
+                  <td class="p-1.5 border-r align-top">synthetic non-PHI workflow、high-level concept</td>
+                  <td class="p-1.5 border-r align-top text-red-600">proprietary dashboard logic、detailed implementation rules</td>
+                  <td class="p-1.5 align-top text-gray-500">演示后明确：这是 sandbox，不是 production system</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 6. 标准 IP / Confidentiality Disclaimer -->
+        <div class="sec-card acc-rose">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-sm font-bold">标准 IP / Confidentiality Disclaimer</h3>
+            <span class="badge bg-rose-100 text-rose-700 text-[10px]">可复制</span>
+          </div>
+
+          <div class="p-2 rounded bg-rose-50 border border-rose-200 text-[11px] font-mono text-gray-700 mb-1.5 leading-relaxed">
+            "Materials shared for discussion are for education, planning, and exploratory collaboration only. They do not constitute a commitment, partnership agreement, or transfer of intellectual property rights. All proprietary workflows, dashboard logic, implementation design, and strategic materials remain the sole property of NeighborBridge / Richard Hu unless a separate written agreement is executed. No clinical advice is implied or should be acted upon without independent professional review."
+          </div>
+
+          <div class="p-2 rounded bg-gray-50 border border-gray-200 text-[10px] text-gray-500">
+            <p class="font-medium text-gray-600 mb-0.5">使用场景：</p>
+            <p>当需要展示 dashboard、demo、pathway 或概念材料给潜在合作伙伴时，可在邮件、共享文档或演示开场加入该 disclaimer。</p>
+          </div>
+        </div>
+
+        <!-- 7. Compliance vs IP 区隔说明 -->
+        <div class="sec-card">
+          <details>
+            <summary class="text-xs font-medium text-gray-500 cursor-pointer hover:text-gray-700">📌 与 Compliance dashboard 的区隔</summary>
+            <div class="mt-2 text-[10px] text-gray-500 space-y-1">
+              <div class="p-1.5 rounded bg-blue-50 border-blue-100">
+                <p class="font-medium text-blue-700">🛡️ Compliance dashboard 主要管：</p>
+                <p>PHI · HIPAA · sandbox · clinical decision-making boundary</p>
+              </div>
+              <div class="p-1.5 rounded bg-purple-50 border-purple-100">
+                <p class="font-medium text-purple-700">🔐 IP / Confidentiality dashboard 主要管：</p>
+                <p>ownership · pre-existing materials · workflow concepts · dashboard design · disclosure boundaries · partner-facing language</p>
+              </div>
+            </div>
+          </details>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center text-[10px] text-gray-400 py-3">
+      知识产权与保密边界 · 工作参考面板，非正式法律文件 · 最后更新: <span id="update-time"></span>
+    </div>
+
+  </div>
+
+  <script>
+    document.getElementById('update-time').textContent = new Date().toLocaleDateString('zh-CN', {
+      year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+    });
+  </script>
+
+</body>
+</html>
