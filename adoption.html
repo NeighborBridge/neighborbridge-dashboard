@@ -3,603 +3,287 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Adoption Planning - NeighborBridge 仪表板</title>
-
-  <!-- Tailwind CDN -->
+  <title>Personal Family Formation — NeighborBridge</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Simple config -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          colors: {
-            brand: "#0ea5e9",
-            urgent: "#ef4444",
-            warning: "#f59e0b",
-            neutral: "#6b7280",
-            completed: "#10b981"
-          }
+          colors: { brand: "#0ea5e9", urgent: "#ef4444", warning: "#f59e0b", neutral: "#6b7280", completed: "#10b981" }
         }
       }
     }
   </script>
-  
-  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+  <link rel="stylesheet" href="shared.css">
   <style>
-    /* Theme Variables */
-    :root {
-      --bg-color: #ffffff;
-      --text-color: #111111;
-      --card-bg: #f5f5f5;
-      --border-color: #e5e7eb;
-      --hover-bg: rgba(0, 0, 0, 0.02);
-    }
-
-    /* Dark Mode */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg-color: #0b0b0b;
-        --text-color: #f5f5f5;
-        --card-bg: #1a1a1a;
-        --border-color: #374151;
-        --hover-bg: rgba(255, 255, 255, 0.05);
-      }
-    }
-
-    /* Apply Theme Variables */
-    body {
-      background: var(--bg-color);
-      color: var(--text-color);
-    }
-
-    .card, .modal, .bg-card {
-      background: var(--card-bg);
-    }
-
-    .border, .border-b, .border-t {
-      border-color: var(--border-color);
-    }
-
-    /* Original Styles */
-    .phase-accordion {
-      transition: all 0.3s ease;
-    }
-    .phase-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-    }
-    .phase-accordion.active .phase-content {
-      max-height: 500px;
-    }
-    .progress-bar {
-      transition: width 0.5s ease;
-    }
-    .tag {
-      font-size: 0.75rem;
-      padding: 0.125rem 0.5rem;
-      border-radius: 9999px;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-    .role-card {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .role-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
+    .sec-card { @apply bg-white rounded-lg p-3 border shadow-sm mb-3; }
+    .badge { display: inline-flex; align-items: center; padding: 1px 10px; border-radius: 9999px; font-size: 11px; font-weight: 500; }
+    .acc-slate { border-left: 4px solid #64748b; }
+    .acc-teal { border-left: 4px solid #14b8a6; }
+    .acc-rose { border-left: 4px solid #f43f5e; }
+    .acc-amber { border-left: 4px solid #d97706; }
+    .acc-purple { border-left: 4px solid #a78bfa; }
+    .acc-blue { border-left: 4px solid #3b82f6; }
+    .acc-green { border-left: 4px solid #34d399; }
+    .acc-orange { border-left: 4px solid #f97316; }
+    .highlight-box { @apply p-2 rounded border text-[10px] leading-relaxed; }
   </style>
 </head>
+<body class="bg-gray-50">
 
-<body>
-
-  <!-- Header with Navigation -->
-    <header class="bg-white shadow-sm border-b">
-    <div class="max-w-6xl mx-auto px-3 py-2 flex justify-between items-center">
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-5xl mx-auto px-3 py-2 flex justify-between items-center">
       <h1 class="text-base font-bold">NeighborBridge</h1>
       <div class="flex flex-wrap gap-x-3 gap-y-0.5 text-[11px]">
         <a href="/" class="text-gray-500 hover:text-brand">主面板</a>
-        <a href="/fqhc" class="text-gray-500 hover:text-brand">FQHC</a>
-        <a href="/trillium" class="text-gray-500 hover:text-brand">Trillium</a>
         <a href="/stakeholders" class="text-gray-500 hover:text-brand">Stakeholders</a>
-        <a href="/manuscript-dashboard" class="text-gray-500 hover:text-brand">📄稿件</a>
-        <a href="/compliance" class="text-gray-500 hover:text-brand">🛡️合规</a>
+        <a href="/career-contribution" class="text-gray-500 hover:text-brand">Career</a>
+        <a href="/caregiving-mobility" class="text-gray-500 hover:text-brand">照护</a>
         <a href="/dashboard-directory" class="text-gray-500 hover:text-brand">📚全部面板</a>
       </div>
     </div>
   </header>
 
-<div class="mb-3 flex items-center gap-1 text-[10px] text-gray-400"><span class="text-gray-500">当前位置：</span><a href="/dashboard-directory" class="hover:text-blue-600">全部面板</a><span>/</span><span class="text-gray-700">Clinical / Program →</span><span class="text-gray-800 font-medium">Adoption Planning</span></div>
+  <div class="max-w-5xl mx-auto px-3 py-3">
 
-  <!-- Main Content -->
-  <div class="max-w-7xl mx-auto px-6 py-8">
+    <!-- Title -->
+    <div class="mb-3">
+      <h2 class="text-lg font-bold">Personal Family Formation &amp; Adoption Readiness Dashboard</h2>
+      <p class="text-[11px] text-gray-500 mt-0.5">Long-term caregiving structure, foster-to-adopt exploration, and sustainable family formation planning.</p>
+      <p class="text-[10px] text-gray-400 mt-0.5">长期照护结构、寄养转收养探索与可持续家庭建立规划</p>
+    </div>
 
-    <!-- Page Header with Progress Bar -->
-    <div class="mb-8">
-      <div class="flex justify-between items-center mb-4">
-        <div>
-          <h1 class="text-3xl font-bold text-gray-900 mb-2">Adoption Planning</h1>
-          <p class="text-gray-600">采用规划与实施跟踪</p>
+    <!-- ===== Strategic Action Bar ===== -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mb-3">
+      <div class="p-2 rounded bg-blue-50 border border-blue-200">
+        <p class="text-[10px] font-medium text-blue-700 mb-0.5">Current Status / 当前状态</p>
+        <p class="text-[11px] text-blue-800">Exploratory and phased-entry stage. 正在探索阶段；当前重点是评估长期 caregiving capacity，而不是立即进入正式收养。</p>
+      </div>
+      <div class="p-2 rounded bg-amber-50 border border-amber-200">
+        <p class="text-[10px] font-medium text-amber-700 mb-0.5">One Next Action / 当前唯一行动</p>
+        <p class="text-[11px] text-amber-800">Strengthen backup caregiving structure and evaluate respite-foster readiness before formal adoption pathway. 在正式收养前，优先强化 backup caregiving structure，并评估 respite foster readiness。</p>
+      </div>
+      <div class="p-2 rounded bg-rose-50 border border-rose-200">
+        <p class="text-[10px] font-medium text-rose-700 mb-0.5">Current Constraint / 最近阻塞</p>
+        <p class="text-[11px] text-rose-800">Current elder-care responsibility, limited backup coverage, and career expansion phase may create caregiving bandwidth constraints. 当前高龄母亲照护责任、backup coverage 有限以及职业扩张阶段，可能限制 caregiving bandwidth。</p>
+      </div>
+    </div>
+
+    <!-- ===== Core Philosophical Principle ===== -->
+    <div class="sec-card acc-slate">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-gray-700">🧭 Core Philosophical Principle / 核心哲学原则</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div class="highlight-box bg-gray-50 border-gray-200">
+          <p class="text-gray-700"><strong>The goal is not simply "becoming a parent."</strong> The goal is building a sustainable long-term caregiving structure capable of supporting attachment, stability, and continuity over time.</p>
+          <p class="text-gray-500 mt-1">目标不只是"成为父亲"，而是建立一个能够长期支持依恋、稳定性与连续照护的家庭结构。</p>
         </div>
-        <div class="text-right">
-          <div class="text-sm text-gray-500 mb-1">当前进度</div>
-          <div class="flex items-center">
-            <div class="w-48 bg-gray-200 rounded-full h-2.5 mr-3">
-              <div class="bg-brand h-2.5 rounded-full progress-bar" style="width: 40%"></div>
-            </div>
-            <span class="text-sm font-medium">阶段 2 / 5</span>
-          </div>
+        <div class="highlight-box bg-gray-50 border-gray-200">
+          <p class="text-gray-700"><strong>Long-term relational stability over rescue fantasy.</strong> This dashboard operates from a framework of sustainable systems-building, not emotional impulse or heroic narrative.</p>
+          <p class="text-gray-500 mt-1">长期关系稳定性高于"拯救幻想"。本面板基于可持续系统构建，而非情绪冲动或英雄叙事。</p>
         </div>
       </div>
     </div>
 
-    <!-- Compact Grid Layout -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-      <!-- Left Column: Stakeholders & Implementation -->
-      <div class="lg:col-span-2 space-y-6">
-
-        <!-- Stakeholders & Roles - Horizontal Cards -->
-        <div class="bg-card rounded-xl shadow p-6">
-          <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-semibold text-gray-800">利益相关者与角色</h2>
-            <span class="text-sm text-gray-500">4个角色</span>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            <div class="role-card bg-card border-l-4 border-blue-500 p-4 rounded-lg border">
-              <div class="flex items-center mb-2">
-                <i class="fas fa-user-tie text-blue-500 mr-2"></i>
-                <h3 class="font-medium text-gray-800">执行层</h3>
-              </div>
-              <p class="text-xs text-gray-600">战略方向与资源</p>
-            </div>
-            <div class="role-card bg-card border-l-4 border-green-500 p-4 rounded-lg border">
-              <div class="flex items-center mb-2">
-                <i class="fas fa-user-md text-green-500 mr-2"></i>
-                <h3 class="font-medium text-gray-800">临床层</h3>
-              </div>
-              <p class="text-xs text-gray-600">临床采用与工作流</p>
-            </div>
-            <div class="role-card bg-card border-l-4 border-purple-500 p-4 rounded-lg border">
-              <div class="flex items-center mb-2">
-                <i class="fas fa-laptop-code text-purple-500 mr-2"></i>
-                <h3 class="font-medium text-gray-800">技术层</h3>
-              </div>
-              <p class="text-xs text-gray-600">技术整合与实施</p>
-            </div>
-            <div class="role-card bg-card border-l-4 border-yellow-500 p-4 rounded-lg border">
-              <div class="flex items-center mb-2">
-                <i class="fas fa-users text-yellow-500 mr-2"></i>
-                <h3 class="font-medium text-gray-800">用户层</h3>
-              </div>
-              <p class="text-xs text-gray-600">一线使用与反馈</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Implementation Phases - Collapsible Accordion -->
-        <div class="bg-card rounded-xl shadow">
-          <div class="p-6">
-            <div class="flex justify-between items-center mb-4">
-              <h2 class="text-xl font-semibold text-gray-800">实施阶段</h2>
-              <button id="toggle-all-phases" class="text-sm text-brand hover:text-blue-700">
-                <i class="fas fa-chevron-down mr-1"></i>展开全部
-              </button>
-            </div>
-            
-            <div class="space-y-3">
-              <!-- Phase 1 -->
-              <div class="phase-accordion border rounded-lg overflow-hidden active">
-                <div class="flex justify-between items-center p-4 bg-gray-50 cursor-pointer phase-header">
-                  <div class="flex items-center">
-                    <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mr-3">
-                      <span class="font-bold">1</span>
-                    </div>
-                    <div>
-                      <h3 class="font-medium text-gray-800">发现与评估</h3>
-                      <div class="flex items-center mt-1">
-                        <span class="tag bg-blue-100 text-blue-800">
-                          <i class="fas fa-calendar-alt text-xs"></i> 2026 Q1
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <i class="fas fa-chevron-up text-gray-400"></i>
-                </div>
-                <div class="phase-content p-4 border-t">
-                  <p class="text-sm text-gray-600 mb-3">利益相关者访谈、需求分析和准备度评估</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="tag bg-gray-100 text-gray-800">状态: 已完成</span>
-                    <span class="tag bg-green-100 text-green-800">进度: 100%</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Phase 2 -->
-              <div class="phase-accordion border rounded-lg overflow-hidden active">
-                <div class="flex justify-between items-center p-4 bg-gray-50 cursor-pointer phase-header">
-                  <div class="flex items-center">
-                    <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center mr-3">
-                      <span class="font-bold">2</span>
-                    </div>
-                    <div>
-                      <h3 class="font-medium text-gray-800">规划与设计</h3>
-                      <div class="flex items-center mt-1">
-                        <span class="tag bg-green-100 text-green-800">
-                          <i class="fas fa-calendar-alt text-xs"></i> 2026 Q2
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <i class="fas fa-chevron-up text-gray-400"></i>
-                </div>
-                <div class="phase-content p-4 border-t">
-                  <p class="text-sm text-gray-600 mb-3">解决方案设计、工作流映射和实施规划</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="tag bg-blue-100 text-blue-800">状态: 进行中</span>
-                    <span class="tag bg-yellow-100 text-yellow-800">进度: 40%</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Phase 3 -->
-              <div class="phase-accordion border rounded-lg overflow-hidden">
-                <div class="flex justify-between items-center p-4 bg-gray-50 cursor-pointer phase-header">
-                  <div class="flex items-center">
-                    <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mr-3">
-                      <span class="font-bold">3</span>
-                    </div>
-                    <div>
-                      <h3 class="font-medium text-gray-800">试点实施</h3>
-                      <div class="flex items-center mt-1">
-                        <span class="tag bg-purple-100 text-purple-800">
-                          <i class="fas fa-calendar-alt text-xs"></i> 2026 Q3
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <i class="fas fa-chevron-down text-gray-400"></i>
-                </div>
-                <div class="phase-content p-4 border-t">
-                  <p class="text-sm text-gray-600 mb-3">有限范围的推出、测试和反馈收集</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="tag bg-gray-100 text-gray-800">状态: 待开始</span>
-                    <span class="tag bg-gray-100 text-gray-800">进度: 0%</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Phase 4 -->
-              <div class="phase-accordion border rounded-lg overflow-hidden">
-                <div class="flex justify-between items-center p-4 bg-gray-50 cursor-pointer phase-header">
-                  <div class="flex items-center">
-                    <div class="w-8 h-8 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center mr-3">
-                      <span class="font-bold">4</span>
-                    </div>
-                    <div>
-                      <h3 class="font-medium text-gray-800">全面部署</h3>
-                      <div class="flex items-center mt-1">
-                        <span class="tag bg-yellow-100 text-yellow-800">
-                          <i class="fas fa-calendar-alt text-xs"></i> 2026 Q4
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <i class="fas fa-chevron-down text-gray-400"></i>
-                </div>
-                <div class="phase-content p-4 border-t">
-                  <p class="text-sm text-gray-600 mb-3">组织范围内的推出、培训和支持</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="tag bg-gray-100 text-gray-800">状态: 待开始</span>
-                    <span class="tag bg-gray-100 text-gray-800">进度: 0%</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Phase 5 -->
-              <div class="phase-accordion border rounded-lg overflow-hidden">
-                <div class="flex justify-between items-center p-4 bg-gray-50 cursor-pointer phase-header">
-                  <div class="flex items-center">
-                    <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center mr-3">
-                      <span class="font-bold">5</span>
-                    </div>
-                    <div>
-                      <h3 class="font-medium text-gray-800">优化与扩展</h3>
-                      <div class="flex items-center mt-1">
-                        <span class="tag bg-gray-100 text-gray-800">
-                          <i class="fas fa-calendar-alt text-xs"></i> 2027
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <i class="fas fa-chevron-down text-gray-400"></i>
-                </div>
-                <div class="phase-content p-4 border-t">
-                  <p class="text-sm text-gray-600 mb-3">持续改进、扩展和价值实现</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="tag bg-gray-100 text-gray-800">状态: 待开始</span>
-                    <span class="tag bg-gray-100 text-gray-800">进度: 0%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+    <!-- ===== Current Life Structure ===== -->
+    <div class="sec-card acc-teal">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-teal-700">🏗️ Current Life Structure / 当前生活结构</span>
+        <span class="badge bg-teal-100 text-teal-700 text-[10px]">Caregiving systems-capacity analysis</span>
       </div>
-
-      <!-- Right Column: Tasks & Notes -->
-      <div class="space-y-6">
-
-        <!-- Key Tasks / Action Items -->
-        <div class="bg-card rounded-xl shadow p-6">
-          <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-semibold text-gray-800">关键任务</h2>
-            <span class="text-sm text-gray-500">5个任务</span>
-          </div>
-          
-          <div class="space-y-4">
-            <!-- Task 1 -->
-            <div class="flex items-start">
-              <input type="checkbox" class="mt-1 mr-3" checked>
-              <div class="flex-1">
-                <p class="text-gray-800">完成利益相关者分析和映射</p>
-                <div class="flex flex-wrap gap-1 mt-2">
-                  <span class="tag bg-blue-100 text-blue-800">
-                    <i class="fas fa-user text-xs"></i> 战略团队
-                  </span>
-                  <span class="tag bg-green-100 text-green-800">
-                    <i class="fas fa-calendar-check text-xs"></i> 2026-03-31
-                  </span>
-                  <span class="tag bg-completed text-white">
-                    <i class="fas fa-check text-xs"></i> 已完成
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Task 2 -->
-            <div class="flex items-start">
-              <input type="checkbox" class="mt-1 mr-3">
-              <div class="flex-1">
-                <p class="text-gray-800">制定沟通和参与计划</p>
-                <div class="flex flex-wrap gap-1 mt-2">
-                  <span class="tag bg-blue-100 text-blue-800">
-                    <i class="fas fa-user text-xs"></i> 沟通团队
-                  </span>
-                  <span class="tag bg-warning text-white">
-                    <i class="fas fa-calendar-alt text-xs"></i> 2026-04-15
-                  </span>
-                  <span class="tag bg-yellow-100 text-yellow-800">
-                    <i class="fas fa-clock text-xs"></i> 进行中
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Task 3 -->
-            <div class="flex items-start">
-              <input type="checkbox" class="mt-1 mr-3">
-              <div class="flex-1">
-                <p class="text-gray-800">设计培训材料和资源</p>
-                <div class="flex flex-wrap gap-1 mt-2">
-                  <span class="tag bg-blue-100 text-blue-800">
-                    <i class="fas fa-user text-xs"></i> 培训团队
-                  </span>
-                  <span class="tag bg-neutral text-white">
-                    <i class="fas fa-calendar-alt text-xs"></i> 2026-05-01
-                  </span>
-                  <span class="tag bg-gray-100 text-gray-800">
-                    <i class="fas fa-clock text-xs"></i> 待开始
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Task 4 -->
-            <div class="flex items-start">
-              <input type="checkbox" class="mt-1 mr-3">
-              <div class="flex-1">
-                <p class="text-gray-800">建立成功指标和KPI</p>
-                <div class="flex flex-wrap gap-1 mt-2">
-                  <span class="tag bg-blue-100 text-blue-800">
-                    <i class="fas fa-user text-xs"></i> 分析团队
-                  </span>
-                  <span class="tag bg-warning text-white">
-                    <i class="fas fa-calendar-alt text-xs"></i> 2026-04-30
-                  </span>
-                  <span class="tag bg-yellow-100 text-yellow-800">
-                    <i class="fas fa-clock text-xs"></i> 进行中
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Task 5 -->
-            <div class="flex items-start">
-              <input type="checkbox" class="mt-1 mr-3">
-              <div class="flex-1">
-                <p class="text-gray-800">选择试点地点和合作伙伴</p>
-                <div class="flex flex-wrap gap-1 mt-2">
-                  <span class="tag bg-blue-100 text-blue-800">
-                    <i class="fas fa-user text-xs"></i> 合作伙伴团队
-                  </span>
-                  <span class="tag bg-neutral text-white">
-                    <i class="fas fa-calendar-alt text-xs"></i> 2026-05-15
-                  </span>
-                  <span class="tag bg-gray-100 text-gray-800">
-                    <i class="fas fa-clock text-xs"></i> 待开始
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
+      <p class="text-[10px] text-teal-600 mb-1.5 italic">This is not a deficit analysis. It is a caregiving systems-capacity analysis.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div class="p-2 rounded bg-green-50 border border-green-200">
+          <span class="text-[11px] font-medium text-green-700">✅ Current Strengths / 当前优势</span>
+          <ul class="text-[10px] text-gray-700 mt-1 space-y-0.5">
+            <li>Stable physician income</li>
+            <li>Outpatient / telehealth flexibility</li>
+            <li>Trauma-informed clinical background</li>
+            <li>FASD / ADHD clinical expertise</li>
+            <li>Stable housing</li>
+            <li>Church / community relationships</li>
+            <li>High systems-awareness</li>
+          </ul>
         </div>
-
-        <!-- Notes Section - Collapsible -->
-        <div class="bg-card rounded-xl shadow">
-          <div class="p-6">
-            <div class="flex justify-between items-center mb-4">
-              <h2 class="text-xl font-semibold text-gray-800">笔记</h2>
-              <button id="toggle-notes" class="text-sm text-brand hover:text-blue-700">
-                <i class="fas fa-chevron-up mr-1"></i>收起
-              </button>
-            </div>
-            
-            <div id="notes-content">
-              <textarea 
-                class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-brand focus:border-transparent" 
-                rows="6" 
-                placeholder="添加关于采用规划过程的笔记、观察或更新..."
-              ></textarea>
-              <div class="mt-4 flex justify-end">
-                <button class="bg-brand text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
-                  <i class="fas fa-save mr-2"></i>保存笔记
-                </button>
-              </div>
-            </div>
-          </div>
+        <div class="p-2 rounded bg-rose-50 border border-rose-200">
+          <span class="text-[11px] font-medium text-rose-700">⚠️ Current Constraints / 当前限制</span>
+          <ul class="text-[10px] text-gray-700 mt-1 space-y-0.5">
+            <li>Elder-care responsibility</li>
+            <li>Single-parent vulnerability</li>
+            <li>Limited respite structure</li>
+            <li>Career expansion phase</li>
+            <li>Operational burnout risk</li>
+            <li>Limited redundancy in caregiving system</li>
+          </ul>
         </div>
-
       </div>
-
     </div>
 
-    <!-- Back to Dashboard -->
-    <div class="mt-8 pt-6 border-t">
-      <a href="/" class="inline-flex items-center text-brand hover:text-blue-700">
-        <i class="fas fa-arrow-left mr-2"></i>
-        返回主仪表板
-      </a>
+    <!-- ===== Phased Family Formation Strategy ===== -->
+    <div class="sec-card acc-purple">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-purple-700">📋 Phased Family Formation Strategy / 分阶段家庭建立策略</span>
+      </div>
+
+      <!-- Phase 1 -->
+      <div class="mb-2 p-2 rounded border border-purple-200 bg-purple-50">
+        <div class="flex items-center gap-1.5 mb-1">
+          <span class="text-[11px] font-bold text-purple-800">阶段一：Respite Foster / Low-risk Entry Phase</span>
+          <span class="badge bg-purple-100 text-purple-700 text-[10px]">探索</span>
+        </div>
+        <div class="grid grid-cols-2 gap-1 text-[10px]">
+          <div class="text-purple-700"><span class="font-medium">🎯 Goals:</span><br>Observe real caregiving bandwidth · Build DSS trust · Test operational sustainability · Avoid premature irreversible commitment · Strengthen support network</div>
+          <div class="text-purple-600"><span class="font-medium">中文目标：</span><br>观察真实照护带宽 · 建立 DSS 信任 · 测试可持续性 · 避免过早不可逆承诺 · 强化支持网络</div>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div class="mb-2 p-2 rounded border border-purple-200 bg-purple-50">
+        <div class="flex items-center gap-1.5 mb-1">
+          <span class="text-[11px] font-bold text-purple-800">阶段二：Focused Foster-to-Adopt Exploration</span>
+          <span class="badge bg-gray-100 text-gray-600 text-[10px]">未来</span>
+        </div>
+        <div class="grid grid-cols-2 gap-1 text-[10px]">
+          <div class="text-purple-700"><span class="font-medium">🎯 Focus:</span><br>Legally free children preferred · Predictable behavioral complexity · Realistic matching based on capacity · Avoid overextension</div>
+          <div class="text-purple-600"><span class="font-medium">中文重点：</span><br>优先法律自由儿童 · 可预测行为复杂度 · 基于照护能力的现实匹配 · 避免过度扩展</div>
+        </div>
+      </div>
+
+      <!-- Phase 3 -->
+      <div class="p-2 rounded border border-purple-200 bg-purple-50">
+        <div class="flex items-center gap-1.5 mb-1">
+          <span class="text-[11px] font-bold text-purple-800">阶段三：Long-term Adoption Decision</span>
+          <span class="badge bg-gray-100 text-gray-600 text-[10px]">未来</span>
+        </div>
+        <div class="grid grid-cols-2 gap-1 text-[10px]">
+          <div class="text-purple-700"><span class="font-medium">🎯 Prerequisites:</span><br>Stable support network · Sustainable workflow · Caregiver redundancy · Emotional sustainability · Manageable overlap with elder care</div>
+          <div class="text-purple-600"><span class="font-medium">中文前提：</span><br>稳定的支持网络 · 可持续的工作流程 · 照护者冗余 · 情感可持续性 · 与老人照护可管理的重叠</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Community-supported Parenting Structure ===== -->
+    <div class="sec-card acc-blue">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-blue-700">👥 Community-supported Parenting Structure / 社区支持式养育结构</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-1.5">
+        <div class="highlight-box bg-blue-50 border-blue-200">
+          <p class="text-blue-800 text-[11px]"><strong>The intended structure is not isolated single-parent caregiving.</strong> The intended structure is community-supported, relationship-based, and operationally sustainable.</p>
+          <p class="text-blue-600 text-[10px] mt-0.5">目标结构不是孤立单亲照护，而是社区支持、关系为本、可操作可持续的结构。</p>
+        </div>
+        <div class="highlight-box bg-amber-50 border-amber-200">
+          <p class="text-amber-800 text-[11px]"><strong>Abstract support is insufficient.</strong> Named, reliable, operational support matters.</p>
+          <p class="text-amber-600 text-[10px] mt-0.5">抽象支持是不够的。真正重要的是具体、可靠、可执行的支持结构。</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-1.5 text-[10px]">
+        <div class="p-1.5 rounded bg-blue-50 border border-blue-100"><span class="font-medium">⛪ Church relationships</span><br><span class="text-gray-500">Named individuals, not abstract community</span></div>
+        <div class="p-1.5 rounded bg-blue-50 border border-blue-100"><span class="font-medium">🔄 Backup caregivers</span><br><span class="text-gray-500">Trained, vetted, scheduled</span></div>
+        <div class="p-1.5 rounded bg-blue-50 border border-blue-100"><span class="font-medium">🧘 Respite support</span><br><span class="text-gray-500">Regular, predictable, funded</span></div>
+        <div class="p-1.5 rounded bg-blue-50 border border-blue-100"><span class="font-medium">🤝 Community integration</span><br><span class="text-gray-500">School, neighborhood, peer network</span></div>
+        <div class="p-1.5 rounded bg-blue-50 border border-blue-100"><span class="font-medium">🔁 Practical redundancy</span><br><span class="text-gray-500">No single point of failure in caregiving</span></div>
+        <div class="p-1.5 rounded bg-blue-50 border border-blue-100"><span class="font-medium">👴 Intergenerational support</span><br><span class="text-gray-500">Possible overlap or complement with elder care</span></div>
+      </div>
+    </div>
+
+    <!-- ===== Child Profile Considerations ===== -->
+    <div class="sec-card acc-amber">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-amber-700">🧸 Child Profile Considerations / 儿童画像考虑</span>
+        <span class="badge bg-amber-100 text-amber-700 text-[10px]">Trauma-informed</span>
+      </div>
+      <p class="text-[10px] text-amber-600 mb-1.5 italic">Seeking a child profile compatible with current caregiving capacity and long-term stability — not "looking for an easy child."</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-1.5 text-[10px]">
+        <div class="p-1.5 rounded bg-amber-50 border border-amber-100"><span class="font-medium text-amber-700">👶 Age considerations</span><br><span class="text-gray-600">Compatible with single-parent capacity and community structure</span></div>
+        <div class="p-1.5 rounded bg-amber-50 border border-amber-100"><span class="font-medium text-amber-700">🏠 Foster-to-adopt pathway</span><br><span class="text-gray-600">Prioritize legally free children to reduce uncertainty</span></div>
+        <div class="p-1.5 rounded bg-amber-50 border border-amber-100"><span class="font-medium text-amber-700">👫 Sibling considerations</span><br><span class="text-gray-600">Capacity must be assessed realistically; sibling groups may exceed bandwidth</span></div>
+        <div class="p-1.5 rounded bg-amber-50 border border-amber-100"><span class="font-medium text-amber-700">🧠 Behavioral predictability</span><br><span class="text-gray-600">Predictable complexity is manageable; avoid overextension scenarios</span></div>
+        <div class="p-1.5 rounded bg-amber-50 border border-amber-100"><span class="font-medium text-amber-700">❤️ Attachment complexity</span><br><span class="text-gray-600">Trauma-informed understanding of attachment; realistic timeline for bonding</span></div>
+        <div class="p-1.5 rounded bg-amber-50 border border-amber-100"><span class="font-medium text-amber-700">🧪 FASD / trauma / ADHD awareness</span><br><span class="text-gray-600">Clinical expertise is an asset, not a treatment guarantee</span></div>
+        <div class="p-1.5 rounded bg-amber-50 border border-amber-100"><span class="font-medium text-amber-700">🏫 School stability</span><br><span class="text-gray-600">Educational continuity as part of overall stability planning</span></div>
+        <div class="p-1.5 rounded bg-amber-50 border border-amber-100"><span class="font-medium text-amber-700">📏 Matching philosophy</span><br><span class="text-gray-600">Realistic fit over aspiration; sustainable care > heroic matching</span></div>
+      </div>
+    </div>
+
+    <!-- ===== Red Flags / Capacity Warnings ===== -->
+    <div class="sec-card acc-rose">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-rose-700">🚩 Red Flags / Capacity Warnings / 预警信号</span>
+      </div>
+      <p class="text-[10px] text-rose-600 mb-1.5 italic">High moral commitment does not eliminate operational limits. 高度责任感不能消除 operational limits。</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div class="p-1.5 rounded bg-rose-50 border border-rose-200">
+          <span class="font-medium text-rose-700">🔴 Red Flags that pause the pathway</span>
+          <ul class="text-[10px] text-gray-600 mt-0.5 space-y-0.5">
+            <li>Simultaneous elder-care crisis + child crisis</li>
+            <li>No respite structure in place</li>
+            <li>Caregiver isolation — no named backup</li>
+            <li>Unstable workflow / unresolved burnout</li>
+            <li>Inability to maintain continuity</li>
+            <li>No emotional sustainability plan</li>
+          </ul>
+        </div>
+        <div class="p-1.5 rounded bg-rose-50 border border-rose-200">
+          <span class="font-medium text-rose-700">⚠️ Capacity warnings that require review</span>
+          <ul class="text-[10px] text-gray-600 mt-0.5 space-y-0.5">
+            <li>Overlap of elder-care crisis + foster transition</li>
+            <li>Lack of backup caregivers for both tiers</li>
+            <li>Career instability / major transition</li>
+            <li>Unrealistic optimism about bandwidth</li>
+            <li>Rushing timeline without infrastructure</li>
+            <li>Operating without community structure</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Caregiving Systems Engineering ===== -->
+    <div class="sec-card acc-green">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-green-700">⚙️ Caregiving Systems Engineering / 照护系统工程</span>
+      </div>
+      <p class="text-[10px] text-green-600 mb-1.5">The dashboard treats caregiving as a long-term relational and operational system rather than a purely emotional decision. 本面板将照护视为长期关系与操作系统，而非纯情绪决定。</p>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-1.5 text-[10px]">
+        <div class="p-1.5 rounded bg-green-50 border border-green-100"><span class="font-medium">🔄 Redundancy</span><br><span class="text-gray-500">No single point of failure</span></div>
+        <div class="p-1.5 rounded bg-green-50 border border-green-100"><span class="font-medium">📅 Workflow predictability</span><br><span class="text-gray-500">Daily/weekly structure reliability</span></div>
+        <div class="p-1.5 rounded bg-green-50 border border-green-100"><span class="font-medium">👤 Backup coverage</span><br><span class="text-gray-500">Named, trained, scheduled</span></div>
+        <div class="p-1.5 rounded bg-green-50 border border-green-100"><span class="font-medium">🧘 Respite</span><br><span class="text-gray-500">Regular, not crisis-triggered</span></div>
+        <div class="p-1.5 rounded bg-green-50 border border-green-100"><span class="font-medium">💚 Emotional sustainability</span><br><span class="text-gray-500">Burnout prevention as infrastructure</span></div>
+        <div class="p-1.5 rounded bg-green-50 border border-green-100"><span class="font-medium">📆 Long-term continuity</span><br><span class="text-gray-500">5-10 year structural planning</span></div>
+        <div class="p-1.5 rounded bg-green-50 border border-green-100"><span class="font-medium">🚗 Transportation/logistics</span><br><span class="text-gray-500">School, appointments, activities</span></div>
+        <div class="p-1.5 rounded bg-green-50 border border-green-100"><span class="font-medium">🏫 School coordination</span><br><span class="text-gray-500">IEP, teacher communication, consistency</span></div>
+        <div class="p-1.5 rounded bg-green-50 border border-green-100"><span class="font-medium">🏥 Healthcare navigation</span><br><span class="text-gray-500">Pediatric, behavioral, speciality access</span></div>
+      </div>
+    </div>
+
+    <!-- ===== Current Decision Question ===== -->
+    <div class="sec-card acc-orange">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-orange-700">❓ Current Decision Question / 当前决策问题</span>
+      </div>
+      <div class="p-2 rounded bg-orange-50 border border-orange-200 text-[11px]">
+        <p class="text-orange-800 font-medium mb-1">The real question is not: "Should I adopt immediately?"</p>
+        <p class="text-orange-800">The real question is:</p>
+        <p class="text-orange-900 font-medium mt-0.5 p-1.5 bg-white rounded border border-orange-100 italic">"Has Richard developed a sustainable enough caregiving ecosystem to safely enter a formal foster-to-adopt pathway without destabilizing elder care, professional responsibilities, or long-term family continuity?"</p>
+        <p class="text-orange-700 mt-1.5">中文：Richard 是否已经建立了足够稳定的 caregiving ecosystem，能够在不 destabilize 老人照护、职业责任和长期家庭连续性的前提下，安全进入正式 foster-to-adopt pathway？</p>
+      </div>
+    </div>
+
+    <!-- ===== Footer ===== -->
+    <div class="text-center text-[9px] text-gray-400 pt-2 pb-3">
+      Personal Family Formation &amp; Adoption Readiness Dashboard · Cloudflare Workers (内部) · 最后更新: <span id="update-time"></span>
     </div>
 
   </div>
 
-  <!-- Footer -->
-  <div class="max-w-7xl mx-auto px-6 py-4">
-    <div class="text-xs text-gray-400 text-center">
-      采用规划 • NeighborBridge 仪表板 • 更新于: <span id="current-date"></span>
-      <div class="mt-2 text-xs font-medium text-brand">
-        [THEME TEST ENABLED]
-      </div>
-    </div>
-  </div>
-
-  <!-- JavaScript for Interactions -->
   <script>
-    // Set current date
-    document.getElementById('current-date').textContent = new Date().toLocaleDateString('zh-CN');
-    
-    // Handle checkbox interactions
-    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-      checkbox.addEventListener('change', function() {
-        const taskText = this.nextElementSibling.querySelector('p.text-gray-800');
-        const statusTag = this.nextElementSibling.querySelector('.tag.bg-gray-100, .tag.bg-yellow-100, .tag.bg-green-100');
-        
-        if (this.checked) {
-          taskText.classList.add('line-through', 'text-gray-400');
-          if (statusTag) {
-            statusTag.className = 'tag bg-completed text-white';
-            statusTag.innerHTML = '<i class="fas fa-check text-xs"></i> 已完成';
-          }
-        } else {
-          taskText.classList.remove('line-through', 'text-gray-400');
-          if (statusTag) {
-            statusTag.className = 'tag bg-yellow-100 text-yellow-800';
-            statusTag.innerHTML = '<i class="fas fa-clock text-xs"></i> 进行中';
-          }
-        }
-      });
+    document.getElementById('update-time').textContent = new Date().toLocaleDateString('zh-CN', {
+      year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
     });
-
-    // Phase accordion functionality
-    document.querySelectorAll('.phase-header').forEach(header => {
-      header.addEventListener('click', function() {
-        const accordion = this.parentElement;
-        const icon = this.querySelector('i.fa-chevron-up, i.fa-chevron-down');
-        
-        accordion.classList.toggle('active');
-        
-        if (accordion.classList.contains('active')) {
-          icon.className = 'fas fa-chevron-up text-gray-400';
-        } else {
-          icon.className = 'fas fa-chevron-down text-gray-400';
-        }
-      });
-    });
-
-    // Toggle all phases
-    const toggleAllBtn = document.getElementById('toggle-all-phases');
-    let allExpanded = true;
-    
-    toggleAllBtn.addEventListener('click', function() {
-      const accordions = document.querySelectorAll('.phase-accordion');
-      const icon = this.querySelector('i');
-      
-      if (allExpanded) {
-        // Collapse all
-        accordions.forEach(acc => {
-          acc.classList.remove('active');
-          const headerIcon = acc.querySelector('.phase-header i.fa-chevron-up, .phase-header i.fa-chevron-down');
-          if (headerIcon) headerIcon.className = 'fas fa-chevron-down text-gray-400';
-        });
-        icon.className = 'fas fa-chevron-right mr-1';
-        this.innerHTML = '<i class="fas fa-chevron-right mr-1"></i>展开全部';
-        allExpanded = false;
-      } else {
-        // Expand all
-        accordions.forEach(acc => {
-          acc.classList.add('active');
-          const headerIcon = acc.querySelector('.phase-header i.fa-chevron-up, .phase-header i.fa-chevron-down');
-          if (headerIcon) headerIcon.className = 'fas fa-chevron-up text-gray-400';
-        });
-        icon.className = 'fas fa-chevron-down mr-1';
-        this.innerHTML = '<i class="fas fa-chevron-down mr-1"></i>收起全部';
-        allExpanded = true;
-      }
-    });
-
-    // Toggle notes section
-    const toggleNotesBtn = document.getElementById('toggle-notes');
-    const notesContent = document.getElementById('notes-content');
-    let notesExpanded = true;
-    
-    toggleNotesBtn.addEventListener('click', function() {
-      const icon = this.querySelector('i');
-      
-      if (notesExpanded) {
-        notesContent.style.maxHeight = '0';
-        notesContent.style.overflow = 'hidden';
-        notesContent.style.padding = '0';
-        icon.className = 'fas fa-chevron-down mr-1';
-        this.innerHTML = '<i class="fas fa-chevron-down mr-1"></i>展开';
-        notesExpanded = false;
-      } else {
-        notesContent.style.maxHeight = '500px';
-        notesContent.style.overflow = 'visible';
-        notesContent.style.padding = '';
-        icon.className = 'fas fa-chevron-up mr-1';
-        this.innerHTML = '<i class="fas fa-chevron-up mr-1"></i>收起';
-        notesExpanded = true;
-      }
-    });
-
-    // Initialize notes as collapsed
-    setTimeout(() => {
-      notesContent.style.maxHeight = '0';
-      notesContent.style.overflow = 'hidden';
-      notesContent.style.padding = '0';
-      toggleNotesBtn.querySelector('i').className = 'fas fa-chevron-down mr-1';
-      toggleNotesBtn.innerHTML = '<i class="fas fa-chevron-down mr-1"></i>展开';
-      notesExpanded = false;
-    }, 100);
   </script>
 
 </body>
 </html>
-HTML && echo "✅ 现代化版本创建完成"
