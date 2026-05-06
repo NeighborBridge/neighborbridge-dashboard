@@ -197,103 +197,73 @@
     <!-- Title -->
     <div class="mb-2.5">
       <h2 class="text-sm font-bold">📚 Dashboard Directory / 全部面板</h2>
-      <p class="text-[9px] text-gray-400">统一导航中心</p>
+      <p class="text-[9px] text-gray-400">本目录按 decision workflow 组织，而不是按主题堆叠；页面保持独立，但入口按 Richard 当前行动逻辑分层。</p>
     </div>
 
-    <!-- NeighborBridge LLC Core -->
+    <!-- 1. Program HQ / 总控 -->
     <div class="mb-3">
-      <p class="cat-label" style="font-size:11px;color:#059669;">🏗 NeighborBridge LLC Core / LLC核心面板</p>
+      <p class="cat-label">Program HQ / 总控</p>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1.5">
-        <a href="/stakeholders" class="dash-card">
-          <p class="text-[11px] font-medium text-gray-800 leading-tight">Stakeholders</p>
-          <p class="text-[9px] text-gray-400 mt-0.5">lead / relationship map</p>
+        <a href="/" class="dash-card">
+          <p class="text-[11px] font-medium text-gray-800 leading-tight">Main Dashboard / 主面板</p>
+          <p class="text-[9px] text-gray-400 mt-0.5">行动指挥中心</p>
           <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
         </a>
+        <a href="/dashboard-directory" class="dash-card">
+          <p class="text-[11px] font-medium text-gray-800 leading-tight">Dashboard Directory / 全部面板</p>
+          <p class="text-[9px] text-gray-400 mt-0.5">导航中心</p>
+          <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- 2. Care Model / 照护模型 -->
+    <div class="mb-3">
+      <p class="cat-label">Care Model / 照护模型</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1.5">
+        <a href="/fqhc" class="dash-card">
+          <p class="text-[11px] font-medium text-gray-800 leading-tight">FQHC</p>
+          <p class="text-[9px] text-gray-400 mt-0.5">基层试点锚点</p>
+          <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
+        </a>
+        <a href="/fasd-care-pathway" class="dash-card">
+          <p class="text-[11px] font-medium text-gray-800 leading-tight">FASD Care Pathway</p>
+          <p class="text-[9px] text-gray-400 mt-0.5">临床路径逻辑</p>
+          <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
+        </a>
+        <a href="/chw-early-detection-sandbox" class="dash-card">
+          <p class="text-[11px] font-medium text-gray-800 leading-tight">CHW Early Detection Sandbox</p>
+          <p class="text-[9px] text-gray-400 mt-0.5">早识别沙盒</p>
+          <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- 3. Payer Strategy / 支付方策略 -->
+    <div class="mb-3">
+      <p class="cat-label">Payer Strategy / 支付方策略</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1.5">
         <a href="/trillium" class="dash-card">
           <p class="text-[11px] font-medium text-gray-800 leading-tight">Trillium</p>
           <p class="text-[9px] text-gray-400 mt-0.5">payer strategy</p>
           <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
         </a>
-        <a href="/fqhc" class="dash-card">
-          <p class="text-[11px] font-medium text-gray-800 leading-tight">FQHC</p>
-          <p class="text-[9px] text-gray-400 mt-0.5">clinical pilot anchor</p>
-          <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
-        </a>
-        <a href="/chw-early-detection-sandbox" class="dash-card">
-          <p class="text-[11px] font-medium text-gray-800 leading-tight">CHW Early Detection Sandbox</p>
-          <p class="text-[9px] text-gray-400 mt-0.5">workflow demo</p>
-          <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
-        </a>
-        <a href="/fasd-care-pathway" class="dash-card">
-          <p class="text-[11px] font-medium text-gray-800 leading-tight">FASD Care Pathway</p>
-          <p class="text-[9px] text-gray-400 mt-0.5">clinical pathway logic</p>
-          <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
-        </a>
-        <a href="/compliance" class="dash-card">
-          <p class="text-[11px] font-medium text-gray-800 leading-tight">Compliance</p>
-          <p class="text-[9px] text-gray-400 mt-0.5">PHI / sandbox boundary</p>
-          <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
-        </a>
-        <a href="/ip-confidentiality" class="dash-card">
-          <p class="text-[11px] font-medium text-gray-800 leading-tight">IP / Confidentiality</p>
-          <p class="text-[9px] text-gray-400 mt-0.5">ownership / sharing boundary</p>
-          <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
-        </a>
-        <a href="/tax-strategy" class="dash-card">
-          <p class="text-[11px] font-medium text-gray-800 leading-tight">Tax Strategy</p>
-          <p class="text-[9px] text-gray-400 mt-0.5">entity / finance risk</p>
-          <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
-        </a>
-      </div>
-    </div>
-
-    <!-- Core / 主工作面板 -->
-    <div class="mb-3">
-      <p class="cat-label">Core / 主工作面板</p>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1.5">
-        <a href="/" class="dash-card">
-          <p class="text-[11px] font-medium text-gray-800 leading-tight">主面板</p>
-          <p class="text-[9px] text-gray-400 mt-0.5">总控入口</p>
-          <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
-        </a>
-        <a href="/fqhc" class="dash-card">
-          <p class="text-[11px] font-medium text-gray-800 leading-tight">FQHC</p>
-          <p class="text-[9px] text-gray-400 mt-0.5">试点基础</p>
-          <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
-        </a>
-        <a href="/trillium" class="dash-card">
-          <p class="text-[11px] font-medium text-gray-800 leading-tight">Trillium</p>
-          <p class="text-[9px] text-gray-400 mt-0.5">支付方策略</p>
+        <a href="/trillium-partnership-structure" class="dash-card">
+          <p class="text-[11px] font-medium text-gray-800 leading-tight">Trillium Partnership Structure</p>
+          <p class="text-[9px] text-gray-400 mt-0.5">联合推进结构</p>
           <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
         </a>
         <a href="/stakeholders" class="dash-card">
           <p class="text-[11px] font-medium text-gray-800 leading-tight">Stakeholders</p>
-          <p class="text-[9px] text-gray-400 mt-0.5">关系网络</p>
+          <p class="text-[9px] text-gray-400 mt-0.5">关系行动热力表</p>
           <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
         </a>
       </div>
     </div>
 
-    <!-- Trillium / Payer -->
+    <!-- 4. Academic Platform / 学术平台 -->
     <div class="mb-3">
-      <p class="cat-label">Trillium / Payer</p>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1.5">
-        <a href="/trillium" class="dash-card">
-          <p class="text-[11px] font-medium text-gray-800 leading-tight">Trillium 主面板</p>
-          <p class="text-[9px] text-gray-400 mt-0.5">支付方策略</p>
-          <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
-        </a>
-        <a href="/trillium-partnership-structure" class="dash-card">
-          <p class="text-[11px] font-medium text-gray-800 leading-tight">联合推进结构</p>
-          <p class="text-[9px] text-gray-400 mt-0.5">角色对齐</p>
-          <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
-        </a>
-      </div>
-    </div>
-
-    <!-- Academic / Career -->
-    <div class="mb-3">
-      <p class="cat-label">Academic / Career</p>
+      <p class="cat-label">Academic Platform / 学术平台</p>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1.5">
         <a href="/career-contribution" class="dash-card">
           <p class="text-[11px] font-medium text-gray-800 leading-tight">Career / Field Contribution</p>
@@ -318,35 +288,18 @@
       </div>
     </div>
 
-    <!-- Clinical / Program -->
+    <!-- 5. Constraints & Guardrails / 约束与护栏 -->
     <div class="mb-3">
-      <p class="cat-label">Clinical / Program</p>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1.5">
-        <a href="/fasd-care-pathway" class="dash-card">
-          <p class="text-[11px] font-medium text-gray-800 leading-tight">FASD Care Pathway</p>
-          <p class="text-[9px] text-gray-400 mt-0.5">识别与管理</p>
-          <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
-        </a>
-        <a href="/adoption" class="dash-card">
-          <p class="text-[11px] font-medium text-gray-800 leading-tight">Adoption Planning</p>
-          <p class="text-[9px] text-gray-400 mt-0.5">采用评估</p>
-          <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
-        </a>
-        <a href="/chw-early-detection-sandbox" class="dash-card">
-          <p class="text-[11px] font-medium text-gray-800 leading-tight">CHW Early Detection Sandbox</p>
-          <p class="text-[9px] text-gray-400 mt-0.5">早识别沙盒</p>
-          <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
-        </a>
-      </div>
-    </div>
-
-    <!-- Operations / Risk -->
-    <div class="mb-2">
-      <p class="cat-label">Operations / Risk</p>
+      <p class="cat-label">Constraints &amp; Guardrails / 约束与护栏</p>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1.5">
         <a href="/compliance" class="dash-card">
           <p class="text-[11px] font-medium text-gray-800 leading-tight">Compliance</p>
           <p class="text-[9px] text-gray-400 mt-0.5">合规边界</p>
+          <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
+        </a>
+        <a href="/ip-confidentiality" class="dash-card">
+          <p class="text-[11px] font-medium text-gray-800 leading-tight">IP / Confidentiality</p>
+          <p class="text-[9px] text-gray-400 mt-0.5">IP边界</p>
           <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
         </a>
         <a href="/tax-strategy" class="dash-card">
@@ -359,9 +312,16 @@
           <p class="text-[9px] text-gray-400 mt-0.5">照护约束</p>
           <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
         </a>
-        <a href="/ip-confidentiality" class="dash-card">
-          <p class="text-[11px] font-medium text-gray-800 leading-tight">IP / Confidentiality</p>
-          <p class="text-[9px] text-gray-400 mt-0.5">IP边界</p>
+      </div>
+    </div>
+
+    <!-- 6. Personal Workstream / 个人工作流 -->
+    <div class="mb-3">
+      <p class="cat-label">Personal Workstream / 个人工作流</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1.5">
+        <a href="/adoption" class="dash-card">
+          <p class="text-[11px] font-medium text-gray-800 leading-tight">Adoption Planning</p>
+          <p class="text-[9px] text-gray-400 mt-0.5">个人 adoption planning</p>
           <p class="text-[9px] text-blue-600 mt-0.5">进入 →</p>
         </a>
       </div>
