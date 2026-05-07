@@ -1,452 +1,434 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NeighborBridge 主面板</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: "#0ea5e9", urgent: "#ef4444", warning: "#f59e0b",
-            neutral: "#6b7280", completed: "#10b981",
-            orange: { 500: "#f59e0b" }, blue: { 500: "#60a5fa" },
-            green: { 500: "#34d399" }, purple: { 500: "#a78bfa" }
-          }
-        }
-      }
-    }
-  </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="shared.css">
-  <style>
-    .accent-blue { border-left: 4px solid #60a5fa; }
-    .accent-green { border-left: 4px solid #34d399; }
-    .accent-purple { border-left: 4px solid #a78bfa; }
-    .accent-red { border-left: 4px solid #ef4444; }
-    .accent-orange { border-left: 4px solid #f59e0b; }
-    .sec-card { @apply bg-white rounded-lg p-3 border shadow-sm mb-3; }
-    .action-btn {
-      width: 100%; padding: 10px 14px; border-radius: 8px; text-align: left;
-      cursor: pointer; transition: all 0.2s; display: block;
-    }
-    .action-btn.completed { opacity: 0.55; cursor: default; }
-    .task-card {
-      padding: 10px 12px; border-radius: 8px; border: 1px solid #e5e7eb; background: #f9fafb;
-    }
-    .task-card[data-overdue="true"] { border-color: #fca5a5; background: #fef2f2; }
-    .status-pill {
-      display: inline-flex; align-items: center; padding: 1px 8px; border-radius: 9999px;
-      font-size: 11px; cursor: pointer; opacity: 0.55; transition: opacity 0.15s;
-    }
-    .status-pill.active { opacity: 1; font-weight: 600; }
-    .pill-not-started { background: #e5e7eb; color: #374151; }
-    .pill-not-started.active { background: #d1d5db; color: #111827; }
-    .pill-in-progress { background: #bfdbfe; color: #1e40af; }
-    .pill-in-progress.active { background: #93c5fd; color: #1e3a5f; }
-    .pill-completed { background: #bbf7d0; color: #166534; }
-    .pill-completed.active { background: #86efac; color: #14532d; }
-    .badge { display: inline-flex; align-items: center; padding: 1px 10px; border-radius: 9999px; font-size: 11px; font-weight: 500; }
-    .conn-card { padding: 10px 12px; border-radius: 8px; border: 1px solid #e5e7eb; background: #f9fafb; }
-    .blocker { padding: 8px 12px; border-radius: 6px; border: 1px solid #fca5a5; background: #fef2f2; }
-  </style>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>NeighborBridge 主面板</title>
+ <script src="https://cdn.tailwindcss.com"></script>
+ <script>
+ tailwind.config = {
+ theme: {
+ extend: {
+ colors: {
+ brand: "#0ea5e9", urgent: "#ef4444", warning: "#f59e0b",
+ neutral: "#6b7280", completed: "#10b981",
+ orange: { 500: "#f59e0b" }, blue: { 500: "#60a5fa" },
+ green: { 500: "#34d399" }, purple: { 500: "#a78bfa" }
+ }
+ }
+ }
+ }
+ </script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ <link rel="stylesheet" href="shared.css">
+ <style>
+ .accent-blue { border-left: 4px solid #60a5fa; }
+ .accent-green { border-left: 4px solid #34d399; }
+ .accent-purple { border-left: 4px solid #a78bfa; }
+ .accent-red { border-left: 4px solid #ef4444; }
+ .accent-orange { border-left: 4px solid #f59e0b; }
+ .sec-card { @apply bg-white rounded-lg p-3 border shadow-sm mb-3; }
+ .action-btn {
+ width: 100%; padding: 10px 14px; border-radius: 8px; text-align: left;
+ cursor: pointer; transition: all 0.2s; display: block;
+ }
+ .action-btn.completed { opacity: 0.55; cursor: default; }
+ .task-card {
+ padding: 10px 12px; border-radius: 8px; border: 1px solid #e5e7eb; background: #f9fafb;
+ }
+ .task-card[data-overdue="true"] { border-color: #fca5a5; background: #fef2f2; }
+ .status-pill {
+ display: inline-flex; align-items: center; padding: 1px 8px; border-radius: 9999px;
+ font-size: 11px; cursor: pointer; opacity: 0.55; transition: opacity 0.15s;
+ }
+ .status-pill.active { opacity: 1; font-weight: 600; }
+ .pill-not-started { background: #e5e7eb; color: #374151; }
+ .pill-not-started.active { background: #d1d5db; color: #111827; }
+ .pill-in-progress { background: #bfdbfe; color: #1e40af; }
+ .pill-in-progress.active { background: #93c5fd; color: #1e3a5f; }
+ .pill-completed { background: #bbf7d0; color: #166534; }
+ .pill-completed.active { background: #86efac; color: #14532d; }
+ .badge { display: inline-flex; align-items: center; padding: 1px 10px; border-radius: 9999px; font-size: 11px; font-weight: 500; }
+ .conn-card { padding: 10px 12px; border-radius: 8px; border: 1px solid #e5e7eb; background: #f9fafb; }
+ .blocker { padding: 8px 12px; border-radius: 6px; border: 1px solid #fca5a5; background: #fef2f2; }
+ </style>
 </head>
 <body>
 
-  <!-- Header -->
-    <header class="bg-white shadow-sm border-b">
-    <div class="max-w-6xl mx-auto px-3 py-2 flex justify-between items-center">
-      <h1 class="text-base font-bold">NeighborBridge</h1>
-      <div class="flex flex-wrap gap-x-3 gap-y-0.5 text-[11px]">
-        <a href="/" class="text-brand font-semibold">主面板</a>
-        <a href="/fqhc" class="text-gray-500 hover:text-brand">FQHC</a>
-        <a href="/trillium" class="text-gray-500 hover:text-brand">Trillium</a>
-        <a href="/stakeholders" class="text-gray-500 hover:text-brand">Stakeholders</a>
-        <a href="/manuscript-dashboard" class="text-gray-500 hover:text-brand">📄稿件</a>
-        <a href="/compliance" class="text-gray-500 hover:text-brand">🛡️合规</a>
-        <a href="/dashboard-directory" class="text-gray-500 hover:text-brand">📚全部面板</a>
-      </div>
-    </div>
-  </header>
+ <!-- Header -->
+ <header class="bg-white shadow-sm border-b">
+ <div class="max-w-6xl mx-auto px-3 py-2 flex justify-between items-center">
+ <h1 class="text-base font-bold">NeighborBridge</h1>
+ <div class="flex flex-wrap gap-x-3 gap-y-0.5 text-[11px]">
+ <a href="/" class="text-brand font-semibold">主面板</a>
+ <a href="/fqhc" class="text-gray-500 hover:text-brand">FQHC</a>
+ <a href="/trillium" class="text-gray-500 hover:text-brand">Trillium</a>
+ <a href="/stakeholders" class="text-gray-500 hover:text-brand">Stakeholders</a>
+ <a href="/manuscript-dashboard" class="text-gray-500 hover:text-brand">稿件</a>
+ <a href="/compliance" class="text-gray-500 hover:text-brand">合规</a>
+ <a href="/dashboard-directory" class="text-gray-500 hover:text-brand">全部面板</a>
+ </div>
+ </div>
+ </header>
 
-  <!-- Main Content -->
-  <div class="max-w-6xl mx-auto px-3 py-3">
+ <!-- Main Content -->
+ <div class="max-w-6xl mx-auto px-3 py-3">
 
-    <!-- ============================================================ -->
-    <!-- 1a. 3秒决策栏                                                  -->
-    <!-- ============================================================ -->
-    <div class="sec-card" style="border-left: 4px solid #0ea5e9; background: #f0f9ff;">
-      <div class="flex items-center gap-1.5 mb-2">
-        <span class="text-sm font-bold text-sky-800">⚡ 3秒决策栏 / 3-Second Decision Bar</span>
-        <span class="badge bg-sky-100 text-sky-700 text-[10px]">今日优先</span>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-        <div class="p-2 rounded-lg bg-white border border-sky-100">
-          <p class="text-[10px] font-medium text-sky-600 mb-0.5">🔵 当前状态</p>
-          <p class="text-[11px] text-gray-600">多线推进中，但最大上游约束仍是照护责任与可用深度工作窗口。</p>
-        </div>
-        <div class="p-2 rounded-lg bg-white border border-sky-100">
-          <p class="text-[10px] font-medium text-sky-600 mb-0.5">🎯 今天唯一行动</p>
-          <p class="text-[11px] text-gray-600">从以下三项中选择一个推进：</p>
-          <ul class="text-[10.5px] text-gray-500 mt-0.5 space-y-0.5 list-disc pl-3.5">
-            <li>Vinod 进展更新</li>
-            <li>Cindy / Trillium 轻量重新联系</li>
-            <li>North Carolina primary site narrative 1-page draft</li>
-          </ul>
-        </div>
-        <div class="p-2 rounded-lg bg-white border border-sky-100">
-          <p class="text-[10px] font-medium text-sky-600 mb-0.5">⚠️ 最近阻塞</p>
-          <p class="text-[11px] text-gray-600">如果照护 coverage / backup / handover 未明确，则外出 networking 和深度写作仍受限。</p>
-        </div>
-      </div>
-    </div>
+ <!-- ============================================================ -->
+ <!-- 1a. 3秒决策栏 -->
+ <!-- ============================================================ -->
+ <div class="sec-card" style="border-left: 4px solid #0ea5e9; background: #f0f9ff;">
+ <div class="flex items-center gap-1.5 mb-2">
+ <span class="text-sm font-bold text-sky-800"> 3秒决策栏 / 3-Second Decision Bar</span>
+ <span class="badge bg-sky-100 text-sky-700 text-[10px]">今日优先</span>
+ </div>
+ <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+ <div class="p-2 rounded-lg bg-white border border-sky-100">
+ <p class="text-[10px] font-medium text-sky-600 mb-0.5"> 当前状态</p>
+ <p class="text-[11px] text-gray-600">多线推进中。最大上游约束为照护责任与可用深度写作窗口。</p>
+ </div>
+ <div class="p-2 rounded-lg bg-white border border-sky-100">
+ <p class="text-[10px] font-medium text-sky-600 mb-0.5"> 今天唯一行动</p>
+ <p class="text-[11px] text-gray-600">从以下三项中选择一个推进：</p>
+ <ul class="text-[10.5px] text-gray-500 mt-0.5 space-y-0.5 list-disc pl-3.5">
+ <li>Vinod 进展更新</li>
+ <li>Cindy / Trillium 轻量重新联系</li>
+ <li>North Carolina primary site narrative 1-page draft</li>
+ </ul>
+ </div>
+ <div class="p-2 rounded-lg bg-white border border-sky-100">
+ <p class="text-[10px] font-medium text-sky-600 mb-0.5"> 最近阻塞</p>
+ <p class="text-[11px] text-gray-600">照护 coverage 未明确前，外出 networking 和深度写作仍受限。</p>
+ </div>
+ </div>
+ </div>
 
-    <!-- ============================================================ -->
-    <!-- 1b. 跨面板依赖链路图                                          -->
-    <!-- ============================================================ -->
-    <div class="sec-card accent-purple">
-      <div class="flex items-center gap-1.5 mb-2">
-        <span class="text-sm font-bold text-purple-800">🔗 跨面板依赖链路 / Dependency Map</span>
-        <span class="badge bg-purple-100 text-purple-700 text-[10px]">解锁关系</span>
-      </div>
-      <div class="space-y-1.5 text-[11px]">
-        <div class="p-2 rounded-lg bg-white border border-purple-100 flex flex-wrap items-center gap-0.5 leading-5">
-          <span class="font-medium text-purple-700">① 照护约束</span><span class="text-gray-400"> ⇢ </span>
-          <span class="text-gray-600">最小写作窗口</span><span class="text-gray-400"> ⇢ </span>
-          <span class="text-gray-600">Manuscript P4A</span><span class="text-gray-400"> ⇢ </span>
-          <span class="text-gray-600">学术可信度</span><span class="text-gray-400"> ⇢ </span>
-          <span class="font-medium text-purple-700">Faculty Pathway</span>
-        </div>
-        <div class="p-2 rounded-lg bg-white border border-purple-100 flex flex-wrap items-center gap-0.5 leading-5">
-          <span class="font-medium text-purple-700">② Holly entry points</span><span class="text-gray-400"> ⇢ </span>
-          <span class="text-gray-600">CHW Early Detection Sandbox</span><span class="text-gray-400"> ⇢ </span>
-          <span class="text-gray-600">Trillium-facing concept note</span><span class="text-gray-400"> ⇢ </span>
-          <span class="font-medium text-purple-700">Cindy / Trillium 对话</span>
-        </div>
-        <div class="p-2 rounded-lg bg-white border border-purple-100 flex flex-wrap items-center gap-0.5 leading-5">
-          <span class="font-medium text-purple-700">③ Medical Director 对齐</span><span class="text-gray-400"> ⇢ </span>
-          <span class="text-gray-600">FQHC 试点入口</span><span class="text-gray-400"> ⇢ </span>
-          <span class="text-gray-600">Trillium payer pathway</span><span class="text-gray-400"> ⇢ </span>
-          <span class="font-medium text-purple-700">Medicaid value logic</span>
-        </div>
-        <div class="p-2 rounded-lg bg-white border border-purple-100 flex flex-wrap items-center gap-0.5 leading-5">
-          <span class="font-medium text-purple-700">④ Vinod / Rohrbaugh / Yale lineage</span><span class="text-gray-400"> ⇢ </span>
-          <span class="text-gray-600">学术可信度</span><span class="text-gray-400"> ⇢ </span>
-          <span class="font-medium text-purple-700">Faculty positioning</span>
-        </div>
-        <div class="p-2 rounded-lg bg-white border border-purple-100 flex flex-wrap items-center gap-0.5 leading-5">
-          <span class="font-medium text-purple-700">⑤ Career strategic frame</span><span class="text-gray-400"> ⇢ </span>
-          <span class="text-gray-600">Job Search filter</span><span class="text-gray-400"> ⇢ </span>
-          <span class="font-medium text-purple-700">Duke warm outreach clarification</span>
-        </div>
-        <div class="p-2 rounded-lg bg-white border border-cyan-100 flex flex-wrap items-center gap-0.5 leading-5">
-          <span class="font-medium text-cyan-700">⑥ FASD policy direction (P.L. 119-44)</span><span class="text-gray-400"> ⇢ </span>
-          <span class="text-gray-600">Holly / NC FASD panel interface</span><span class="text-gray-400"> ⇢ </span>
-          <span class="text-gray-600">Local capacity-building model</span><span class="text-gray-400"> ⇢ </span>
-          <span class="font-medium text-cyan-700">Trillium / FQHC / WIC / school nurse workflow</span>
-        </div>
-      </div>
-      <p class="mt-1.5 text-[10px] text-gray-400">每个上游动作解锁一列下游面板。照护约束松动是最大杠杆点。</p>
-    </div>
+ <!-- ============================================================ -->
+ <!-- 1b. 跨面板依赖链路图 -->
+ <!-- ============================================================ -->
+ <div class="sec-card accent-purple">
+ <div class="flex items-center gap-1.5 mb-2">
+ <span class="text-sm font-bold text-purple-800"> 跨面板依赖链路 / Dependency Map</span>
+ <span class="badge bg-purple-100 text-purple-700 text-[10px]">解锁关系</span>
+ </div>
+ <div class="space-y-1.5 text-[11px]">
+ <div class="p-2 rounded-lg bg-white border border-purple-100 flex flex-wrap items-center gap-0.5 leading-5">
+ <span class="font-medium text-purple-700">① 照护约束</span><span class="text-gray-400"> ⇢ </span>
+ <span class="text-gray-600">最小写作窗口</span><span class="text-gray-400"> ⇢ </span>
+ <span class="text-gray-600">Manuscript P4A</span><span class="text-gray-400"> ⇢ </span>
+ <span class="text-gray-600">学术可信度</span><span class="text-gray-400"> ⇢ </span>
+ <span class="font-medium text-purple-700">Faculty Pathway</span>
+ </div>
+ <div class="p-2 rounded-lg bg-white border border-purple-100 flex flex-wrap items-center gap-0.5 leading-5">
+ <span class="font-medium text-purple-700">② Holly entry points</span><span class="text-gray-400"> ⇢ </span>
+ <span class="text-gray-600">CHW Early Detection Sandbox</span><span class="text-gray-400"> ⇢ </span>
+ <span class="text-gray-600">Trillium-facing concept note</span><span class="text-gray-400"> ⇢ </span>
+ <span class="font-medium text-purple-700">Cindy / Trillium 对话</span>
+ </div>
+ <div class="p-2 rounded-lg bg-white border border-purple-100 flex flex-wrap items-center gap-0.5 leading-5">
+ <span class="font-medium text-purple-700">③ Medical Director 对齐</span><span class="text-gray-400"> ⇢ </span>
+ <span class="text-gray-600">FQHC 试点入口</span><span class="text-gray-400"> ⇢ </span>
+ <span class="text-gray-600">Trillium payer pathway</span><span class="text-gray-400"> ⇢ </span>
+ <span class="font-medium text-purple-700">Medicaid value logic</span>
+ </div>
+ <div class="p-2 rounded-lg bg-white border border-purple-100 flex flex-wrap items-center gap-0.5 leading-5">
+ <span class="font-medium text-purple-700">④ Vinod / Rohrbaugh / Yale lineage</span><span class="text-gray-400"> ⇢ </span>
+ <span class="text-gray-600">学术可信度</span><span class="text-gray-400"> ⇢ </span>
+ <span class="font-medium text-purple-700">Faculty positioning</span>
+ </div>
+ <div class="p-2 rounded-lg bg-white border border-purple-100 flex flex-wrap items-center gap-0.5 leading-5">
+ <span class="font-medium text-purple-700">⑤ Career strategic frame</span><span class="text-gray-400"> ⇢ </span>
+ <span class="text-gray-600">Job Search filter</span><span class="text-gray-400"> ⇢ </span>
+ <span class="font-medium text-purple-700">Duke warm outreach clarification</span>
+ </div>
+ <div class="p-2 rounded-lg bg-white border border-cyan-100 flex flex-wrap items-center gap-0.5 leading-5">
+ <span class="font-medium text-cyan-700">⑥ FASD policy direction (P.L. 119-44)</span><span class="text-gray-400"> ⇢ </span>
+ <span class="text-gray-600">Holly / NC FASD panel interface</span><span class="text-gray-400"> ⇢ </span>
+ <span class="text-gray-600">Local capacity-building model</span><span class="text-gray-400"> ⇢ </span>
+ <span class="font-medium text-cyan-700">Trillium / FQHC / WIC / school nurse workflow</span>
+ </div>
+ </div>
+ <p class="mt-1.5 text-[10px] text-gray-400">每个上游动作解锁一列下游面板。照护约束松动是最大杠杆点。</p>
+ </div>
 
-    <!-- ============================================================ -->
-    <!-- 1c. 时间紧迫性视图                                            -->
-    <!-- ============================================================ -->
-    <div class="sec-card" style="border-left: 4px solid #6366f1; background: #f5f3ff;">
-      <div class="flex items-center gap-1.5 mb-2">
-        <span class="text-sm font-bold text-indigo-800">⏱ 时间紧迫性 / Urgency View</span>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-        <div class="p-2 rounded-lg bg-white border border-red-200">
-          <p class="text-[10px] font-medium text-red-600 mb-0.5">🔴 本周必须动</p>
-          <ul class="text-[10.5px] text-gray-600 space-y-0.5 list-disc pl-3.5">
-            <li>Holly entry-point follow-up / workflow sketch</li>
-            <li>Vinod 进展更新草稿确认</li>
-            <li>Cindy / Trillium 轻量重新联系判断</li>
-          </ul>
-        </div>
-        <div class="p-2 rounded-lg bg-white border border-amber-200">
-          <p class="text-[10px] font-medium text-amber-600 mb-0.5">🟡 本月推进</p>
-          <ul class="text-[10.5px] text-gray-600 space-y-0.5 list-disc pl-3.5">
-            <li>North Carolina primary site narrative 1-page draft</li>
-            <li>Manuscript P4A Finding 1 顺序修改</li>
-            <li>CHW Early Detection Sandbox review</li>
-            <li>Duke warm outreach clarification</li>
-          </ul>
-        </div>
-        <div class="p-2 rounded-lg bg-white border border-green-200">
-          <p class="text-[10px] font-medium text-green-600 mb-0.5">🟢 等待时机</p>
-          <ul class="text-[10.5px] text-gray-600 space-y-0.5 list-disc pl-3.5">
-            <li>Yale relationship renewal</li>
-            <li>Robert Rohrbaugh update</li>
-            <li>Formal job application</li>
-            <li>Full Trillium pilot / funding discussion</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+ <!-- ============================================================ -->
+ <!-- 1c. 时间紧迫性视图 -->
+ <!-- ============================================================ -->
+ <div class="sec-card" style="border-left: 4px solid #6366f1; background: #f5f3ff;">
+ <div class="flex items-center gap-1.5 mb-2">
+ <span class="text-sm font-bold text-indigo-800"> 时间紧迫性 / Urgency View</span>
+ </div>
+ <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+ <div class="p-2 rounded-lg bg-white border border-red-200">
+ <p class="text-[10px] font-medium text-red-600 mb-0.5"> 本周必须动</p>
+ <ul class="text-[10.5px] text-gray-600 space-y-0.5 list-disc pl-3.5">
+ <li>Holly entry-point follow-up / workflow sketch</li>
+ <li>Vinod 进展更新草稿确认</li>
+ <li>Cindy / Trillium 轻量重新联系判断</li>
+ </ul>
+ </div>
+ <div class="p-2 rounded-lg bg-white border border-amber-200">
+ <p class="text-[10px] font-medium text-amber-600 mb-0.5"> 本月推进</p>
+ <ul class="text-[10.5px] text-gray-600 space-y-0.5 list-disc pl-3.5">
+ <li>North Carolina primary site narrative 1-page draft</li>
+ <li>Manuscript P4A Finding 1 顺序修改</li>
+ <li>CHW Early Detection Sandbox review</li>
+ <li>Duke warm outreach clarification</li>
+ </ul>
+ </div>
+ <div class="p-2 rounded-lg bg-white border border-green-200">
+ <p class="text-[10px] font-medium text-green-600 mb-0.5"> 等待时机</p>
+ <ul class="text-[10.5px] text-gray-600 space-y-0.5 list-disc pl-3.5">
+ <li>Yale relationship renewal</li>
+ <li>Robert Rohrbaugh update</li>
+ <li>Formal job application</li>
+ <li>Full Trillium pilot / funding discussion</li>
+ </ul>
+ </div>
+ </div>
+ </div>
 
-    <!-- ============================================================ -->
-    <!-- 1d. Preventive Medicine Positioning / 职业锚点                  -->
-    <!-- ============================================================ -->
-    <div class="sec-card" style="border: 1px solid #dbeafe; border-left: 4px solid #2563eb; background: #eff6ff;">
-      <div class="flex items-center gap-1.5 mb-1">
-        <span class="text-xs font-bold text-blue-800">🎓 Preventive Medicine Career Anchor</span>
-        <span class="px-1.5 py-0.5 rounded-full text-[9px] font-medium bg-blue-100 text-blue-700">全局定位</span>
-      </div>
-      <div class="p-1.5 rounded bg-white border border-blue-100 text-[11px] text-gray-700 leading-relaxed">
-        <p><strong>Board-certified Preventive Medicine physician</strong> — building upstream early-identification, caregiver education, and navigation pathways across primary care, public health, and Medicaid safety-net settings.</p>
-        <p class="mt-1 text-gray-500 text-[10px]">以预防医学为系统锚点，在基层医疗、公共卫生与 Medicaid safety-net 场景中建立早期识别、家庭教育和导航路径。</p>
-      </div>
-      <p class="mt-1 text-[10px] text-blue-600">UNC Preventive Medicine residency · ABPM board certification</p>
-    </div>
+ <!-- ============================================================ -->
+ <!-- 1d. Preventive Medicine Positioning / 职业锚点 -->
+ <!-- ============================================================ -->
+ <div class="sec-card" style="border: 1px solid #dbeafe; border-left: 4px solid #2563eb; background: #eff6ff;">
+ <div class="flex items-center gap-1.5 mb-1">
+ <span class="text-xs font-bold text-blue-800"> Preventive Medicine Career Anchor</span>
+ <span class="px-1.5 py-0.5 rounded-full text-[9px] font-medium bg-blue-100 text-blue-700">全局定位</span>
+ </div>
+ <div class="p-1.5 rounded bg-white border border-blue-100 text-[11px] text-gray-700 leading-relaxed">
+ <p><strong>Board-certified Preventive Medicine physician</strong> — building upstream early-identification, caregiver education, and navigation pathways across primary care, public health, and Medicaid safety-net settings.</p>
+ <p class="mt-1 text-gray-500 text-[10px]">以预防医学为系统锚点，在基层医疗、公共卫生与 Medicaid safety-net 场景中建立早期识别、家庭教育和导航路径。</p>
+ </div>
+ <p class="mt-1 text-[10px] text-blue-600">UNC Preventive Medicine residency · ABPM board certification</p>
+ </div>
 
-    <!-- 1d. NeighborBridge LLC Operating Funnel                      -->
-    <!-- ============================================================ -->
-    <div class="sec-card" style="border-left: 4px solid #059669; background: #ecfdf5;">
-      <div class="flex items-center gap-1.5 mb-2">
-        <span class="text-sm font-bold text-emerald-800">🏗 NeighborBridge LLC Operating Funnel</span>
-        <span class="badge bg-emerald-100 text-emerald-700 text-[10px]">商业推进链</span>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-5 gap-1.5 text-[10px]">
-        <div class="p-1.5 rounded-lg bg-white border border-amber-200">
-          <p class="font-medium text-amber-700 mb-0.5">① Lead / 线索</p>
-          <p class="text-gray-500 text-[9px]">→ Stakeholders</p>
-          <p class="text-gray-700 mt-0.5">谁是 champion、bridge、blocker？</p>
-          <p class="text-gray-500 text-[9px] mt-0.5">当前重点：Holly positive；Vinod update；Cindy/Trillium reconnect pending。</p>
-        </div>
-        <div class="p-1.5 rounded-lg bg-white border border-blue-200">
-          <p class="font-medium text-blue-700 mb-0.5">② Relationship / 关系推进</p>
-          <p class="text-gray-500 text-[9px]">→ Trillium + Partnership Structure</p>
-          <p class="text-gray-700 mt-0.5">如何形成 payer/public health 对话入口？</p>
-          <p class="text-gray-500 text-[9px] mt-0.5">当前重点：Holly-validated entry points → Trillium-facing positioning。</p>
-        </div>
-        <div class="p-1.5 rounded-lg bg-white border border-purple-200">
-          <p class="font-medium text-purple-700 mb-0.5">③ Pilot / 试点与 workflow</p>
-          <p class="text-gray-500 text-[9px]">→ FQHC + CHW Sandbox + FASD Pathway</p>
-          <p class="text-gray-700 mt-0.5">如何从 early identification 到 family support / navigation？</p>
-          <p class="text-gray-500 text-[9px] mt-0.5">当前重点：non-PHI CHW sandbox demo + FQHC clinical anchor。</p>
-        </div>
-        <div class="p-1.5 rounded-lg bg-white border border-red-200">
-          <p class="font-medium text-red-700 mb-0.5">④ Contract / 风险与交易准备</p>
-          <p class="text-gray-500 text-[9px]">→ Compliance + IP/Confidentiality + Tax</p>
-          <p class="text-gray-700 mt-0.5">PHI、IP、contracting、entity risk 是否可控？</p>
-          <p class="text-gray-500 text-[9px] mt-0.5">当前重点：sandbox boundary + pre-existing IP + vendor/reimbursement protection。</p>
-        </div>
-        <div class="p-1.5 rounded-lg bg-white border border-green-200">
-          <p class="font-medium text-green-700 mb-0.5">⑤ Expansion / 扩展与学术定位</p>
-          <p class="text-gray-500 text-[9px]">→ Career + Faculty Pathway + Job Search + Manuscript</p>
-          <p class="text-gray-700 mt-0.5">如何把 NC primary site 发展为 global MH / primary care field contribution？</p>
-          <p class="text-gray-500 text-[9px] mt-0.5">当前重点：NC primary site narrative + Duke warm outreach + manuscript P4A。</p>
-        </div>
-      </div>
-      <p class="mt-1.5 text-[9px] text-gray-400">Expansion 不只是商业扩展，也包括学术 / field contribution 扩展。此链为实时推进参考，非固定顺序。</p>
-    </div>
+ <!-- 1d. NeighborBridge LLC Operating Funnel -->
+ <!-- ============================================================ -->
+ <div class="sec-card" style="border-left: 4px solid #059669; background: #ecfdf5;">
+ <div class="flex items-center gap-1.5 mb-2">
+ <span class="text-sm font-bold text-emerald-800"> NeighborBridge LLC Operating Funnel</span>
+ <span class="badge bg-emerald-100 text-emerald-700 text-[10px]">商业推进链</span>
+ </div>
+ <div class="grid grid-cols-1 md:grid-cols-5 gap-1.5 text-[10px]">
+ <div class="p-1.5 rounded-lg bg-white border border-amber-200">
+ <p class="font-medium text-amber-700 mb-0.5">① Lead / 线索</p>
+ <p class="text-gray-500 text-[9px]">→ Stakeholders</p>
+ <p class="text-gray-700 mt-0.5">谁是 champion、bridge、blocker？</p>
+ <p class="text-gray-500 text-[9px] mt-0.5">当前重点：Holly positive；Vinod update；Cindy/Trillium reconnect pending。</p>
+ </div>
+ <div class="p-1.5 rounded-lg bg-white border border-blue-200">
+ <p class="font-medium text-blue-700 mb-0.5">② Relationship / 关系推进</p>
+ <p class="text-gray-500 text-[9px]">→ Trillium + Partnership Structure</p>
+ <p class="text-gray-700 mt-0.5">如何形成 payer/public health 对话入口？</p>
+ <p class="text-gray-500 text-[9px] mt-0.5">当前重点：Holly-validated entry points → Trillium-facing positioning。</p>
+ </div>
+ <div class="p-1.5 rounded-lg bg-white border border-purple-200">
+ <p class="font-medium text-purple-700 mb-0.5">③ Pilot / 试点与 workflow</p>
+ <p class="text-gray-500 text-[9px]">→ FQHC + CHW Sandbox + FASD Pathway</p>
+ <p class="text-gray-700 mt-0.5">如何从 early identification 到 family support / navigation？</p>
+ <p class="text-gray-500 text-[9px] mt-0.5">当前重点：non-PHI CHW sandbox demo + FQHC clinical anchor。</p>
+ </div>
+ <div class="p-1.5 rounded-lg bg-white border border-red-200">
+ <p class="font-medium text-red-700 mb-0.5">④ Contract / 风险与交易准备</p>
+ <p class="text-gray-500 text-[9px]">→ Compliance + IP/Confidentiality + Tax</p>
+ <p class="text-gray-700 mt-0.5">PHI、IP、contracting、entity risk 是否可控？</p>
+ <p class="text-gray-500 text-[9px] mt-0.5">当前重点：sandbox boundary + pre-existing IP + vendor/reimbursement protection。</p>
+ </div>
+ <div class="p-1.5 rounded-lg bg-white border border-green-200">
+ <p class="font-medium text-green-700 mb-0.5">⑤ Expansion / 扩展与学术定位</p>
+ <p class="text-gray-500 text-[9px]">→ Career + Faculty Pathway + Job Search + Manuscript</p>
+ <p class="text-gray-700 mt-0.5">如何把 NC primary site 发展为 global MH / primary care field contribution？</p>
+ <p class="text-gray-500 text-[9px] mt-0.5">当前重点：NC primary site narrative + Duke warm outreach + manuscript P4A。</p>
+ </div>
+ </div>
+ <p class="mt-1.5 text-[9px] text-gray-400">Expansion 不只是商业扩展，也包括学术 / field contribution 扩展。此链为实时推进参考，非固定顺序。</p>
+ </div>
 
-    <!-- 1. 今日可执行 -->
-    <div class="sec-card accent-green">
-      <div class="flex justify-between items-center mb-2">
-        <div>
-          <h2 class="text-sm font-bold">🚀 可执行（今天）</h2>
-          <p class="text-[10px] text-gray-400">直接行动项</p>
-        </div>
-        <span class="badge bg-green-100 text-green-800 text-[10px]">今日</span>
-      </div>
-      <div class="space-y-1.5">
-        <button onclick="go('/fqhc')" class="action-btn bg-blue-50 text-blue-700 border border-blue-200">
-          <div class="flex items-center gap-2">
-            <i class="fas fa-paper-plane text-xs w-4"></i>
-            <div class="text-xs"><span class="font-medium">发送Medical Director消息</span> <span class="text-blue-500">使用FQHC面板中模板</span></div>
-          </div>
-        </button>
-        <button onclick="go('/faculty-pathway')" class="action-btn bg-purple-50 text-purple-700 border border-purple-200">
-          <div class="flex items-center gap-2">
-            <i class="fas fa-paper-plane text-xs w-4"></i>
-            <div class="text-xs"><span class="font-medium">发送Vinod进展更新</span> <span class="text-purple-500">附external brief · 评论ECHO/implementation logic</span></div>
-          </div>
-        </button>
-        <button onclick="go('/trillium')" class="action-btn bg-green-50 text-green-700 border border-green-200">
-          <div class="flex items-center gap-2">
-            <i class="fas fa-chart-line text-xs w-4"></i>
-            <div class="text-xs"><span class="font-medium">更新Trillium优先级</span> <span class="text-green-500">基于FQHC试点可行性</span></div>
-          </div>
-        </button>
-        <button onclick="reviewBlockers()" class="action-btn bg-orange-50 text-orange-700 border border-orange-200">
-          <div class="flex items-center gap-2">
-            <i class="fas fa-exclamation-triangle text-xs w-4"></i>
-            <div class="text-xs"><span class="font-medium">审查阻塞项</span> <span class="text-orange-500">分配责任和时间线</span></div>
-          </div>
-        </button>
-        <button onclick="go('/caregiving-mobility')" class="action-btn bg-red-50 text-red-700 border border-red-200">
-          <div class="flex items-center gap-2">
-            <i class="fas fa-home text-xs w-4"></i>
-            <div class="text-xs"><span class="font-medium">评估照护约束</span> <span class="text-red-500">明确可用backup · 建立最小写作窗口</span></div>
-          </div>
-        </button>
-      </div>
-      <div class="mt-2 pt-1.5 border-t text-[11px] text-gray-400">
-        完成状态：<span id="action-completion">0/5</span> 项完成
-      </div>
-    </div>
+ <!-- 1. 今日可执行 -->
+ <div class="sec-card accent-green">
+ <div class="flex justify-between items-center mb-2">
+ <div>
+ <h2 class="text-sm font-bold"> 可执行（今天）</h2>
+ <p class="text-[10px] text-gray-400">直接行动项</p>
+ </div>
+ <span class="badge bg-green-100 text-green-800 text-[10px]">今日</span>
+ </div>
+ <div class="space-y-1.5">
+ <button onclick="go('/faculty-pathway')" class="action-btn bg-purple-50 text-purple-700 border border-purple-200">
+ <div class="text-xs"><span class="font-medium">发送 Vinod 进展更新</span> <span class="text-purple-500">附external brief · 评论ECHO/implementation logic</span></div>
+ </button>
+ <button onclick="go('/trillium')" class="action-btn bg-green-50 text-green-700 border border-green-200">
+ <div class="text-xs"><span class="font-medium">判断是否轻量重新联系 Cindy / Trillium</span> <span class="text-green-500">确定下一步沟通策略</span></div>
+ </button>
+ <button onclick="go('/career-contribution')" class="action-btn bg-blue-50 text-blue-700 border border-blue-200">
+ <div class="text-xs"><span class="font-medium">推进 North Carolina primary site narrative</span> <span class="text-blue-500">1-page draft</span></div>
+ </button>
+ <button onclick="reviewBlockers()" class="action-btn bg-orange-50 text-orange-700 border border-orange-200">
+ <div class="text-xs"><span class="font-medium">审查当前阻塞项</span> <span class="text-orange-500">确认各项责任和时间线</span></div>
+ </button>
+ <button onclick="go('/caregiving-mobility')" class="action-btn bg-red-50 text-red-700 border border-red-200">
+ <div class="text-xs"><span class="font-medium">明确照护 coverage 与最小写作窗口</span> <span class="text-red-500">评估可用backup</span></div>
+ </button>
+ </div>
+ <div class="mt-2 pt-1.5 border-t text-[11px] text-gray-400">
+ 完成状态：<span id="action-completion">0/5</span> 项完成
+ </div>
+ </div>
 
-    <!-- 2. 仪表板状态概览 -->
-    <div class="sec-card accent-blue">
-      <h2 class="text-sm font-bold mb-2">📊 仪表板状态概览</h2>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
-        <a href="/fqhc" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
-          <div class="text-xs font-medium text-gray-700">FQHC</div>
-          <div class="text-[10px] text-gray-400">基础试点面板</div>
-          <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-orange-100 text-orange-800">⏳待对齐</span>
-        </a>
-        <a href="/trillium" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
-          <div class="text-xs font-medium text-gray-700">Trillium</div>
-          <div class="text-[10px] text-gray-400">支付方演示文稿</div>
-          <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-green-100 text-green-800">✅已优化</span>
-        </a>
-        <a href="/stakeholders" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
-          <div class="text-xs font-medium text-gray-700">Stakeholders</div>
-          <div class="text-[10px] text-gray-400">关系网络</div>
-          <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-blue-100 text-blue-800">🔗1活跃</span>
-        </a>
-        <a href="/adoption" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
-          <div class="text-xs font-medium text-gray-700">Adoption</div>
-          <div class="text-[10px] text-gray-400">采用规划</div>
-          <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-gray-100 text-gray-800">⏸待更新</span>
-        </a>
-        <a href="/fasd-care-pathway" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
-          <div class="text-xs font-medium text-gray-700">🧠FASD</div>
-          <div class="text-[10px] text-gray-400">识别→支持→管理</div>
-          <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-blue-100 text-blue-800">🆕新建</span>
-        </a>
-        <a href="/career-contribution" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
-          <div class="text-xs font-medium text-gray-700">🎯职业</div>
-          <div class="text-[10px] text-gray-400">定位与学术贡献</div>
-          <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-blue-100 text-blue-800">🧭定位</span>
-        </a>
-        <a href="/caregiving-mobility" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
-          <div class="text-xs font-medium text-gray-700">🏠照护</div>
-          <div class="text-[10px] text-gray-400">行动约束管理</div>
-          <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-red-100 text-red-800">⚠️跨领域阻塞</span>
-        </a>
-      </div>
-    </div>
+ <!-- 2. 仪表板状态概览 -->
+ <div class="sec-card accent-blue">
+ <h2 class="text-sm font-bold mb-2"> 仪表板状态概览</h2>
+ <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
+ <a href="/fqhc" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
+ <div class="text-xs font-medium text-gray-700">FQHC</div>
+ <div class="text-[10px] text-gray-400">基础试点面板</div>
+ <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-orange-100 text-orange-800">监测中</span>
+ </a>
+ <a href="/trillium" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
+ <div class="text-xs font-medium text-gray-700">Trillium</div>
+ <div class="text-[10px] text-gray-400">支付方演示文稿</div>
+ <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-green-100 text-green-800">已对齐</span>
+ </a>
+ <a href="/stakeholders" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
+ <div class="text-xs font-medium text-gray-700">Stakeholders</div>
+ <div class="text-[10px] text-gray-400">关系网络</div>
+ <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-blue-100 text-blue-800">2活跃</span>
+ </a>
+ <a href="/adoption" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
+ <div class="text-xs font-medium text-gray-700">Adoption</div>
+ <div class="text-[10px] text-gray-400">Personal family formation</div>
+ <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-green-100 text-green-800">已重建</span>
+ </a>
+ <a href="/fasd-care-pathway" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
+ <div class="text-xs font-medium text-gray-700">FASD</div>
+ <div class="text-[10px] text-gray-400">识别→支持→管理</div>
+ <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-blue-100 text-blue-800">新建</span>
+ </a>
+ <a href="/career-contribution" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
+ <div class="text-xs font-medium text-gray-700">职业/学术贡献</div>
+ <div class="text-[10px] text-gray-400">定位与学术贡献</div>
+ <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-blue-100 text-blue-800">已定位</span>
+ </a>
+ <a href="/caregiving-mobility" class="bg-gray-50 p-2 rounded-lg hover:bg-gray-100 transition-colors">
+ <div class="text-xs font-medium text-gray-700">照护约束</div>
+ <div class="text-[10px] text-gray-400">行动约束管理</div>
+ <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-red-100 text-red-800">约束阻塞</span>
+ </a>
+ </div>
+ </div>
 
-    <!-- 3. 关键连接 -->
-    <div class="sec-card accent-purple">
-      <div class="flex justify-between items-center mb-2">
-        <div>
-          <h2 class="text-sm font-bold">🔗 关键连接</h2>
-          <p class="text-[10px] text-gray-400">跨仪表板的关系网络</p>
-        </div>
-        <span class="badge bg-gray-100 text-gray-600 text-[10px]">网络</span>
-      </div>
-      <div class="space-y-1.5">
-        <div class="conn-card flex items-start justify-between">
-          <div class="min-w-0">
-            <div class="flex items-center gap-1.5 mb-0.5">
-              <span class="text-xs font-medium">FQHC ↔ Trillium</span>
-            </div>
-            <p class="text-[11px] text-gray-500">试点机会：在FQHC中测试Trillium screening + referral支持层</p>
-          </div>
-          <span class="badge bg-blue-100 text-blue-700 text-[10px] shrink-0 ml-2">机会</span>
-        </div>
-        <div class="conn-card flex items-start justify-between">
-          <div class="min-w-0">
-            <div class="flex items-center gap-1.5 mb-0.5">
-              <span class="text-xs font-medium">Vinod / Truls ↔ 🎓教职路径</span>
-            </div>
-            <p class="text-[11px] text-gray-500">Psychiatry与population health两条路径并行 · 待Richard确认后发送Vinod进展更新+external brief</p>
-          </div>
-          <span class="badge bg-purple-100 text-purple-700 text-[10px] shrink-0 ml-2">🎓教职</span>
-        </div>
-        <div class="conn-card flex items-start justify-between">
-          <div class="min-w-0">
-            <div class="flex items-center gap-1.5 mb-0.5">
-              <span class="text-xs font-medium">Medical Director ↔ 风险对齐</span>
-            </div>
-            <p class="text-[11px] text-gray-500">需要明确clinical/workflow/billing风险边界</p>
-          </div>
-          <span class="badge bg-orange-100 text-orange-700 text-[10px] shrink-0 ml-2">对齐</span>
-        </div>
-      </div>
-    </div>
+ <!-- 3. 关键连接 -->
+ <div class="sec-card accent-purple">
+ <div class="flex justify-between items-center mb-2">
+ <div>
+ <h2 class="text-sm font-bold"> 关键连接</h2>
+ <p class="text-[10px] text-gray-400">跨仪表板的关系网络</p>
+ </div>
+ <span class="badge bg-gray-100 text-gray-600 text-[10px]">网络</span>
+ </div>
+ <div class="space-y-1.5">
+ <div class="conn-card flex items-start justify-between">
+ <div class="min-w-0">
+ <div class="flex items-center gap-1.5 mb-0.5">
+ <span class="text-xs font-medium">FQHC ↔ Trillium</span>
+ </div>
+ <p class="text-[11px] text-gray-500">试点机会：在FQHC中测试Trillium screening + referral支持层</p>
+ </div>
+ <span class="badge bg-blue-100 text-blue-700 text-[10px] shrink-0 ml-2">机会</span>
+ </div>
+ <div class="conn-card flex items-start justify-between">
+ <div class="min-w-0">
+ <div class="flex items-center gap-1.5 mb-0.5">
+ <span class="text-xs font-medium">Vinod / Truls ↔ 教职路径</span>
+ </div>
+ <p class="text-[11px] text-gray-500">Psychiatry与population health两条路径并行 · 待Richard确认后发送Vinod进展更新+external brief</p>
+ </div>
+ <span class="badge bg-purple-100 text-purple-700 text-[10px] shrink-0 ml-2">教职</span>
+ </div>
+ <div class="conn-card flex items-start justify-between">
+ <div class="min-w-0">
+ <div class="flex items-center gap-1.5 mb-0.5">
+ <span class="text-xs font-medium">Medical Director ↔ 风险对齐</span>
+ </div>
+ <p class="text-[11px] text-gray-500">需要明确clinical/workflow/billing风险边界</p>
+ </div>
+ <span class="badge bg-orange-100 text-orange-700 text-[10px] shrink-0 ml-2">对齐</span>
+ </div>
+ </div>
+ </div>
 
-    <!-- 4. 当前阻塞 -->
-    <div class="sec-card accent-red">
-      <div class="flex justify-between items-center mb-2">
-        <div>
-          <h2 class="text-sm font-bold">⚠️ 当前阻塞</h2>
-          <p class="text-[10px] text-gray-400">来自FQHC风险和缺失对齐</p>
-        </div>
-        <span class="badge bg-red-100 text-red-700 text-[10px]">阻塞</span>
-      </div>
-      <div class="space-y-1.5">
-        <div class="blocker">
-          <p class="text-xs font-medium text-red-800">🔴 照护职责限制外出与拓展</p>
-          <p class="text-[11px] text-red-600">限制 travel/networking 与 manuscript revision（深度写作），需建立 coverage + 最小写作窗口</p>
-        </div>
-        <div class="blocker">
-          <p class="text-xs font-medium text-red-800">🔴 FQHC Medical Director 未对齐</p>
-          <p class="text-[11px] text-red-600">诊断边界、workflow负担、reimbursement路径待明确</p>
-        </div>
-        <div class="blocker">
-          <p class="text-xs font-medium text-red-800">🔴 Trillium 联合推进结构待明确</p>
-          <p class="text-[11px] text-red-600">需明确由Richard主导项目叙事，Holly提供本地public health legitimacy与关系支持</p>
-        </div>
-        <div class="blocker">
-          <p class="text-xs font-medium text-red-800">🔴 Trillium 试点入口缺失</p>
-          <p class="text-[11px] text-red-600">需要1-2个FQHC点位作为pilot起点</p>
-        </div>        <div class="blocker completed" style="opacity:0.6;">
-          <p class="text-xs font-medium text-green-800">✅ Trillium 合同边界已确认，合同已签署</p>
-          <p class="text-[11px] text-green-600">Speaker reimbursement / vendor terms 书面确认已完成，合同已签署</p>
-        </div>
+ <!-- 4. 当前阻塞 -->
+ <div class="sec-card accent-red">
+ <div class="flex justify-between items-center mb-2">
+ <div>
+ <h2 class="text-sm font-bold"> 当前阻塞</h2>
+ <p class="text-[10px] text-gray-400">来自FQHC风险和缺失对齐</p>
+ </div>
+ <span class="badge bg-red-100 text-red-700 text-[10px]">阻塞</span>
+ </div>
+ <div class="space-y-1.5">
+ <div class="blocker">
+ <p class="text-xs font-medium text-red-800"> 照护职责限制外出与拓展</p>
+ <p class="text-[11px] text-red-600">限制 travel/networking 与 manuscript revision（深度写作），需建立 coverage + 最小写作窗口</p>
+ </div>
 
-        <div class="blocker">
-          <p class="text-xs font-medium text-red-800">🔴 教职路径定位待完成</p>
-          <p class="text-[11px] text-red-600">external brief已完成，待Richard审阅确认后发送Vinod · ECHO作为capacity-building</p>
-        </div>
-      </div>
-      <p class="mt-1.5 text-[11px] text-gray-400">跨领域阻塞：照护职责限制外出与深度工作 · 试点启动延迟 · Vinod跟进待确认 · 战略执行受阻</p>
-    </div>
+ <div class="blocker">
+ <p class="text-xs font-medium text-red-800"> Trillium 联合推进结构待明确</p>
+ <p class="text-[11px] text-red-600">需明确由Richard主导项目叙事，Holly提供本地public health legitimacy与关系支持</p>
+ </div>
+ <div class="blocker">
+ <p class="text-xs font-medium text-red-800"> Trillium 试点入口缺失</p>
+ <p class="text-[11px] text-red-600">需要1-2个FQHC点位作为pilot起点</p>
+ </div> <div class="blocker completed" style="opacity:0.6;">
+ <p class="text-xs font-medium text-green-800"> Trillium 合同边界已确认，合同已签署</p>
+ <p class="text-[11px] text-green-600">Speaker reimbursement / vendor terms 书面确认已完成，合同已签署</p>
+ </div>
 
-    <!-- 5. 任务与建议 -->
-    <div class="sec-card accent-blue">
-      <div class="flex justify-between items-start mb-2">
-        <div>
-          <h2 class="text-sm font-bold">🎯 任务与建议</h2>
-          <p class="text-[10px] text-gray-400">任务持久化系统 - 点击状态标签更新进度</p>
-        </div>
-        <div class="flex gap-1.5 shrink-0">
-          <button onclick="syncAllDashboards()" id="sync-btn" class="px-2 py-1 bg-blue-50 text-blue-700 text-[10px] rounded hover:bg-blue-100">
-            <i class="fas fa-sync mr-0.5"></i>手动同步
-          </button>
-          <button onclick="addNewTask()" class="px-2 py-1 bg-blue-50 text-blue-700 text-[10px] rounded hover:bg-blue-100">
-            <i class="fas fa-plus mr-0.5"></i>添加任务
-          </button>
-        </div>
-      </div>
-      
-      <div id="task-list" class="space-y-1.5">
-        <!-- Tasks rendered from localStorage -->
-      </div>
-      
-      <div class="mt-2 pt-1.5 border-t flex justify-between items-center text-[11px] text-gray-400">
-        <span id="task-stats">任务统计：0 已完成 · 0 进行中 · 0 未开始</span>
-        <button onclick="clearCompletedTasks()" class="text-red-400 hover:text-red-600">
-          <i class="fas fa-trash-alt mr-0.5"></i>清除已完成
-        </button>
-      </div>
-    </div>
+ <div class="blocker">
+ <p class="text-xs font-medium text-red-800"> 教职路径定位待完成</p>
+ <p class="text-[11px] text-red-600">external brief已完成，待Richard审阅确认后发送Vinod · ECHO作为capacity-building</p>
+ </div>
+ </div>
+ <p class="mt-1.5 text-[11px] text-gray-400">照护职责限制外出与深度工作 · FQHC alignment 进入 follow-up / monitoring · Trillium 联合推进结构待明确 · Vinod 跟进待确认 · North Carolina primary site narrative 尚未完成</p>
+ </div>
 
-  </div>
+ <!-- 5. 任务与建议 -->
+ <div class="sec-card accent-blue">
+ <div class="flex justify-between items-start mb-2">
+ <div>
+ <h2 class="text-sm font-bold"> 任务与建议</h2>
+ <p class="text-[10px] text-gray-400">任务持久化系统 - 点击状态标签更新进度</p>
+ </div>
+ <div class="flex gap-1.5 shrink-0">
+ <button onclick="syncAllDashboards()" id="sync-btn" class="px-2 py-1 bg-blue-50 text-blue-700 text-[10px] rounded hover:bg-blue-100">
+ <i class="fas fa-sync mr-0.5"></i>手动同步
+ </button>
+ <button onclick="addNewTask()" class="px-2 py-1 bg-blue-50 text-blue-700 text-[10px] rounded hover:bg-blue-100">
+ <i class="fas fa-plus mr-0.5"></i>添加任务
+ </button>
+ </div>
+ </div>
+ 
+ <div id="task-list" class="space-y-1.5">
+ <!-- Tasks rendered from localStorage -->
+ </div>
+ 
+ <div class="mt-2 pt-1.5 border-t flex justify-between items-center text-[11px] text-gray-400">
+ <span id="task-stats">任务统计：0 已完成 · 0 进行中 · 0 未开始</span>
+ <button onclick="clearCompletedTasks()" class="text-red-400 hover:text-red-600">
+ <i class="fas fa-trash-alt mr-0.5"></i>清除已完成
+ </button>
+ </div>
+ </div>
 
-  <!--
-    ===== NEIGHBORBRIDGE STRUCTURED DATA (Phase 1-2) =====
-    Machine-readable schema for AI-agent automation.
-    Schema: docs/structured-data-schema.md
-  -->
+ </div>
+
+ <!--
+ ===== NEIGHBORBRIDGE STRUCTURED DATA (Phase 1-2) =====
+ Machine-readable schema for AI-agent automation.
+ Schema: docs/structured-data-schema.md
+ -->
   <script type="application/json" id="nb-dashboard-meta">{
     "type": "dashboard_metadata",
     "page_id": "neighborbridge-main",
@@ -487,16 +469,16 @@
       "has_caregiving_mobility": true
     },
     "sub_dashboards": {
-      "/faculty-pathway": "🎓教职路径面板",
+      "/faculty-pathway": "教职路径面板",
       "/trillium": "Trillium支付方策略",
       "/fqhc": "FQHC基础试点",
       "/stakeholders": "关系网络",
       "/adoption": "采用规划",
       "/archive/emergency-plan.html": "⏺已归档",
-      "/fasd-care-pathway": "🧠FASD护理路径",
-      "/tax-strategy": "💰税务策略",
-      "/manuscript-dashboard": "📄稿件面板",
-      "/caregiving-mobility": "🏠照护与行动自由 (活跃)"
+      "/fasd-care-pathway": "FASD护理路径",
+      "/tax-strategy": "税务策略",
+      "/manuscript-dashboard": "稿件面板",
+      "/caregiving-mobility": "照护与行动自由 (活跃)"
     },
     "agent_behavior_flags": {
       "use_workspace_recovery_first": true,
@@ -841,113 +823,113 @@
     ]
   }</script>
 
-  <script>
-    function go(u) { window.location.href = u; }
-    const TASKS_KEY = 'neighborbridge_tasks';
+ <script>
+ function go(u) { window.location.href = u; }
+ const TASKS_KEY = 'neighborbridge_tasks';
 
-    let tasks = [
-      { id: 1, title: "发送Vinod进展更新", desc: "附external brief · ECHO作为capacity-building · 请他评论implementation logic与institutional fit", status: "not-started", created: "2026-04-24", updated: new Date().toISOString().split('T')[0] },
-      { id: 2, title: "发送Medical Director沟通", desc: "使用FQHC面板中的执行卡模板", status: "completed", created: "2026-04-03", updated: new Date().toISOString().split('T')[0] },
-      { id: 3, title: "评估FASD护理路径实施", desc: "分析在Trillium环境中的可行性", status: "in-progress", created: "2026-04-01", updated: "2026-04-01" }
-    ];
+ let tasks = [
+ { id: 1, title: "发送Vinod进展更新", desc: "附external brief · ECHO作为capacity-building · 请他评论implementation logic与institutional fit", status: "not-started", created: "2026-04-24", updated: new Date().toISOString().split('T')[0] },
+ { id: 2, title: "发送Medical Director沟通", desc: "使用FQHC面板中的执行卡模板", status: "completed", created: "2026-04-03", updated: new Date().toISOString().split('T')[0] },
+ { id: 3, title: "评估FASD护理路径实施", desc: "分析在Trillium环境中的可行性", status: "in-progress", created: "2026-04-01", updated: "2026-04-01" }
+ ];
 
-    // --- Action tracking ---
-    let completedActions = 0;
-    function updateActionCount() {
-      document.getElementById('action-completion').textContent = completedActions + '/5';
-    }
-    document.querySelectorAll('.action-btn').forEach((b, i) => {
-      b.addEventListener('click', function() {
-        if (!this.classList.contains('completed')) {
-          this.classList.add('completed');
-          completedActions++;
-          updateActionCount();
-        }
-      });
-    });
+ // --- Action tracking ---
+ let completedActions = 0;
+ function updateActionCount() {
+ document.getElementById('action-completion').textContent = completedActions + '/5';
+ }
+ document.querySelectorAll('.action-btn').forEach((b, i) => {
+ b.addEventListener('click', function() {
+ if (!this.classList.contains('completed')) {
+ this.classList.add('completed');
+ completedActions++;
+ updateActionCount();
+ }
+ });
+ });
 
-    // --- Tasks ---
-    function taskDays(task) {
-      return Math.floor((new Date() - new Date(task.created)) / 86400000);
-    }
-    function taskOverdue(task) {
-      return taskDays(task) > 3 && task.status !== 'completed';
-    }
-    function renderTasks() {
-      const list = document.getElementById('task-list');
-      list.innerHTML = tasks.map(t => {
-        const today = new Date().toISOString().split('T')[0];
-        const lastUp = t.updated === today ? '刚刚' : taskDays(t) + '天前';
-        const od = taskOverdue(t) ? '<span class="ml-1.5 text-red-500 font-medium">⚠️超过3天未完成</span>' : '';
-        return `<div class="task-card" data-id="${t.id}">
-          <div class="flex items-start justify-between gap-2">
-            <div class="min-w-0 flex-1">
-              <div class="text-xs text-gray-700"><span class="font-medium">${escHtml(t.title)}</span> - ${escHtml(t.desc)}</div>
-              <div class="text-[10px] text-gray-400 mt-0.5">创建: ${t.created} · 最后更新: ${lastUp}${od}</div>
-            </div>
-            <div class="flex gap-0.5 shrink-0">
-              <span class="status-pill pill-not-started${t.status==='not-started'?' active':''}" onclick="setStatus(${t.id},'not-started')">未开始</span>
-              <span class="status-pill pill-in-progress${t.status==='in-progress'?' active':''}" onclick="setStatus(${t.id},'in-progress')">进行中</span>
-              <span class="status-pill pill-completed${t.status==='completed'?' active':''}" onclick="setStatus(${t.id},'completed')">已完成</span>
-            </div>
-          </div>
-        </div>`;
-      }).join('');
-      updateTaskStats();
-    }
-    function escHtml(s) {
-      const d = document.createElement('div');
-      d.textContent = s; return d.innerHTML;
-    }
-    function setStatus(id, status) {
-      const t = tasks.find(x => x.id === id);
-      if (!t) return;
-      t.status = status; t.updated = new Date().toISOString().split('T')[0];
-      saveTasks(); renderTasks();
-    }
-    function updateTaskStats() {
-      const c = tasks.filter(t => t.status === 'completed').length;
-      const ip = tasks.filter(t => t.status === 'in-progress').length;
-      const ns = tasks.filter(t => t.status === 'not-started').length;
-      document.getElementById('task-stats').textContent = `任务统计：${c} 已完成 · ${ip} 进行中 · ${ns} 未开始`;
-    }
-    function addNewTask() {
-      const id = tasks.length ? Math.max(...tasks.map(t => t.id)) + 1 : 1;
-      const today = new Date().toISOString().split('T')[0];
-      tasks.push({ id, title: "新任务", desc: "点击编辑任务描述", status: "not-started", created: today, updated: today });
-      saveTasks(); renderTasks();
-    }
-    function clearCompletedTasks() {
-      if (!confirm('清除所有已完成任务?')) return;
-      tasks = tasks.filter(t => t.status !== 'completed');
-      saveTasks(); renderTasks();
-    }
-    function syncAllDashboards() {
-      const btn = document.getElementById('sync-btn');
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-0.5"></i>同步中...';
-      btn.disabled = true;
-      setTimeout(() => {
-        renderTasks();
-        btn.innerHTML = '<i class="fas fa-sync mr-0.5"></i>手动同步';
-        btn.disabled = false;
-      }, 600);
-    }
-    function saveTasks() {
-      try { localStorage.setItem(TASKS_KEY, JSON.stringify(tasks)); } catch(e) {}
-    }
-    function loadTasks() {
-      try {
-        const s = localStorage.getItem(TASKS_KEY);
-        if (s) { tasks = JSON.parse(s); }
-      } catch(e) {}
-    }
-    function reviewBlockers() { alert('请在阻塞面板中查看详情。'); }
+ // --- Tasks ---
+ function taskDays(task) {
+ return Math.floor((new Date() - new Date(task.created)) / 86400000);
+ }
+ function taskOverdue(task) {
+ return taskDays(task) > 3 && task.status !== 'completed';
+ }
+ function renderTasks() {
+ const list = document.getElementById('task-list');
+ list.innerHTML = tasks.map(t => {
+ const today = new Date().toISOString().split('T')[0];
+ const lastUp = t.updated === today ? '刚刚' : taskDays(t) + '天前';
+ const od = taskOverdue(t) ? '<span class="ml-1.5 text-red-500 font-medium">超过3天未完成</span>' : '';
+ return `<div class="task-card" data-id="${t.id}">
+ <div class="flex items-start justify-between gap-2">
+ <div class="min-w-0 flex-1">
+ <div class="text-xs text-gray-700"><span class="font-medium">${escHtml(t.title)}</span> - ${escHtml(t.desc)}</div>
+ <div class="text-[10px] text-gray-400 mt-0.5">创建: ${t.created} · 最后更新: ${lastUp}${od}</div>
+ </div>
+ <div class="flex gap-0.5 shrink-0">
+ <span class="status-pill pill-not-started${t.status==='not-started'?' active':''}" onclick="setStatus(${t.id},'not-started')">未开始</span>
+ <span class="status-pill pill-in-progress${t.status==='in-progress'?' active':''}" onclick="setStatus(${t.id},'in-progress')">进行中</span>
+ <span class="status-pill pill-completed${t.status==='completed'?' active':''}" onclick="setStatus(${t.id},'completed')">已完成</span>
+ </div>
+ </div>
+ </div>`;
+ }).join('');
+ updateTaskStats();
+ }
+ function escHtml(s) {
+ const d = document.createElement('div');
+ d.textContent = s; return d.innerHTML;
+ }
+ function setStatus(id, status) {
+ const t = tasks.find(x => x.id === id);
+ if (!t) return;
+ t.status = status; t.updated = new Date().toISOString().split('T')[0];
+ saveTasks(); renderTasks();
+ }
+ function updateTaskStats() {
+ const c = tasks.filter(t => t.status === 'completed').length;
+ const ip = tasks.filter(t => t.status === 'in-progress').length;
+ const ns = tasks.filter(t => t.status === 'not-started').length;
+ document.getElementById('task-stats').textContent = `任务统计：${c} 已完成 · ${ip} 进行中 · ${ns} 未开始`;
+ }
+ function addNewTask() {
+ const id = tasks.length ? Math.max(...tasks.map(t => t.id)) + 1 : 1;
+ const today = new Date().toISOString().split('T')[0];
+ tasks.push({ id, title: "新任务", desc: "点击编辑任务描述", status: "not-started", created: today, updated: today });
+ saveTasks(); renderTasks();
+ }
+ function clearCompletedTasks() {
+ if (!confirm('清除所有已完成任务?')) return;
+ tasks = tasks.filter(t => t.status !== 'completed');
+ saveTasks(); renderTasks();
+ }
+ function syncAllDashboards() {
+ const btn = document.getElementById('sync-btn');
+ btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-0.5"></i>同步中...';
+ btn.disabled = true;
+ setTimeout(() => {
+ renderTasks();
+ btn.innerHTML = '<i class="fas fa-sync mr-0.5"></i>手动同步';
+ btn.disabled = false;
+ }, 600);
+ }
+ function saveTasks() {
+ try { localStorage.setItem(TASKS_KEY, JSON.stringify(tasks)); } catch(e) {}
+ }
+ function loadTasks() {
+ try {
+ const s = localStorage.getItem(TASKS_KEY);
+ if (s) { tasks = JSON.parse(s); }
+ } catch(e) {}
+ }
+ function reviewBlockers() { alert('请在阻塞面板中查看详情。'); }
 
-    // --- Init ---
-    loadTasks();
-    renderTasks();
-    updateActionCount();
-  </script>
+ // --- Init ---
+ loadTasks();
+ renderTasks();
+ updateActionCount();
+ </script>
 
 </body>
 </html>
