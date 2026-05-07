@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agent Ops / Agent Governance — NeighborBridge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { brand: "#0ea5e9", urgent: "#ef4444", warning: "#f59e0b", neutral: "#6b7280", completed: "#10b981" }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .sec-card { @apply bg-white rounded-lg p-3 border shadow-sm mb-3; }
+    .badge { display: inline-flex; align-items: center; padding: 1px 10px; border-radius: 9999px; font-size: 11px; font-weight: 500; }
+    .acc-slate { border-left: 4px solid #64748b; }
+    .acc-cyan { border-left: 4px solid #06b6d4; }
+    .acc-rose { border-left: 4px solid #f43f5e; }
+    .acc-amber { border-left: 4px solid #d97706; }
+    .acc-purple { border-left: 4px solid #a78bfa; }
+    .acc-green { border-left: 4px solid #34d399; }
+    .acc-orange { border-left: 4px solid #f97316; }
+    .highlight-box { @apply p-2 rounded border text-[10px] leading-relaxed; }
+    .agent-card { @apply p-2 rounded border text-[10px] leading-relaxed; }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-5xl mx-auto px-3 py-2 flex justify-between items-center">
+      <h1 class="text-base font-bold">NeighborBridge</h1>
+      <div class="flex flex-wrap gap-x-3 gap-y-0.5 text-[11px]">
+        <a href="/" class="text-gray-500 hover:text-brand">主面板</a>
+        <a href="/dashboard-directory" class="text-gray-500 hover:text-brand">📚全部面板</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-5xl mx-auto px-3 py-3">
+
+    <!-- ===== Top Positioning Card ===== -->
+    <div class="sec-card acc-cyan">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-sm font-bold text-cyan-700">Agent Ops / Agent Governance</span>
+        <span class="text-[10px] text-gray-400 ml-1">Agent 工作流与权限治理</span>
+      </div>
+      <p class="text-[11px] text-gray-600 mb-1">将未来 AI automation 组织为可控的功能岗位，而不是未受控的自动化代理。</p>
+      <div class="highlight-box bg-cyan-50 border-cyan-200 text-cyan-800 text-[11px]">
+        <strong>Agent system</strong> = roles + permissions + approval queue + source-of-truth dashboards.<br>
+        <span class="text-cyan-600 text-[10px]">Agent 系统 = 角色分工 + 权限边界 + Richard 审批队列 + dashboard 作为事实来源</span>
+      </div>
+    </div>
+
+    <!-- ===== Agent Roles / 5 Role Cards ===== -->
+    <div class="sec-card acc-slate">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-gray-700">🤖 Agent Roles / 功能岗位</span>
+        <span class="badge bg-gray-100 text-gray-600 text-[10px]">5 roles</span>
+      </div>
+      <p class="text-[10px] text-gray-500 mb-2">Agent 不被设计为"多个 personality"，而是公司内不同功能岗位——每个有 clear role, scope, approval level, source of truth, compliance boundaries。</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+
+        <!-- A. Executive Assistant -->
+        <div class="agent-card border-blue-200 bg-blue-50">
+          <div class="flex items-center gap-1 mb-1">
+            <span class="text-[11px] font-bold text-blue-800">A. Executive Assistant Agent</span>
+            <span class="text-[9px] text-blue-500">执行助理</span>
+          </div>
+          <p class="text-[9px] font-medium text-blue-700 mb-0.5">Duties:</p>
+          <ul class="text-[9px] text-blue-800 space-y-0.5 mb-1">
+            <li>• Calendar prep · Meeting scheduling drafts</li>
+            <li>• Reminders · Meeting prep notes</li>
+            <li>• Follow-up draft · Daily action summary</li>
+          </ul>
+          <p class="text-[9px] font-medium text-blue-700 mb-0.5">Source of truth:</p>
+          <p class="text-[9px] text-blue-600">Main Dashboard · Caregiving Mobility · Job Search (scheduling)</p>
+          <p class="text-[9px] font-medium text-blue-700 mt-1 mb-0.5">Email:</p>
+          <p class="text-[9px] text-blue-600">assistant@neighborbridgehealth.com (placeholder)</p>
+          <p class="text-[9px] font-medium text-blue-700 mt-1 mb-0.5">Approval:</p>
+          <p class="text-[9px] text-blue-600">Draft-only; Richard approval required before sending</p>
+          <p class="text-[9px] font-medium text-rose-600 mt-1 mb-0.5">❌ Cannot:</p>
+          <p class="text-[9px] text-rose-600">Send external emails without approval · Change calendar without approval · Commit Richard to meetings/travel</p>
+        </div>
+
+        <!-- B. Partnership Agent -->
+        <div class="agent-card border-purple-200 bg-purple-50">
+          <div class="flex items-center gap-1 mb-1">
+            <span class="text-[11px] font-bold text-purple-800">B. Partnership / Trillium Agent</span>
+            <span class="text-[9px] text-purple-500">合作与 Trillium</span>
+          </div>
+          <p class="text-[9px] font-medium text-purple-700 mb-0.5">Duties:</p>
+          <ul class="text-[9px] text-purple-800 space-y-0.5 mb-1">
+            <li>• Holly / Cindy / Trillium draft emails</li>
+            <li>• Payer-facing concept notes · Meeting prep</li>
+            <li>• Workflow entry-point summaries · Trillium follow-up tracking</li>
+          </ul>
+          <p class="text-[9px] font-medium text-purple-700 mb-0.5">Source of truth:</p>
+          <p class="text-[9px] text-purple-600">Trillium · Trillium Partnership Structure · Stakeholders · CHW Sandbox · IP/Confidentiality</p>
+          <p class="text-[9px] font-medium text-purple-700 mt-1 mb-0.5">Email:</p>
+          <p class="text-[9px] text-purple-600">partnerships@neighborbridgehealth.com (placeholder)</p>
+          <p class="text-[9px] font-medium text-purple-700 mt-1 mb-0.5">Approval:</p>
+          <p class="text-[9px] text-purple-600">All external messages require Richard approval</p>
+          <p class="text-[9px] font-medium text-rose-600 mt-1 mb-0.5">❌ Cannot:</p>
+          <p class="text-[9px] text-rose-600">Send funding ask · Promise pilot · Expose full workflow IP · Contact Trillium without Richard approval</p>
+        </div>
+
+        <!-- C. Compliance/IP Agent -->
+        <div class="agent-card border-green-200 bg-green-50">
+          <div class="flex items-center gap-1 mb-1">
+            <span class="text-[11px] font-bold text-green-800">C. Compliance / IP Agent</span>
+            <span class="text-[9px] text-green-500">合规与 IP</span>
+          </div>
+          <p class="text-[9px] font-medium text-green-700 mb-0.5">Duties:</p>
+          <ul class="text-[9px] text-green-800 space-y-0.5 mb-1">
+            <li>• PHI/HIPAA boundary review · IP disclaimer review</li>
+            <li>• External sharing checklist · Contract language support</li>
+            <li>• Sandbox boundary check</li>
+          </ul>
+          <p class="text-[9px] font-medium text-green-700 mb-0.5">Source of truth:</p>
+          <p class="text-[9px] text-green-600">Compliance · IP/Confidentiality · Trillium contract notes · CHW Sandbox boundary</p>
+          <p class="text-[9px] font-medium text-green-700 mt-1 mb-0.5">Email:</p>
+          <p class="text-[9px] text-green-600">compliance@neighborbridgehealth.com (placeholder)</p>
+          <p class="text-[9px] font-medium text-green-700 mt-1 mb-0.5">Approval:</p>
+          <p class="text-[9px] text-green-600">Can flag risks &amp; draft language; cannot make legal determinations or send externally</p>
+          <p class="text-[9px] font-medium text-rose-600 mt-1 mb-0.5">❌ Cannot:</p>
+          <p class="text-[9px] text-rose-600">Provide formal legal advice · Approve PHI use · Waive IP rights · Sign/authorize agreements</p>
+        </div>
+
+        <!-- D. Academic Agent -->
+        <div class="agent-card border-amber-200 bg-amber-50">
+          <div class="flex items-center gap-1 mb-1">
+            <span class="text-[11px] font-bold text-amber-800">D. Academic / Faculty Agent</span>
+            <span class="text-[9px] text-amber-500">学术与教职</span>
+          </div>
+          <p class="text-[9px] font-medium text-amber-700 mb-0.5">Duties:</p>
+          <ul class="text-[9px] text-amber-800 space-y-0.5 mb-1">
+            <li>• Vinod / Robert / Gail / Duke / UNC / Yale draft outreach</li>
+            <li>• Faculty pathway tracking · Job search opportunity analysis</li>
+            <li>• Manuscript-related academic framing · Career brief drafts</li>
+          </ul>
+          <p class="text-[9px] font-medium text-amber-700 mb-0.5">Source of truth:</p>
+          <p class="text-[9px] text-amber-600">Career/Field Contribution · Faculty Pathway · Job Search · Stakeholders · Manuscript Dashboard</p>
+          <p class="text-[9px] font-medium text-amber-700 mt-1 mb-0.5">Email:</p>
+          <p class="text-[9px] text-amber-600">academic@neighborbridgehealth.com (placeholder)</p>
+          <p class="text-[9px] font-medium text-amber-700 mt-1 mb-0.5">Approval:</p>
+          <p class="text-[9px] text-amber-600">Draft-only; Richard approval required before any outreach</p>
+          <p class="text-[9px] font-medium text-rose-600 mt-1 mb-0.5">❌ Cannot:</p>
+          <p class="text-[9px] text-rose-600">Apply to jobs · Submit materials · Claim institutional affiliation beyond approval · Ask directly for faculty position</p>
+        </div>
+
+        <!-- E. CHW Workflow Agent -->
+        <div class="agent-card border-cyan-200 bg-cyan-50">
+          <div class="flex items-center gap-1 mb-1">
+            <span class="text-[11px] font-bold text-cyan-800">E. CHW Workflow / Product Agent</span>
+            <span class="text-[9px] text-cyan-500">CHW 工作流与产品</span>
+          </div>
+          <p class="text-[9px] font-medium text-cyan-700 mb-0.5">Duties:</p>
+          <ul class="text-[9px] text-cyan-800 space-y-0.5 mb-1">
+            <li>• CHW sandbox updates · Synthetic demo cases</li>
+            <li>• Family education scripts · Workflow sketch drafts</li>
+            <li>• Entry-point mapping · Dashboard product logic</li>
+          </ul>
+          <p class="text-[9px] font-medium text-cyan-700 mb-0.5">Source of truth:</p>
+          <p class="text-[9px] text-cyan-600">CHW Early Detection Sandbox · FASD Care Pathway · FQHC · Compliance · IP/Confidentiality</p>
+          <p class="text-[9px] font-medium text-cyan-700 mt-1 mb-0.5">Email:</p>
+          <p class="text-[9px] text-cyan-600">workflow@neighborbridgehealth.com (placeholder)</p>
+          <p class="text-[9px] font-medium text-cyan-700 mt-1 mb-0.5">Approval:</p>
+          <p class="text-[9px] text-cyan-600">Can draft internal demo content; external sharing requires Richard approval</p>
+          <p class="text-[9px] font-medium text-rose-600 mt-1 mb-0.5">❌ Cannot:</p>
+          <p class="text-[9px] text-rose-600">Use PHI · Generate clinical advice for real patients · Represent demo as validated product · Claim proven ROI</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== Approval Levels ===== -->
+    <div class="sec-card acc-rose">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-rose-700">🛡️ Approval Levels / 审批等级</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-[10px] text-gray-700 border-collapse">
+          <thead>
+            <tr class="bg-gray-100 border-b">
+              <th class="px-2 py-1 text-left font-medium text-gray-600">Level</th>
+              <th class="px-2 py-1 text-left font-medium text-gray-600">名称</th>
+              <th class="px-2 py-1 text-left font-medium text-gray-600">Agent 可做</th>
+              <th class="px-2 py-1 text-left font-medium text-gray-600">Richard 必须批准？</th>
+              <th class="px-2 py-1 text-left font-medium text-gray-600">示例</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-100">
+              <td class="px-2 py-1 font-medium">0</td>
+              <td class="px-2 py-1">Internal note only</td>
+              <td class="px-2 py-1">生成内部 note / dashboard suggestion</td>
+              <td class="px-2 py-1">❌ 无需发送</td>
+              <td class="px-2 py-1 text-gray-500">Dashboard status update</td>
+            </tr>
+            <tr class="border-b border-gray-100 bg-gray-50">
+              <td class="px-2 py-1 font-medium">1</td>
+              <td class="px-2 py-1">Draft only</td>
+              <td class="px-2 py-1">起草 email / message / calendar / concept note</td>
+              <td class="px-2 py-1">✅ 必须审核</td>
+              <td class="px-2 py-1 text-gray-500">Holly draft email</td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="px-2 py-1 font-medium">2</td>
+              <td class="px-2 py-1">Send after approval</td>
+              <td class="px-2 py-1">在明确批准后发送或提交</td>
+              <td class="px-2 py-1">✅ 批准后发送</td>
+              <td class="px-2 py-1 text-gray-500">Cindy / Vinod outreach</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-2 py-1 font-medium text-gray-400">3</td>
+              <td class="px-2 py-1 text-gray-400">Limited auto-send 🚫</td>
+              <td class="px-2 py-1 text-gray-400">低风险白名单固定模板</td>
+              <td class="px-2 py-1 text-gray-400">✅ 默认禁用</td>
+              <td class="px-2 py-1 text-gray-400">"Thank you, received"</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-[9px] text-rose-600 mt-1.5"><strong>Current default:</strong> All external communication is Level 1 or Level 2 only. Level 3 disabled.</p>
+      <p class="text-[9px] text-rose-500 mt-0.5">当前默认：所有外部沟通均为 draft-only 或 Richard 批准后发送；不启用全自动发送。</p>
+    </div>
+
+    <!-- ===== Gmail Workflow ===== -->
+    <div class="sec-card acc-green">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-green-700">📧 Gmail Workflow / 邮件工作流</span>
+      </div>
+      <p class="text-[10px] font-medium text-green-700 mb-1">Current stage: Draft-only / approval-required</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-1.5">
+        <div class="highlight-box bg-green-50 border-green-200">
+          <p class="font-medium text-green-700 text-[10px] mb-0.5">✅ Future optional automation:</p>
+          <ul class="text-[9px] text-green-700 space-y-0.5">
+            <li>• Search Gmail for known stakeholders</li>
+            <li>• Summarize new relevant messages</li>
+            <li>• Update dashboard status fields</li>
+            <li>• Draft replies · Place draft in approval queue</li>
+          </ul>
+        </div>
+        <div class="highlight-box bg-rose-50 border-rose-200">
+          <p class="font-medium text-rose-700 text-[10px] mb-0.5">❌ Prohibited:</p>
+          <ul class="text-[9px] text-rose-700 space-y-0.5">
+            <li>• Automatic external email sending</li>
+            <li>• Mass outreach · Sending funding asks</li>
+            <li>• Sending contract/IP commitments</li>
+            <li>• Forwarding PHI</li>
+            <li>• Using personal messages without relevance</li>
+          </ul>
+        </div>
+      </div>
+      <div class="highlight-box bg-amber-50 border-amber-200 text-[9px]">
+        <span class="font-medium">Dashboard update rule:</span> Small status changes OK (last contact date, next action). Major strategy updates require Richard confirmation.
+      </div>
+    </div>
+
+    <!-- ===== Calendar Workflow ===== -->
+    <div class="sec-card acc-amber">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-amber-700">📅 Calendar Workflow / 日历工作流</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div class="highlight-box bg-green-50 border-green-200">
+          <p class="font-medium text-green-700 text-[10px] mb-0.5">✅ Agent can:</p>
+          <ul class="text-[9px] text-green-700 space-y-0.5">
+            <li>• Read availability (if permission exists)</li>
+            <li>• Propose meeting times · Draft calendar invite</li>
+            <li>• Prepare agenda · Create meeting prep note</li>
+            <li>• Create follow-up checklist</li>
+          </ul>
+        </div>
+        <div class="highlight-box bg-rose-50 border-rose-200">
+          <p class="font-medium text-rose-700 text-[10px] mb-0.5">❌ Agent cannot:</p>
+          <ul class="text-[9px] text-rose-700 space-y-0.5">
+            <li>• Send calendar invite without approval</li>
+            <li>• Reschedule external meeting without approval</li>
+            <li>• Commit Richard to travel</li>
+            <li>• Add outside attendees without approval</li>
+            <li>• Create clinical/patient calendar content with PHI</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Notion Workflow ===== -->
+    <div class="sec-card acc-purple">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-purple-700">🗂️ Notion Workflow / Notion 后端任务库</span>
+      </div>
+      <p class="text-[10px] text-purple-700 mb-1">Notion = backend task database, not executive decision surface.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div class="highlight-box bg-purple-50 border-purple-200">
+          <p class="font-medium text-purple-700 text-[10px] mb-0.5">✅ Notion 适合:</p>
+          <ul class="text-[9px] text-purple-700 space-y-0.5">
+            <li>• Contact records · Meeting notes</li>
+            <li>• Draft queue · Project tasks</li>
+            <li>• Opportunity tracking · Approval queue</li>
+            <li>• Agent task log</li>
+          </ul>
+        </div>
+        <div class="highlight-box bg-cyan-50 border-cyan-200">
+          <p class="font-medium text-cyan-700 text-[10px] mb-0.5">✅ Dashboard 适合:</p>
+          <ul class="text-[9px] text-cyan-700 space-y-0.5">
+            <li>• Executive cockpit</li>
+            <li>• 3秒决策栏 · Current status</li>
+            <li>• Blockers · Next action</li>
+            <li>• Relationship heatmap · Strategic map</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Dashboard Update Rules ===== -->
+    <div class="sec-card acc-orange">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-orange-700">📊 Dashboard Update Rules / 更新规则</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div class="highlight-box bg-green-50 border-green-200">
+          <p class="font-medium text-green-700 text-[10px] mb-0.5">✅ Agent can suggest:</p>
+          <ul class="text-[9px] text-green-700 space-y-0.5">
+            <li>• Last interaction date · Current status</li>
+            <li>• Next action · Blocker cleared/added</li>
+            <li>• New public opportunity found</li>
+            <li>• Draft waiting for review</li>
+          </ul>
+        </div>
+        <div class="highlight-box bg-rose-50 border-rose-200">
+          <p class="font-medium text-rose-700 text-[10px] mb-0.5">❌ Agent should NOT auto-change:</p>
+          <ul class="text-[9px] text-rose-700 space-y-0.5">
+            <li>• Strategic positioning · Funding strategy</li>
+            <li>• IP boundary · Public-facing language</li>
+            <li>• Clinical workflow claims</li>
+            <li>• Job application priorities</li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-[9px] text-orange-600 mt-1.5 font-medium">Major dashboard changes require Richard approval.</p>
+    </div>
+
+    <!-- ===== Compliance / IP Guardrails ===== -->
+    <div class="sec-card sec-card" style="border-left: 4px solid #dc2626;">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-red-700">🔒 Compliance &amp; IP Guardrails / 合规与 IP 护栏</span>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-1.5 text-[9px]">
+        <div class="p-1.5 rounded bg-red-50 border border-red-200 text-red-700">No PHI unless explicit HIPAA-controlled workflow exists</div>
+        <div class="p-1.5 rounded bg-red-50 border border-red-200 text-red-700">Synthetic data only for sandbox</div>
+        <div class="p-1.5 rounded bg-red-50 border border-red-200 text-red-700">No dashboard deployment to neighborbridgehealth.com unless explicitly approved</div>
+        <div class="p-1.5 rounded bg-red-50 border border-red-200 text-red-700">No public sharing of private strategy dashboards</div>
+        <div class="p-1.5 rounded bg-red-50 border border-red-200 text-red-700">No full workflow IP disclosure without review</div>
+        <div class="p-1.5 rounded bg-red-50 border border-red-200 text-red-700">No pilot / funding / contract commitments without approval</div>
+        <div class="p-1.5 rounded bg-red-50 border border-red-200 text-red-700">No legal/medical claims beyond scope</div>
+        <div class="p-1.5 rounded bg-red-50 border border-red-200 text-red-700">No automatic patient-related communication</div>
+      </div>
+    </div>
+
+    <!-- ===== Email Address Strategy ===== -->
+    <div class="sec-card acc-cyan">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-cyan-700">📬 Email Address Strategy / 邮箱策略</span>
+        <span class="badge bg-amber-100 text-amber-700 text-[10px]">Planning only</span>
+      </div>
+      <p class="text-[9px] text-cyan-600 mb-1.5 italic">Do not create these emails yet. This is planning only. 暂不创建。</p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-[9px] text-gray-700 border-collapse">
+          <thead>
+            <tr class="bg-gray-100 border-b">
+              <th class="px-2 py-1 text-left font-medium text-gray-600">Agent Role</th>
+              <th class="px-2 py-1 text-left font-medium text-gray-600">Suggested email</th>
+              <th class="px-2 py-1 text-left font-medium text-gray-600">Use case</th>
+              <th class="px-2 py-1 text-left font-medium text-gray-600">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-100"><td class="px-2 py-1">Executive Assistant</td><td class="px-2 py-1 text-blue-600">assistant@</td><td class="px-2 py-1">Scheduling / admin drafts</td><td class="px-2 py-1 text-amber-600">placeholder</td></tr>
+            <tr class="border-b border-gray-100 bg-gray-50"><td class="px-2 py-1">Partnership</td><td class="px-2 py-1 text-purple-600">partnerships@</td><td class="px-2 py-1">Trillium / Holly / payer drafts</td><td class="px-2 py-1 text-amber-600">placeholder</td></tr>
+            <tr class="border-b border-gray-100"><td class="px-2 py-1">Compliance / IP</td><td class="px-2 py-1 text-green-600">compliance@</td><td class="px-2 py-1">Contract/IP/compliance review</td><td class="px-2 py-1 text-amber-600">placeholder</td></tr>
+            <tr class="border-b border-gray-100 bg-gray-50"><td class="px-2 py-1">Academic / Faculty</td><td class="px-2 py-1 text-amber-600">academic@</td><td class="px-2 py-1">Faculty / manuscript / job search</td><td class="px-2 py-1 text-amber-600">placeholder</td></tr>
+            <tr><td class="px-2 py-1">Workflow / Product</td><td class="px-2 py-1 text-cyan-600">workflow@</td><td class="px-2 py-1">CHW sandbox / demo / education</td><td class="px-2 py-1 text-amber-600">placeholder</td></tr>
+          </tbody>
+        </table>
+        <p class="text-[9px] text-gray-400 mt-1">All @neighborbridgehealth.com</p>
+      </div>
+    </div>
+
+    <!-- ===== Action Log ===== -->
+    <div class="sec-card acc-slate">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-gray-700">📋 Action Log / Agent 行动日志</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-[9px] text-gray-700 border-collapse">
+          <thead>
+            <tr class="bg-gray-100 border-b">
+              <th class="px-2 py-1 text-left font-medium text-gray-600">Date</th>
+              <th class="px-2 py-1 text-left font-medium text-gray-600">Agent Role</th>
+              <th class="px-2 py-1 text-left font-medium text-gray-600">Action</th>
+              <th class="px-2 py-1 text-left font-medium text-gray-600">Dashboard affected</th>
+              <th class="px-2 py-1 text-left font-medium text-gray-600">Approval status</th>
+              <th class="px-2 py-1 text-left font-medium text-gray-600">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-100"><td class="px-2 py-1">2026-05-06</td><td class="px-2 py-1">Partnership</td><td class="px-2 py-1">Drafted Holly workflow sketch</td><td class="px-2 py-1">Trillium / CHW</td><td class="px-2 py-1 text-amber-600">Draft only</td><td class="px-2 py-1 text-gray-500">Not sent automatically</td></tr>
+            <tr class="border-b border-gray-100 bg-gray-50"><td class="px-2 py-1">2026-05-06</td><td class="px-2 py-1">Academic</td><td class="px-2 py-1">Yale/Duke/UNC job scan</td><td class="px-2 py-1">Job Search</td><td class="px-2 py-1 text-green-600">Dashboard update</td><td class="px-2 py-1 text-gray-500">No applications sent</td></tr>
+            <tr><td class="px-2 py-1">2026-05-06</td><td class="px-2 py-1">Compliance/IP</td><td class="px-2 py-1">Trillium contract/IP clarification</td><td class="px-2 py-1">Trillium / IP</td><td class="px-2 py-1 text-green-600">Completed</td><td class="px-2 py-1 text-gray-500">Contract signed</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== Approval Queue ===== -->
+    <div class="sec-card acc-rose">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-rose-700">✅ Approval Queue / Richard 审批队列</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-[9px] text-gray-700 border-collapse">
+          <thead>
+            <tr class="bg-gray-100 border-b">
+              <th class="px-2 py-1 text-left font-medium text-gray-600">Item</th>
+              <th class="px-2 py-1 text-left font-medium text-gray-600">Agent Role</th>
+              <th class="px-2 py-1 text-left font-medium text-gray-600">Draft / Action</th>
+              <th class="px-2 py-1 text-left font-medium text-gray-600">Risk level</th>
+              <th class="px-2 py-1 text-left font-medium text-gray-600">Richard decision needed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-100"><td class="px-2 py-1">Holly workflow sketch</td><td class="px-2 py-1">Partnership</td><td class="px-2 py-1">send?</td><td class="px-2 py-1 text-amber-600">low/medium</td><td class="px-2 py-1">approve wording</td></tr>
+            <tr class="border-b border-gray-100 bg-gray-50"><td class="px-2 py-1">Vinod progress update</td><td class="px-2 py-1">Academic</td><td class="px-2 py-1">draft pending</td><td class="px-2 py-1 text-amber-600">medium</td><td class="px-2 py-1">approve/send</td></tr>
+            <tr class="border-b border-gray-100"><td class="px-2 py-1">Duke warm outreach</td><td class="px-2 py-1">Academic</td><td class="px-2 py-1">draft pending</td><td class="px-2 py-1 text-amber-600">medium</td><td class="px-2 py-1">approve target/contact</td></tr>
+            <tr class="border-b border-gray-100 bg-gray-50"><td class="px-2 py-1">Trillium Cindy reconnect</td><td class="px-2 py-1">Partnership</td><td class="px-2 py-1">draft pending</td><td class="px-2 py-1 text-red-600">medium/high</td><td class="px-2 py-1">wait for Holly framing</td></tr>
+          </tbody>
+        </table>
+    </div>
+
+    <!-- ===== Related Dashboards ===== -->
+    <div class="sec-card acc-slate">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-gray-700">🔗 Related Dashboards / 相关面板</span>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1.5 text-[10px]">
+        <a href="/" class="p-1.5 rounded bg-gray-50 border border-gray-200 hover:border-brand text-gray-700 hover:text-brand">主面板</a>
+        <a href="/stakeholders" class="p-1.5 rounded bg-gray-50 border border-gray-200 hover:border-brand text-gray-700 hover:text-brand">Stakeholders</a>
+        <a href="/trillium" class="p-1.5 rounded bg-gray-50 border border-gray-200 hover:border-brand text-gray-700 hover:text-brand">Trillium</a>
+        <a href="/chw-early-detection-sandbox" class="p-1.5 rounded bg-gray-50 border border-gray-200 hover:border-brand text-gray-700 hover:text-brand">CHW Sandbox</a>
+        <a href="/compliance" class="p-1.5 rounded bg-gray-50 border border-gray-200 hover:border-brand text-gray-700 hover:text-brand">Compliance</a>
+        <a href="/ip-confidentiality" class="p-1.5 rounded bg-gray-50 border border-gray-200 hover:border-brand text-gray-700 hover:text-brand">IP / Confidentiality</a>
+        <a href="/job-search" class="p-1.5 rounded bg-gray-50 border border-gray-200 hover:border-brand text-gray-700 hover:text-brand">Job Search</a>
+        <a href="/faculty-pathway" class="p-1.5 rounded bg-gray-50 border border-gray-200 hover:border-brand text-gray-700 hover:text-brand">Faculty Pathway</a>
+        <a href="/career-contribution" class="p-1.5 rounded bg-gray-50 border border-gray-200 hover:border-brand text-gray-700 hover:text-brand">Career / Field Contribution</a>
+      </div>
+    </div>
+
+    <!-- ===== Footer ===== -->
+    <div class="text-center text-[9px] text-gray-400 pt-2 pb-3">
+      Agent Ops · Agent 工作流与权限治理 · Cloudflare Workers (内部) · 最后更新: <span id="update-time"></span>
+    </div>
+
+  </div>
+
+  </div>
+
+  <script>
+    document.getElementById('update-time').textContent = new Date().toLocaleDateString('zh-CN', {
+      year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+    });
+  </script>
+
+</body>
+</html>
