@@ -21,8 +21,8 @@
 
     /* Sidebar */
     .sidebar {
-      width: 260px;
-      min-width: 260px;
+      width: 300px;
+      min-width: 300px;
       background: #fff;
       border-right: 1px solid #e2e6ea;
       overflow-y: auto;
@@ -30,17 +30,30 @@
       position: sticky;
       top: 48px;
     }
+
+    .sidebar-section {
+      padding: 12px 14px 6px;
+      font-size: 10px;
+      font-weight: 600;
+      color: #5f6368;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-family: Arial, sans-serif;
+      border-bottom: 1px solid #f0f1f3;
+    }
+
     .sidebar-item {
       padding: 10px 14px;
       border-bottom: 1px solid #f0f1f3;
       cursor: pointer;
-      transition: background 0.15s;
+      transition: background 0.12s;
     }
     .sidebar-item:hover { background: #f0f4ff; }
     .sidebar-item.active { background: #e8f0fe; border-left: 3px solid #1a73e8; }
     .sidebar-item .doc-title { font-size: 13px; font-weight: 500; color: #1a1a1a; line-height: 1.3; }
+    .sidebar-item .doc-category { font-size: 9px; color: #1a73e8; text-transform: uppercase; letter-spacing: 0.03em; margin-top: 2px; }
     .sidebar-item .doc-meta { font-size: 10px; color: #5f6368; margin-top: 2px; }
-    .sidebar-item .doc-category { font-size: 9px; color: #1a73e8; text-transform: uppercase; letter-spacing: 0.03em; }
+    .sidebar-item .doc-desc { font-size: 10px; color: #80868b; margin-top: 3px; line-height: 1.4; }
     .sidebar-item.placeholder-item { opacity: 0.55; cursor: default; }
     .sidebar-item.placeholder-item:hover { background: transparent; }
 
@@ -119,6 +132,36 @@
       text-align: center;
       padding: 80px 20px;
     }
+    .reader .email-block {
+      background: #f8f9fa;
+      border: 1px solid #e2e6ea;
+      border-radius: 4px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #2d2d2d;
+    }
+    .reader .email-block hr {
+      border: none;
+      border-top: 1px solid #dadce0;
+      margin: 12px 0;
+    }
+    .reader .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #5f6368;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 4px;
+      margin-top: 28px;
+      font-family: Arial, sans-serif;
+    }
+    .reader .list-compact li {
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 3px;
+    }
 
     /* Header nav */
     .top-nav {
@@ -182,21 +225,38 @@
   <!-- Layout -->
   <div class="layout">
 
-    <!-- Sidebar / Document Index -->
+    <!-- Sidebar / Document List -->
     <div class="sidebar">
 
-      <div style="padding:12px 14px 8px; border-bottom:1px solid #e2e6ea;">
-        <p style="font-size:11px; font-weight:600; color:#5f6368; text-transform:uppercase; letter-spacing:0.04em; font-family:Arial,sans-serif;">Documents</p>
-      </div>
+      <div class="sidebar-section">Document Library</div>
 
       <!-- Document 1: NC Primary Site -->
       <div class="sidebar-item active" data-doc="nc-primary-site" onclick="selectDoc('nc-primary-site')">
         <div class="doc-title">North Carolina Primary Site — Implementation Narrative</div>
         <div class="doc-category">Career / Faculty / Implementation</div>
-        <div class="doc-meta">Working draft · 2026-05-08</div>
+        <div class="doc-meta">Working draft  ·  2026-05-08</div>
+        <div class="doc-desc">Internal narrative connecting Eastern NC rural FQHC, FASD/NDD, public health entry points, CHW/family navigator workflow, ECHO exploration, Medicaid relevance, and faculty pathway framing.</div>
       </div>
 
-      <!-- Future placeholders -->
+      <!-- Document 2: Cindy / Trillium Reconnect Email -->
+      <div class="sidebar-item" data-doc="cindy-reconnect-email" onclick="selectDoc('cindy-reconnect-email')">
+        <div class="doc-title">Cindy / Trillium Reconnect Email Draft</div>
+        <div class="doc-category">Payer / Relationship / Trillium</div>
+        <div class="doc-meta">Draft  ·  2026-05-08</div>
+        <div class="doc-desc">Short reconnect email draft to Cindy Ehlers that does not include dashboard links and does not overexpose internal workflow details.</div>
+      </div>
+
+      <!-- Document 3: Trillium-safe 1-page Brief -->
+      <div class="sidebar-item" data-doc="trillium-brief" onclick="selectDoc('trillium-brief')">
+        <div class="doc-title">Trillium-safe 1-page Brief Draft</div>
+        <div class="doc-category">Payer / Workflow / External-safe</div>
+        <div class="doc-meta">Draft  ·  2026-05-08</div>
+        <div class="doc-desc">A controlled, non-PHI, payer-facing discussion draft for Trillium that does not expose internal dashboards, stakeholder strategy, IP-sensitive workflow logic, or negotiation thinking.</div>
+      </div>
+
+      <!-- Placeholder slots -->
+      <div class="sidebar-section" style="border-top: 1px solid #e2e6ea; margin-top: 4px;">Future Documents</div>
+
       <div class="sidebar-item placeholder-item">
         <div class="doc-title">Vinod External Brief</div>
         <div class="doc-category">Career / Faculty</div>
@@ -205,11 +265,6 @@
       <div class="sidebar-item placeholder-item">
         <div class="doc-title">Duke Faculty Conversation Brief</div>
         <div class="doc-category">Career / Faculty</div>
-        <div class="doc-meta">placeholder</div>
-      </div>
-      <div class="sidebar-item placeholder-item">
-        <div class="doc-title">Trillium Concept Note</div>
-        <div class="doc-category">Partnership / Payer</div>
         <div class="doc-meta">placeholder</div>
       </div>
       <div class="sidebar-item placeholder-item">
@@ -242,6 +297,8 @@
 
   <script>
     const documents = {
+
+      // ===== Document 1: NC Primary Site =====
       "nc-primary-site": {
         title: "North Carolina Primary Site — Implementation Narrative",
         category: "Career / Faculty / Implementation",
@@ -328,9 +385,145 @@
 <ul>
   <li>Does the North Carolina implementation logic hold up as a credible field case for the global-to-U.S. translation argument?</li>
   <li>Is the Project ECHO capacity-building direction feasible within this setting, and what would strengthen the case for PEN-NC engagement?</li>
-  <li>What is the strongest framing for a primary-care–anchored, CHW-mediated model at Duke or a comparable institution?</li>
+  <li>What is the strongest framing for a primary-care-anchored, CHW-mediated model at Duke or a comparable institution?</li>
   <li>Are there gaps in the pathway logic that would weaken credibility in a faculty conversation?</li>
   <li>Would an external brief along these lines be useful for other Duke faculty contacts?</li>
+</ul>
+`
+      },
+
+      // ===== Document 2: Cindy / Trillium Reconnect Email Draft =====
+      "cindy-reconnect-email": {
+        title: "Cindy / Trillium Reconnect Email Draft",
+        category: "Payer / Relationship / Trillium",
+        status: "Draft",
+        lastUpdated: "2026-05-08",
+        content: `<!-- Copy Notice -->
+<div class="copy-notice">
+  <button class="copy-btn" id="copyBtn" onclick="copyDocumentText()">Copy document text</button>
+  <span style="color:#5f6368;">Copy-ready email draft. May copy and paste into email client when ready.</span>
+  <span style="display:block; color:#9aa0a6; margin-top:4px;">可复制邮件草稿。</span>
+</div>
+
+<h1>Cindy / Trillium Reconnect Email Draft</h1>
+
+<div class="email-block">
+
+<p><strong>Subject:</strong> Brief follow-up on FASD early-recognition workflow</p>
+
+<hr>
+
+<p>Hi Cindy,</p>
+
+<p>I hope you have been doing well. I wanted to briefly reconnect and share that I have been continuing to think through the FASD early-recognition and family navigation work we previously discussed.</p>
+
+<p>The current framing is intentionally modest: a non-PHI, education-and-navigation workflow concept focused on earlier family education, clearer referral awareness, and reduced fragmentation across primary care, public health, schools, and community supports.</p>
+
+<p>If useful, I would be glad to send a short one-page discussion draft or find a brief time to reconnect.</p>
+
+<p>Best,<br>
+Richard</p>
+
+</div>
+
+<h2>Notes on Timing and Use</h2>
+
+<ul>
+  <li>This email does not include any dashboard links.</li>
+  <li>It does not overexpose internal workflow details or strategy.</li>
+  <li>It does not ask for a pilot commitment or mention a formal proposal.</li>
+  <li>If Cindy responds positively, the next step is to send the Trillium-safe 1-page brief (also in this library).</li>
+  <li>Last contact: December 2025. Current gap: approximately 6 months without direct communication.</li>
+</ul>
+`
+      },
+
+      // ===== Document 3: Trillium-safe 1-page Brief Draft =====
+      "trillium-brief": {
+        title: "Trillium-safe 1-page Brief Draft",
+        category: "Payer / Workflow / External-safe",
+        status: "Draft",
+        lastUpdated: "2026-05-08",
+        content: `<!-- Copy Notice -->
+<div class="copy-notice">
+  <button class="copy-btn" id="copyBtn" onclick="copyDocumentText()">Copy document text</button>
+  <span style="color:#5f6368;">Copy-ready one-page discussion draft. May copy into email, shared document, or meeting materials.</span>
+  <span style="display:block; color:#9aa0a6; margin-top:4px;">可复制的一页讨论草稿。</span>
+</div>
+
+<h1>FASD Early Recognition and Family Education Workflow</h1>
+<p style="font-size:16px; font-weight:500; color:#5f6368; margin-top:-4px; margin-bottom:16px;">Discussion Draft</p>
+
+<div class="disclaimer">
+  This material is for education and workflow discussion purposes only. It does not contain protected health information, is not a live clinical system, and is not used for diagnosis, treatment, or clinical decision-making. All examples are synthetic or generalized. This is not a proposal, funding request, or commitment to a pilot. No payer, provider, or institutional relationship is implied.
+</div>
+
+<h2>Problem</h2>
+
+<p>Families with early developmental, behavioral, or FASD-related concerns often fall between primary care, schools, public health programs, and specialty systems. Concerns may be noticed early, but families may not receive timely education, navigation, or clear next steps.</p>
+
+<h2>Possible Public Health Entry Points</h2>
+
+<p>Potential early-recognition and education entry points include:</p>
+
+<ul>
+  <li>School nurses / school health staff</li>
+  <li>WIC</li>
+  <li>Health department care managers</li>
+  <li>Child health clinics</li>
+</ul>
+
+<p>These are intended as education and navigation access points, not prevalence-sampling tools.</p>
+
+<h2>Proposed Workflow Concept</h2>
+
+<p>Concern observed → Family education → PCP follow-up encouraged → Referral awareness → Navigation support → Follow-up completion tracked</p>
+
+<p>The goal is not to create a new diagnostic system, but to reduce fragmentation and help families understand the next step earlier.</p>
+
+<h2>Family Navigator / CHW Role Boundaries</h2>
+
+<p><strong>A family navigator or CHW could help with:</strong></p>
+<ul>
+  <li>Plain-language family education</li>
+  <li>Reminder and follow-up support</li>
+  <li>School / clinic communication support</li>
+  <li>Referral awareness</li>
+  <li>Non-clinical barrier identification</li>
+</ul>
+
+<p><strong>A family navigator or CHW would not:</strong></p>
+<ul>
+  <li>Diagnose FASD, ADHD, ASD, or other conditions</li>
+  <li>Recommend medication</li>
+  <li>Provide psychotherapy</li>
+  <li>Interpret formal testing</li>
+  <li>Override physician or clinician judgment</li>
+  <li>Manage crisis independently</li>
+</ul>
+
+<h2>Payer-Relevant Discussion Areas</h2>
+
+<p>Potential areas for discussion include:</p>
+
+<ul>
+  <li>Earlier family education before crisis</li>
+  <li>Better follow-up completion</li>
+  <li>Reduced fragmentation across systems</li>
+  <li>Better visibility into non-clinical barriers</li>
+  <li>Potential movement toward lower-intensity support before escalation</li>
+</ul>
+
+<p>These are exploratory value areas, not validated outcome claims.</p>
+
+<h2>Open Questions for Trillium</h2>
+
+<ul>
+  <li>Which entry points seem most realistic from Trillium&rsquo;s perspective?</li>
+  <li>Which population or geography would be most appropriate for early exploration?</li>
+  <li>What data would Trillium need before considering a pilot discussion?</li>
+  <li>What compliance, IT, procurement, or clinical governance review would be required?</li>
+  <li>What role, if any, could existing care management infrastructure play?</li>
 </ul>
 `
       }
@@ -343,7 +536,7 @@
       currentDoc = id;
       // Update sidebar
       document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
-      const target = document.querySelector(`[data-doc="${id}"]`);
+      const target = document.querySelector('[data-doc="' + id + '"]');
       if (target) target.classList.add('active');
       // Render content
       renderDoc(id);
@@ -361,9 +554,7 @@
 
     function copyDocumentText() {
       const reader = document.getElementById('reader');
-      // Get plain text, excluding UI elements like buttons and notices
       const clone = reader.cloneNode(true);
-      // Remove the copy button from the cloned version
       const copyBtn = clone.querySelector('.copy-btn');
       if (copyBtn) copyBtn.remove();
       const text = clone.textContent.trim();
@@ -378,7 +569,6 @@
           }, 2000);
         }
       }).catch(() => {
-        // Fallback: select all text in reader
         const range = document.createRange();
         range.selectNodeContents(reader);
         const selection = window.getSelection();
