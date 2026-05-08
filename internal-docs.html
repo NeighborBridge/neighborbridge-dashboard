@@ -181,16 +181,27 @@
     /* Layout */
     .layout { display: flex; }
 
-    /* Mobile responsive */
+    /* Mobile responsive — show document list as stacked section above reader */
     @media (max-width: 768px) {
-      .sidebar { display: none; }
-      .reader { padding: 20px 16px; }
+      .layout { flex-direction: column; }
+      .sidebar {
+        width: 100%;
+        min-width: unset;
+        height: auto;
+        position: static;
+        border-right: none;
+        border-bottom: 2px solid #e2e6ea;
+      }
+      .sidebar-item .doc-desc { display: none; }
+      .sidebar-item { padding: 8px 12px; }
+      .sidebar-item .doc-title { font-size: 12px; }
+      .sidebar-item.active { border-left: none; border-bottom: 2px solid #1a73e8; }
+      .sidebar-section { padding: 8px 12px 4px; }
+      .reader { padding: 16px; }
       .reader h1 { font-size: 22px; }
       .reader h2 { font-size: 17px; }
-      .top-nav { overflow-x: auto; gap: 10px; }
-      .mobile-sidebar-toggle { display: block !important; }
+      .top-nav { overflow-x: auto; gap: 8px; padding: 0 10px; font-size: 11px; }
     }
-    .mobile-sidebar-toggle { display: none; }
 
     /* Copy button */
     .copy-btn {
