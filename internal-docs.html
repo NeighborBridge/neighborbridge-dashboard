@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Internal Documents — NeighborBridge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { brand: "#0ea5e9", urgent: "#ef4444", warning: "#f59e0b", neutral: "#6b7280", completed: "#10b981" }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    body { background: #f8f9fa; font-family: 'Georgia', 'Noto Serif', 'Times New Roman', serif; }
+
+    /* Sidebar */
+    .sidebar {
+      width: 260px;
+      min-width: 260px;
+      background: #fff;
+      border-right: 1px solid #e2e6ea;
+      overflow-y: auto;
+      height: calc(100vh - 48px);
+      position: sticky;
+      top: 48px;
+    }
+    .sidebar-item {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f0f1f3;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .sidebar-item:hover { background: #f0f4ff; }
+    .sidebar-item.active { background: #e8f0fe; border-left: 3px solid #1a73e8; }
+    .sidebar-item .doc-title { font-size: 13px; font-weight: 500; color: #1a1a1a; line-height: 1.3; }
+    .sidebar-item .doc-meta { font-size: 10px; color: #5f6368; margin-top: 2px; }
+    .sidebar-item .doc-category { font-size: 9px; color: #1a73e8; text-transform: uppercase; letter-spacing: 0.03em; }
+    .sidebar-item.placeholder-item { opacity: 0.55; cursor: default; }
+    .sidebar-item.placeholder-item:hover { background: transparent; }
+
+    /* Main reader area */
+    .reader {
+      flex: 1;
+      padding: 40px 48px;
+      max-width: 800px;
+      margin: 0 auto;
+      min-height: calc(100vh - 48px);
+    }
+
+    /* Typography — Google Docs-like */
+    .reader h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #1a1a1a;
+      line-height: 1.3;
+      margin-bottom: 8px;
+      font-family: 'Georgia', 'Noto Serif', serif;
+      letter-spacing: -0.01em;
+    }
+    .reader h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1a1a1a;
+      line-height: 1.4;
+      margin-top: 28px;
+      margin-bottom: 10px;
+      font-family: 'Georgia', 'Noto Serif', serif;
+    }
+    .reader h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2d2d2d;
+      line-height: 1.4;
+      margin-top: 20px;
+      margin-bottom: 6px;
+      font-family: 'Georgia', 'Noto Serif', serif;
+    }
+    .reader p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #2d2d2d;
+      margin-bottom: 14px;
+    }
+    .reader li {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #2d2d2d;
+      margin-bottom: 4px;
+    }
+    .reader ul { padding-left: 24px; margin-bottom: 14px; }
+    .reader .disclaimer {
+      background: #f8f9fa;
+      border-left: 3px solid #dadce0;
+      padding: 12px 16px;
+      margin-bottom: 24px;
+      font-size: 12px;
+      color: #5f6368;
+      line-height: 1.5;
+    }
+    .reader .copy-notice {
+      background: #f1f3f4;
+      padding: 8px 14px;
+      margin-bottom: 20px;
+      font-size: 11px;
+      color: #5f6368;
+      border-radius: 4px;
+      font-family: 'Arial', sans-serif;
+    }
+    .reader .no-content {
+      color: #9aa0a6;
+      font-size: 14px;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    /* Header nav */
+    .top-nav {
+      height: 48px;
+      background: #fff;
+      border-bottom: 1px solid #e2e6ea;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      font-size: 12px;
+      gap: 16px;
+    }
+    .top-nav a { color: #5f6368; text-decoration: none; }
+    .top-nav a:hover { color: #1a73e8; }
+    .top-nav .nav-title { font-weight: 600; color: #1a1a1a; margin-right: 8px; font-size: 13px; }
+
+    /* Layout */
+    .layout { display: flex; }
+
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .reader { padding: 20px 16px; }
+      .reader h1 { font-size: 22px; }
+      .reader h2 { font-size: 17px; }
+      .top-nav { overflow-x: auto; gap: 10px; }
+      .mobile-sidebar-toggle { display: block !important; }
+    }
+    .mobile-sidebar-toggle { display: none; }
+
+    /* Copy button */
+    .copy-btn {
+      font-family: 'Arial', sans-serif;
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 4px;
+      border: 1px solid #dadce0;
+      background: #fff;
+      color: #5f6368;
+      cursor: pointer;
+      transition: all 0.15s;
+      float: right;
+    }
+    .copy-btn:hover { background: #f1f3f4; border-color: #1a73e8; color: #1a73e8; }
+    .copy-btn.copied { background: #e6f4ea; border-color: #34a853; color: #34a853; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <div class="top-nav">
+    <span class="nav-title">NeighborBridge</span>
+    <a href="/">Main Dashboard</a>
+    <a href="/career-contribution">Career</a>
+    <a href="/stakeholders">Stakeholders</a>
+    <a href="/compliance">Compliance</a>
+    <a href="/dashboard-directory">All Dashboards</a>
+    <span style="color:#1a73e8; font-weight:500; margin-left:auto;">Internal Documents</span>
+  </div>
+
+  <!-- Layout -->
+  <div class="layout">
+
+    <!-- Sidebar / Document Index -->
+    <div class="sidebar">
+
+      <div style="padding:12px 14px 8px; border-bottom:1px solid #e2e6ea;">
+        <p style="font-size:11px; font-weight:600; color:#5f6368; text-transform:uppercase; letter-spacing:0.04em; font-family:Arial,sans-serif;">Documents</p>
+      </div>
+
+      <!-- Document 1: NC Primary Site -->
+      <div class="sidebar-item active" data-doc="nc-primary-site" onclick="selectDoc('nc-primary-site')">
+        <div class="doc-title">North Carolina Primary Site — Implementation Narrative</div>
+        <div class="doc-category">Career / Faculty / Implementation</div>
+        <div class="doc-meta">Working draft · 2026-05-08</div>
+      </div>
+
+      <!-- Future placeholders -->
+      <div class="sidebar-item placeholder-item">
+        <div class="doc-title">Vinod External Brief</div>
+        <div class="doc-category">Career / Faculty</div>
+        <div class="doc-meta">placeholder</div>
+      </div>
+      <div class="sidebar-item placeholder-item">
+        <div class="doc-title">Duke Faculty Conversation Brief</div>
+        <div class="doc-category">Career / Faculty</div>
+        <div class="doc-meta">placeholder</div>
+      </div>
+      <div class="sidebar-item placeholder-item">
+        <div class="doc-title">Trillium Concept Note</div>
+        <div class="doc-category">Partnership / Payer</div>
+        <div class="doc-meta">placeholder</div>
+      </div>
+      <div class="sidebar-item placeholder-item">
+        <div class="doc-title">FQHC Alignment Memo</div>
+        <div class="doc-category">Operations / Clinical</div>
+        <div class="doc-meta">placeholder</div>
+      </div>
+      <div class="sidebar-item placeholder-item">
+        <div class="doc-title">Adoption Readiness Memo</div>
+        <div class="doc-category">Personal / Strategy</div>
+        <div class="doc-meta">placeholder</div>
+      </div>
+      <div class="sidebar-item placeholder-item">
+        <div class="doc-title">Manuscript Positioning Note</div>
+        <div class="doc-category">Academic / Writing</div>
+        <div class="doc-meta">placeholder</div>
+      </div>
+
+      <div style="padding:14px; border-top:1px solid #e2e6ea; font-size:10px; color:#9aa0a6; font-family:Arial,sans-serif;">
+        Future documents will appear here as they are drafted.
+      </div>
+    </div>
+
+    <!-- Main Reader Area -->
+    <div class="reader" id="reader">
+      <!-- Content loaded by JavaScript -->
+    </div>
+
+  </div>
+
+  <script>
+    const documents = {
+      "nc-primary-site": {
+        title: "North Carolina Primary Site — Implementation Narrative",
+        category: "Career / Faculty / Implementation",
+        status: "Working draft",
+        lastUpdated: "2026-05-08",
+        content: `<!-- Copy Notice -->
+<div class="copy-notice">
+  <button class="copy-btn" id="copyBtn" onclick="copyDocumentText()">Copy document text</button>
+  <span style="color:#5f6368;">Copy-ready internal brief. May paste into Google Docs, email drafts, or faculty update materials.</span>
+  <span style="display:block; color:#9aa0a6; margin-top:4px;">可复制内部简报，可粘贴到 Google Docs、邮件草稿或 faculty update 材料。</span>
+</div>
+
+<!-- Disclaimer -->
+<div class="disclaimer">
+  <strong>Work-in-progress.</strong> This document describes a work-in-progress. It is not a report of completed implementation or a funded pilot. It is a framing document for internal strategy development and faculty-facing discussion.<br><br>
+  work-in-progress · 非完成试点 · 非 funded pilot · internal strategy brief
+</div>
+
+<h1>North Carolina Primary Site — Implementation Narrative</h1>
+
+<h2>The Core Framing</h2>
+
+<p>This is an effort to translate global mental health principles — task-sharing, community-based care, primary care integration, and relational continuity — into a real, operational pathway in a U.S. rural Medicaid / safety-net primary care setting. The principles are not new; what is new is the attempt to ground them in the institutional constraints, workforce realities, and payer structures of a specific place.</p>
+
+<p>The primary field site is an Eastern North Carolina rural FQHC — a clinical anchor that provides a defined catchment population, a Medicaid-dominant payer mix, integrated primary care, and existing relationships with community, school, and public health systems. This is not an academic desk model. It is a live implementation environment.</p>
+
+<h2>Clinical Entry Point: FASD / NDD</h2>
+
+<p>The current clinical entry point is fetal alcohol spectrum disorders and related neurodevelopmental conditions. FASD/NDD was chosen not because it is the whole project, but because it is a strong signal condition for fragmentation: under-recognized in primary care, poorly connected across clinical/school/community systems, and increasingly relevant to public policy (P.L. 119-44). A pathway that works for FASD/NDD in this setting would also be relevant to ADHD, developmental delay, trauma-related conditions, and other conditions that fall between primary care and specialty systems.</p>
+
+<p>FASD/NDD is the entry point; the broader strategy is preventative, relationship-intensive primary care.</p>
+
+<h2>Public Health Entry Points</h2>
+
+<p>Rather than designing a pathway from the clinic outward alone, the work has identified four real-world entry points through local public health consultation:</p>
+
+<ul>
+  <li><strong>School nurses / school health staff</strong> — An existing workforce that sees children daily and could be a first signal for developmental and behavioral concerns.</li>
+  <li><strong>Health department care managers</strong> — A county-level workforce already doing care coordination for publicly insured families.</li>
+  <li><strong>WIC clinics</strong> — A maternal-child health entry point with nutrition-linked access to families with young children.</li>
+  <li><strong>County child health clinics</strong> — A public health clinical setting serving a broad pediatric population.</li>
+</ul>
+
+<p>These entry points are being positioned as early education / navigation access points, not prevalence-sampling tools. The framing has been validated through local public health consultation, including a county health director who also serves on the NC FASD board.</p>
+
+<h2>Connecting Layer: CHW / Family Navigator Workflow</h2>
+
+<p>The connecting layer between primary care, public health entry points, schools, and families is a CHW / family navigator workflow. A non-PHI sandbox prototype has been developed to demonstrate how this workflow would operate:</p>
+
+<ul>
+  <li>Screening and brief intervention in primary care (FQHC anchor)</li>
+  <li>Family education and resource linkage</li>
+  <li>School and community coordination</li>
+  <li>Structured escalation criteria for specialty evaluation</li>
+  <li>Longitudinal support and navigation, not episodic referral</li>
+</ul>
+
+<p>This is a demonstration prototype, not a deployed program. It exists to test workflow logic before institutional commitment.</p>
+
+<h2>Capacity-Building: Project ECHO / PEN-NC</h2>
+
+<p>Following a suggestion from a psychiatry colleague with ECHO experience, Project ECHO is being explored as a possible capacity-building mechanism for FASD early-recognition training across the identified entry points. A local public health leader with knowledge of the North Carolina ECHO infrastructure (PEN-NC) has indicated that this direction is plausible.</p>
+
+<p>No ECHO program has been secured. No formal proposal has been submitted to PEN-NC. This is an exploratory direction that will be pursued if the overall pathway logic holds up in broader review.</p>
+
+<h2>Payer / Medicaid Relevance</h2>
+
+<p>The clinical and public health work sits within a regional Medicaid managed care environment (Trillium Health Resources). A value-based contract is in place with the FQHC, and preliminary discussions with Trillium have established a shared interest in upstream identification and care coordination for NDD populations. The payer-facing layer is deliberately being developed in parallel with the clinical and public health layers — not as a separate revenue track, but as a structural condition for sustainability.</p>
+
+<p>Trillium has not committed to a pilot. The conversation is in early framing.</p>
+
+<h2>Academic and Institutional Fit</h2>
+
+<p>This is not a single-project narrative. The Eastern North Carolina primary site is intended to function as a field case for a broader argument: that global mental health principles can produce credible, institutionally grounded primary care implementation in U.S. safety-net settings, and that this work deserves an academic home in a department or school that values community-engaged implementation, primary care integration, and real-world clinical anchoring.</p>
+
+<h2>Current Status and Next Step</h2>
+
+<p>Narrative draft — May 2026. This document will be updated as implementation progresses. It is not for external distribution until reviewed and approved.</p>
+
+<p>The next step is to send this narrative to Vinod Srihari (Yale Psychiatry) for critique on the implementation logic and institutional fit, followed by parallel conversations at Duke and UNC.</p>
+
+<h2>Questions for Vinod</h2>
+
+<ul>
+  <li>Does the North Carolina implementation logic hold up as a credible field case for the global-to-U.S. translation argument?</li>
+  <li>Is the Project ECHO capacity-building direction feasible within this setting, and what would strengthen the case for PEN-NC engagement?</li>
+  <li>What is the strongest framing for a primary-care–anchored, CHW-mediated model at Duke or a comparable institution?</li>
+  <li>Are there gaps in the pathway logic that would weaken credibility in a faculty conversation?</li>
+  <li>Would an external brief along these lines be useful for other Duke faculty contacts?</li>
+</ul>
+`
+      }
+    };
+
+    let currentDoc = "nc-primary-site";
+
+    function selectDoc(id) {
+      if (!documents[id]) return;
+      currentDoc = id;
+      // Update sidebar
+      document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
+      const target = document.querySelector(`[data-doc="${id}"]`);
+      if (target) target.classList.add('active');
+      // Render content
+      renderDoc(id);
+    }
+
+    function renderDoc(id) {
+      const reader = document.getElementById('reader');
+      const doc = documents[id];
+      if (!doc) {
+        reader.innerHTML = '<div class="no-content">Document not available.</div>';
+        return;
+      }
+      reader.innerHTML = doc.content;
+    }
+
+    function copyDocumentText() {
+      const reader = document.getElementById('reader');
+      // Get plain text, excluding UI elements like buttons and notices
+      const clone = reader.cloneNode(true);
+      // Remove the copy button from the cloned version
+      const copyBtn = clone.querySelector('.copy-btn');
+      if (copyBtn) copyBtn.remove();
+      const text = clone.textContent.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copyBtn');
+        if (btn) {
+          btn.textContent = 'Copied!';
+          btn.classList.add('copied');
+          setTimeout(() => {
+            btn.textContent = 'Copy document text';
+            btn.classList.remove('copied');
+          }, 2000);
+        }
+      }).catch(() => {
+        // Fallback: select all text in reader
+        const range = document.createRange();
+        range.selectNodeContents(reader);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+      });
+    }
+
+    // Initial render
+    renderDoc(currentDoc);
+  </script>
+
+</body>
+</html>
