@@ -231,7 +231,7 @@
     <a href="/compliance">Compliance</a>
     <a href="/dashboard-directory">All Dashboards</a>
     <span style="color:#1a73e8; font-weight:500; margin-left:auto;">Internal Documents</span>
-    <span style="font-size:10px; color:#9aa0a6; font-family:Arial,sans-serif; margin-left:8px;">Internal Docs Reader Locked v1 — commit c39ea61 — 2026-05-09</span>
+    <span style="font-size:10px; color:#9aa0a6; font-family:Arial,sans-serif; margin-left:8px;">Internal Docs Reader Locked v1 — commit 7da4ce0 — 2026-05-09</span>
   </div>
 
   <!-- Layout -->
@@ -246,7 +246,7 @@
   Future document placeholders may be metadata-only, but active documents may not.
   ============================================================
   Updated: 2026-05-09
-  Commit: c39ea61
+  Commit: 7da4ce0
   See also: README.md — internal-docs completeness checklist
   ============================================================
   -->
@@ -361,7 +361,7 @@
 
   <script>
     /* Version marker */
-    console.log("Internal Docs Reader Locked v1 | Updated: 2026-05-09 | Commit: c39ea61");
+    console.log("Internal Docs Reader Locked v1 | Updated: 2026-05-09 | Commit: 7da4ce0");
 
     /* Fallback: inline default content in case JavaScript fails or documents object is corrupt */
     (function(){
@@ -371,6 +371,23 @@
       }
     })();
 
+    /*
+     ===================================================================
+     ROOT CAUSE (2026-05-09):
+     Previous caregiving document insertion broke this JavaScript
+     documents object by omitting a comma between trillium-brief's
+     closing brace and the new caregiving section's opening key.
+     Effect: selectDoc() appeared to run but documents[id] was
+     undefined because the entire object was a syntax error.
+     The sidebar (file list) remained visible while reader content
+     silently failed to render.
+
+     PREVENTION:
+     Every future internal-docs update MUST verify:
+       document count (sidebar) = content block count (JS keys) = clickable active items
+     If the numbers don't match, you have a missing or extra comma.
+     ===================================================================
+    */
     const documents = {
 
       // ===== Document 1: NC Primary Site =====
