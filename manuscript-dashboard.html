@@ -62,14 +62,14 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-1.5 text-[10px]">
         <div class="p-1.5 rounded bg-white border border-amber-200">
           <p class="font-medium text-amber-700">当前状态 / Current status</p>
-          <p class="text-gray-700">Finding 1 first pass completed；现在进入 Finding 1 second pass / consistency and tightening pass。</p>
+          <p class="text-gray-700">Finding 1 first pass completed。当前模式：审稿人仿真检查。不以"修改"为单位推进，而以"审稿人体验"为单位评估。</p>
         </div>
         <div class="p-1.5 rounded bg-white border border-green-200">
           <p class="font-medium text-green-700">当前唯一行动 / One next action</p>
-          <p class="text-gray-700">重新通读 Google Doc 中已修改后的 Finding 1，按原文顺序做第二轮检查，重点是 coherence、段落顺序、重复理论标签、Findings tone、过渡句和结尾收束。</p>        </div>
+          <p class="text-gray-700">阅读本面板中的 Reviewer-Level Global Assessment → 逐段查阅 Reviewer Impression → 根据 Severity 决定是否调整 Google Doc 中的相应段落。</p>        </div>
         <div class="p-1.5 rounded bg-white border border-red-200">
           <p class="font-medium text-red-700">最近阻塞 / Blocker or trigger</p>
-          <p class="text-gray-700">仍然严禁跳到 Finding 2 或 Finding 3；本次 30–45 分钟只做 Finding 1 第二轮。</p>        </div>
+          <p class="text-gray-700">仍然严禁跳到 Finding 2 或 Finding 3。在 Judging Finding 1 整体 readiness 前，不要进入 Finding 2。</p>        </div>
       </div>
     </div>
 
@@ -101,209 +101,331 @@
         <span class="badge bg-blue-100 text-blue-700 text-[10px]">P4B · 30–45 分钟</span>
       </div>
       <div class="flex-grow">
-        <h3 class="text-sm font-bold text-blue-900">P4B: Finding 1 Second-Pass Sequential Review Guide — coherence, tightening, and Findings-tone check</h3>
-        <p class="text-[10px] text-blue-700 font-medium">Finding 1 第二轮顺序精修指南：连贯性、压缩、Findings 语气与重复理论标签清理。</p>
+        <h3 class="text-sm font-bold text-blue-900">Anthropology & Medicine Reviewer Pass — Finding 1</h3>
+        <p class="text-[10px] text-blue-700 font-medium">审稿人仿真检查：以《人类学与医学》期刊审稿人的阅读体验，重新审视 Finding 1 的手稿质量。</p>
       </div>
       <!-- 任务说明 -->
       <div class="p-1.5 rounded bg-blue-50 border border-blue-200 mb-2">
-        <p class="text-[10px] text-blue-700 font-medium mb-0.5">当前唯一任务</p>
-        <p class="text-[10px] text-blue-800">Richard 已完成 Finding 1 第一轮逐句人工修改。下一步不是进入 Finding 2，而是对修改后的 Finding 1 再过一遍，确认它已经从"理论综述式段落"转为"田野材料驱动的 Findings 分析段"。</p>
+        <p class="text-[10px] text-blue-700 font-medium mb-0.5">当前模式说明</p>
+        <p class="text-[10px] text-blue-800">Richard 已完成 Finding 1 第一轮逐句修改。当前不进行第二轮逐句修改，而是模拟一位《人类学与医学》审稿人的阅读体验对修改后的 Finding 1 做全局评估。评估维度包括：审稿人会在哪里停顿、为什么停顿、审稿人可信度如何变化、脚注密度是否合适。如果审稿人体验整体积极，则进入 P4C。</p>
       </div>
       <!-- 本次只做 / 本次不做 -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2">
         <div class="p-1.5 rounded bg-green-50 border border-green-200">
-          <p class="text-[10px] text-green-700 font-medium mb-0.5">本次只做</p>
+          <p class="text-[10px] text-green-700 font-medium mb-0.5">本次评估维度</p>
           <ul class="text-[10px] text-green-800 space-y-0.5 list-disc list-inside">
-            <li>只读修改后的 Finding 1</li>
-            <li>只处理 Finding 1</li>
-            <li>按 Google Doc 当前段落顺序从头到尾检查</li>
-            <li>检查段落之间是否顺畅</li>
-            <li>检查是否还有重复理论标签</li>
-            <li>检查是否还有 Discussion-level 判断提前出现</li>
-            <li>检查是否保留足够田野材料</li>
-            <li>检查 Finding 1 的结尾是否自然过渡到 Finding 2</li>
-            <li>每一条建议仍然紧跟中文 sample draft</li>
-            <li>保持 Anthropology and Medicine style</li>
-            <li>保持 Findings tone，不提前写 Discussion</li>
+            <li>审稿人对 Finding 1 的整体第一印象是什么？</li>
+            <li>哪些段落审稿人会标注为"ethnographically grounded"？</li>
+            <li>哪些段落审稿人会标注为"over-theorized"？</li>
+            <li>脚注密度是否在 Anthropology & Medicine 正常范围内？</li>
+            <li>是否有"理论预告"或"作者焦虑"信号？</li>
+            <li>Discussion-level 判断是否仍有残留？</li>
+            <li>审稿人是否会质疑田野材料的充分性？</li>
+            <li>Finding 1 到 Finding 2 的过渡是否自然？</li>
+            <li>每一项评估仍然紧跟中文 sample draft</li>
+            <li>保持 Anthropology and Medicine 的审稿标准</li>
+            <li>避免 checklist 式的 binary 判断</li>
           </ul>
         </div>
         <div class="p-1.5 rounded bg-red-50 border border-red-200">
           <p class="text-[10px] text-red-700 font-medium mb-0.5">本次不做</p>
           <ul class="text-[10px] text-red-800 space-y-0.5 list-disc list-inside">
-            <li>不处理 Finding 2</li>
-            <li>不处理 Finding 3</li>
-            <li>不处理 Discussion</li>
-            <li>不处理 Introduction / Abstract / Background</li>
+            <li>不逐句修改原文</li>
+            <li>不生成英文修订文本</li>
+            <li>不处理 Finding 2、Finding 3</li>
+            <li>不处理 Discussion、Introduction、Abstract、Background</li>
             <li>不重写整个 Findings</li>
-            <li>不生成英文版本</li>
             <li>不改变文章总结构</li>
-            <li>不大幅重写已经完成的段落，除非发现明显重复或逻辑断裂</li>
+            <li>不过度扩大面板长度</li>
+            <li>不做 copyediting</li>
           </ul>
         </div>
       </div>
 
       <!-- Finding 1 Second-Pass Quick Checklist / 快速检查清单 -->
       <div class="p-1.5 rounded bg-gray-50 border border-gray-200 mb-2">
-        <p class="text-[9px] text-gray-500 font-medium mb-0.5">Quick Checklist / 快速检查清单 <span class="text-[9px] text-gray-400 font-normal">— 以下10项作为辅助参考，通读时逐一对照</span></p>
+        <p class="text-[9px] text-gray-500 font-medium mb-0.5">Reviewer Lens Quick Reference / 审稿人视角快速对照 <span class="text-[9px] text-gray-400 font-normal">— 以下10项作为审稿人视角的辅助衡准</span></p>
         <ul class="text-[9px] text-gray-600 space-y-0.5 list-disc list-inside columns-2 gap-4">
-          <li>Opening scene 保留田野质感？</li>
-          <li>排碧乡与腊尔山之间自然衔接？</li>
-          <li>"具身技艺 / 空间秩序 / 关系伦理"不再过度密集？</li>
-          <li>Fei / Kleinman / Farquhar 理论引用是否压到脚注？</li>
-          <li>无 Discussion-level 判断？</li>
-          <li>分析来自田野材料而非外部理论？</li>
-          <li>结尾段保留实践判断？</li>
-          <li>Finding 1→2 过渡句自然保留？</li>
-          <li>整体更像 Findings 而非 literature review？</li>
-          <li>每个分析判断有 field material 支撑？</li>
+          <li>Opening scene 是否让审稿人感受到田野质感？</li>
+          <li>场景之间衔接是否让审稿人感到自然？</li>
+          <li>理论密度是否在审稿人容忍范围内？</li>
+          <li>Fei / Kleinman / Farquhar 是否仅在脚注中出现？</li>
+          <li>审稿人会否标注"Discussion-level"判断？</li>
+          <li>分析是否从田野材料涌现而非理论套入？</li>
+          <li>结尾段是否让审稿人感到收束而非终结？</li>
+          <li>Finding 1→2 过渡是否让审稿人期待下一节？</li>
+          <li>审稿人会分类为 Findings 还是 literature review？</li>
+          <li>每个分析判断是否都有田野材料支撑？</li>
         </ul>
       </div>
 
-      <!-- === Finding 1 Second-Pass Sequential Review Guide === -->
+      <!-- === Anthropology & Medicine Reviewer Pass -- Finding 1 === -->
       <div class="p-2 rounded bg-indigo-50 border border-indigo-200 mb-2">
-        <p class="text-[10px] text-indigo-700 font-medium mb-1">Finding 1 Second-Pass Sequential Review Guide / Finding 1 第二轮顺序精修指南</p>
-        <p class="text-[9px] text-gray-400 mb-2">严格按照 Google Doc 中已修改后的 Finding 1 当前段落顺序排列。每一项不是重新写整段，而是检查该段是否已达到 Findings section 的要求：field material first, theory restrained, analysis grounded, transition smooth.</p>
+        <p class="text-[10px] text-indigo-700 font-medium mb-1">Anthropology & Medicine Reviewer Pass / 审稿人仿真检查</p>
+        <p class="text-[9px] text-gray-400 mb-2">以下仿真一位《人类学与医学》审稿人在匿名评审中阅读 Finding 1 的完整体验。先做全局评估，再逐段检查。每一项解释的不是"如何修改"，而是"审稿人为什么会在这里停顿"。</p>
         <div class="text-[10px] text-gray-700 leading-relaxed space-y-2">
-          <!-- Item 1 -->
+   <!-- === Global Assessment === -->
+   <div class="p-2 rounded bg-white border border-amber-300 mb-2">
+   <p class="text-[11px] font-bold text-amber-800 mb-1">Reviewer-Level Global Assessment / 审稿人全局评估</p>
+   <p class="text-[10px] text-amber-700 font-medium mb-1">以下为审稿人通读 Finding 1 全文后的初步判断：</p>
+   <div class="space-y-1.5 text-[10px] text-gray-700">
+    <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
+    <p class="font-medium text-amber-700">Overall Findings tone / 整体 Findings 语气</p>
+    <p class="text-gray-700">Finding 1 在 first-pass 修改后已明显从"理论综述式"转向"田野材料驱动"。开场段（排碧乡中医馆）的田野质感保留良好——暖水杯、草药淡味、老人交谈等细节建立了具身场景。腊尔山中药铺段同样扎实。但有几个位置审稿人仍可能感受到"理论焦虑"：即作者在田野细节之后，习惯性补充理论引用以"证明"田野描述的人类学合法性。</p>
+    <p class="text-[9px] text-gray-500 mt-0.5">审稿人印象：开头15%像是被编辑提醒"减少理论"后的谨慎之作；中间70%停留在田野与分析的健康平衡中；最后15%的过渡句自然干净。整体优于多数第一轮投稿，但仍有可收紧的空间。</p>
+    </div>
+    <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
+    <p class="font-medium text-amber-700">Theory density / 理论密度</p>
+    <p class="text-gray-700">脚注策略有效缓解了正文的理论密度，但审稿人仍可能在以下位置感到"过度信号"：第3段（"具身技艺"段）的Mauss+费孝通+Kleinman三层引用，虽然已降至脚注，但正文仍保留了"具身化的身体技艺"、"具体治疗逻辑由地方身体记忆、空间节奏与人情伦理重塑"等密集概念。审稿人不会批评这些内容本身，但可能觉得作者在"过度捍卫"分析框架的人类学合法性。</p>
+    <p class="text-[9px] text-gray-500 mt-0.5">审稿人印象：理论与田野的比例大致在3:7。对于 Anthropology & Medicine 来说这是可接受的比例，但第3段和第6段接近5:5，需要注意。</p>
+    </div>
+    <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
+    <p class="font-medium text-amber-700">Ethnographic grounding / 田野材料根基</p>
+    <p class="text-gray-700">整体田野材料充足，两处田野场景（排碧乡、腊尔山）交替呈现，视觉细节、空间布置、治疗路径等具体信息充分。审稿人应能清晰感知到"这来自实地田野，而非文献推导"。最扎实的段落：第7项（信任沉淀段——"做出来的节奏"）和第9项（诊断即承认段）。</p>
+    <p class="text-[9px] text-gray-500 mt-0.5">审稿人判断：田野材料的丰富性和自然呈现是 Finding 1 最大的优势。</p>
+    </div>
+    <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
+    <p class="font-medium text-amber-700">Manuscript genre judgement / 手稿类型判断</p>
+    <p class="text-gray-700">当前 Finding 1 读起来更像：</p>
+    <ul class="list-disc list-inside text-[9px] text-gray-600 space-y-0.5">
+     <li> Findings section（作为 Findings，它是及格的）</li>
+     <li>❓ 偶尔读起来像 mini-theory section（第3、6段在密集概念出现时）</li>
+     <li> 不是 literature review 或 dissertation chapter 或 humanities monograph</li>
+    </ul>
+    <p class="text-[9px] text-gray-500 mt-0.5">审稿人可能会在审稿意见中写："The ethnographic material is rich and engaging. At times the author seems concerned with demonstrating theoretical literacy rather than letting the field material speak. Some paragraphs would benefit from trusting the reader more."</p>
+    </div>
+    <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
+    <p class="font-medium text-amber-700">Potential reviewer reactions / 审稿人可能的反应</p>
+    <ul class="list-disc list-inside text-[9px] text-gray-600 space-y-0.5">
+     <li>"The opening field scene is excellent — warm, specific, ethnographic."</li>
+     <li>"Some paragraphs accumulate citations in a way that reads as defensive."</li>
+     <li>"The trust analysis is compelling but occasionally over-explained."</li>
+     <li>"The quietest moments (Paragraph 7, 8) are the strongest analytically."</li>
+     <li>"Consider whether all footnotes are necessary for the article argument or whether some reflect dissertation-level anxiety about being read as 'not theoretical enough'."</li>
+    </ul>
+    </div>
+   </div>
+   </div>
+
+   <!-- === Footnote Density Review === -->
+   <div class="p-2 rounded bg-white border border-purple-300 mb-2">
+   <p class="text-[11px] font-bold text-purple-800 mb-1">Footnote Density and Reviewer Experience / 脚注密度与审稿人体验</p>
+   <p class="text-[10px] text-purple-700 font-medium mb-1">在 Anthropology & Medicine 期刊中，脚注通常用于：民族志语境补充、理论参考文献、方法论说明。不应用于：核心分析主张的佐证、作者的理论自我辩护。</p>
+   <div class="space-y-1.5 text-[10px] text-gray-700">
+    <div class="p-1.5 rounded bg-purple-50 border border-purple-200">
+    <p class="font-medium text-purple-700">Overall assessment / 总体判断</p>
+    <p class="text-gray-700">Finding 1 当前的脚注数量处于 Anthropology & Medicine 文章的正常上限。首段脚注[a]（费孝通「差序格局」语境说明）是合理的民族志语境补充。第2段脚注[a]（Farquhar 1994; Scheid 2002）是标准的理论参考文献标注，审稿人不会质疑。第3段脚注[a]（Mauss+费孝通合并）表现良好——合并策略有效。第6段脚注[a]（关系伦理+关怀伦理交汇）是脚注中争议最大的：它实质上是将一段本应在 Discussion 中展开的理论交汇提前到方案，可能让审稿人觉得"作者试图在脚注中完成理论工作"。</p>
+    <p class="text-[9px] text-gray-500 mt-0.5">审稿人印象：「此处的脚注密度（每500字约2.5个脚注）稍高于 Anthropology & Medicine 常规。期刊通常接受每千字1-3个脚注，前提是它们提供实质性语境而非理论防御。」</p>
+    </div>
+    <div class="p-1.5 rounded bg-purple-50 border border-purple-200">
+    <p class="font-medium text-purple-700">Footnote-by-footnote evaluation / 逐条评估</p>
+    <ul class="list-disc list-inside text-[9px] text-gray-600 space-y-0.5">
+     <li><strong>Footnote [a] (Opening scene — Fei):</strong> 必要语境说明 保留。审稿人不会质疑。</li>
+     <li><strong>Footnote [a] (La'er mountain — Farquhar+Scheid):</strong> 标准理论引用 保留。简短、干净、不做额外论证。</li>
+     <li><strong>Footnote [a] (Embodied skill — Mauss+Fei combined):</strong> 合并策略有效 保留。已是最优状态。</li>
+     <li><strong>Footnote [a] (Relational ethics + Care ethics):</strong> 有争议 ⚠️ 考虑缩减。该脚注写道"此处涉及费孝通所论'关系伦理'与 Kleinman 所谓'关怀伦理'的交汇，理论展开见 Discussion"——它实质上是一句"理论预告"。审稿人可能认为：如果理论展开交给 Discussion，就不需要在 Findings 的脚注中预告。建议改为仅保留"此处涉及的理论展开见 Discussion"。</li>
+    </ul>
+    </div>
+    <div class="p-1.5 rounded bg-purple-50 border border-purple-200">
+    <p class="font-medium text-purple-700">Dissertation residue check / 学位论文残留检查</p>
+    <p class="text-gray-700">如下特征可能暗示学位论文转化为期刊文章的残留：</p>
+    <ul class="list-disc list-inside text-[9px] text-gray-600 space-y-0.5">
+     <li> 在脚注中做理论预告（见 Footnote [a] 第6段）：这是最典型的 dissertation residue——学位论文中需要在正文或脚注中预告后续章节的内容安排，但期刊文章不需要。审稿人会注意到这点。</li>
+     <li> 无其他明显学位论文残留</li>
+     <li> 引文密度在正常范围内</li>
+     <li> 无过度引用作者本人</li>
+    </ul>
+    <p class="text-[9px] text-gray-500 mt-0.5">建议：第6段脚注[a]改为仅保留"理论展开见 Discussion"，删除"费孝通所论'关系伦理'与 Kleinman 所谓'关怀伦理'的交汇"这部分——它不需要在脚注中预览。</p>
+    </div>
+    <div class="p-1.5 rounded bg-purple-50 border border-purple-200">
+    <p class="font-medium text-purple-700">Minimal correction strategy / 最小修改策略</p>
+    <ul class="list-disc list-inside text-[9px] text-gray-600 space-y-0.5">
+     <li>保留所有现有脚注内容</li>
+     <li>仅修改第6段脚注[a]的后半段：删除"此处涉及费孝通所论'关系伦理'与 Kleinman 所谓'关怀伦理'的交汇"→ 改为"理论展开见 Discussion"</li>
+     <li>在定稿前做一次全文搜索，确认没有其他"理论预告"式脚注</li>
+    </ul>
+    </div>
+   </div>
+   </div>
+   <!-- Item 1 -->
           <div class="p-1.5 rounded bg-white border">
-            <p class="text-[10px] font-bold text-gray-600">1. 当前段落位置：Finding 1 opening scene / 排碧乡中医馆开场段</p>
-            <p class="text-[10px] text-gray-500 mt-0.5">当前段落关键词：排碧乡 · 中医馆 · 暖水杯 · 草药淡味 · 熟人社会 · 老人交谈</p>
-            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Second-pass concern：</p>
-            <p class="text-[10px] text-gray-700">经过 first-pass 修改后，原"正如费孝通所说"的理论标注句是否已删除或移至脚注？开场段的田野质感（暖水杯、草药淡味、老人交谈）是否仍然保留，没有被后续理论判断覆盖？首段结尾是否自然过渡到腊尔山场景，而不是以判断句收束？</p>
-            <p class="text-[10px] font-medium text-amber-600 mt-1">是否需要修改：只需检查</p>
-            <p class="text-[10px] font-medium text-blue-600 mt-1">修改建议（如需）：</p>
-            <p class="text-[10px] text-gray-700">如果 first-pass 已经将费孝通引用移至脚注，则无需再次修改。检查首段最后一句是否仍以判断句收束（如"从而使信任得以在具体而具身的场景中持续生成"），如有，改为安静的描述句收束。</p>
-            <p class="text-[10px] font-medium text-green-600 mt-1">中文 sample draft：</p>
+            <p class="text-[10px] font-bold text-gray-600">1. Opening scene / 排碧乡中医馆开场段</p>
+            <p class="text-[10px] text-gray-500 mt-0.5">段落关键词：排碧乡 · 中医馆 · 暖水杯 · 草药淡味 · 熟人社会 · 老人交谈</p>
+            <p class="text-[10px] text-red-600 mt-1 font-medium">Reviewer Concern / 审稿人担忧：</p>
+            <p class="text-[10px] text-gray-700">审稿人读完首段后最关心的问题是：这段田野场景是作为一个"真实的人类学开场"存在的，还是作为"理论引子的装饰性前奏"存在的？如果首段末尾出现了判断句（"从而使信任得以在具体而具身的场景中持续生成"），审稿人会立刻觉得作者在用田野场景做铺垫，而非让田野场景自己说话。</p>
+            <p class="text-[10px] text-red-600 mt-1 font-medium">Why It Weakens the Article / 为何削弱文章：</p>
+            <p class="text-[10px] text-gray-700">首段是一个 Findings 段落的"第一印象"锚点。如果首段末尾出现分析结论，审稿人会认为作者不信任田野材料自身的力量。这会引发一个更严重的问题：审稿人会开始怀疑整篇文章是否都在"用田野材料展示预先确定的分析框架"。</p>
+            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Reviewer Impression / 审稿人印象：</p>
+            <p class="text-[10px] text-gray-700">"The opening field scene is warm and specific — the warm water bottles, the herbal smell, the conversations among elderly patients. This is good ethnography. But if the paragraph ends with an analytical judgement, I begin to wonder whether the field material is being used as illustration rather than as the source of analysis."</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Minimal Revision Strategy / 最小修改策略：</p>
+            <p class="text-[10px] text-gray-700">确认费孝通引用已移至脚注。检查首段最后一句是否以安静的描述句收束（而非判断句）。如果仍残留判断句，替换为场景描述。</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Chinese Sample Draft / 中文示意：</p>
             <div class="p-1.5 mt-1 rounded bg-green-50 border border-green-100 text-[10px] text-gray-700 leading-relaxed">
               <p>乡镇卫生院中医馆是湘西当地老人常去的医疗与养生场所。走廊的长椅上，老人们一边捧着暖水杯，一边轻声交谈；诊室内弥漫着草药的淡味。医者记得老人的劳作方式、季节性的病痛、家庭近况；而老人们则把日常烦恼与身体不适一并倾诉出来，具有明显的"熟人社会"特征。[a]</p>
               <p class="text-[9px] text-gray-400 mt-1">[a] 费孝通《乡土中国》——"差序格局"，以亲疏远近组织义务与信任的关系结构。此处仅描述现象，理论展开见后文。</p>
             </div>
+            <p class="text-[10px] font-medium text-amber-600 mt-1">Severity: minor readability issue</p>
           </div>
           <!-- Item 2 -->
           <div class="p-1.5 rounded bg-white border">
-            <p class="text-[10px] font-bold text-gray-600">2. 当前段落位置：排碧乡开场段 → 腊尔山中药铺段之间的过渡</p>
-            <p class="text-[10px] text-gray-500 mt-0.5">当前段落关键词：腊尔山 · 中药铺 · 木质药柜 · 药材分类 · 治疗路线选择</p>
-            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Second-pass concern：</p>
-            <p class="text-[10px] text-gray-700">排碧乡与腊尔山两个场景之间是否自然衔接？腊尔山段首句是否直接开始田野描写，还是仍保留了"在我参观了……"这种 weak lead-in？第二段是否仍然包含 Farquhar (1994) 和 Scheid (2002) 的独立理论标注句？</p>
-            <p class="text-[10px] font-medium text-amber-600 mt-1">是否需要修改：轻微压缩</p>
-            <p class="text-[10px] font-medium text-blue-600 mt-1">修改建议：</p>
-            <p class="text-[10px] text-gray-700">"在我参观了腊尔山苗族乡的卫生院见到"语意略有堵塞，微调为"腊尔山苗族乡卫生院的附属中药铺里……"即可。Farquhar/Scheid 引用保留在脚注，不要作为独立分析句出现在田野描写中间。检查两个场景之间是否有跳转感——如果没有过渡句直接生硬切换，可在排碧乡段末加一句"同样的空间关怀在一个多小时车程外的腊尔山同样可见"之类的轻微过渡。</p>
-            <p class="text-[10px] font-medium text-green-600 mt-1">中文 sample draft：</p>
+            <p class="text-[10px] font-bold text-gray-600">2. Transition between field sites / 排碧乡→腊尔山的过渡</p>
+            <p class="text-[10px] text-gray-500 mt-0.5">段落关键词：腊尔山 · 中药铺 · 木质药柜 · 药材分类 · 治疗路线选择</p>
+            <p class="text-[10px] text-red-600 mt-1 font-medium">Reviewer Concern / 审稿人担忧：</p>
+            <p class="text-[10px] text-gray-700">审稿人在阅读两个田野场景之间的过渡时，会留意是否自然。如果过渡句是"在我参观了……"这种弱引导，审稿人会觉得文章还处在"作者在田野中的个人经历"阶段，而非"有分析的 Findings"。更关键的问题：腊尔山段是否在田野描写中插入了 Farquhar/Scheid 的独立理论句，打断了场景的连续性。</p>
+            <p class="text-[10px] text-red-600 mt-1 font-medium">Why It Weakens the Article / 为何削弱文章：</p>
+            <p class="text-[10px] text-gray-700">A weak transition between two field sites suggests the author has not yet decided whether this is a travelogue or an analytical Findings section. 审稿人不需要作者"带领他们参观"——他们需要两个场景之间的逻辑关联。</p>
+            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Reviewer Impression / 审稿人印象：</p>
+            <p class="text-[10px] text-gray-700">"The two field sites are well-chosen and the material is strong. The transition could be tighter — rather than 'I visited...' consider a direct scene transition that shows the reader why these two sites belong in the same analytical frame."</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Minimal Revision Strategy / 最小修改策略：</p>
+            <p class="text-[10px] text-gray-700">将弱引导替换为直接场景过渡句。Farquhar/Scheid 保留在脚注。确保两个场景之间的逻辑关联在过渡句中被暗示而非被说明。</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Chinese Sample Draft / 中文示意：</p>
             <div class="p-1.5 mt-1 rounded bg-green-50 border border-green-100 text-[10px] text-gray-700 leading-relaxed">
               <p>同样的空间关怀，在一个多小时车程外的腊尔山同样可见。腊尔山苗族乡卫生院的附属中药铺里，木质药柜整齐排列，抽屉上手写着药名，柜内药材形态气味各异。中药铺空间虽小，却体现了一个稳定的地方知识体系：药材如何被分类、组合与存放，直接呈现了地方对身体与疾病的长期经验性理解。[a]卫生院街对面还有一家药房，患者在面临身体不适时，会在卫生院、中药铺与街边药房之间选择不同的治疗路径。</p>
               <p class="text-[9px] text-gray-400 mt-1">[a] Farquhar 1994; Scheid 2002。</p>
             </div>
+            <p class="text-[10px] font-medium text-amber-600 mt-1">Severity: minor readability issue</p>
           </div>
           <!-- Item 3 -->
           <div class="p-1.5 rounded bg-white border">
-            <p class="text-[10px] font-bold text-gray-600">3. 当前段落位置："基层中医医疗实践首先建基于具身化的身体技艺"段</p>
-            <p class="text-[10px] text-gray-500 mt-0.5">当前段落关键词：身体技艺 · 针灸 · 草药辨识 · 地方医疗知识 · 具身化制度</p>
-            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Second-pass concern：</p>
-            <p class="text-[10px] text-gray-700">这是 first-pass 中理论最密集的段落——Mauss (1934)、费孝通 (1947)、Kleinman (1988) 三层理论标注是否已经压缩？"基层医疗运作作为一种'具身化的地方制度'"是否仍作为该段核心判断保留，且没有被理论注释覆盖？</p>
-            <p class="text-[10px] font-medium text-amber-600 mt-1">是否需要修改：保留 / 已改好则确认</p>
-            <p class="text-[10px] font-medium text-blue-600 mt-1">修改建议：</p>
-            <p class="text-[10px] text-gray-700">Mauss 和费孝通应合并为一句话脚注。删除"医患之间的信任因而是在长久互动、共享叙事与道德经验中逐渐形成（Kleinman 1988）"——这个判断在后文"具身化的疗愈互动"段已有更好的展开。保留"具体治疗逻辑由地方身体记忆、空间节奏与人情伦理重塑"这一核心田野分析线。</p>
-            <p class="text-[10px] font-medium text-green-600 mt-1">中文 sample draft：</p>
+            <p class="text-[10px] font-bold text-gray-600">3. "Embodied skill" paragraph / "具身技艺"理论密集段</p>
+            <p class="text-[10px] text-gray-500 mt-0.5">段落关键词：身体技艺 · 针灸 · 草药辨识 · 地方医疗知识 · 具身化制度</p>
+            <p class="text-[10px] text-red-600 mt-1 font-medium">Reviewer Concern / 审稿人担忧：</p>
+            <p class="text-[10px] text-gray-700">这是 Finding 1 中审稿人最可能停顿的位置。原因是：三层理论标注（Mauss + Fei + Kleinman）即使在 first-pass 后已被压缩，正文仍保留了"具身化的身体技艺"、"具体治疗逻辑由地方身体记忆、空间节奏与人情伦理重塑"等密集概念组合。审稿人不会批评这些概念本身，但会注意到：作者在这里不是在展示田野发现，而是在向审稿人证明"我有理论深度"。</p>
+            <p class="text-[10px] text-red-600 mt-1 font-medium">Why It Weakens the Article / 为何削弱文章：</p>
+            <p class="text-[10px] text-gray-700">A paragraph that starts with an analytical concept rather than field material signals to the reviewer that the author is organizing the Findings around theory, not around what emerged from the field. 对于 Anthropology & Medicine 的审稿人而言，这是最敏感的 signal 之一——它让审稿人开始怀疑整篇文章是"deductive"（理论先于田野）而非"inductive"（田野生成分析）。</p>
+            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Reviewer Impression / 审稿人印象：</p>
+            <p class="text-[10px] text-gray-700">"This paragraph begins to read like theoretical framing rather than field emergence. The author may be trying too hard to signal anthropological literacy. Consider starting with the specific clinical action — acupuncture, massage, herb identification — and let the analysis emerge from what the practitioner actually does."</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Minimal Revision Strategy / 最小修改策略：</p>
+            <p class="text-[10px] text-gray-700">如果该段仍以概念开头，考虑用一句具体的田野观察替换首句概念框架。Mauss+Fei 合并脚注已是最优。确认 Kleinman (1988) 句已被删除。</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Chinese Sample Draft / 中文示意：</p>
             <div class="p-1.5 mt-1 rounded bg-green-50 border border-green-100 text-[10px] text-gray-700 leading-relaxed">
               <p>基层中医医疗实践首先建基于具身化的身体技艺。针灸、按摩、草药辨识等操作并非抽象的病理阐释，而是地方医疗知识体系的具体展现——医疗路径依赖地方身体记忆，通过可感知的身体技术得以持续传承，并镶嵌于地方的空间秩序与日常节奏之中。在湘西多民族乡村的基层医疗中，具体的治疗逻辑往往由地方身体记忆、空间节奏与人情伦理所重新塑造。[a]</p>
               <p class="text-[9px] text-gray-400 mt-1">[a] 不同民族的医者手法技法（Mauss 1934）与中医馆、中药铺的空间布置中体现的熟人社会秩序（费孝通 1947），都使基层诊疗呈现出嵌入日常生活的地方化实践特征。</p>
             </div>
+            <p class="text-[10px] font-medium text-amber-600 mt-1">Severity: likely reviewer concern</p>
           </div>
           <!-- Item 4 -->
           <div class="p-1.5 rounded bg-white border">
-            <p class="text-[10px] font-bold text-gray-600">4. 当前段落位置："排碧乡与腊尔山的中医馆展现了基层医疗中信任的生成机制"段</p>
-            <p class="text-[10px] text-gray-500 mt-0.5">当前段落关键词：信任生成 · 空间秩序 · 身体技艺 · 制度背书</p>
-            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Second-pass concern：</p>
-            <p class="text-[10px] text-gray-700">这一段在 first-pass 中标记为"保留，不改"。检查 second-pass 中是否仍然成立：这段是否仍然简练、无过度理论化？"不是制度性的即时背书"与"空间秩序与身体技艺长期实践"的判断是否仍然清晰有力？是否与前后段落有内容重复？</p>
-            <p class="text-[10px] font-medium text-amber-600 mt-1">是否需要修改：保留（仅检查）</p>
-            <p class="text-[10px] font-medium text-blue-600 mt-1">修改建议：</p>
-            <p class="text-[10px] text-gray-700">无。这段是 Finding 1 的枢纽段——它用一句话完成了从场景描写到分析判断的过渡，且判断来自前面的田野材料。如果 first-pass 未动此段，第二遍也无需动。</p>
+            <p class="text-[10px] font-bold text-gray-600">4. Trust generation mechanism / 信任生成机制段落</p>
+            <p class="text-[10px] text-gray-500 mt-0.5">段落关键词：信任生成 · 空间秩序 · 身体技艺 · 制度背书</p>
+            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Reviewer Assessment / 审稿人评估：</p>
+            <p class="text-[10px] text-gray-700">这一段是 Finding 1 的枢纽段——审稿人阅读到这里时，应该能清晰地感知到：前面的田野场景不是散乱的描述，而是在为这个判断蓄势。审稿人不会在此处停顿。段落干练、判断来自田野、无过度理论化。对于审稿人来说，这种"场景→分析→场景"的节奏是理想的 Findings 阅读体验。</p>
+            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Reviewer Impression / 审稿人印象：</p>
+            <p class="text-[10px] text-gray-700">"This is the kind of analytical paragraph that makes a Findings section work — concise, grounded in the scenes that preceded it, and moving the argument forward without stopping to explain itself."</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Action / 操作：</p>
+            <p class="text-[10px] text-gray-700">确认 first-pass 未修改此段。第二遍也无需修改。</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Severity: no concern — excellent paragraph</p>
           </div>
           <!-- Item 5 -->
           <div class="p-1.5 rounded bg-white border">
-            <p class="text-[10px] font-bold text-gray-600">5. 当前段落位置："置身于这种熟悉且充满地方质感的空间内"段（具身关怀段）</p>
-            <p class="text-[10px] text-gray-500 mt-0.5">当前段落关键词：医者持续的按压接触 · 具身关怀 · 抽象病例 · 中国乡村社会结构再生产</p>
-            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Second-pass concern：</p>
-            <p class="text-[10px] text-gray-700">这一段是 first-pass 中修改最多的段落——"Kleinman意义上的'具身关怀'"是否已删除？"免于沦为现代医疗系统中的'抽象病例'"是否已删除？"中国乡村社会结构在医疗现场的生动再生产"是否已删除或改写？修改后的版本是否仍然保留田野质感？</p>
-            <p class="text-[10px] font-medium text-amber-600 mt-1">是否需要修改：建议改写（检查 first-pass 执行情况）</p>
-            <p class="text-[10px] font-medium text-blue-600 mt-1">修改建议：</p>
-            <p class="text-[10px] text-gray-700">如果 first-pass 已完全处理此段，则只需确认。如果仍残留 Kleinman 标注或"社会结构再生产"句，需彻底删除。最佳版本："老人们感到身体被看见、被理解。他们在重复、恬静且充满人情味的互动中，获得了身体与心理的双重松缓。"——这是 Finding 1 中最安静的结束方案。</p>
-            <p class="text-[10px] font-medium text-green-600 mt-1">中文 sample draft：</p>
+            <p class="text-[10px] font-bold text-gray-600">5. Embodied care paragraph / "具身关怀"段（原最重的 Discussion 越界段）</p>
+            <p class="text-[10px] text-gray-500 mt-0.5">段落关键词：医者持续的按压接触 · 具身关怀 · 抽象病例 · 中国乡村社会结构再生产</p>
+            <p class="text-[10px] text-red-600 mt-1 font-medium">Reviewer Concern / 审稿人担忧：</p>
+            <p class="text-[10px] text-gray-700">这是 first-pass 中改动最大的段落，也是审稿人最可能标注"over-interpretation"的位置。原版包含三处越界判断："Kleinman意义上的'具身关怀'"——此处的理论标注不服务于田野描述，而是作者在替审稿人做理论归类；"免于沦为现代医疗系统中的'抽象病例'"——这是一个价值判断，审稿人会问"这个判断从田野中哪个具体观察得来？"；"成为了中国乡村社会结构在医疗现场的生动再生产"——即使从社会学角度成立，在 Findings 中它是一次过度的理论收束。</p>
+            <p class="text-[10px] text-red-600 mt-1 font-medium">Why It Weakens the Article / 为何削弱文章：</p>
+            <p class="text-[10px] text-gray-700">这些判断各自在 Discussion 中都有立足之地，但在 Findings 中它们让审稿人产生"the author is telling the reader what to think"的印象。审稿人阅读 Findings 时希望在场景中自行发现分析意义——如果作者替审稿人完成了这项工作，审稿人会质疑是否还有继续阅读 Discussion 的必要。</p>
+            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Reviewer Impression / 审稿人印象：</p>
+            <p class="text-[10px] text-gray-700">"Some of the interpretive language here belongs in the Discussion rather than in the Findings. The clinical scene itself — sustained touch, quiet interaction, elderly patients feeling seen — is powerful enough without being framed as 'embodied care in the Kleinmanian sense'. Trust the scene."</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Minimal Revision Strategy / 最小修改策略：</p>
+            <p class="text-[10px] text-gray-700">如果 first-pass 已完全清理（删除 Kleinman 标注、"抽象病例"、"社会结构再生产"），则确认通过。如果仍有残留，删除相应语句后，本段缩减为仅为田野描述+安静的结尾句。</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Chinese Sample Draft / 中文示意：</p>
             <div class="p-1.5 mt-1 rounded bg-green-50 border border-green-100 text-[10px] text-gray-700 leading-relaxed">
               <p>置身于这种熟悉且充满地方质感的空间内，医者持续的按压接触让老人们感到身体被看见、被理解。他们在重复、恬静且充满人情味的互动中，获得了身体与心理的双重松缓。</p>
             </div>
+            <p class="text-[10px] font-medium text-amber-600 mt-1">Severity: major structural concern (original); likely resolved in first pass</p>
           </div>
           <!-- Item 6 -->
           <div class="p-1.5 rounded bg-white border">
-            <p class="text-[10px] font-bold text-gray-600">6. 当前段落位置："在具身化的疗愈互动中"段（理论密集段）</p>
-            <p class="text-[10px] text-gray-500 mt-0.5">当前段落关键词：关系伦理 · 关怀伦理 · 关怀现象学 · 缓慢把脉 · 情感承认</p>
-            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Second-pass concern：</p>
-            <p class="text-[10px] text-gray-700">这是 first-pass 中理论最密集的段落之二——"关系伦理"、"关怀伦理"、"关怀的现象学"三个概念是否已从正文移至脚注？"信任的构建源于关怀的现象学"这个表述是否已删除？"缓慢的把脉、温暖的关注，以及对痛苦在道德层面意义的认知"是否已从理论陈述改为田野描述？</p>
-            <p class="text-[10px] font-medium text-amber-600 mt-1">是否需要修改：建议改写</p>
-            <p class="text-[10px] font-medium text-blue-600 mt-1">修改建议：</p>
-            <p class="text-[10px] text-gray-700">删除"信任的构建源于关怀的现象学"全句。将"关系伦理"和"关怀伦理"标注移至脚注。"缓慢的把脉……"改为田野语言。检查本段是否与第4项（信任生成机制段）有内容重复——如果是修改前的版本，这两段之间的内容是重叠的；如果是 first-pass 修改后的版本，应已合并。</p>
-            <p class="text-[10px] font-medium text-green-600 mt-1">中文 sample draft：</p>
+            <p class="text-[10px] font-bold text-gray-600">6. Embodied healing interaction / "具身化的疗愈互动"段（理论密集段二）</p>
+            <p class="text-[10px] text-gray-500 mt-0.5">段落关键词：关系伦理 · 关怀伦理 · 关怀现象学 · 缓慢把脉 · 情感承认</p>
+            <p class="text-[10px] text-red-600 mt-1 font-medium">Reviewer Concern / 审稿人担忧：</p>
+            <p class="text-[10px] text-gray-700">这是 Finding 1 中审稿人可能第二次停顿的位置。"关系伦理"、"关怀伦理"、"关怀的现象学"三个概念如果在两句内同时出现，审稿人会注意到"理论标签叠加"模式。即使它们被移至脚注，正文中"缓慢的把脉、温暖的关注，以及对痛苦在道德层面意义的认知"如果仍保留为理论陈述而非田野描述，审稿人会觉得"这里作者在引用 Kleinman 的语言写作，而非根据田野场景写作"。</p>
+            <p class="text-[10px] text-red-600 mt-1 font-medium">Why It Weakens the Article / 为何削弱文章：</p>
+            <p class="text-[10px] text-gray-700">本段的核心内容是 Finding 1 中最重要的分析结论——"信任源于持续的身体性关注"。但如果在 findings 中包裹了 Kleinman 的现象学语言，审稿人会认为"作者不是在报告田野发现，而是在用田野材料填充理论框架"。这是 Findings 中审稿人最严厉的批评之一。</p>
+            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Reviewer Impression / 审稿人印象：</p>
+            <p class="text-[10px] text-gray-700">"The analytical core of this paragraph is important — trust emerging through sustained bodily attention. But the language is borrowed from the phenomenological tradition rather than emerging from the field scenes. The reviewer may feel the manuscript is momentarily shifting from ethnography into conceptual explanation."</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Minimal Revision Strategy / 最小修改策略：</p>
+            <p class="text-[10px] text-gray-700">如果 first-pass 已将三个概念移入脚注并删除"信任的构建源于关怀的现象学"，本段已基本干净。唯一需警惕的残留是第6段是否与第4项（信任生成机制）有内容重叠——如果 first-pass 调整后保留了两段，审稿人可能注意到重复。</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Chinese Sample Draft / 中文示意：</p>
             <div class="p-1.5 mt-1 rounded bg-green-50 border border-green-100 text-[10px] text-gray-700 leading-relaxed">
               <p>排碧乡与腊尔山的中医馆展现了基层医疗中信任的生成机制——它不是制度性的即时背书，而是通过"空间秩序"与"身体技艺"被长期实践出来的。缓慢的把脉、温暖的关注，以及对患者日常生活处境的持续询问——这些细小的临床举动在患者的感受中构成了"这个医生懂得我"的基础。[a]</p>
-              <p class="text-[9px] text-gray-400 mt-1">[a] 此处涉及费孝通所论"关系伦理"与 Kleinman 所谓"关怀伦理"的交汇，理论展开见 Discussion。</p>
+              <p class="text-[9px] text-gray-400 mt-1">[a] 理论展开见 Discussion。</p>
             </div>
+            <p class="text-[10px] font-medium text-amber-600 mt-1">Severity: likely reviewer concern</p>
           </div>
           <!-- Item 7 -->
           <div class="p-1.5 rounded bg-white border">
-            <p class="text-[10px] font-bold text-gray-600">7. 当前段落位置："在这样的空间中，信任并非发生于某一时刻"段</p>
-            <p class="text-[10px] text-gray-500 mt-0.5">当前段落关键词：信任沉淀 · 倾听 · 患者停留 · 做出来的节奏 · 持续把脉</p>
-            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Second-pass concern：</p>
-            <p class="text-[10px] text-gray-700">这一段在 first-pass 中标记为"写得最好"。second-pass 检查：这段的田野材料与分析平衡是否仍然成立？"做出来的节奏"这个自然意象是否保留？是否因为 first-pass 改动导致该段的节奏被打断？</p>
-            <p class="text-[10px] font-medium text-amber-600 mt-1">是否需要修改：保留（仅检查）</p>
-            <p class="text-[10px] font-medium text-blue-600 mt-1">修改建议：</p>
-            <p class="text-[10px] text-gray-700">如果 first-pass 未动此段，第二遍也无需修改。注意检查 first-pass 修改后，是否有 content shift 导致该段与前后段之间的逻辑顺序出现重复或断裂。</p>
+            <p class="text-[10px] font-bold text-gray-600">7. Trust sedimentation / "信任并非发生于某一时刻"段</p>
+            <p class="text-[10px] text-gray-500 mt-0.5">段落关键词：信任沉淀 · 倾听 · 患者停留 · 做出来的节奏 · 持续把脉</p>
+            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Reviewer Assessment / 审稿人评估：</p>
+            <p class="text-[10px] text-gray-700">这是 Finding 1 中审稿人不会停顿的位置。"医生不急于下病理定论"、"患者不仅接受诊疗，还在此停留、聊天"、"持续的把脉、反复的询问、对家庭关系的记忆"——每一句都来自田野，没有一句需要理论注释。"做出来的节奏"这个具身意象是 Finding 1 中最有效的人类学表达。审稿人会在此处感到"这段文字出自真正的田野写作者"。</p>
+            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Reviewer Impression / 审稿人印象：</p>
+            <p class="text-[10px] text-gray-700">"This is the strongest paragraph in Finding 1 — a rare example of analysis emerging entirely from field texture. The phrase 'a rhythm that is made, not declared' ('做出来的节奏') captures the embodied nature of trust more effectively than any theoretical framing could."</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Action / 操作：</p>
+            <p class="text-[10px] text-gray-700">如果 first-pass 未改动此段，无需修改。仅需确认修改其他段落后，本段前后逻辑仍然连贯。</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Severity: no concern — strongest paragraph in Finding 1</p>
           </div>
           <!-- Item 8 -->
           <div class="p-1.5 rounded bg-white border">
-            <p class="text-[10px] font-bold text-gray-600">8. 当前段落位置："医务人员不仅询问症状"段（Diagnosis-as-recognition 段）</p>
-            <p class="text-[10px] text-gray-500 mt-0.5">当前段落关键词：询问症状 · 了解忧虑 · 情感痛苦 · 诊断即承认 · 身体层面的现实</p>
-            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Second-pass concern：</p>
-            <p class="text-[10px] text-gray-700">这一段在 first-pass 中标记为"保留，不改"。second-pass 检查："诊断将情感痛苦纳入其中，视之为身体层面的现实"——这一句是否仍然来自田野材料，而非外部理论套入？是否在 first-pass 后仍保持从田野自然涌现的判断感？</p>
-            <p class="text-[10px] font-medium text-amber-600 mt-1">是否需要修改：保留（仅检查）</p>
-            <p class="text-[10px] font-medium text-blue-600 mt-1">修改建议：</p>
-            <p class="text-[10px] text-gray-700">无。这一段是 Finding 1 中最重要的核心判断之一。唯一需注意：不要因为 first-pass 对其他段落的修改导致本段出现重复判断。</p>
+            <p class="text-[10px] font-bold text-gray-600">8. Diagnosis as recognition / "医务人员不仅询问症状"段</p>
+            <p class="text-[10px] text-gray-500 mt-0.5">段落关键词：询问症状 · 了解忧虑 · 情感痛苦 · 诊断即承认 · 身体层面的现实</p>
+            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Reviewer Assessment / 审稿人评估：</p>
+            <p class="text-[10px] text-gray-700">这是 Finding 1 中审稿人最可能标注为"important finding"的段落。"诊断将情感痛苦纳入其中，视之为身体层面的现实"是全文中接近核心理论主张的发现——而且它来自田野材料的自然涌现，不是外部理论标签。审稿人读到此处时，应该不会停顿，而是会标注"this is a key ethnographic observation"。与第7项类似，本段在 first-pass 中标记为保留，无需改动。</p>
+            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Reviewer Impression / 审稿人印象：</p>
+            <p class="text-[10px] text-gray-700">"An important ethnographic observation — the clinician's diagnosis incorporates emotional suffering as a bodily reality. This is the kind of grounded claim that gives a Findings section its analytical weight."</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Action / 操作：</p>
+            <p class="text-[10px] text-gray-700">确认 first-pass 未改动此段。第二遍也无需修改。唯一注意：其他段落的修改不应导致本段出现重复判断。</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Severity: no concern — key ethnographic observation</p>
           </div>
           <!-- Item 9 -->
           <div class="p-1.5 rounded bg-white border">
-            <p class="text-[10px] font-bold text-gray-600">9. 当前段落位置：Finding 1 结尾段 — "基层医疗实践中个人层面的信任也生成于"</p>
-            <p class="text-[10px] text-gray-500 mt-0.5">当前段落关键词：持续回应 · 村医非机械执行 · 家庭状况 · 停留倾听 · 可靠性</p>
-            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Second-pass concern：</p>
-            <p class="text-[10px] text-gray-700">first-pass 建议将结尾句"个人层面的信任因此并非源于制度权威，而是在医者的道德实践能力与持续照护中被逐步建立与维系"改为更安静的版本。second-pass 检查：修改后的结尾是否只说现象、不做理论总结？"个人层面的信任"这一分类标签是否出现得过早？"持续照护"的概念是否在此处出现而不是在 Discussion 中？</p>
-            <p class="text-[10px] font-medium text-amber-600 mt-1">是否需要修改：建议改写（检查 first-pass 执行情况）</p>
-            <p class="text-[10px] font-medium text-blue-600 mt-1">修改建议：</p>
-            <p class="text-[10px] text-gray-700">保留该段田野内容（村医根据家庭状况作判断、在是否停留与倾听中体现）。删除"个人层面的信任因此并非源于制度权威……"整句，替换为安静的实践描述。</p>
-            <p class="text-[10px] font-medium text-green-600 mt-1">中文 sample draft：</p>
+            <p class="text-[10px] font-bold text-gray-600">9. Finding 1 closing / Finding 1 结尾段</p>
+            <p class="text-[10px] text-gray-500 mt-0.5">段落关键词：持续回应 · 村医非机械执行 · 家庭状况 · 停留倾听 · 可靠性</p>
+            <p class="text-[10px] text-red-600 mt-1 font-medium">Reviewer Concern / 审稿人担忧：</p>
+            <p class="text-[10px] text-gray-700">结尾段的田野内容（村医根据家庭状况作判断、停留倾听）非常好，是 Finding 的合适收尾。但 original 版本的最后一句——"个人层面的信任因此并非源于制度权威，而是在医者的道德实践能力与持续照护中被逐步建立与维系"——是一个 Discussion-level 的理论收束。审稿人读到此处会想："如果这里已经把个人层面信任的结论说完，那 Discussion 还要说什么？"</p>
+            <p class="text-[10px] text-red-600 mt-1 font-medium">Why It Weakens the Article / 为何削弱文章：</p>
+            <p class="text-[10px] text-gray-700">一个在 Findings 中提前给出理论结论的结尾，不仅削弱了 Discussion 的必要性，还让审稿人质疑作者是否清楚 Findings 和 Discussion 的分工。Anthropology & Medicine 的审稿人对此特别敏感——他们期待 Findings 以开放性问题或过渡句收束，而非以理论总结收束。</p>
+            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Reviewer Impression / 审稿人印象：</p>
+            <p class="text-[10px] text-gray-700">"The closing paragraph of Finding 1 contains good field material but ends with a Discussion-level claim. The reader should feel that Finding 1 has reached a natural pause, not a conclusion. Consider letting the field scene speak for itself and save the theoretical synthesis for the Discussion."</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Minimal Revision Strategy / 最小修改策略：</p>
+            <p class="text-[10px] text-gray-700">如果 first-pass 已删除理论收束句，确认通过。如果仍残留，用安静的实践描述替换。保留该段所有田野内容。</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Chinese Sample Draft / 中文示意：</p>
             <div class="p-1.5 mt-1 rounded bg-green-50 border border-green-100 text-[10px] text-gray-700 leading-relaxed">
               <p>基层医疗实践中个人层面的信任也生成于医务人员对患者具体处境的持续回应之中。面对繁杂的制度文书、有限的时间与资源，村医并非机械执行规范，而是根据患者的家庭状况、日常需求与关系背景作出实践性的判断。这种判断并不体现为明确的伦理宣言，而是体现在是否愿意停留、倾听与反复回应之中。正是在这种具身化的互动过程中，患者逐渐形成对医者"可靠性"的感知——即医者理解自己的生活，而非仅将其视为制度任务中的一个对象。</p>
             </div>
+            <p class="text-[10px] font-medium text-amber-600 mt-1">Severity: moderate reviewer concern (original); likely resolved in first pass</p>
           </div>
           <!-- Item 10 -->
           <div class="p-1.5 rounded bg-white border">
-            <p class="text-[10px] font-bold text-gray-600">10. 当前段落位置：Finding 1 → Finding 2 过渡句</p>
-            <p class="text-[10px] text-gray-500 mt-0.5">当前段落关键词：诊室内的医患二人 → 回到村寨 · 社区层面 · 医者本人也是社区成员</p>
-            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Second-pass concern：</p>
-            <p class="text-[10px] text-gray-700">过渡句在 first-pass 中未修改。second-pass 检查：过渡句是否仍然自然地将读者从个人层信任带到社区层信任？"因为医者本人也是社区的一员"是否足够——还是需要更清晰的过渡提示？如果 Finding 1 的其他段落被大幅压缩，过渡句前后的逻辑是否仍然连贯？</p>
-            <p class="text-[10px] font-medium text-amber-600 mt-1">是否需要修改：保留（仅检查）</p>
-            <p class="text-[10px] font-medium text-blue-600 mt-1">修改建议：</p>
-            <p class="text-[10px] text-gray-700">过渡句简洁有力，如 first-pass 未修改则无需改动。注意如果结尾段被改写，过渡句可能需要微调以匹配新的结尾语气。</p>
+            <p class="text-[10px] font-bold text-gray-600">10. Finding 1 to Finding 2 transition / 过渡句</p>
+            <p class="text-[10px] text-gray-500 mt-0.5">段落关键词：诊室内的医患二人 → 回到村寨 · 社区层面 · 医者本人也是社区成员</p>
+            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Reviewer Assessment / 审稿人评估：</p>
+            <p class="text-[10px] text-gray-700">过渡句在 first-pass 中未修改，这是正确的判断。"但中医馆内的信任关系并不只限于诊室内的医患二人。当这位患者离开诊室，回到村寨后，他与医者的信任继续在社区层面的日常交往中被维系和深化——因为医者本人也是社区的一员。"——这个过渡做到了 Findings 过渡应该做的所有事情：暗示了下一层的分析方向（社区层信任），但没有展开；使用了田野语言（"回到村寨"、"医者本人也是社区的一员"），没有理论术语；保持了 Findings 的 forward movement。</p>
+            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Reviewer Impression / 审稿人印象：</p>
+            <p class="text-[10px] text-gray-700">"This transition paragraph serves exactly the function a Findings transition should — it points toward the next analytical layer without announcing it, and does so in field-derived language."</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Action / 操作：</p>
+            <p class="text-[10px] text-gray-700">无需修改。只须确认第9项结尾段的改写未影响过渡句的语气连贯性。</p>
+            <p class="text-[10px] font-medium text-green-600 mt-1">Severity: no concern — clean transition</p>
           </div>
-          <!-- Item 11: Overall check -->
+          <!-- Item 11: Overall verdict -->
           <div class="p-1.5 rounded bg-white border border-amber-300">
-            <p class="text-[10px] font-bold text-amber-700">11. 全段最终检查 — Overall second-pass verdict</p>
-            <p class="text-[10px] text-gray-500 mt-0.5">当前段落关键词：Findings tone · 理论密度 · 田野材料 · 过渡 · P4C 就绪判断</p>
-            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Second-pass concern：</p>
-            <p class="text-[10px] text-gray-700">通读修改后的 Finding 1 全文，从整体上判断以下几个方面：(1) 整体是否更像 Findings section，而不是 literature review 或 theoretical discussion？(2) 是否有重复段落或重复判断？(3) three-layer 信任结构（个人层 → 社区层 → 制度层）是否在 Finding 1 中已有暗示，但未提前展开？(4) 是否可以结束 Finding 1，进入下一步 P4C（决定是否 ready to move to Finding 2）？</p>
-            <p class="text-[10px] font-medium text-amber-600 mt-1">是否需要修改：只需检查（整体判断）</p>
-            <p class="text-[10px] font-medium text-blue-600 mt-1">修改建议：</p>
-            <p class="text-[10px] text-gray-700">如果 Finding 1 整体已经：开场有田野质感 → 场景之间有自然推进 → 理论标注压到脚注 → 无 Discussion-level 判断 → 无重复段落 → 结尾自然过渡到 Finding 2，则 Finding 1 可以 ready for P4C。如果以上任何一项不满足，先处理该单一段落，再进行 P4C。</p>
+            <p class="text-[11px] font-bold text-amber-800">11. Full section readiness verdict / Finding 1 审稿人最终判断</p>
+            <p class="text-[10px] text-gray-500 mt-0.5">整体判断维度：Findings tone · 理论密度 · 田野材料 · 过渡流畅度 · 审稿人信任度</p>
+            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Reviewer-Level Assessment / 审稿人层判断：</p>
+            <p class="text-[10px] text-gray-700">通读修改后的 Finding 1 全文后，审稿人可能会形成如下印象：</p>
+            <ul class="list-disc list-inside text-[9px] text-gray-600 space-y-0.5 ml-1">
+              <li><strong>Findings tone:</strong> 整体合格。开场段和过渡段具备 Findings 所需的田野质地。第3段和第6段仍有可能被标注为"过度理论信号"，但已在可接受范围内。</li>
+              <li><strong>Theory density:</strong> 脚注策略有效。正文中的理论密度已降至审稿人通常不会投诉的水平。唯一的脚注异议是第6段的"理论预告"，建议在第9项确认前修改。</li>
+              <li><strong>Field material:</strong> 匹配合格。两处田野场景（排碧乡、腊尔山）提供了充足的民族志基础。第7段和第8段是审稿人会标注为"ethnographically grounded"的段落。</li>
+              <li><strong>Repetition check:</strong> 如果 first-pass 已正确处理第6段与第4段的内容重叠，则无重复问题。</li>
+              <li><strong>Discussion boundary:</strong> 所有 Discussion-level 判断（Kleinman 标注、"社会结构再生产"、理论总结句）应在 first-pass 中已移至脚注或删除。如果仍有残留，审稿人会标注。</li>
+            </ul>
+            <p class="text-[10px] text-indigo-600 mt-1 font-medium">Readiness for P4C / 是否进入 P4C：</p>
+            <p class="text-[10px] text-gray-700">如果以上 10 项中所有"major structural concern"和"likely reviewer concern"都已处理（即在 first-pass 中已修改），Finding 1 可以进入 P4C（决定是否 ready to move to Finding 2）。如果任何"likely reviewer concern"项目（第3项、第6项）的修改仍未执行，建议先处理再进入 P4C。</p>
+            <p class="text-[10px] font-medium text-amber-600 mt-1">Overall severity: moderate — ready for P4C pending footnote [a] minor fix</p>
           </div>
 
-          <p class="text-[10px] text-gray-400 mt-2"><strong>使用说明：</strong>以上 11 项按已修改后的 Finding 1 当前段落顺序从段首到段末排列。每项检查该段是否已经达到 Findings section 的要求。Richard 可以从第1项看到第11项，按修改后的 Google Doc 顺序逐一检查。各条目之间无交叉引用，无需前后跳转。<strong>本次不做 Finding 2、Finding 3。</strong></p>
+          <p class="text-[10px] text-gray-400 mt-2"><strong>使用说明：</strong>以上 11 项模拟一位《人类学与医学》审稿人的阅读体验，按修改后 Finding 1 的段落顺序排列。每项解释的不是"如何修改"，而是"审稿人为何在此处停顿"。Richard 可以从第1项看到第11项，先读 Reviewer Concern，再读 Reviewer Impression，然后按 Minimal Revision Strategy 决定是否需要调整。<strong>本次不做 Finding 2、Finding 3。</strong></p>
 
         </div>
       </div>
@@ -311,7 +433,7 @@
       <!-- 完成标准 -->
       <div class="p-1.5 rounded bg-gray-50 border border-gray-200 mb-2">
         <p class="text-[10px] text-gray-600 font-medium mb-0.5">完成标准</p>
-        <p class="text-[10px] text-gray-700">Dashboard 中出现一个 P4B Finding 1 Second-Pass Sequential Review Guide。该 guide 按照已修改后的 Finding 1 当前段落顺序排列，每一项包含 current paragraph position、keywords、second-pass concern、need-to-revise status、specific suggestion、Chinese sample draft。Richard 可以按照该 guide 对 Finding 1 做第二轮人工精修，并在完成后决定是否进入 P4C。</p>
+        <p class="text-[10px] text-gray-700">Dashboard 中出现一个完整的 Anthropology & Medicine Reviewer Pass，包含：(1) Reviewer-Level Global Assessment——审稿人对 Finding 1 的全局判断；(2) Footnote Density and Reviewer Experience——脚注策略评估；(3) 11 项按段落顺序排列的 Reviewer Simulation 条目。每一项从 Reviewer Concern、Why It Weakens the Article、Reviewer Impression、Minimal Revision Strategy、Chinese Sample Draft、Severity Rating 六个维度评估。Richard 可以按照此 guide 判断 Finding 1 是否已准备好进入 P4C。</p>
       </div>
       <!-- Google Doc 链接 -->
       <div class="flex items-center gap-2 mb-2">
@@ -600,7 +722,7 @@
         <span class="badge bg-blue-100 text-blue-700 text-[10px]">4 个任务</span>
       </div>
       <div class="text-[11px] text-gray-700 space-y-1">
-        <p><span class="text-blue-700 font-medium">Current:</span> P4B Finding 1 second-pass sequential review — coherence, tightening, and Findings-tone</p>
+        <p><span class="text-blue-700 font-medium">Current:</span> Anthropology & Medicine Reviewer Pass — Finding 1 (reviewer-simulation assessment)</p>
         <p><span class="text-gray-500 font-medium">Next:</span> P4C Decide whether Finding 1 is ready to close and move to Finding 2</p>
         <p><span class="text-gray-400 font-medium">Later:</span> Finding 2 sentence-by-sentence revision</p>
         <p><span class="text-green-600 font-medium">Completed:</span> P4A Finding 1 sentence-by-sentence first-pass revision</p>
@@ -668,12 +790,12 @@
     </div>
 
 
-<!-- #nb-manuscript: {"archive": ["P0 Introduction opening rewrite — author revised ✅", "P1 Abstract focus rewrite — author revised ✅", "P2 Discussion ending rewrite — author reviewed ✅", "P3 Policy/governance layer compression — author reviewed ✅"], "core_claim": "not_implementation_report_but_anthropological_account_of_how_implementation_becomes_possible_through_relational_clinical_practice", "created": "2026-04-25", "current_task": "P4B: Finding 1 second-pass sequential review — coherence, tightening, and Findings-tone", "current_writing_block": "P4B: Finding 1 Second-Pass Sequential Review Guide — coherence, tightening, and Findings-tone check", "default_draft_language": "Chinese (中文)", "doc_read": true, "id": "MS-001", "implementation_role": "scene_not_genre", "journal_primary": "Anthropology and Medicine", "journal_status": "preferred candidate / not finalized", "next_action": "author: follow P4B Finding 1 Second-Pass Sequential Review Guide for second round of revision in Google Doc", "p0_last_action": "author rewrote Introduction opening in Google Doc (2026-04-27)", "p0_status": "author revised / ready to move on", "p1_status": "author revised ✅", "p3_status": "author reviewed ✅", "p4_status": "first pass completed; second pass in progress", "p4_reference_draft": "first pass completed; second pass sequential review guide ready (embedded in dashboard)", "p2_status": "author reviewed ✅", "page_mode": "writing_launch_panel", "phase": "writing", "source": "Google Doc / 1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI", "title": "Trust as Moral Experience", "writing_queue": ["P0 Introduction opening rewrite — completed ✅", "P1 Abstract focus rewrite — completed ✅", "P2 Discussion ending rewrite — completed ✅", "P3 Policy/governance layer compression — completed ✅", "P4A Finding 1 sentence-by-sentence first-pass revision — completed ✅", "P4B Finding 1 second-pass sequential review — coherence, tightening, and Findings-tone — current"]} -->
+<!-- #nb-manuscript: {"archive": ["P0 Introduction opening rewrite — author revised ✅", "P1 Abstract focus rewrite — author revised ✅", "P2 Discussion ending rewrite — author reviewed ✅", "P3 Policy/governance layer compression — author reviewed ✅"], "core_claim": "not_implementation_report_but_anthropological_account_of_how_implementation_becomes_possible_through_relational_clinical_practice", "created": "2026-04-25", "current_task": "Anthropology & Medicine Reviewer Pass — Finding 1: reviewer-simulation assessment", "current_writing_block": "Anthropology & Medicine Reviewer Pass — Finding 1: reviewer-simulation assessment", "default_draft_language": "Chinese (中文)", "doc_read": true, "id": "MS-001", "implementation_role": "scene_not_genre", "journal_primary": "Anthropology and Medicine", "journal_status": "preferred candidate / not finalized", "next_action": "author: review Anthropology & Medicine Reviewer Pass — assess Finding 1 readiness for P4C", "p0_last_action": "author rewrote Introduction opening in Google Doc (2026-04-27)", "p0_status": "author revised / ready to move on", "p1_status": "author revised ✅", "p3_status": "author reviewed ✅", "p4_status": "first pass completed; reviewer-simulation assessment in progress", "p4_reference_draft": "first pass completed; reviewer pass guide ready (embedded in dashboard)", "p2_status": "author reviewed ✅", "page_mode": "writing_launch_panel", "phase": "writing", "source": "Google Doc / 1aCx6Dd-BLuwEYm74wiFyJOpi2xKqY20PkJNPtPpVljI", "title": "Trust as Moral Experience", "writing_queue": ["P0 Introduction opening rewrite — completed ✅", "P1 Abstract focus rewrite — completed ✅", "P2 Discussion ending rewrite — completed ✅", "P3 Policy/governance layer compression — completed ✅", "P4A Finding 1 sentence-by-sentence first-pass revision — completed ✅", "Anthropology & Medicine Reviewer Pass — Finding 1 — current"]} -->
     <!-- #nb-blockers: [{"id":"BLK-MS-005","desc":"Policy/governance layer compression — reduce policy/implementation language 30-40%","priority":"high","status":"author reviewed ✅","completed":"2026-05-01"},{"id":"BLK-MS-004", "completed":"2026-04-30","desc":"Discussion结尾从policy recommendation改为 interpretive anthropology — completed","priority":"high","status":"author reviewed; completed"}] -->
 
     <!-- Footer -->
     <div class="text-center text-[10px] text-gray-400 py-3">
-      稿件面板 · 写作启动模式 · 当前：P4B Finding 1 second-pass sequential review — coherence and tightening
+      稿件面板 · 审稿人仿真模式 · 当前：Anthropology & Medicine Reviewer Pass — Finding 1
     </div>
 
 
