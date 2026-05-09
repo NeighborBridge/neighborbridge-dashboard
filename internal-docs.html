@@ -267,6 +267,43 @@
       </div>
 
       <!-- Placeholder slots -->
+            <div class="sidebar-section" style="border-top: 1px solid #e2e6ea; margin-top: 4px;">Caregiving / Emergency Support Documents</div>
+
+      <div class="sidebar-item" data-doc="emergency-flow-card" onclick="selectDoc('emergency-flow-card')">
+        <div class="doc-title">Emergency Response Flow Card</div>
+        <div class="doc-category">Caregiving / Emergency</div>
+        <div class="doc-meta">Active · needs final link confirmation</div>
+        <div class="doc-desc">Richard 不在家或无法联系时的 backup response flow。包括 30 分钟无法联系时的接管规则、何时联系 Richard、何时联系 911、首选 ER、翻译工具使用、backup person response steps。</div>
+      </div>
+
+      <div class="sidebar-item" data-doc="duke-er-plan" onclick="selectDoc('duke-er-plan')">
+        <div class="doc-title">Duke Raleigh ER Plan</div>
+        <div class="doc-category">Caregiving / Hospital</div>
+        <div class="doc-meta">Active · verify details</div>
+        <div class="doc-desc">Duke Raleigh Hospital ER — 3400 Wake Forest Rd, Raleigh, NC 27609 · +1 919-954-3271。Insurance 信息保留在实体卡片，不在 dashboard 展示。</div>
+      </div>
+
+      <div class="sidebar-item" data-doc="william-handover-checklist" onclick="selectDoc('william-handover-checklist')">
+        <div class="doc-title">William Travel Handover Checklist</div>
+        <div class="doc-category">Caregiving / Backup</div>
+        <div class="doc-meta">Pending walkthrough</div>
+        <div class="doc-desc">William 15-20 min walkthrough 使用。包括 emergency contacts、Duke Raleigh ER route、30-min unreachable trigger、when to call Richard/911、iPhone Google Translate/microphone workflow。</div>
+      </div>
+
+      <div class="sidebar-item" data-doc="daily-checkin-script" onclick="selectDoc('daily-checkin-script')">
+        <div class="doc-title">Daily Check-in Script</div>
+        <div class="doc-category">Caregiving / Routine</div>
+        <div class="doc-meta">Draft placeholder</div>
+        <div class="doc-desc">短途外出或深度工作窗口期间的 brief daily check-in。保持简单，不加入医疗判断。</div>
+      </div>
+
+      <div class="sidebar-item" data-doc="bayada-notes" onclick="selectDoc('bayada-notes')">
+        <div class="doc-title">Bayada Private-Pay Aide Notes</div>
+        <div class="doc-category">Caregiving / Professional</div>
+        <div class="doc-meta">Pending confirmation</div>
+        <div class="doc-desc">availability · minimum hours · cost · notice requirement · 是否可覆盖特定会议/外出窗口。Bayada 是 professional respite layer，不是 emergency decision-maker。</div>
+      </div>
+
       <div class="sidebar-section" style="border-top: 1px solid #e2e6ea; margin-top: 4px;">Future Documents</div>
 
       <div class="sidebar-item placeholder-item">
@@ -539,6 +576,208 @@ Richard</p>
 </ul>
 `
       }
+
+      // ===== Caregiving / Emergency Support Documents =====
+      "emergency-flow-card": {
+        title: "Emergency Response Flow Card",
+        category: "Caregiving / Emergency",
+        status: "Active · needs final link confirmation",
+        lastUpdated: "2026-05-09",
+        content: `<div class="copy-notice">
+  <span style="color:#5f6368;">Richard 不在家或无法联系时的 backup response flow。</span>
+  <span style="display:block; color:#9aa0a6; margin-top:4px;">仅用于内部准备与交接演练 · 不公开</span>
+</div>
+
+<div class="disclaimer">
+  <strong>Internal. Pre-deployment.</strong> This document describes a planned backup response flow. It is not yet finalized. The Google Doc link needs confirmation before being shared with William or any backup person.<br><br>
+  内部准备中 · Google Doc 链接待确认 · 尚未最终定型
+</div>
+
+<h1>Emergency Response Flow Card</h1>
+
+<h2>Trigger Rules</h2>
+<ul>
+  <li><strong>30-minute unreachable rule:</strong> If Richard cannot be reached for 30 minutes and mother needs assistance, backup person may initiate response.</li>
+  <li><strong>When to call Richard first:</strong> Any non-urgent question or concern. If mother is stable but needs something, call Richard.</li>
+  <li><strong>When to call 911:</strong> Fall with injury, chest pain, difficulty breathing, loss of consciousness, bleeding, stroke symptoms (BE FAST), severe pain, or any situation where waiting is unsafe.</li>
+</ul>
+
+<h2>Preferred ER</h2>
+<ul>
+  <li><strong>Duke Raleigh Hospital Emergency Room</strong> — 3400 Wake Forest Rd, Raleigh, NC 27609</li>
+  <li>ER Phone: +1 919-954-3271</li>
+  <li>Insurance details on physical card only (not in dashboard)</li>
+</ul>
+
+<h2>Translation</h2>
+<ul>
+  <li>iPhone Google Translate app installed and set to Chinese ↔ English</li>
+  <li>Microphone workflow: tap microphone icon, speak Chinese, translate to English for provider communication</li>
+  <li>Alternatively, use a simple paper card with key phrases (prepared separately)</li>
+</ul>
+
+<h2>Backup Person Response Steps</h2>
+<ol>
+  <li>Assess situation — is this urgent (call 911) or non-urgent (call Richard)?</li>
+  <li>If non-urgent and Richard unreachable: follow Daily Check-in Script.</li>
+  <li>If urgent: call 911 first, then call Richard.</li>
+  <li>If transport needed: direct to Duke Raleigh Hospital ER.</li>
+  <li>Bring insurance card, emergency card, and phone with Google Translate.</li>
+  <li>Stay with mother until Richard arrives or situation resolves.</li>
+</ol>`
+      },
+
+      "duke-er-plan": {
+        title: "Duke Raleigh ER Plan",
+        category: "Caregiving / Hospital",
+        status: "Active · verify details",
+        lastUpdated: "2026-05-09",
+        content: `<div class="copy-notice">
+  <span style="color:#5f6368;">首选急诊点信息。Insurance 信息保留在实体卡片，不在 dashboard 展示。</span>
+  <span style="display:block; color:#9aa0a6; margin-top:4px;">仅供内部参考</span>
+</div>
+
+<div class="disclaimer">
+  <strong>Internal reference.</strong> Verify insurance network status with Ambetter North Carolina before relying on this information.<br><br>
+  请在使用前与 Ambetter North Carolina 确认保险网络状态。
+</div>
+
+<h1>Duke Raleigh ER Plan</h1>
+
+<h2>Address</h2>
+<p>3400 Wake Forest Rd, Raleigh, NC 27609</p>
+
+<h2>Phone</h2>
+<p>+1 919-954-3271</p>
+
+<h2>Notes</h2>
+<ul>
+  <li>Duke system support available</li>
+  <li>If transfer needed: Duke University Hospital is preferred escalation</li>
+  <li>Translation services available at ER</li>
+  <li>Insurance: Ambetter North Carolina (verify in-network)</li>
+  <li><strong>Insurance ID / policy number: on physical card only. Do not store in dashboard.</strong></li>
+</ul>`
+      },
+
+      "william-handover-checklist": {
+        title: "William Travel Handover Checklist",
+        category: "Caregiving / Backup",
+        status: "Pending walkthrough",
+        lastUpdated: "2026-05-09",
+        content: `<div class="copy-notice">
+  <span style="color:#5f6368;">William 15-20 min walkthrough 使用。演练完成后标记为 complete。</span>
+  <span style="display:block; color:#9aa0a6; margin-top:4px;">演练 checklist</span>
+</div>
+
+<div class="disclaimer">
+  <strong>Walkthrough checklist.</strong> Not a final operational document until walkthrough is completed and William has confirmed understanding.<br><br>
+  演练 checklist · 完成 walkthrough 后确认。
+</div>
+
+<h1>William Travel Handover Checklist</h1>
+
+<h2>Checklist</h2>
+<ul>
+  <li><input type="checkbox"> Emergency contacts reviewed (Richard, 911, Duke Raleigh ER)</li>
+  <li><input type="checkbox"> Duke Raleigh ER route reviewed (address, phone, parking)</li>
+  <li><input type="checkbox"> 30-minute unreachable trigger reviewed and understood</li>
+  <li><input type="checkbox"> When to call Richard — reviewed</li>
+  <li><input type="checkbox"> When to call 911 — reviewed</li>
+  <li><input type="checkbox"> iPhone Google Translate / microphone workflow reviewed</li>
+  <li><input type="checkbox"> Emergency Response Flow Card location confirmed (Google Doc link)</li>
+</ul>
+
+<h2>After Walkthrough</h2>
+<ul>
+  <li>Confirm William is comfortable with the role</li>
+  <li>Ask if he has questions or concerns</li>
+  <li>Thank him and clarify: this is a shared responsibility, not a takeover</li>
+  <li>Send a brief follow-up note with key points confirmed</li>
+</ul>`
+      },
+
+      "daily-checkin-script": {
+        title: "Daily Check-in Script",
+        category: "Caregiving / Routine",
+        status: "Draft placeholder",
+        lastUpdated: "2026-05-09",
+        content: `<div class="copy-notice">
+  <span style="color:#5f6368;">用于 Richard 短途外出或深度工作窗口期间的 brief daily check-in。保持简单，不加入医疗判断。</span>
+</div>
+
+<div class="disclaimer">
+  <strong>Draft placeholder.</strong> This script has not been tested or finalized. Do not rely on it for operational use.<br><br>
+  草稿占位 · 尚未测试或定稿 · 不可用于操作。
+</div>
+
+<h1>Daily Check-in Script</h1>
+
+<h2>Purpose</h2>
+<p>Brief check-in during Richard's short outings or deep work windows. Non-medical. Confirms basic status.</p>
+
+<h2>Script</h2>
+<ol>
+  <li>Hello, just checking in. How are you feeling today?</li>
+  <li>Have you had breakfast / lunch / dinner?</li>
+  <li>Do you need anything? Water, medication, help getting up?</li>
+  <li>Is there anything you want me to tell Richard?</li>
+  <li>OK, I will check back later. Richard will be back around [time]. Call him if anything changes.</li>
+</ol>
+
+<h2>Notes</h2>
+<ul>
+  <li>Do not give medical advice</li>
+  <li>Do not adjust medication</li>
+  <li>If anything seems wrong, call Richard first, then 911 if urgent</li>
+</ul>`
+      },
+
+      "bayada-notes": {
+        title: "Bayada Private-Pay Aide Notes",
+        category: "Caregiving / Professional",
+        status: "Pending confirmation",
+        lastUpdated: "2026-05-09",
+        content: `<div class="copy-notice">
+  <span style="color:#5f6368;">Professional respite planning note。Bayada 是 professional respite layer，不是 emergency decision-maker。</span>
+</div>
+
+<div class="disclaimer">
+  <strong>Pre-deployment planning note.</strong> Nothing has been confirmed with Bayada. Contact, availability, cost, and scope are all pending.<br><br>
+  规划笔记 · 尚未确认 Bayada 任何信息。
+</div>
+
+<h1>Bayada Private-Pay Aide Notes</h1>
+
+<h2>Pending Confirmations</h2>
+<ul>
+  <li>Availability — can they cover specific meeting / travel windows?</li>
+  <li>Minimum hours per shift</li>
+  <li>Cost per hour</li>
+  <li>Notice requirement (how far in advance?)</li>
+  <li>Scope — what tasks are within aide scope (shower supervision? meal prep? medication reminder only?)</li>
+</ul>
+
+<h2>Role Boundary</h2>
+<p>Bayada private-pay aide is a professional respite layer. They can supplement backup coverage but CANNOT replace:</p>
+<ul>
+  <li>Richard as primary caregiver</li>
+  <li>William as trusted backup person</li>
+  <li>911 / ER escalation</li>
+  <li>Medical decision-making</li>
+</ul>
+
+<h2>Potential Support Tasks</h2>
+<ul>
+  <li>bathroom / shower supervision (if within aide scope)</li>
+  <li>fall-risk observation</li>
+  <li>meal prep / light ADL support</li>
+  <li>safety check-in</li>
+  <li>medication reminder only (not medication management)</li>
+  <li>symptom change communication</li>
+</ul>`
+      },
+
     };
 
     let currentDoc = "nc-primary-site";
