@@ -231,10 +231,25 @@
     <a href="/compliance">Compliance</a>
     <a href="/dashboard-directory">All Dashboards</a>
     <span style="color:#1a73e8; font-weight:500; margin-left:auto;">Internal Documents</span>
-    <span style="font-size:10px; color:#9aa0a6; font-family:Arial,sans-serif; margin-left:8px;">v2 — commit 4403b7e — 2026-05-08</span>
+    <span style="font-size:10px; color:#9aa0a6; font-family:Arial,sans-serif; margin-left:8px;">Internal Docs Reader Locked v1 — commit c39ea61 — 2026-05-09</span>
   </div>
 
   <!-- Layout -->
+  <!--
+  ============================================================
+  LOCKED-IN STRUCTURE — Internal Docs Reader Locked v1
+  ============================================================
+  This page must remain a document library plus full-text reader.
+  Do not convert this page into a list-only index.
+  Every active document must have a matching readable content block.
+  Mobile CSS must not hide the active reader.
+  Future document placeholders may be metadata-only, but active documents may not.
+  ============================================================
+  Updated: 2026-05-09
+  Commit: c39ea61
+  See also: README.md — internal-docs completeness checklist
+  ============================================================
+  -->
   <div class="layout">
 
     <!-- Sidebar / Document List -->
@@ -345,6 +360,17 @@
   </div>
 
   <script>
+    /* Version marker */
+    console.log("Internal Docs Reader Locked v1 | Updated: 2026-05-09 | Commit: c39ea61");
+
+    /* Fallback: inline default content in case JavaScript fails or documents object is corrupt */
+    (function(){
+      var r = document.getElementById('reader');
+      if (r) {
+        r.innerHTML = '<div class="no-content">Loading document reader...<br><span style="font-size:11px;color:#9aa0a6;">If this message persists, JavaScript document switching may have failed.</span></div>';
+      }
+    })();
+
     const documents = {
 
       // ===== Document 1: NC Primary Site =====
@@ -584,6 +610,7 @@ Richard</p>
         status: "Active · needs final link confirmation",
         lastUpdated: "2026-05-09",
         content: `<div class="copy-notice">
+  <button class="copy-btn" id="copyBtn" onclick="copyDocumentText()">Copy document text</button>
   <span style="color:#5f6368;">Richard 不在家或无法联系时的 backup response flow。</span>
   <span style="display:block; color:#9aa0a6; margin-top:4px;">仅用于内部准备与交接演练 · 不公开</span>
 </div>
@@ -633,6 +660,7 @@ Richard</p>
         status: "Active · verify details",
         lastUpdated: "2026-05-09",
         content: `<div class="copy-notice">
+  <button class="copy-btn" id="copyBtn" onclick="copyDocumentText()">Copy document text</button>
   <span style="color:#5f6368;">首选急诊点信息。Insurance 信息保留在实体卡片，不在 dashboard 展示。</span>
   <span style="display:block; color:#9aa0a6; margin-top:4px;">仅供内部参考</span>
 </div>
@@ -666,6 +694,7 @@ Richard</p>
         status: "Pending walkthrough",
         lastUpdated: "2026-05-09",
         content: `<div class="copy-notice">
+  <button class="copy-btn" id="copyBtn" onclick="copyDocumentText()">Copy document text</button>
   <span style="color:#5f6368;">William 15-20 min walkthrough 使用。演练完成后标记为 complete。</span>
   <span style="display:block; color:#9aa0a6; margin-top:4px;">演练 checklist</span>
 </div>
@@ -703,6 +732,7 @@ Richard</p>
         status: "Draft placeholder",
         lastUpdated: "2026-05-09",
         content: `<div class="copy-notice">
+  <button class="copy-btn" id="copyBtn" onclick="copyDocumentText()">Copy document text</button>
   <span style="color:#5f6368;">用于 Richard 短途外出或深度工作窗口期间的 brief daily check-in。保持简单，不加入医疗判断。</span>
 </div>
 
@@ -739,6 +769,7 @@ Richard</p>
         status: "Pending confirmation",
         lastUpdated: "2026-05-09",
         content: `<div class="copy-notice">
+  <button class="copy-btn" id="copyBtn" onclick="copyDocumentText()">Copy document text</button>
   <span style="color:#5f6368;">Professional respite planning note。Bayada 是 professional respite layer，不是 emergency decision-maker。</span>
 </div>
 
@@ -827,6 +858,20 @@ Richard</p>
         selection.addRange(range);
       });
     }
+
+    /*
+     ==================================================================
+     Before committing changes to internal-docs.html, verify:
+     1. default document body is visible on page load
+     2. clicking each active document title changes the reader content
+     3. each active document has a matching content block in `documents`
+     4. copy button is visible in each document
+     5. mobile view (<=768px) still shows full reader content
+     6. no active document is metadata-only (must have full text)
+     7. future placeholders remain clearly marked as placeholder-item
+     8. no PHI or insurance ID is displayed in any document
+     ==================================================================
+    */
 
     // Initial render
     renderDoc(currentDoc);
