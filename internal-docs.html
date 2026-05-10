@@ -287,15 +287,22 @@
       <div class="sidebar-item" data-doc="emergency-flow-card" onclick="selectDoc('emergency-flow-card')">
         <div class="doc-title">Emergency Response Flow Card</div>
         <div class="doc-category">Caregiving / Emergency</div>
-        <div class="doc-meta">Active · needs final link confirmation</div>
-        <div class="doc-desc">Richard 不在家或无法联系时的 backup response flow。包括 30 分钟无法联系时的接管规则、何时联系 Richard、何时联系 911、首选 ER、翻译工具使用、backup person response steps。</div>
+        <div class="doc-meta">Dashboard-safe · needs printable card link</div>
+        <div class="doc-desc">Dashboard-safe emergency flow summary: trigger rules, 911 calls vs non-urgent actions, translation guidance, backup person steps, missing items checklist.</div>
+      </div>
+
+      <div class="sidebar-item" data-doc="printable-home-card" onclick="selectDoc('printable-home-card')">
+        <div class="doc-title">Printable Home Emergency Card</div>
+        <div class="doc-category">Caregiving / Private</div>
+        <div class="doc-meta">Draft · contains personal details · keep private</div>
+        <div class="doc-desc">Full printable version with address, phone numbers, insurance card location, medication list location, legal documents location. Google Doc link pending.</div>
       </div>
 
       <div class="sidebar-item" data-doc="duke-er-plan" onclick="selectDoc('duke-er-plan')">
         <div class="doc-title">Duke Raleigh ER Plan</div>
         <div class="doc-category">Caregiving / Hospital</div>
         <div class="doc-meta">Active · verify details</div>
-        <div class="doc-desc">Duke Raleigh Hospital ER — 3400 Wake Forest Rd, Raleigh, NC 27609 · +1 919-954-3271。Insurance 信息保留在实体卡片，不在 dashboard 展示。</div>
+        <div class="doc-desc">Duke Raleigh Hospital ER — address and phone in printable card only. Insurance info on physical card only. Not in dashboard.</div>
       </div>
 
       <div class="sidebar-item" data-doc="william-handover-checklist" onclick="selectDoc('william-handover-checklist')">
@@ -624,51 +631,134 @@ Richard</p>
       "emergency-flow-card": {
         title: "Emergency Response Flow Card",
         category: "Caregiving / Emergency",
-        status: "Active · needs final link confirmation",
+        status: "Dashboard-safe · needs printable card link",
         lastUpdated: "2026-05-09",
         content: `<div class="copy-notice">
   <button class="copy-btn" id="copyBtn" onclick="copyDocumentText()">Copy document text</button>
-  <span style="color:#5f6368;">Richard 不在家或无法联系时的 backup response flow。</span>
-  <span style="display:block; color:#9aa0a6; margin-top:4px;">仅用于内部准备与交接演练 · 不公开</span>
+  <span style="color:#5f6368;">Dashboard-safe version. Does not contain addresses, phone numbers, insurance details, or medication lists.</span>
+  <span style="display:block; color:#9aa0a6; margin-top:4px;">流程逻辑 · 不含个人详细资料</span>
 </div>
 
 <div class="disclaimer">
-  <strong>Internal. Pre-deployment.</strong> This document describes a planned backup response flow. It is not yet finalized. The Google Doc link needs confirmation before being shared with William or any backup person.<br><br>
-  内部准备中 · Google Doc 链接待确认 · 尚未最终定型
+  <strong>Internal. Pre-deployment.</strong> This document describes a planned backup response flow. It is not yet finalized. The Google Doc link needs confirmation before being shared with William or any backup person. For the full printable version with personal details, see <a href="#" onclick="selectDoc('printable-home-card'); return false;">Printable Home Emergency Card</a>.<br><br>
+  内部准备中 · 完整版本含个人详细资料在 Printable Home Emergency Card
 </div>
 
 <h1>Emergency Response Flow Card</h1>
 
-<h2>Trigger Rules</h2>
-<ul>
-  <li><strong>30-minute unreachable rule:</strong> If Richard cannot be reached for 30 minutes and mother needs assistance, backup person may initiate response.</li>
-  <li><strong>When to call Richard first:</strong> Any non-urgent question or concern. If mother is stable but needs something, call Richard.</li>
-  <li><strong>When to call 911:</strong> Fall with injury, chest pain, difficulty breathing, loss of consciousness, bleeding, stroke symptoms (BE FAST), severe pain, or any situation where waiting is unsafe.</li>
+<h2>Trigger</h2>
+<ul class="list-compact">
+  <li>If Richard cannot be reached for <strong>30 minutes</strong> and mother needs assistance, backup person may begin response.</li>
+  <li>If urgent or unsafe to wait, call <strong>911 immediately</strong>.</li>
+</ul>
+
+<h2>Call 911 Immediately For</h2>
+<ul class="list-compact">
+  <li>Fall with injury or unable to stand</li>
+  <li>Chest pain</li>
+  <li>Difficulty breathing</li>
+  <li>Loss of consciousness</li>
+  <li>Confusion / acute mental status change</li>
+  <li>Stroke symptoms — use BE FAST</li>
+  <li>Uncontrolled bleeding</li>
+  <li>Severe pain</li>
+  <li>Medication error or severe allergic reaction</li>
+  <li>Any situation where waiting is unsafe</li>
+</ul>
+
+<h2>Non-Urgent</h2>
+<ul class="list-compact">
+  <li>Call Richard first</li>
+  <li>If Richard unreachable and mother is stable, follow Daily Check-in Script</li>
+  <li><strong>Do not make medical decisions unless legally authorized</strong></li>
 </ul>
 
 <h2>Preferred ER</h2>
-<ul>
-  <li><strong>Duke Raleigh Hospital Emergency Room</strong> — 3400 Wake Forest Rd, Raleigh, NC 27609</li>
-  <li>ER Phone: +1 919-954-3271</li>
-  <li>Insurance details on physical card only (not in dashboard)</li>
+<ul class="list-compact">
+  <li>Duke Raleigh Hospital Emergency Room</li>
+  <li>Address and phone: keep in printable card and physical binder (not in dashboard)</li>
 </ul>
 
 <h2>Translation</h2>
-<ul>
-  <li>iPhone Google Translate app installed and set to Chinese ↔ English</li>
-  <li>Microphone workflow: tap microphone icon, speak Chinese, translate to English for provider communication</li>
-  <li>Alternatively, use a simple paper card with key phrases (prepared separately)</li>
+<ul class="list-compact">
+  <li>iPhone Google Translate app — Chinese / English</li>
+  <li>Backup paper phrase card recommended</li>
 </ul>
 
-<h2>Backup Person Response Steps</h2>
-<ol>
-  <li>Assess situation — is this urgent (call 911) or non-urgent (call Richard)?</li>
-  <li>If non-urgent and Richard unreachable: follow Daily Check-in Script.</li>
-  <li>If urgent: call 911 first, then call Richard.</li>
-  <li>If transport needed: direct to Duke Raleigh Hospital ER.</li>
-  <li>Bring insurance card, emergency card, and phone with Google Translate.</li>
-  <li>Stay with mother until Richard arrives or situation resolves.</li>
-</ol>`
+<h2>Backup Person Steps</h2>
+<ol class="list-compact">
+  <li>Assess urgency</li>
+  <li>If urgent, call 911 first</li>
+  <li>Then call Richard</li>
+  <li>If transport needed, request Duke Raleigh ER when appropriate</li>
+  <li>Bring physical emergency card, insurance card, medication list, phone, and translation tool</li>
+  <li>Stay with mother until Richard arrives or situation is handed off safely</li>
+</ol>
+
+<h2>Printable Home Card</h2>
+<p><a href="#" onclick="selectDoc('printable-home-card'); return false;">Open Printable Emergency Card</a></p>
+<p style="color:#9aa0a6; font-size:12px;">Status: link pending / needs final Google Doc link. The printable version may contain personal details and should not be copied into dashboard text.</p>
+
+<h2>Missing Items Checklist</h2>
+<ul class="list-compact">
+  <li class="doc-meta">[ ] Confirm William Cox phone number</li>
+  <li class="doc-meta">[ ] Confirm backup contact B</li>
+  <li class="doc-meta">[ ] Confirm Healthcare POA backup</li>
+  <li class="doc-meta">[ ] Confirm medication list location</li>
+  <li class="doc-meta">[ ] Confirm insurance card location</li>
+  <li class="doc-meta">[ ] Confirm printed card location</li>
+  <li class="doc-meta">[ ] Confirm Google Translate installed and tested</li>
+  <li class="doc-meta">[ ] Confirm Duke Raleigh ER phone/address</li>
+  <li class="doc-meta">[ ] Confirm whether UNC REX remains backup option</li>
+</ul>`
+      },
+
+      "printable-home-card": {
+        title: "Printable Home Emergency Card",
+        category: "Caregiving / Private",
+        status: "Draft · contains personal details · keep private",
+        lastUpdated: "2026-05-10",
+        content: `<div class="copy-notice">
+  <button class="copy-btn" id="copyBtn" onclick="copyDocumentText()">Copy document text</button>
+  <span style="color:#5f6368;">Full version for printing and physical binder. Contains personal details — treat as private.</span>
+  <span style="display:block; color:#9aa0a6; margin-top:4px;">完整版本 · 含个人详细资料 · 注意保密</span>
+</div>
+
+<div class="disclaimer">
+  <strong>Private.</strong> This card contains personal details that should not appear in the dashboard overview. Open this card when you need the full printable version. Google Doc link pending — once finalized, this card will be replaced with a link to the external document.<br><br>
+  个人详细资料 · 仅用于打印 / 实体活页夹 · 不以全文嵌入 dashboard 列表页
+</div>
+
+<h1>Printable Home Emergency Card</h1>
+
+<p style="color:#9aa0a6;">This card is a template for the full printable version. Personal details will be added to the linked Google Doc / PDF. Dashboard shows structure only. Once the external link is set, this doc entry will become a link redirect.</p>
+
+<h2>Sections (external doc)</h2>
+<ul class="list-compact">
+  <li>Mother's name, address, home phone</li>
+  <li>William Cox — phone, relationship, backup role</li>
+  <li>Backup contact B — name and phone</li>
+  <li>Healthcare POA — document location and backup</li>
+  <li>Emergency contacts — Richard phone, Duke Raleigh ER address/phone</li>
+  <li>Insurance — card location, policy number (copy to card only)</li>
+  <li>Medication list — location and last updated</li>
+  <li>Medical proxy / advance directive — file location</li>
+  <li>Google Translate — installed and tested on phone</li>
+  <li>Paper phrase card — key Chinese-English phrases for hospital</li>
+</ul>
+
+<h2>Link</h2>
+<p><strong>Printable Card Link:</strong> <span style="color:#9aa0a6;">pending — needs final Google Doc or PDF link</span></p>
+
+<h2>Guardrails</h2>
+<ul class="list-compact">
+  <li class="doc-meta">Do NOT copy full personal details into dashboard main text</li>
+  <li class="doc-meta">Do NOT expose on neighborbridgehealth.com</li>
+  <li class="doc-meta">The dashboard entry for this card shows only: title, category, status, and this template structure</li>
+  <li class="doc-meta">Backup coordinator is not Healthcare POA unless legally documented</li>
+  <li class="doc-meta">William Cox is not a legal medical decision-maker unless legally documented</li>
+  <li class="doc-meta">Link to external Google Doc/PDF after finalization, then delete personal detail placeholders</li>
+</ul>`
       },
 
       "duke-er-plan": {
