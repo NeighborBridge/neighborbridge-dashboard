@@ -1,0 +1,13 @@
+# Ignore local dry-run outputs
+drafts/
+*.log
+
+# Ignore backup and temp files
+*.bak
+*.tmp
+__pycache__/
+*.pyc
+
+# Ignore credentials
+.env
+.env.local
