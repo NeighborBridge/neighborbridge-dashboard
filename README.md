@@ -89,7 +89,7 @@ neighborbridge-dashboard/
 
 ## Compliance / External-Facing Risk Review
 
-Before external-facing, payer-facing, referral-related, or institutionally sensitive material is sent or posted, run the Compliance / External-Facing Risk Reviewer.
+Before external-facing, payer-facing, referral-related, or institutionally sensitive material is sent or posted, run **Clara — Compliance / External-Facing Risk Reviewer**.
 
 See: `agents/COMPLIANCE_EXTERNAL_REVIEWER.md`
 ```

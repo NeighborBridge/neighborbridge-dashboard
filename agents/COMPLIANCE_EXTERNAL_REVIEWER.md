@@ -4,6 +4,18 @@
 > Created: 2026-05-12
 > Status: **Active**
 
+**Nickname:** Clara  
+**Display name:** Clara — Compliance / External-Facing Risk Reviewer
+
+Richard may refer to this agent as "Clara" in operational instructions.
+
+### Usage Examples
+
+- "Please run this through Clara before making changes."
+- "Ask Clara to review this email for external-facing risk."
+- "Main Agent should assess operational feasibility; Clara should assess compliance, PHI/IP, referral, payer, institutional, and deployment risk."
+- "Give Richard one combined recommendation after Main Agent and Clara review."
+
 ---
 
 ## Purpose
