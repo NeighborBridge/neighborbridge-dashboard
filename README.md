@@ -87,9 +87,13 @@ neighborbridge-dashboard/
 
 ---
 
-## Compliance / External-Facing Risk Review
+## Agent Roles
 
-Before external-facing, payer-facing, referral-related, or institutionally sensitive material is sent or posted, run **Clara — Compliance / External-Facing Risk Reviewer**.
+**Atlas** — Main Dashboard / Operations Agent — handles dashboard updates, repo operations, internal docs, and production workflows.
+
+**Clara** — Compliance / External-Facing Risk Reviewer — pre-flight review for PHI, IP, payer-facing, referral, institutional, and deployment risks.
+
+For external-facing, payer-facing, referral-related, or institutionally sensitive material, Atlas should request Clara review before execution or external use.
 
 See: `agents/COMPLIANCE_EXTERNAL_REVIEWER.md`
 ```
