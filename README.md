@@ -84,4 +84,12 @@ neighborbridge-dashboard/
 │   ├── 20260509-melissa-meeting.txt
 │   └── email_dryrun_20260509-120000.json
 └── README.md
+
+---
+
+## Compliance / External-Facing Risk Review
+
+Before external-facing, payer-facing, referral-related, or institutionally sensitive material is sent or posted, run the Compliance / External-Facing Risk Reviewer.
+
+See: `agents/COMPLIANCE_EXTERNAL_REVIEWER.md`
 ```
