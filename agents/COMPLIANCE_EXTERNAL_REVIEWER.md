@@ -107,7 +107,7 @@ Run this reviewer before:
 - Any material involving PHI / IP / referral / capacity / payment / contract risk
 
 **Workflow reference:**
-> Before external-facing, payer-facing, referral-related, or institutionally sensitive material is sent or posted, run Compliance / External-Facing Risk Reviewer.
+> Before external-facing, payer-facing, referral-related, or institutionally sensitive material is sent or posted, Atlas requests Clara pre-flight review. Atlas is responsible for retrieving Clara's result — Clara does not auto-announce. Atlas must check Clara output, summarize risk level, and integrate into combined recommendation before proceeding.
 
 ---
 
