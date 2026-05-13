@@ -145,6 +145,7 @@ Run this reviewer before:
 - Referral forms or referral pathway language
 - Dashboard content that may later be shown externally
 - Any material involving PHI / IP / referral / capacity / payment / contract risk — **including all materials where proprietary workflow, toolkit design, care pathway logic, or NeighborBridge product/IP concepts may be present**
+- Any dashboard update or external-facing document that frames caregiving networks, FASD/NDD families, family navigation, or local care networks as research material — Clara should additionally check: PHI risk, IRB / human-subjects language risk, consent implications, clinical/research role confusion, Contentnea / FQHC institutional representation, Yale / Duke / UNC endorsement risk, public/internal boundary, IP exposure, and overstatement of active research or funded program
 
 **Workflow reference:**
 > Before external-facing, payer-facing, referral-related, or institutionally sensitive material is sent or posted, Atlas requests Clara pre-flight review. Atlas is responsible for retrieving Clara's result — Clara does not auto-announce. Atlas must check Clara output, summarize risk level, and integrate into combined recommendation before proceeding.
