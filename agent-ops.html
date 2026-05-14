@@ -61,7 +61,7 @@
     <div class="sec-card acc-slate">
       <div class="flex items-center gap-1 mb-1.5">
         <span class="text-xs font-bold text-gray-700">🤖 Agent Roles / 功能岗位</span>
-        <span class="badge bg-gray-100 text-gray-600 text-[10px]">5 roles</span>
+        <span class="badge bg-gray-100 text-gray-600 text-[10px]">6 roles</span>
       </div>
       <p class="text-[10px] text-gray-500 mb-2">Agent 不被设计为"多个 personality"，而是公司内不同功能岗位——每个有 clear role, scope, approval level, source of truth, compliance boundaries。</p>
 
@@ -158,8 +158,8 @@
         <!-- E. CHW Workflow Agent -->
         <div class="agent-card border-cyan-200 bg-cyan-50">
           <div class="flex items-center gap-1 mb-1">
-            <span class="text-[11px] font-bold text-cyan-800">E. CHW Workflow / Product Agent</span>
-            <span class="text-[9px] text-cyan-500">CHW 工作流与产品</span>
+            <span class="text-[11px] font-bold text-cyan-800">E. CHW Workflow Agent</span>
+            <span class="text-[9px] text-cyan-500">CHW 工作流</span>
           </div>
           <p class="text-[9px] font-medium text-cyan-700 mb-0.5">Duties:</p>
           <ul class="text-[9px] text-cyan-800 space-y-0.5 mb-1">
@@ -177,6 +177,160 @@
           <p class="text-[9px] text-rose-600">Use PHI · Generate clinical advice for real patients · Represent demo as validated product · Claim proven ROI</p>
         </div>
 
+        <!-- F. Product Manager Agent -->
+        <div class="agent-card border-violet-200 bg-violet-50">
+          <div class="flex items-center gap-1 mb-1">
+            <span class="text-[11px] font-bold text-violet-800">F. Product Manager Agent</span>
+            <span class="text-[9px] text-violet-500">产品经理</span>
+          </div>
+          <p class="text-[9px] font-medium text-violet-700 mb-0.5">Role:</p>
+          <p class="text-[9px] text-violet-800 mb-1">Internal Product Manager for NeighborBridge Platform. Converts internal strategy, clinical workflow insights, CHW education concepts, dashboard materials, and stakeholder feedback into clear product definitions, MVP boundaries, user stories, feature priorities, roadmap items, and demo-readiness decisions.</p>
+
+          <p class="text-[9px] font-medium text-violet-700 mb-0.5">Core Responsibilities:</p>
+          <ul class="text-[9px] text-violet-800 space-y-0.5 mb-1">
+            <li>• Define products from dashboard/strategy materials</li>
+            <li>• Identify target users and workflow problems</li>
+            <li>• Define MVP scope vs later backlog</li>
+            <li>• Create user stories and feature requirements</li>
+            <li>• Prioritize features (user value, feasibility, risk, strategy)</li>
+            <li>• Maintain roadmap discipline</li>
+            <li>• Classify internal-only vs demo-ready vs external-facing</li>
+            <li>• Identify product risks before external sharing</li>
+            <li>• Recommend smallest next executable product step</li>
+          </ul>
+
+          <p class="text-[9px] font-medium text-violet-700 mb-0.5">Default Operating Questions:</p>
+          <ul class="text-[9px] text-violet-800 space-y-0.5 mb-1">
+            <li>• What is the product? Who is the primary user?</li>
+            <li>• What workflow problem does this solve?</li>
+            <li>• What is the smallest useful version (MVP)?</li>
+            <li>• What is internal-only vs demo-ready?</li>
+            <li>• What is payer-safe vs not payer-safe?</li>
+            <li>• What creates PHI, IP, institutional, or overcommitment risk?</li>
+            <li>• What should be removed, simplified, or delayed?</li>
+            <li>• What is the next concrete product step?</li>
+          </ul>
+
+          <p class="text-[9px] font-medium text-violet-700 mb-0.5">Source of truth:</p>
+          <p class="text-[9px] text-violet-600">CHW Sandbox · FASD Care Pathway · FQHC · Stakeholders · IP/Confidentiality · Agent Ops</p>
+          <p class="text-[9px] font-medium text-violet-700 mt-1 mb-0.5">Output format:</p>
+          <p class="text-[9px] text-violet-600">Short operational outputs: Product Definition / Roadmap Update / Feature Review blocks</p>
+          <p class="text-[9px] font-medium text-violet-700 mt-1 mb-0.5">Guardrail check (every recommendation):</p>
+          <ul class="text-[9px] text-violet-800 space-y-0.5 mb-1">
+            <li>• PHI risk? · IP leakage risk?</li>
+            <li>• Payer-facing overstatement?</li>
+            <li>• Public/internal boundary risk?</li>
+            <li>• Institutional approval implication?</li>
+            <li>• Workflow capacity burden?</li>
+            <li>• Premature productization?</li>
+          </ul>
+          <p class="text-[9px] font-medium text-violet-700 mt-1 mb-0.5">Coordination:</p>
+          <p class="text-[9px] text-violet-600">Does not replace compliance, manuscript, external comms, or ops agents. Coordinates by clarifying product scope and next steps. Cannot independently externalize or deploy.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== Product Manager: Initial Product Areas & Roadmap ===== -->
+    <div class="sec-card acc-violet">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-violet-700">📦 Product Manager / 产品经理</span>
+        <span class="badge bg-violet-100 text-violet-700 text-[10px]">F. Product Manager Agent</span>
+      </div>
+
+      <!-- Initial Product Areas -->
+      <div class="mb-2">
+        <div class="highlight-box bg-violet-50 border-violet-200 mb-1.5">
+          <p class="font-medium text-violet-700 text-[10px] mb-0.5">Initial Product Areas (internal / demo-stage):</p>
+          <ul class="text-[9px] text-violet-700 space-y-0.5">
+            <li>1. CHW-supported FASD early identification education workflow</li>
+            <li>2. Non-PHI caregiver education and navigation tools</li>
+            <li>3. FASD care pathway demo materials</li>
+            <li>4. Payer-safe early identification training framework</li>
+            <li>5. Internal dashboard operating system (stakeholder/task tracking)</li>
+            <li>6. Future family-facing education modules (only if explicitly approved)</li>
+          </ul>
+          <p class="text-[9px] text-gray-400 mt-0.5">All marked internal or demo-stage unless explicitly approved for external release.</p>
+        </div>
+      </div>
+
+      <!-- Initial Roadmap Classification -->
+      <div class="mb-2">
+        <div class="highlight-box bg-white border-violet-200">
+          <p class="font-medium text-violet-700 text-[10px] mb-0.5">Initial Roadmap Classification:</p>
+          <table class="w-full text-[9px] text-gray-700 border-collapse mt-1">
+            <thead>
+              <tr class="bg-violet-100 border-b">
+                <th class="px-1.5 py-1 text-left font-medium text-violet-700">Item</th>
+                <th class="px-1.5 py-1 text-left font-medium text-violet-700">Classification</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-gray-100">
+                <td class="px-1.5 py-1">CHW early detection sandbox</td>
+                <td class="px-1.5 py-1 text-green-600">Internal demo / MVP candidate</td>
+              </tr>
+              <tr class="border-b border-gray-100 bg-gray-50">
+                <td class="px-1.5 py-1">FASD care pathway</td>
+                <td class="px-1.5 py-1 text-amber-600">Internal framework / demo support</td>
+              </tr>
+              <tr class="border-b border-gray-100">
+                <td class="px-1.5 py-1">Caregiver education materials</td>
+                <td class="px-1.5 py-1 text-amber-600">Possible future product; keep internal</td>
+              </tr>
+              <tr class="border-b border-gray-100 bg-gray-50">
+                <td class="px-1.5 py-1">Payer-facing early identification framework</td>
+                <td class="px-1.5 py-1 text-amber-600">Demo-adjacent; requires guardrails</td>
+              </tr>
+              <tr class="border-b border-gray-100">
+                <td class="px-1.5 py-1">Manuscript dashboard</td>
+                <td class="px-1.5 py-1 text-gray-500">Academic workflow; not a product</td>
+              </tr>
+              <tr class="border-b border-gray-100 bg-gray-50">
+                <td class="px-1.5 py-1">Stakeholder dashboard</td>
+                <td class="px-1.5 py-1 text-gray-500">Internal ops; not external-facing</td>
+              </tr>
+              <tr class="border-b border-gray-100">
+                <td class="px-1.5 py-1">Caregiving mobility dashboard</td>
+                <td class="px-1.5 py-1 text-gray-500">Personal/internal ops; not NB product</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Output Format Templates -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-1.5 mb-2">
+        <div class="highlight-box bg-white border-violet-200">
+          <p class="font-medium text-violet-700 text-[9px] mb-0.5">Product Definition:</p>
+          <p class="text-[8px] text-gray-600">Product: ... <br>Primary user: ... <br>User problem: ... <br>MVP scope: ... <br>Not in scope: ... <br>Key features: ... <br>Risks: ... <br>Next step: ...</p>
+        </div>
+        <div class="highlight-box bg-white border-violet-200">
+          <p class="font-medium text-violet-700 text-[9px] mb-0.5">Roadmap Update:</p>
+          <p class="text-[8px] text-gray-600">Now: ... <br>Next: ... <br>Later: ... <br>Blockers: ... <br>Guardrails: ...</p>
+        </div>
+        <div class="highlight-box bg-white border-violet-200">
+          <p class="font-medium text-violet-700 text-[9px] mb-0.5">Feature Review:</p>
+          <p class="text-[8px] text-gray-600">Feature: ... <br>User value: ... <br>Risk level: ... <br>MVP fit: ... <br>Recommendation: ... <br>Required guardrails: ...</p>
+        </div>
+      </div>
+
+      <!-- Trigger Conditions & Digest Behavior -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-1.5">
+        <div class="highlight-box bg-gray-50 border-gray-200">
+          <p class="font-medium text-gray-700 text-[9px] mb-0.5">Trigger Conditions:</p>
+          <p class="text-[8px] text-gray-600">Activate when Richard asks: "Is this a product?" · "Should this be MVP?" · "How should this become a demo?" · "How should we package this?" · "What is the next product step?" · "What should the Agent system do from a company ops perspective?" · "How do we prioritize these?" Also activates when a dashboard item becomes too broad, too strategic, or too close to public-facing release.</p>
+        </div>
+        <div class="highlight-box bg-gray-50 border-gray-200">
+          <p class="font-medium text-gray-700 text-[9px] mb-0.5">Daily Digest Behavior:</p>
+          <p class="text-[8px] text-gray-600">Include Product Manager items only when: a product scope needs clarification · an MVP candidate changes status · a feature is ready for review · a dashboard section risks becoming too sprawling · a demo item is close to external sharing. Do not include every day unless there is a meaningful product decision.</p>
+        </div>
+      </div>
+
+      <!-- Boundary Reminders -->
+      <div class="highlight-box bg-rose-50 border-rose-200 text-[8px] mt-1.5">
+        <span class="font-medium text-rose-700">Boundary reminders: </span>
+        <span class="text-rose-600">Manuscript → not product. Personal caregiving dashboards → not NB product. CHW sandbox and FASD pathway → internal/demo-stage only. No external product pages. No marketing copy. No payer proposals.</span>
       </div>
     </div>
 
