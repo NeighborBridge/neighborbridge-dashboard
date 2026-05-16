@@ -11,12 +11,12 @@
 
 | Thread | Status | Expected Resolution | Fallback Trigger |
 |--------|--------|-------------------|------------------|
-| Vinod Srihari → Yale feedback | ⏳ Draft complete, not sent | ~2 weeks after send | No reply by May 27 |
+| Vinod Srihari → Yale feedback | ✅ Replied 2026-05-16 — constructive feedback (framework validation + epistemic humility). No institutional bridge, but valuable calibration. | Completed | No follow-up needed |
 | FQHC anchor (Contentnea / Holly) | ⏸️ Paused — no contact since Feb | Tied to Finding 2 revision | Finding 2 first pass done |
 | Duke faculty / warm-connection pathway | ⏸️ Parked — ready to consider after Finding 2 first-pass revision | Finding 2 first pass completed | Trigger: Richard states Finding 2 first-pass revision is complete |
-| Yale beyond Vinod | ⏸️ Not active | Not yet explored | After Vinod reply (or silence cutoff) |
+| Yale beyond Vinod | ⏸️ Not active | Not yet explored | After Finding 2 revision — Vinod replied but no institutional door opened |
 | Kaiser / other systems | ⏸️ Not active | Not yet explored | After Finding 2 revision / FQHC clarity |
-| Other academic psychiatry depts | ⏸️ Not active | Not yet explored | After Vinod reply |
+| Other academic psychiatry depts | ⏸️ Not active | Not yet explored | After Finding 2 revision — Vinod replied but no institutional door opened |
 
 ---
 
@@ -67,8 +67,8 @@ When the time comes to choose a path (not now), these criteria should drive the 
 
 ## Recommended Order of Operations (when activated)
 
-1. **Wait for Vinod reply** (or silence cutoff) — this provides information on Yale internal possibilities
-2. **If Vinod opens a Yale door** → explore Yale internal path first (lowest friction for Richard)
+1. **Vinod replied 2026-05-16** — constructive feedback on framework but no institutional door opened. Yale internal path remains possible but not via Vinod as primary bridge. Adjust expectation: Vinod = academic calibrator, not entry point.
+2. **If Vinod opens a Yale door** → explore Yale internal path first (lowest friction for Richard) — currently not signaled
 ---
 
 ## Trigger Conditions for Reactivation
