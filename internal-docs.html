@@ -1524,7 +1524,7 @@ Richard</p>
         reader.innerHTML = '<div class="no-content">Document not available.</div>';
         return;
       }
-      reader.innerHTML = doc.content;
+      reader.innerHTML = doc.content || '<div class="no-content">Document content not yet added.</div>';
     }
 
     function copyDocumentText() {
@@ -1554,7 +1554,17 @@ Richard</p>
 
     /*
      ==================================================================
-     Before committing changes to internal-docs.html, verify:
+     !!! PREVENTION RULE (2026-05-16) !!!
+     Every internal-docs.html edit requires these pre-commit checks:
+     1. Validate JS syntax — no unmatched braces, no missing commas
+     2. Validate document object closure — const documents = {...}; proper close
+     3. Validate ID matching — every sidebar data-doc matches a documents key
+     4. Validate required fields — title, category, content (non-empty) on each doc
+     5. Click-test 5 representative documents after changes
+     6. Add fallback for missing/empty content (visible error, not silent)
+     7. Use safer editing — one entry per commit for high-risk additions
+     ==================================================================
+     Legacy checklist (preserved):
      1. default document body is visible on page load
      2. clicking each active document title changes the reader content
      3. each active document has a matching content block in `documents`

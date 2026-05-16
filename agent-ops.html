@@ -985,6 +985,36 @@
         </table>
     </div>
 
+    <!-- ===== Internal Docs Reader QA — Prevention Rule (2026-05-16) ===== -->
+    <div class="sec-card acc-slate">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-gray-700">📋 Internal Docs Reader QA — Pre-Commit Rules</span>
+      </div>
+      <div class="text-[9.5px] text-gray-700 space-y-1.5">
+        <p><strong>Root cause (2026-05-16):</strong> A document entry in <code>const documents = {...}</code> was closed with <code>};</code> instead of <code>},</code>, and the top-level object was not properly closed. This caused the entire <code>documents</code> object to fail silently — sidebar (static HTML) still rendered, but <code>documents[id]</code> was <code>undefined</code>, so the reader panel stayed blank.</p>
+
+        <p><strong>Required pre-commit checks</strong> (every <code>internal-docs.html</code> edit):</p>
+        <ol class="list-decimal list-inside space-y-0.5 pl-2">
+          <li><strong>Validate JS syntax</strong> — no unmatched braces, no missing commas between entries, no premature <code>};</code> inside the <code>documents</code> object.</li>
+          <li><strong>Validate document object closure</strong> — top-level <code>const documents = {...};</code> must be properly closed. Each entry ends with comma, except the final entry before the outer close.</li>
+          <li><strong>Validate ID matching</strong> — every sidebar <code>data-doc</code> value must match a key in the <code>documents</code> object. No orphans.</li>
+          <li><strong>Validate required fields</strong> — each document must have <code>title</code>, <code>category</code>, <code>content</code> (non-empty).</li>
+          <li><strong>Click-test 5 representative documents</strong> — Global MH Arc, NC Primary Site, Vinod Decision Memo, St. Louis Family, one caregiving doc.</li>
+          <li><strong>Add fallback behavior</strong> — if a document ID is missing or content is empty, the reader must show a visible error/placeholder (not fail silently).</li>
+          <li><strong>Use safer editing pattern</strong> — one document entry per commit when adding high-risk internal docs. Validate after every addition.</li>
+        </ol>
+
+        <p><strong>Required report format</strong> (every <code>internal-docs.html</code> change):</p>
+        <ul class="list-disc list-inside space-y-0.5 pl-2">
+          <li>JS syntax validated: yes/no</li>
+          <li>Sidebar IDs matched to document keys: yes/no</li>
+          <li>Reader click-test completed: yes/no</li>
+          <li>Number of document keys detected</li>
+          <li>Commit hash</li>
+        </ul>
+      </div>
+    </div>
+
     <!-- ===== Related Dashboards ===== -->
     <div class="sec-card acc-slate">
       <div class="flex items-center gap-1 mb-1.5">
