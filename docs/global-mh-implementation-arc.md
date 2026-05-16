@@ -29,13 +29,14 @@
 
 ## What This Means Operationally
 
-### Current Priority (Fixed)
+### Current Priority (Updated 2026-05-16)
 
-1. **Finding 2 first-pass revision** — the only true current gate. Nothing else moves meaningfully until this is complete.
+1. ~~**Finding 2 first-pass revision** — the only true current gate.~~ ✅ Completed 2026-05-16.
 2. **NC Primary Site Narrative** — already marked working-complete. Preserve as-is.
-3. **Duke pathway** — remains conditional on Finding 2 completion. Do not initiate now. Do not pre-select an entry point.
-4. **Robert Rohrbaugh update** — do not draft or send. After Finding 2, a short internal draft is permissible, but it remains Richard's call to send.
-5. **No external outreach** — no emails, no requests, no institutional approaches.
+3. **Duke pathway** — Finding 2 completion unlocks Duke warm-connection option preparation. Richard chooses when to initiate. Do not pre-select an entry point. **No active outreach yet.**
+4. **Robert Rohrbaugh update** — do not draft or send. A short internal draft is now permissible (Finding 2 is done). Still requires Richard's explicit approval before any version is reviewed or sent.
+5. **Finding 3 first-pass revision** — next manuscript priority when Richard is ready.
+6. **No external outreach** — no emails, no requests, no institutional approaches without Richard's explicit instruction.
 
 ### Academic Lineage Positioning (Internal Only)
 

@@ -12,11 +12,11 @@
 | Thread | Status | Expected Resolution | Fallback Trigger |
 |--------|--------|-------------------|------------------|
 | Vinod Srihari → Yale feedback | ✅ Replied 2026-05-16 — constructive feedback (framework validation + epistemic humility). No institutional bridge, but valuable calibration. | Completed | No follow-up needed |
-| FQHC anchor (Contentnea / Holly) | ⏸️ Paused — no contact since Feb | Tied to Finding 2 revision | Finding 2 first pass done |
-| Duke faculty / warm-connection pathway | ⏸️ Parked — ready to consider after Finding 2 first-pass revision | Finding 2 first pass completed | Trigger: Richard states Finding 2 first-pass revision is complete |
-| Yale beyond Vinod | ⏸️ Not active | Not yet explored | After Finding 2 revision — Vinod replied but no institutional door opened |
-| Kaiser / other systems | ⏸️ Not active | Not yet explored | After Finding 2 revision / FQHC clarity |
-| Other academic psychiatry depts | ⏸️ Not active | Not yet explored | After Finding 2 revision — Vinod replied but no institutional door opened |
+| FQHC anchor (Contentnea / Holly) | ⏸️ Paused — low-pressure framework alignment is next step | Finding 2 first pass done | Ready to reconsider timing |
+| Duke faculty / warm-connection pathway | ✅ Trigger met — Finding 2 first-pass revision complete. Ready to prepare warm-connection options. | Completed | Richard chooses when to initiate |
+| Yale beyond Vinod | ⏸️ Still not active | Not yet explored | Finding 2 done — lineage anchor assessed, no action taken |
+| Kaiser / other systems | ⏸️ Not active | Not yet explored | After Finding 3 / FQHC clarity |
+| Other academic psychiatry depts | ⏸️ Not active | Not yet explored | Finding 2 done — no new door opened |
 
 ---
 
@@ -74,12 +74,12 @@ When the time comes to choose a path (not now), these criteria should drive the 
 ## Trigger Conditions for Reactivation
 
 ### Duke Pathway
-- **Status:** Ready to consider after Finding 2 first-pass revision.
-- **Trigger for reactivation:** Richard states that Finding 2 first-pass revision is complete.
-- **Next internal step after trigger:** Prepare Duke warm-connection options and determine whether to approach GIM, DCRI, Population Health Sciences, Truls, or a general Duke positioning note.
+- **Status:** ✅ Trigger met. Finding 2 first-pass revision complete.
+- **Next internal step:** Prepare Duke warm-connection options and determine whether to approach GIM, DCRI, Population Health Sciences, Truls, or a general Duke positioning note.
+- **Note:** Richard chooses when to initiate. Do not pre-select entry point.
 - **Do not pre-select an entry point now.**
 
-3. **If Vinod is silent or neutral** → consider Duke re-engagement (second lowest friction, after Finding 2 completed)
+3. **Vinod replied (constructive, no institutional door)** → Duke re-engagement now possible (Finding 2 completed). Next step: prepare options.
 4. **If both fail** → UNC exploration (higher friction, but natural fit)
 5. **Tier 2 only if Tier 1 all fail** — Kaiser, UW, OHSU
 
