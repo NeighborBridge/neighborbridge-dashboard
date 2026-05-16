@@ -144,9 +144,9 @@ This is not a generic faculty application. It is a **place-based, implementation
 ## Suggested Next Steps
 
 1. ✅ **Truls relationship assessed** — done. Warm but dormant. ~3 years since last contact.
-2. ⏳ **Write general Duke positioning note** (internal, 1 page) — can be done now.
-3. ⏳ **Prepare warm re-introduction email draft** — short, advice-seeking, no job request. For Richard's review and approval only.
-4. ⏳ **Richard confirms readiness to send** — do not send until approved.
+2. ✅ **Duke positioning note written** — internal, 1 page. Done (2026-05-16).
+3. ✅ **Warm re-introduction email draft prepared** — short, advice-seeking, reviewed by Clara (Low risk). Two optional polish edits suggested by Clara: "CHW-supported implementation" → "community health worker involvement"; "grateful for any time you can spare" → "grateful for whatever time works".
+4. ⏳ **Richard decides whether to send** — Clara review complete, email ready for approval.
 
 ---
 

@@ -68,7 +68,9 @@ When the time comes to choose a path (not now), these criteria should drive the 
 ## Recommended Order of Operations (when activated)
 
 1. **Vinod replied 2026-05-16** — constructive feedback on framework but no institutional door opened. Yale internal path remains possible but not via Vinod as primary bridge. Adjust expectation: Vinod = academic calibrator, not entry point.
-2. **If Vinod opens a Yale door** → explore Yale internal path first (lowest friction for Richard) — currently not signaled
+2. **Richard sent brief thank-you reply (2026-05-16)** — acknowledged guidance, no new asks. Vinod remains a high-value academic calibration node and Yale-Hunan-global MH continuity node. Not a gatekeeper. Not an institutional entry point. 
+3. **Passive wait** — no follow-up needed. No reminder unless Vinod replies.
+4. **If Vinod opens a Yale door** → explore Yale internal path first (lowest friction for Richard) — currently not signaled
 ---
 
 ## Trigger Conditions for Reactivation
@@ -79,8 +81,10 @@ When the time comes to choose a path (not now), these criteria should drive the 
 - **Note:** Richard chooses when to initiate. Do not pre-select entry point.
 - **Do not pre-select an entry point now.**
 
-3. **Vinod replied (constructive, no institutional door)** → Duke re-engagement now possible (Finding 2 completed). Next step: prepare options.
-4. **If both fail** → UNC exploration (higher friction, but natural fit)
+3. **Vinod replied (constructive, no institutional door)** → Duke re-engagement now possible (Finding 2 completed). Options map prepared. Truls identified as warmest first entry.
+4. **Richard sent brief thank-you reply to Vinod (2026-05-16)** — acknowledged, no new asks. Passive wait.
+5. **If Vinod opens a Yale door** → explore Yale internal path first — currently not signaled.
+6. **If both fail** → UNC exploration (higher friction, but natural fit)
 5. **Tier 2 only if Tier 1 all fail** — Kaiser, UW, OHSU
 
 **Critical discipline**: Do not pursue multiple simultaneous institutional explorations. One at a time, with a clear outcome criterion per phase. The work (FASD/NDD pathway building) is the anchor — institutional homes are means, not ends.
