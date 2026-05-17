@@ -134,11 +134,41 @@
         <h3 class="text-sm font-bold">Bayada private-pay aide</h3>
         <span class="badge bg-amber-100 text-amber-700 text-[10px]">信息已收到，未激活</span>
       </div>
-      <div class="p-1.5 rounded bg-white border border-gray-200">
-        <p class="text-[11px]"><strong class="text-gray-700">费用信息:</strong><span class="text-gray-700">Jennifer Bobalik (Director, Assistive Care of Raleigh) 于 2026-04-09 提供。常规个人照护 $35/小时，4小时最低；2小时短班 $100 固定价；PRN $40/小时；节假日加收50%。接受长期护理保险。服务范围含个人照护、如厕、洗浴、穿衣、餐食计划与准备、用药提醒、轻量家务、陪伴、陪同就诊/采购、24/7 可用。</span></p>
-        <p class="text-[11px] mt-0.5"><strong class="text-amber-700">状态:</strong><span class="text-amber-600 font-medium">费率信息已收到；availability、onboarding/intake 流程、当前定价（费率可能已变）、scheduling notice 要求、以及 trial visit 仍需确认。尚未激活为 active coverage。</span></p>
+
+      <!-- Rate info (from Jennifer Bobalik email, 2026-04-09) -->
+      <div class="p-1.5 rounded bg-white border border-gray-200 mb-1.5">
+        <p class="text-[11px]"><strong class="text-gray-700">费用信息 (Jennifer Bobalik, Director of Assistive Care Raleigh):</strong><span class="text-gray-700">常规个人照护 $35/小时，4小时最低；2小时短班 $100 固定价；PRN $40/小时；节假日加收50%。接受长期护理保险。Assistive Care of Raleigh, 5505 Creedmoor Rd, Raleigh, NC 27612。电话 (919) 719-0960。</span></p>
+      </div>
+
+      <!-- Supplemental service info from bayada.com/personal-care -->
+      <div class="p-1.5 rounded bg-white border border-gray-200 mb-1.5">
+        <p class="text-[11px]"><strong class="text-gray-600">官网确认的服务类别 (bayada.com/personal-care):</strong><span class="text-gray-600">每日自理（洗浴、洗护、如厕、穿衣）、行动辅助、用药提醒、餐食准备、家务支持、采购与办事、陪伴与陪同就诊、痴呆症照护选项、respite care 选项、live-in care 选项、24/7 访问与支持基础设施。官网描述包含由护士经理持续监控 + 智能技术支持，在两次上门之间协助识别早期状况变化。</span></p>
+        <p class="text-[10px] text-gray-400 mt-0.5">*官网信息为通用描述，不代表 Raleigh 办公室当前确切 availability 或具体服务范围。</p>
+      </div>
+
+      <!-- Status -->
+      <div class="p-1.5 rounded bg-amber-50 border border-amber-200 mb-1.5">
+        <p class="text-[11px]"><strong class="text-amber-700">状态:</strong><span class="text-amber-600 font-medium">费率和官网确认的服务类别已收到。Raleigh 办公室的当前 availability、intake/onboarding 要求、当前定价、scheduling notice、照护员匹配和 trial visit 仍需确认。尚未激活为 active coverage。</span></p>
         <p class="text-[11px] text-gray-600 mt-0.5"><strong>角色:</strong>Professional respite layer，不是 emergency decision-maker。Bayada private-pay aide 可补强 backup coverage，但不能替代 Richard、William、医疗决策人或 911/ER 升级流程。</p>
-        <p class="text-[11px] text-gray-500 mt-0.5"><strong>下一步:</strong>Richard 应确认当前 availability，并安排一次小型 trial block（如2小时短班），之后再将其作为 3-7 天出行覆盖的依赖方案。</p>
+      </div>
+
+      <!-- Start process note -->
+      <div class="p-1.5 rounded bg-white border border-gray-200 mb-1.5">
+        <p class="text-[11px]"><strong class="text-gray-600">Standard start process (bayada.com):</strong><span class="text-gray-600">致电 Bayada → 说明照护需求、时间安排和区域 → 确认服务区域 → 讨论支付选项 → 安排下一步/护士评估。Richard 仍需确认 Raleigh 具体 availability 并安排一次小型 trial visit。</span></p>
+      </div>
+
+      <!-- Next action -->
+      <div class="p-1.5 rounded bg-blue-50 border border-blue-200">
+        <p class="text-[11px]"><strong class="text-blue-700">Richard 下一步的具体事项:</strong></p>
+        <ul class="text-[10px] text-gray-700 list-disc pl-3.5 space-y-0.5 mt-1">
+          <li>致电或邮件 Bayada Raleigh ((919) 719-0960 / jbobalik@bayada.com) 确认当前小时费用和最低班次规则。</li>
+          <li>确认 PRN / 短班 availability。</li>
+          <li>确认 respite coverage 能否支持 3-7 天出行。</li>
+          <li>确认在首次班次前是否需要 intake / nurse assessment。</li>
+          <li>确认排班所需提前时间。</li>
+          <li>确认洗浴、如厕辅助、用药提醒、餐食准备和陪同就诊是否适用于母亲的情况。</li>
+          <li>安排一次 2 小时或 4 小时 trial visit。</li>
+        </ul>
       </div>
 
       <details class="mt-1">
@@ -446,11 +476,13 @@
       <details class="mb-1.5">
         <summary class="text-[10px] font-semibold text-amber-700 cursor-pointer hover:text-amber-900 bg-white rounded-t p-1.5 border border-amber-200">2. Professional Coverage Check — Bayada / Private-Pay Aide</summary>
         <div class="p-1.5 bg-white border border-amber-200 border-t-0 rounded-b text-[10px] space-y-1">
-          <p class="font-medium text-amber-700">🔴 Requires confirmation</p>
+          <p class="font-medium text-amber-700">🔴 Requires confirmation — rate info received, not active yet</p>
           <ul class="space-y-0.5 text-gray-600">
-            <li class="flex items-start gap-1"><span class="text-amber-400 mt-0.5">□</span><span>Contact Bayada: ask about availability, minimum hours, cost, notice requirement</span></li>
-            <li class="flex items-start gap-1"><span class="text-amber-400 mt-0.5">□</span><span>Confirm whether private-pay aide can provide: meal prep, safety check-in, bathroom/shower supervision, medication reminder (reminder only, not administration), fall-risk observation</span></li>
-            <li class="flex items-start gap-1"><span class="text-amber-400 mt-0.5">□</span><span>Confirm aide's scope: □ Cannot do transfers □ Cannot do bathing □ Cannot make medical decisions</span></li>
+            <li class="flex items-start gap-1"><span class="text-amber-400 mt-0.5">□</span><span>Contact Bayada Raleigh to confirm current availability and pricing (rate info received 2026-04-09: $35/hr, 4-hr min; $100/2-hr short shift; $40/hr PRN; holidays time-and-a-half)</span></li>
+            <li class="flex items-start gap-1"><span class="text-amber-400 mt-0.5">□</span><span>Confirm intake/nurse assessment needed before first shift</span></li>
+            <li class="flex items-start gap-1"><span class="text-amber-400 mt-0.5">□</span><span>Confirm respite coverage can support 3-7 day travel</span></li>
+            <li class="flex items-start gap-1"><span class="text-amber-400 mt-0.5">□</span><span>Confirm scope for Richard's mother: toileting, bathing, med reminders, meal prep, appointment accompaniment</span></li>
+            <li class="flex items-start gap-1"><span class="text-amber-400 mt-0.5">□</span><span>Schedule 2-hour or 4-hour trial visit before relying on Bayada for travel coverage</span></li>
             <li class="flex items-start gap-1"><span class="text-amber-400 mt-0.5">□</span><span>Cost assessment: $___ / visit, $___ / day, total for trip duration</span></li>
             <li class="flex items-start gap-1"><span class="text-amber-400 mt-0.5">□</span><span>Book at least __ days in advance</span></li>
           </ul>
