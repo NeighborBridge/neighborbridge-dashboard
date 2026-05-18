@@ -43,27 +43,59 @@
     }
 
     .sidebar-item {
-      padding: 10px 14px 10px 36px;
+      padding: 10px 14px;
       border-bottom: 1px solid #f0f1f3;
       cursor: pointer;
       transition: background 0.12s;
-      position: relative;
+      display: flex;
+      align-items: stretch;
+      gap: 0;
     }
     .sidebar-item:hover { background: #f0f4ff; }
     .sidebar-item.active { background: #e8f0fe; border-left: 3px solid #1a73e8; }
     .sidebar-item.selected { background: #e6f7ed; }
     .sidebar-item.selected:hover { background: #d5f0e0; }
 
-    /* Checkbox in sidebar */
-    .sd-checkbox {
-      position: absolute;
-      left: 10px;
-      top: 11px;
-      width: 18px;
-      height: 18px;
+    /* Select button on sidebar items */
+    .sd-select-btn {
+      flex: 0 0 56px;
+      min-height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: #1a73e8;
+      background: #e8f0fe;
+      border: none;
+      border-radius: 4px;
+      margin-right: 8px;
       cursor: pointer;
-      accent-color: #0ea5e9;
-      z-index: 2;
+      padding: 4px 0;
+      transition: background 0.12s, color 0.12s;
+      line-height: 1;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      font-family: Arial, sans-serif;
+    }
+    .sd-select-btn:active { background: #d2e3fc; }
+    .sd-select-btn.selected {
+      background: #0ea5e9;
+      color: #fff;
+    }
+    .sd-select-btn.selected:active { background: #0284c7; }
+    .sd-select-btn-label {
+      pointer-events: none;
+    }
+
+    /* Sidebar item text content */
+    .sd-item-body {
+      flex: 1;
+      min-width: 0;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
     /* Cleanup toolbar */
@@ -122,14 +154,6 @@
     .cleanup-inline a:hover { text-decoration: underline; }
     .cleanup-inline .sep { color: #d5d7da; margin: 0 3px; }
     .cleanup-inline #cleanupCount { color: #5f6368; }
-
-    /* Highlight for checkbox hover */
-    .sidebar-item .sd-checkbox {
-      opacity: 0.4;
-      transition: opacity 0.15s;
-    }
-    .sidebar-item:hover .sd-checkbox { opacity: 1; }
-    .sidebar-item .sd-checkbox:checked { opacity: 1; }
     .sidebar-item .doc-title { font-size: 13px; font-weight: 500; color: #1a1a1a; line-height: 1.3; }
     .sidebar-item .doc-category { font-size: 9px; color: #1a73e8; text-transform: uppercase; letter-spacing: 0.03em; margin-top: 2px; }
     .sidebar-item .doc-meta { font-size: 10px; color: #5f6368; margin-top: 2px; }
@@ -338,12 +362,11 @@
       <div class="sidebar-section">Document Library</div>
 
       <div class="cleanup-inline" id="cleanupInline">
-        <input type="checkbox" id="selectAllCheck" onchange="toggleSelectAll()" style="width:14px;height:14px;accent-color:#0ea5e9;margin:0;">
-        <label for="selectAllCheck" style="margin:0;font-size:11px;cursor:pointer;">All</label>
+        <span style="font-size:11px;font-weight:600;color:#5f6368;">Selected: </span><span id="cleanupCount" style="font-size:11px;color:#5f6368;">0</span>
         <span class="sep">|</span>
-        <a onclick="clearAllChecks()">Clear</a>
+        <a onclick="selectAllDocs()" style="font-size:11px;">All</a>
         <span class="sep">|</span>
-        <span id="cleanupCount">0 selected</span>
+        <a onclick="clearAllChecks()" style="font-size:11px;">Clear</a>
       </div>
 
       <!-- Document 0: Global MH Arc (strategy reference) -->
@@ -2216,72 +2239,98 @@ Richard</p>
      ==================================================================
     */
 
+    /*
+     ==================================================================
+     CLEANUP HELPER — Select-button-based deletion request generator
+     ==================================================================
+     Each sidebar item gets a visible 'Select'/'Selected' button
+     injected by JS on page load. Clicking the button toggles the
+     document into the selection list. Does NOT delete anything.
+     ==================================================================
+    */
+
     function initCleanupHelper() {
-      var items = document.querySelectorAll('.sidebar-item[data-doc]');
+      var items = document.querySelectorAll('.sidebar-item[data-doc]:not(.placeholder-item)');
       items.forEach(function(el) {
-        if (el.classList.contains('placeholder-item')) return;
-        var cb = document.createElement('input');
-        cb.type = 'checkbox';
-        cb.className = 'sd-checkbox';
-        cb.onclick = function(e) { e.stopPropagation(); };
-        cb.onchange = function() { updateCleanupCount(); };
-        el.insertBefore(cb, el.firstChild);
+        var docId = el.getAttribute('data-doc');
+        
+        // Create Select button
+        var btn = document.createElement('button');
+        btn.className = 'sd-select-btn';
+        btn.onclick = function(e) { toggleDocSelect(e, docId); };
+        var label = document.createElement('span');
+        label.className = 'sd-select-btn-label';
+        label.textContent = 'Select';
+        btn.appendChild(label);
+        
+        // Wrap existing content in sd-item-body
+        var body = document.createElement('div');
+        body.className = 'sd-item-body';
+        body.onclick = function() { selectDoc(docId); };
+        
+        // Move all children into body
+        while (el.firstChild) {
+          body.appendChild(el.firstChild);
+        }
+        
+        // Insert: button + body
+        el.appendChild(btn);
+        el.appendChild(body);
       });
+    }
+
+    function toggleDocSelect(event, docId) {
+      event.stopPropagation();
+      var el = document.querySelector('.sidebar-item[data-doc="' + docId + '"]');
+      if (!el) return;
+      el.classList.toggle('selected');
+      var btn = el.querySelector('.sd-select-btn');
+      if (btn) {
+        var label = btn.querySelector('.sd-select-btn-label');
+        if (label) {
+          label.textContent = el.classList.contains('selected') ? 'Selected' : 'Select';
+        }
+      }
+      updateCleanupCount();
     }
 
     function getSelectedDocIds() {
       var ids = [];
-      var items = document.querySelectorAll('.sidebar-item[data-doc]');
-      items.forEach(function(el) {
-        if (el.classList.contains('placeholder-item')) return;
-        var cb = el.querySelector('.sd-checkbox');
-        if (cb && cb.checked) {
-          ids.push(el.getAttribute('data-doc'));
-          el.classList.add('selected');
-        } else { el.classList.remove('selected'); }
+      document.querySelectorAll('.sidebar-item[data-doc].selected').forEach(function(el) {
+        var id = el.getAttribute('data-doc');
+        if (id) ids.push(id);
       });
       return ids;
     }
 
     function updateCleanupCount() {
       var ids = getSelectedDocIds();
-      var count = ids.length;
       var el = document.getElementById('cleanupCount');
-      if (el) el.textContent = count + ' selected';
+      if (el) el.textContent = ids.length;
       var btn = document.getElementById('genDeleteBtn');
-      if (btn) btn.disabled = (count === 0);
-      var allCheck = document.getElementById('selectAllCheck');
-      if (allCheck) {
-        var total = document.querySelectorAll('.sidebar-item[data-doc]:not(.placeholder-item)').length;
-        if (count === 0) { allCheck.checked = false; allCheck.indeterminate = false; }
-        else if (count === total) { allCheck.checked = true; allCheck.indeterminate = false; }
-        else { allCheck.checked = false; allCheck.indeterminate = true; }
-      }
+      if (btn) btn.disabled = (ids.length === 0);
     }
 
-    function toggleSelectAll() {
-      var allCheck = document.getElementById('selectAllCheck');
-      var checked = allCheck.checked;
-      var items = document.querySelectorAll('.sidebar-item[data-doc]:not(.placeholder-item)');
-      items.forEach(function(el) {
-        var cb = el.querySelector('.sd-checkbox');
-        if (cb) {
-          cb.checked = checked;
-          if (checked) el.classList.add('selected');
-          else el.classList.remove('selected');
+    function selectAllDocs() {
+      document.querySelectorAll('.sidebar-item[data-doc]:not(.placeholder-item)').forEach(function(el) {
+        el.classList.add('selected');
+        var btn = el.querySelector('.sd-select-btn');
+        if (btn) {
+          var label = btn.querySelector('.sd-select-btn-label');
+          if (label) label.textContent = 'Selected';
         }
       });
       updateCleanupCount();
     }
 
     function clearAllChecks() {
-      var allCheck = document.getElementById('selectAllCheck');
-      if (allCheck) { allCheck.checked = false; allCheck.indeterminate = false; }
-      var items = document.querySelectorAll('.sidebar-item[data-doc]:not(.placeholder-item)');
-      items.forEach(function(el) {
-        var cb = el.querySelector('.sd-checkbox');
-        if (cb) cb.checked = false;
+      document.querySelectorAll('.sidebar-item[data-doc]:not(.placeholder-item)').forEach(function(el) {
         el.classList.remove('selected');
+        var btn = el.querySelector('.sd-select-btn');
+        if (btn) {
+          var label = btn.querySelector('.sd-select-btn-label');
+          if (label) label.textContent = 'Select';
+        }
       });
       updateCleanupCount();
       var output = document.getElementById('cleanupOutput');
@@ -2292,7 +2341,7 @@ Richard</p>
       var ids = getSelectedDocIds();
       if (ids.length === 0) {
         var output = document.getElementById('cleanupOutput');
-        if (output) { output.innerHTML = 'No documents selected. Check sidebar checkboxes first.'; output.classList.add('visible'); }
+        if (output) { output.innerHTML = 'No documents selected. Tap Select buttons in the document list first.'; output.classList.add('visible'); }
         return;
       }
       var lines = [];
@@ -2305,6 +2354,14 @@ Richard</p>
       var output = document.getElementById('cleanupOutput');
       if (output) { output.innerHTML = requestText; output.classList.add('visible'); }
     }
+
+    // Initialize cleanup helper on page load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initCleanupHelper);
+    } else {
+      initCleanupHelper();
+    }
+
     renderDoc(currentDoc);
   </script>
 
