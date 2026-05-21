@@ -1,0 +1,11 @@
+{
+  "channel_id": "-1003791277333",
+  "channel_username": "@neighborbridge_reminders",
+  "enabled_reminders": [
+    "manuscript_rhythm",
+    "stakeholder_cooling_period",
+    "clara_red_flag_scan"
+  ],
+  "trial_start": "2026-05-21",
+  "trial_period_days": 7
+}
