@@ -6,7 +6,8 @@
     "stakeholder_cooling_period",
     "clara_red_flag_scan",
     "oil_xle_watch",
-    "gold_silver_bottom_fish_watch"
+    "gold_silver_bottom_fish_watch",
+    "structural_ma_watcher"
   ],
   "trial_start": "2026-05-21",
   "trial_period_days": 7
