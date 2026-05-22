@@ -469,6 +469,78 @@ Recommendation: ...
       </div>
     </div>
 
+    <!-- ===== Timeline Image Card Skill (2026-05-22) ===== -->
+    <div class="sec-card" style="border-left: 4px solid #6b7280; background: #f9fafb;">
+      <div class="flex items-center gap-1 mb-1.5">
+        <span class="text-xs font-bold text-gray-700">🖼️ Timeline Image Card Skill</span>
+        <span class="badge bg-gray-100 text-gray-600 text-[10px]">2026-05-22 — Internal Visuals</span>
+      </div>
+
+      <div class="highlight-box bg-white border-gray-200 text-[10px] mb-1.5">
+        <p class="font-medium text-gray-700">Skill purpose:</p>
+        <p class="text-gray-600">Generate simple visual timeline/status cards as PNG images for Telegram, making complex product, manuscript, and stakeholder progress easier to review on iPhone. Not a slide deck system. Not public marketing. Internal visual operations only.</p>
+        <p class="text-gray-500 text-[9px] mt-0.5">Generator script: <code>timeline_card_generator.py</code> (workspace root). Uses Pillow. Output: 800x1200 PNG.</p>
+      </div>
+
+      <p class="font-medium text-gray-700 text-[10px] mb-1">Allowed use cases (all internal only):</p>
+      <div class="grid grid-cols-2 gap-1 text-[9px] mb-1.5">
+        <div class="p-1 rounded bg-white border border-gray-200">
+          <p class="font-medium text-gray-700">Product R&amp;D timeline</p>
+          <p class="text-gray-500">FASD Readiness: Concept → Internal Prototype → Stage 2 Complete → Paused → Contentnea Gate → Stage 3 Pending</p>
+        </div>
+        <div class="p-1 rounded bg-white border border-gray-200">
+          <p class="font-medium text-gray-700">Product portfolio map</p>
+          <p class="text-gray-500">All product lines with stage/status/blocker</p>
+        </div>
+        <div class="p-1 rounded bg-white border border-gray-200">
+          <p class="font-medium text-gray-700">Manuscript progress</p>
+          <p class="text-gray-500">Finding 1 through Discussion status</p>
+        </div>
+        <div class="p-1 rounded bg-white border border-gray-200">
+          <p class="font-medium text-gray-700">Stakeholder cooling / relationship map</p>
+          <p class="text-gray-500">Warm, dormant, cold with last-contact context</p>
+        </div>
+        <div class="p-1 rounded bg-white border border-gray-200">
+          <p class="font-medium text-gray-700">Caregiving readiness</p>
+          <p class="text-gray-500">Bayada, Hannah, William, emergency card status</p>
+        </div>
+        <div class="p-1 rounded bg-white border border-gray-200">
+          <p class="font-medium text-gray-700">Market monitoring timeline</p>
+          <p class="text-gray-500">Snapshot → brief → alert → close sequence</p>
+        </div>
+      </div>
+
+      <p class="font-medium text-gray-700 text-[10px] mb-1">Agent roles:</p>
+      <ul class="text-[9px] text-gray-600 space-y-0.5 mb-1.5">
+        <li><strong>Atlas</strong> — coordinates card creation, pulls current status from dashboards, ensures match with source-of-truth, sends only when Richard requests or explicitly approved.</li>
+        <li><strong>Nora</strong> — defines product stage/assets/user flow, confirms accuracy, prevents premature productization language.</li>
+        <li><strong>Clara</strong> — reviews any card that might be externally shared; for internal-only cards, not required unless sensitive institutional/referral language appears.</li>
+      </ul>
+
+      <p class="font-medium text-gray-700 text-[10px] mb-1">Routing:</p>
+      <ul class="text-[9px] text-gray-600 space-y-0.5 mb-1.5">
+        <li>Send to reminder channel (-1003791277333) only when Richard explicitly asks.</li>
+        <li>Do not auto-send daily or attach to every reminder.</li>
+        <li>Do not send debugging messages to reminder channel.</li>
+      </ul>
+
+      <div class="highlight-box bg-white border-red-200 text-[9px]">
+        <p class="font-medium text-red-700">Guardrails:</p>
+        <ul class="list-disc pl-3.5 text-red-600 space-y-0.5">
+          <li>Internal only. No PHI. No insurance IDs. No private caregiving details unless pre-approved.</li>
+          <li>No external-facing claims, no institutional endorsement implied, no public website modification.</li>
+          <li>No outreach, pricing, pitch, or product launch language.</li>
+          <li>Use: "Stage 2 Internal Prototype", "Expansion paused", "Contentnea alignment required before external use".</li>
+          <li>Avoid: "Launched", "Market ready", "Customer validated", "Partnered", "Pilot active", "Referral pathway".</li>
+          <li>First test card generated and sent 2026-05-22 (FASD Readiness Stage 2 Timeline).</li>
+        </ul>
+      </div>
+
+      <div class="text-[9px] text-gray-400 mt-1.5 pt-1 border-t border-gray-100">
+        Skill added 2026-05-22. Generator script: timeline_card_generator.py. Future: product portfolio, manuscript progress, caregiving, stakeholder, monthly roadmap cards. Do not implement without Richard request.
+      </div>
+    </div>
+
     <!-- ===== Agent Roles / 5 Role Cards ===== -->
     <div class="sec-card acc-slate">
       <div class="flex items-center gap-1 mb-1.5">
