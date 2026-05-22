@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nora Customer Discovery List — FASD Diagnostic Readiness</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { brand: "#0ea5e9", urgent: "#ef4444", warning: "#f59e0b", neutral: "#6b7280", completed: "#10b981" }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .card { @apply bg-white rounded-xl p-4 border shadow-sm mb-3; }
+    .stat-pill { @apply inline-block px-2 py-0.5 rounded-full text-[9px] font-medium; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Nav -->
+  <header class="bg-white shadow-sm border-b no-print">
+    <div class="max-w-4xl mx-auto px-3 py-2 flex justify-between items-center">
+      <h1 class="text-sm font-bold">NeighborBridge</h1>
+      <div class="flex flex-wrap gap-x-3 gap-y-0.5 text-[10px]">
+        <a href="/" class="text-gray-500 hover:text-brand">主面板</a>
+        <a href="/fasd-readiness-handout" class="text-gray-500 hover:text-brand">FASD Readiness</a>
+        <a href="/agent-ops" class="text-gray-500 hover:text-brand">Agent Ops</a>
+        <a href="/dashboard-directory" class="text-gray-500 hover:text-brand">全部面板</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-4xl mx-auto p-4">
+
+    <!-- Status Banner -->
+    <div class="no-print bg-violet-100 border-2 border-violet-400 rounded-lg p-2 mb-4 text-center">
+      <span class="font-bold text-violet-800 text-sm">🧪 NORA CUSTOMER DISCOVERY LIST — INTERNAL ONLY</span>
+      <p class="text-violet-700 text-xs mt-0.5">FASD Diagnostic Readiness / Family Education Module. Market discovery only. No outreach. No pricing. No customer validation implied.</p>
+    </div>
+
+    <!-- Title -->
+    <div class="card border-l-4 border-l-violet-500 mb-4">
+      <h1 class="text-xl font-bold text-gray-800">Nora Customer Discovery List</h1>
+      <p class="text-sm text-gray-500 mt-0.5">FASD Diagnostic Readiness / Family Education Module</p>
+      <div class="flex flex-wrap gap-1.5 mt-2">
+        <span class="stat-pill bg-violet-50 text-violet-700 border border-violet-200">Nora Customer Discovery</span>
+        <span class="stat-pill bg-amber-50 text-amber-700 border border-amber-200">Stage 2 — Internal Prototype</span>
+        <span class="stat-pill bg-gray-50 text-gray-600 border border-gray-200">Non-PHI · No outreach</span>
+      </div>
+    </div>
+
+    <!-- ===== SECTION 1: CUSTOMER CATEGORIES ===== -->
+    <div class="card border-l-4 border-l-blue-500 mb-4">
+      <h2 class="text-sm font-bold text-blue-800 mb-2">1. Customer Categories — Who Would Directly Use the Product</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-[11px] text-gray-700 border-collapse">
+          <thead>
+            <tr class="bg-blue-50 border-b">
+              <th class="px-2 py-1 text-left font-medium text-blue-700">Customer type</th>
+              <th class="px-2 py-1 text-left font-medium text-blue-700">Specific role</th>
+              <th class="px-2 py-1 text-left font-medium text-blue-700">Usage scenario</th>
+              <th class="px-2 py-1 text-left font-medium text-blue-700">Priority</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-100">
+              <td class="px-2 py-1 font-medium">Foster/kinship caregivers</td>
+              <td class="px-2 py-1">Primary user</td>
+              <td class="px-2 py-1">Pre-evaluation preparation; understanding what FASD evaluation entails; gathering records</td>
+              <td class="px-2 py-1"><span class="bg-green-100 text-green-700 px-1.5 py-0.5 rounded text-[9px]">A — near-term</span></td>
+            </tr>
+            <tr class="border-b border-gray-100 bg-gray-50">
+              <td class="px-2 py-1 font-medium">Biological parents</td>
+              <td class="px-2 py-1">Primary user</td>
+              <td class="px-2 py-1">Same content, different relational framing (prenatal exposure sensitivity)</td>
+              <td class="px-2 py-1"><span class="bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded text-[9px]">A — near-term</span></td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="px-2 py-1 font-medium">Adoptive/guardianship families</td>
+              <td class="px-2 py-1">Primary user</td>
+              <td class="px-2 py-1">Unknown-prenatal-history framing; behavioral challenges triggering evaluation inquiry</td>
+              <td class="px-2 py-1"><span class="bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded text-[9px]">A — near-term</span></td>
+            </tr>
+            <tr class="border-b border-gray-100 bg-gray-50">
+              <td class="px-2 py-1 font-medium">Pediatric PCPs</td>
+              <td class="px-2 py-1">Secondary user</td>
+              <td class="px-2 py-1">Referral preparation guidance; what to tell families; what records to request</td>
+              <td class="px-2 py-1"><span class="bg-green-100 text-green-700 px-1.5 py-0.5 rounded text-[9px]">A — near-term</span></td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="px-2 py-1 font-medium">CHWs / family navigators</td>
+              <td class="px-2 py-1">Secondary user</td>
+              <td class="px-2 py-1">Conversation guide during family support; not clinical handout</td>
+              <td class="px-2 py-1"><span class="bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded text-[9px]">B — possible later</span></td>
+            </tr>
+            <tr class="border-b border-gray-100 bg-gray-50">
+              <td class="px-2 py-1 font-medium">School nurses / counselors</td>
+              <td class="px-2 py-1">Secondary user</td>
+              <td class="px-2 py-1">Supporting families through evaluation process; understanding FASD evaluation logistics</td>
+              <td class="px-2 py-1"><span class="bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded text-[9px]">B — possible later</span></td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="px-2 py-1 font-medium">DSS caseworkers</td>
+              <td class="px-2 py-1">NOT primary user</td>
+              <td class="px-2 py-1">Would require separate boundary review. Tool is not designed for court/DSS requirements.</td>
+              <td class="px-2 py-1"><span class="bg-red-100 text-red-700 px-1.5 py-0.5 rounded text-[9px]">C — boundary review required</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== SECTION 2: BUYER / SPONSOR CATEGORIES ===== -->
+    <div class="card border-l-4 border-l-emerald-500 mb-4">
+      <h2 class="text-sm font-bold text-emerald-800 mb-2">2. Buyer / Sponsor Categories — Who Could Pay, Sponsor, or Authorize</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-[11px] text-gray-700 border-collapse">
+          <thead>
+            <tr class="bg-emerald-50 border-b">
+              <th class="px-2 py-1 text-left font-medium text-emerald-700">Category</th>
+              <th class="px-2 py-1 text-left font-medium text-emerald-700">Purchase model</th>
+              <th class="px-2 py-1 text-left font-medium text-emerald-700">Feasibility</th>
+              <th class="px-2 py-1 text-left font-medium text-emerald-700">Priority</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-100">
+              <td class="px-2 py-1 font-medium">FQHCs (Contentnea-level)</td>
+              <td class="px-2 py-1">Internal budget → family education materials budget; care coordination line item</td>
+              <td class="px-2 py-1">Highest — existing care coordination infrastructure; Richard's clinical relationship</td>
+              <td class="px-2 py-1"><span class="bg-green-100 text-green-700 px-1.5 py-0.5 rounded text-[9px]">A — near-term ecosystem</span></td>
+            </tr>
+            <tr class="border-b border-gray-100 bg-gray-50">
+              <td class="px-2 py-1 font-medium">Proof Alliance / state FASD orgs</td>
+              <td class="px-2 py-1">Grant funding; mission-aligned content co-development; resource distribution</td>
+              <td class="px-2 py-1">High — mission alignment; existing FASD family education ecosystem</td>
+              <td class="px-2 py-1"><span class="bg-green-100 text-green-700 px-1.5 py-0.5 rounded text-[9px]">A — near-term validation</span></td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="px-2 py-1 font-medium">Medicaid MCO care management</td>
+              <td class="px-2 py-1">Member education budget; care management incentive payments; quality measure spend</td>
+              <td class="px-2 py-1">Moderate — no existing relationships; requires market entry strategy</td>
+              <td class="px-2 py-1"><span class="bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded text-[9px]">B — possible later</span></td>
+            </tr>
+            <tr class="border-b border-gray-100 bg-gray-50">
+              <td class="px-2 py-1 font-medium">Foster/kinship caregiver training orgs</td>
+              <td class="px-2 py-1">Training curriculum licensing; grant-funded material purchase</td>
+              <td class="px-2 py-1">Moderate — fragmented market; needs content packaging</td>
+              <td class="px-2 py-1"><span class="bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded text-[9px]">B — possible later</span></td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="px-2 py-1 font-medium">CHW training programs</td>
+              <td class="px-2 py-1">Module licensing; continuing education credits</td>
+              <td class="px-2 py-1">Moderate — emerging field; few FASD-specific modules exist</td>
+              <td class="px-2 py-1"><span class="bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded text-[9px]">B — possible later</span></td>
+            </tr>
+            <tr class="border-b border-gray-100 bg-gray-50">
+              <td class="px-2 py-1 font-medium">Continuing education providers</td>
+              <td class="px-2 py-1">CE course development; provider training license</td>
+              <td class="px-2 py-1">Lower — requires clinical CE accreditation; long sales cycle</td>
+              <td class="px-2 py-1"><span class="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded text-[9px]">C — research only</span></td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="px-2 py-1 font-medium">School districts (SPED)</td>
+              <td class="px-2 py-1">Staff training materials; family resource distribution</td>
+              <td class="px-2 py-1">Lower — indirect purchase; education budget constraints</td>
+              <td class="px-2 py-1"><span class="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded text-[9px]">C — research only</span></td>
+            </tr>
+            <tr class="border-b border-gray-100 bg-gray-50">
+              <td class="px-2 py-1 font-medium">Public health departments (WIC, early childhood)</td>
+              <td class="px-2 py-1">Grant funding; state-level program budget</td>
+              <td class="px-2 py-1">Lower — bureaucratic; long procurement cycles</td>
+              <td class="px-2 py-1"><span class="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded text-[9px]">C — research only</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== SECTION 3: NAMED ECOSYSTEM NODES ===== -->
+    <div class="card border-l-4 border-l-violet-500 mb-4">
+      <h2 class="text-sm font-bold text-violet-800 mb-2">3. Named Ecosystem Nodes — Known / Identifiable Organizations</h2>
+
+      <p class="text-xs font-medium text-green-700 mb-1">🟢 Warm contacts (existing relationship)</p>
+      <table class="w-full text-[11px] text-gray-700 border-collapse mb-3">
+        <thead>
+          <tr class="bg-green-50 border-b">
+            <th class="px-2 py-1 text-left font-medium text-green-700">Organization / Person</th>
+            <th class="px-2 py-1 text-left font-medium text-green-700">Relation to FASD Readiness</th>
+            <th class="px-2 py-1 text-left font-medium text-green-700">Status</th>
+            <th class="px-2 py-1 text-left font-medium text-green-700">Go-to-market relevance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-100">
+            <td class="px-2 py-1 font-medium">Contentnea Health / Dr. Holly Warren</td>
+            <td class="px-2 py-1">FQHC clinical contact; FASD scope boundary already clarified; P.L. 119-44 implementation positioning pending</td>
+            <td class="px-2 py-1">Warm — active relationship, passive wait</td>
+            <td class="px-2 py-1">Primary clinical test site. Contentnea leadership alignment = Stage 3 gate.</td>
+          </tr>
+          <tr class="border-b border-gray-100 bg-gray-50">
+            <td class="px-2 py-1 font-medium">Cindy Ehlers / Trillium Health</td>
+            <td class="px-2 py-1">Medicaid MCO; payer strategy contact</td>
+            <td class="px-2 py-1">Warm — reconnect possible when CHW sandbox is clearer</td>
+            <td class="px-2 py-1">Buyer / sponsor potential. Not ready for product conversation yet.</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="px-2 py-1 font-medium">Bayada Home Health</td>
+            <td class="px-2 py-1">Professional caregiving backbone; caregiving intersection</td>
+            <td class="px-2 py-1">Warm — existing relationship, not FASD-specific</td>
+            <td class="px-2 py-1">Caregiving support ecosystem node. Not a buyer for this product.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="text-xs font-medium text-amber-700 mb-1">🟡 Dormant / prior contacts (not currently active)</p>
+      <table class="w-full text-[11px] text-gray-700 border-collapse mb-3">
+        <thead>
+          <tr class="bg-amber-50 border-b">
+            <th class="px-2 py-1 text-left font-medium text-amber-700">Organization / Person</th>
+            <th class="px-2 py-1 text-left font-medium text-amber-700">Relation to FASD Readiness</th>
+            <th class="px-2 py-1 text-left font-medium text-amber-700">Status</th>
+            <th class="px-2 py-1 text-left font-medium text-amber-700">Go-to-market relevance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-100">
+            <td class="px-2 py-1 font-medium">Easterseals PORT Health</td>
+            <td class="px-2 py-1">Prior positive implementation-system contact; IDD/behavioral health</td>
+            <td class="px-2 py-1">Dormant — no active relationship</td>
+            <td class="px-2 py-1">Cross-diagnostic (IDD/NDD) entry point. Tangential to FASD specifically.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="text-xs font-medium text-gray-600 mb-1">⚪ Cold prospects / research-only (no relationship)</p>
+      <table class="w-full text-[11px] text-gray-700 border-collapse">
+        <thead>
+          <tr class="bg-gray-50 border-b">
+            <th class="px-2 py-1 text-left font-medium text-gray-600">Organization / Category</th>
+            <th class="px-2 py-1 text-left font-medium text-gray-600">Relation to FASD Readiness</th>
+            <th class="px-2 py-1 text-left font-medium text-gray-600">Status</th>
+            <th class="px-2 py-1 text-left font-medium text-gray-600">Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-100">
+            <td class="px-2 py-1 font-medium">Proof Alliance (national FASD org)</td>
+            <td class="px-2 py-1">Mission-aligned; produces family-facing FASD materials; potential co-developer or content distributor</td>
+            <td class="px-2 py-1">Cold — no existing contact</td>
+            <td class="px-2 py-1">A — near-term validation target (research only)</td>
+          </tr>
+          <tr class="border-b border-gray-100 bg-gray-50">
+            <td class="px-2 py-1 font-medium">NC state FASD organizations</td>
+            <td class="px-2 py-1">State-level FASD education/support ecosystem</td>
+            <td class="px-2 py-1">Cold — not yet identified by name</td>
+            <td class="px-2 py-1">B — possible later (once product is Stage 3)</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="px-2 py-1 font-medium">Medicaid MCOs (NC track)</td>
+            <td class="px-2 py-1">Care management / member education buyers</td>
+            <td class="px-2 py-1">Cold — Trillium is only warm MCO contact</td>
+            <td class="px-2 py-1">B — possible later</td>
+          </tr>
+          <tr class="border-b border-gray-100 bg-gray-50">
+            <td class="px-2 py-1 font-medium">Foster parent training orgs (NC)</td>
+            <td class="px-2 py-1">Training material distribution channel</td>
+            <td class="px-2 py-1">Cold — not yet identified by name</td>
+            <td class="px-2 py-1">B — possible later</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="px-2 py-1 font-medium">CHW training programs (NC)</td>
+            <td class="px-2 py-1">Module integration; navigator skill building</td>
+            <td class="px-2 py-1">Cold — not yet identified by name</td>
+            <td class="px-2 py-1">B — possible later</td>
+          </tr>
+          <tr class="border-b border-gray-100 bg-gray-50">
+            <td class="px-2 py-1 font-medium">Academic lineage contacts (Vinod, Vikram, Bob, Truls, Duke, Yale)</td>
+            <td class="px-2 py-1">Calibration / validation / career pathway — NOT product customers</td>
+            <td class="px-2 py-1">Varies — warm academic, cold for product</td>
+            <td class="px-2 py-1">C — research only. Do not approach for product.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ===== SECTION 4: MARKET GAPS ===== -->
+    <div class="card border-l-4 border-l-amber-500 mb-4">
+      <h2 class="text-sm font-bold text-amber-800 mb-2">4. Market Gaps — What Unmet Need Each Customer Group Has</h2>
+      <div class="space-y-1.5 text-[11px]">
+        <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
+          <p class="font-medium text-amber-700">Foster/kinship caregivers</p>
+          <p class="text-amber-600">No structured pre-evaluation readiness tool exists. Current options: piecemeal provider advice, online forums, word-of-mouth. No single resource explains what an FASD evaluation involves, what records to gather, why multiple visits may be needed, or how to prepare for the PCP conversation.</p>
+        </div>
+        <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
+          <p class="font-medium text-amber-700">Biological parents</p>
+          <p class="text-amber-600">Most existing FASD materials assume confirmed prenatal alcohol exposure, creating defensiveness or shame. No "here's what we know and don't know" framing exists. No language-safe guide for parents who may feel blamed.</p>
+        </div>
+        <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
+          <p class="font-medium text-amber-700">Adoptive/guardianship families</p>
+          <p class="text-amber-600">"Unknown exposure" pathway is underserved. Most materials require exposure confirmation. No guide addresses: no prenatal history available, but NDD concerns are present.</p>
+        </div>
+        <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
+          <p class="font-medium text-amber-700">Pediatric PCPs</p>
+          <p class="text-amber-600">PCPs lack a simple framework for initiating the FASD conversation and preparing referrals. AAP toolkit exists but is clinician-facing, not family-facing. No clinic-ready conversation guide for the PCP to hand off or discuss with families.</p>
+        </div>
+        <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
+          <p class="font-medium text-amber-700">CHWs / navigators</p>
+          <p class="text-amber-600">No standard FASD navigator conversation guide exists. CHWs working with complex-NDD families have no structured tool. Most navigate FASD questions ad-hoc.</p>
+        </div>
+        <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
+          <p class="font-medium text-amber-700">System-level gap</p>
+          <p class="text-amber-600">No integrated readiness pathway exists. Families piece together info from CDC, state orgs, provider visits, and online forums. The tools exist in fragmented, non-integrated forms across different organizations and formats.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SECTION 5: PRIORITY RANKING ===== -->
+    <div class="card border-l-4 border-l-violet-500 mb-4">
+      <h2 class="text-sm font-bold text-violet-800 mb-2">5. Priority Ranking</h2>
+      <div class="space-y-2 text-[11px]">
+        <div class="p-2 rounded bg-green-50 border border-green-200">
+          <p class="font-medium text-green-700">A. Near-term ecosystem / validation</p>
+          <ul class="list-disc pl-4 text-green-600 space-y-0.5 mt-0.5">
+            <li><strong>Contentnea Health (Holly Warren)</strong> — primary clinical test site; Stage 3 gate. Richard only, no agent contact.</li>
+            <li><strong>Proof Alliance</strong> — mission-aligned national FASD org. Potential content validation, co-development, or distribution partner. Research only, no outreach.</li>
+            <li><strong>Primary users (all caregiver subgroups)</strong> — MVP content can be validated by existing knowledge (Richard's clinical experience, Holly's input). No formal user research needed at this stage.</li>
+            <li><strong>Pediatric PCPs</strong> — PCP Referral Preparation Guide already built. Can be validated via existing clinical network knowledge.</li>
+          </ul>
+        </div>
+        <div class="p-2 rounded bg-amber-50 border border-amber-200">
+          <p class="font-medium text-amber-700">B. Possible sponsor / buyer later</p>
+          <ul class="list-disc pl-4 text-amber-600 space-y-0.5 mt-0.5">
+            <li><strong>Medicaid MCOs</strong> — Trillium is warm contact; other NC MCOs are cold. Need product at Stage 3 before approach.</li>
+            <li><strong>Foster/kinship caregiver training orgs</strong> — fragmented market. Need content packaging strategy.</li>
+            <li><strong>CHW training programs</strong> — emerging field. Few FASD-specific modules exist. Product at Stage 3 could fill gap.</li>
+            <li><strong>NC state FASD organizations</strong> — to be identified. May have grant funding for family education tools.</li>
+          </ul>
+        </div>
+        <div class="p-2 rounded bg-gray-100 border border-gray-300">
+          <p class="font-medium text-gray-600">C. Research-only / observe</p>
+          <ul class="list-disc pl-4 text-gray-500 space-y-0.5 mt-0.5">
+            <li><strong>CE providers</strong> — long sales cycle; needs clinical CE accreditation</li>
+            <li><strong>School districts (SPED)</strong> — indirect purchase; education budget constraints</li>
+            <li><strong>Public health departments</strong> — bureaucratic; long procurement cycles</li>
+            <li><strong>Academic lineage contacts (Vinod, Vikram, Bob, Truls, Duke, Yale)</strong> — not product customers</li>
+            <li><strong>DSS/adoption/court</strong> — requires separate boundary review before any consideration</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SECTION 6: BOUNDARIES SUMMARY ===== -->
+    <div class="card border-l-4 border-l-red-500 mb-4 bg-red-50">
+      <h2 class="text-sm font-bold text-red-800 mb-1">6. Boundaries — Do Not Do</h2>
+      <ul class="text-[11px] text-red-700 space-y-0.5">
+        <li>• Do not contact any organization or person listed in this document.</li>
+        <li>• Do not scrape private data or research individuals.</li>
+        <li>• Do not create outreach drafts unless Richard explicitly asks.</li>
+        <li>• Do not imply any organization has validated or endorsed this product.</li>
+        <li>• Do not treat DSS/adoption/court systems as primary customer without separate Clara + Richard boundary review.</li>
+        <li>• Do not modify neighborbridgehealth.com.</li>
+        <li>• Do not price, pitch, or create public-facing product language.</li>
+        <li>• Do not use academic lineage contacts (Vinod, Vikram, Bob, Truls, Duke, Yale) as product references.</li>
+      </ul>
+    </div>
+
+  </div> <!-- end wrapper -->
+
+  <!-- Footer -->
+  <div class="text-center text-[11px] text-gray-400 pt-2 pb-3 border-t border-gray-200 mt-4">
+    <p>Nora Customer Discovery List — FASD Diagnostic Readiness / Family Education Module</p>
+    <p class="mt-0.5">NeighborBridge Dashboard — 2026-05-22 — Non-PHI — Internal only — No outreach</p>
+  </div>
+
+</body>
+</html>
