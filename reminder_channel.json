@@ -7,8 +7,16 @@
     "clara_red_flag_scan",
     "oil_xle_watch",
     "gold_silver_bottom_fish_watch",
-    "structural_ma_watcher"
+    "structural_ma_watcher",
+    "early_morning_market_snapshot_0515"
   ],
-  "trial_start": "2026-05-21",
-  "trial_period_days": 7
+  "prefix_rules": {
+    "0615_early_snapshot": "🔔 早醒市场快照",
+    "0800_morning_brief": "🔔 Morning Brief",
+    "intraday_alert": "🔔 Market Alert",
+    "closing_structure": "🔔 Structural Watch"
+  },
+  "trial_start": "2026-05-22",
+  "trial_period_days": 7,
+  "notes": "05:15 ET early snapshot added 2026-05-22 as 7-day trial. Prefix rules documented for future use."
 }
