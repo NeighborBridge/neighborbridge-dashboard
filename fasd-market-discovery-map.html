@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FASD Diagnostic Readiness — Internal Market Discovery Map</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { brand: "#0ea5e9", urgent: "#ef4444", warning: "#f59e0b", neutral: "#6b7280", completed: "#10b981" }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .card { @apply bg-white rounded-xl p-4 border shadow-sm mb-3; }
+    .stat-pill { @apply inline-block px-2 py-0.5 rounded-full text-[9px] font-medium; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Nav -->
+  <header class="bg-white shadow-sm border-b no-print">
+    <div class="max-w-4xl mx-auto px-3 py-2 flex justify-between items-center">
+      <h1 class="text-sm font-bold">NeighborBridge</h1>
+      <div class="flex flex-wrap gap-x-3 gap-y-0.5 text-[10px]">
+        <a href="/" class="text-gray-500 hover:text-brand">主面板</a>
+        <a href="/fasd-readiness-handout" class="text-gray-500 hover:text-brand">FASD Readiness</a>
+        <a href="/agent-ops" class="text-gray-500 hover:text-brand">Agent Ops</a>
+        <a href="/dashboard-directory" class="text-gray-500 hover:text-brand">全部面板</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-4xl mx-auto p-4">
+
+    <!-- Status Banner -->
+    <div class="no-print bg-violet-100 border-2 border-violet-400 rounded-lg p-2 mb-4 text-center">
+      <span class="font-bold text-violet-800 text-sm">🧪 INTERNAL MARKET DISCOVERY MAP — NOT PUBLIC</span>
+      <p class="text-violet-700 text-xs mt-0.5">Nora Product R&amp;D + Market Discovery Mode. Prepared 2026-05-22. Not shared externally. No pricing, no outreach, no endorsement implied.</p>
+    </div>
+
+    <!-- Title -->
+    <div class="card border-l-4 border-l-violet-500 mb-4">
+      <h1 class="text-xl font-bold text-gray-800">FASD Diagnostic Readiness / Family Education Module</h1>
+      <p class="text-sm text-gray-500 mt-0.5">Internal Market Discovery Map</p>
+      <div class="flex flex-wrap gap-1.5 mt-2">
+        <span class="stat-pill bg-violet-50 text-violet-700 border border-violet-200">Nora Market Discovery</span>
+        <span class="stat-pill bg-amber-50 text-amber-700 border border-amber-200">Stage 2 — Internal Prototype</span>
+        <span class="stat-pill bg-gray-50 text-gray-600 border border-gray-200">Non-PHI</span>
+      </div>
+    </div>
+
+    <!-- ===== USER GROUPS ===== -->
+    <div class="card border-l-4 border-l-blue-500 mb-4">
+      <h2 class="text-sm font-bold text-blue-800 mb-2">1. User Groups</h2>
+
+      <p class="text-xs font-medium text-gray-700 mb-1">Primary users (caregivers of children with suspected prenatal alcohol exposure or complex neurodevelopmental concerns):</p>
+      <table class="w-full text-[11px] text-gray-700 border-collapse mb-2">
+        <thead>
+          <tr class="bg-blue-50 border-b">
+            <th class="px-2 py-1 text-left font-medium text-blue-700">Subgroup</th>
+            <th class="px-2 py-1 text-left font-medium text-blue-700">Pain point</th>
+            <th class="px-2 py-1 text-left font-medium text-blue-700">Current solution</th>
+            <th class="px-2 py-1 text-left font-medium text-blue-700">Gap</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-100">
+            <td class="px-2 py-1 font-medium">Foster / kinship caregivers</td>
+            <td class="px-2 py-1">Child has complex behavioral/learning needs; DSS or school suggests evaluation; caregiver doesn't know what to expect or how to prepare</td>
+            <td class="px-2 py-1">Piecemeal info from providers, online searches, word-of-mouth</td>
+            <td class="px-2 py-1 text-amber-700">No structured, caregiver-facing pre-evaluation guide</td>
+          </tr>
+          <tr class="border-b border-gray-100 bg-gray-50">
+            <td class="px-2 py-1 font-medium">Biological parents</td>
+            <td class="px-2 py-1">Child exhibits NDD symptoms; prenatal exposure may or may not be confirmed; parent unsure how to initiate evaluation</td>
+            <td class="px-2 py-1">PCP referral (if PCP knows); self-directed research</td>
+            <td class="px-2 py-1 text-amber-700">No language-safe guide for parents who may feel blamed or defensive about prenatal exposure</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="px-2 py-1 font-medium">Adoptive / guardianship families</td>
+            <td class="px-2 py-1">Limited or no prenatal history; behavioral challenges emerging; school suggesting evaluation</td>
+            <td class="px-2 py-1">School team referral; developmental pediatrician</td>
+            <td class="px-2 py-1 text-amber-700">No "unknown exposure" framing — most materials assume confirmed exposure</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="text-xs font-medium text-gray-700 mb-1">Secondary users (professionals who support primary users):</p>
+      <table class="w-full text-[11px] text-gray-700 border-collapse">
+        <thead>
+          <tr class="bg-green-50 border-b">
+            <th class="px-2 py-1 text-left font-medium text-green-700">Role</th>
+            <th class="px-2 py-1 text-left font-medium text-green-700">Need</th>
+            <th class="px-2 py-1 text-left font-medium text-green-700">Current alternative</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-100">
+            <td class="px-2 py-1 font-medium">Pediatric PCPs</td>
+            <td class="px-2 py-1">Brief guidance on what to tell families, what records to request, when to refer</td>
+            <td class="px-2 py-1">AAP guidelines (clinical, not family-facing); wait-and-see approach</td>
+          </tr>
+          <tr class="border-b border-gray-100 bg-gray-50">
+            <td class="px-2 py-1 font-medium">CHWs / family navigators</td>
+            <td class="px-2 py-1">Conversation guide they can discuss with families (not a handout to distribute)</td>
+            <td class="px-2 py-1">No standard FASD navigator tool exists in most settings</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="px-2 py-1 font-medium">School nurses / counselors</td>
+            <td class="px-2 py-1">Understanding of what an FASD evaluation entails; how to support family through process</td>
+            <td class="px-2 py-1">School-based team knowledge; varies widely</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ===== BUYER / SPONSOR TYPES ===== -->
+    <div class="card border-l-4 border-l-emerald-500 mb-4">
+      <h2 class="text-sm font-bold text-emerald-800 mb-2">2. Buyer / Sponsor Types</h2>
+      <p class="text-[10px] text-gray-500 mb-1.5">Potential sponsor categories, ranked by feasibility. No prices. No outreach.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px]">
+        <div class="p-2 rounded bg-emerald-50 border border-emerald-200">
+          <p class="font-medium text-emerald-700 mb-0.5">🟢 High potential / natural fit</p>
+          <ul class="list-disc pl-4 text-emerald-600 space-y-0.5">
+            <li><strong>FQHCs</strong> (Contentnea-level) — need family education for complex referrals; existing care coordination infrastructure</li>
+            <li><strong>Proof Alliance / state FASD orgs</strong> — existing mission alignment; may fund/co-develop family-facing tools</li>
+            <li><strong>Medicaid MCO care management</strong> — need member-facing education for complex neurodevelopmental conditions</li>
+          </ul>
+        </div>
+        <div class="p-2 rounded bg-amber-50 border border-amber-200">
+          <p class="font-medium text-amber-700 mb-0.5">🟡 Medium potential / indirect</p>
+          <ul class="list-disc pl-4 text-amber-600 space-y-0.5">
+            <li><strong>Foster / kinship caregiver training orgs</strong> — need training materials; may license content</li>
+            <li><strong>CHW training programs</strong> — need FASD-specific module content</li>
+            <li><strong>Continuing education providers</strong> — need FASD diagnostic readiness content for healthcare CE</li>
+          </ul>
+        </div>
+        <div class="p-2 rounded bg-red-50 border border-red-200">
+          <p class="font-medium text-red-700 mb-0.5">🔴 Low / high boundary</p>
+          <ul class="list-disc pl-4 text-red-600 space-y-0.5">
+            <li><strong>DSS / county social services</strong> — would require separate boundary review; may perceive tool as court/removal pathway</li>
+            <li><strong>Private insurance</strong> — would require medical-necessity coding; premature</li>
+            <li><strong>Adoption agencies</strong> — would create adoption-FASD conflation risk</li>
+          </ul>
+        </div>
+        <div class="p-2 rounded bg-gray-100 border border-gray-300">
+          <p class="font-medium text-gray-600 mb-0.5">⚪ Ecosystem / indirect value</p>
+          <ul class="list-disc pl-4 text-gray-500 space-y-0.5">
+            <li>School districts (SPED funding)</li>
+            <li>IDD / ASD service providers (cross-diagnostic families)</li>
+            <li>Public health departments (WIC, early childhood)</li>
+            <li>Pediatric hospital systems</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STAKEHOLDER ECOSYSTEM ===== -->
+    <div class="card border-l-4 border-l-violet-500 mb-4">
+      <h2 class="text-sm font-bold text-violet-800 mb-2">3. Stakeholder Ecosystem</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-1.5 text-[10px]">
+        <div class="p-1.5 rounded bg-blue-50 border border-blue-200">
+          <p class="font-medium text-blue-700 mb-0.5">Clinical / Diagnostic</p>
+          <ul class="list-disc pl-3 text-blue-600 space-y-0.5">
+            <li>Developmental pediatricians</li>
+            <li>Pediatric neurology</li>
+            <li>Child psychiatry</li>
+            <li>Neuropsychology</li>
+            <li>FASD diagnostic clinics</li>
+          </ul>
+        </div>
+        <div class="p-1.5 rounded bg-green-50 border border-green-200">
+          <p class="font-medium text-green-700 mb-0.5">Primary Care</p>
+          <ul class="list-disc pl-3 text-green-600 space-y-0.5">
+            <li>FQHCs</li>
+            <li>Pediatric private practice</li>
+            <li>School-based health centers</li>
+            <li>Nurse practitioners</li>
+            <li>Physician assistants</li>
+          </ul>
+        </div>
+        <div class="p-1.5 rounded bg-amber-50 border border-amber-200">
+          <p class="font-medium text-amber-700 mb-0.5">Community / Navigation</p>
+          <ul class="list-disc pl-3 text-amber-600 space-y-0.5">
+            <li>CHW programs</li>
+            <li>Family navigators</li>
+            <li>Care management entities</li>
+            <li>Foster parent training orgs</li>
+            <li>Kinship caregiver support</li>
+          </ul>
+        </div>
+        <div class="p-1.5 rounded bg-red-50 border border-red-200">
+          <p class="font-medium text-red-700 mb-0.5">High-Boundary</p>
+          <ul class="list-disc pl-3 text-red-600 space-y-0.5">
+            <li>DSS / child welfare</li>
+            <li>Adoption agencies</li>
+            <li>Court / GAL</li>
+            <li>Juvenile justice</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== EXISTING ALTERNATIVES ===== -->
+    <div class="card mb-4">
+      <h2 class="text-sm font-bold text-gray-800 mb-2">4. Existing Alternatives</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-1.5 text-[11px]">
+        <div class="p-2 rounded bg-white border border-gray-200">
+          <p class="font-medium text-gray-700 mb-1">Direct competitors / substitutes</p>
+          <ul class="list-disc pl-4 text-gray-600 space-y-0.5">
+            <li><strong>Proof Alliance / state FASD organizations</strong> — produce family-facing FASD materials; primarily awareness-level, not pre-evaluation readiness</li>
+            <li><strong>CDC FASD materials</strong> — clinical guidelines, provider-focused; limited caregiver-facing readiness content</li>
+            <li><strong>CanFASD</strong> — comprehensive but academic; not localized for US care systems</li>
+            <li><strong>AAP FASD toolkit</strong> — provider toolkit; not directly distributed to families</li>
+            <li><strong>NOFAS</strong> — support-network oriented; not diagnostic-readiness focused</li>
+          </ul>
+        </div>
+        <div class="p-2 rounded bg-white border border-gray-200">
+          <p class="font-medium text-gray-700 mb-1">Indirect alternatives</p>
+          <ul class="list-disc pl-4 text-gray-600 space-y-0.5">
+            <li><strong>Developmental pediatrician visit</strong> — families go directly, but often unprepared; no pre-visit guidance</li>
+            <li><strong>School-based evaluation (IEP)</strong> — educational, not medical; doesn't lead to FASD diagnosis</li>
+            <li><strong>Online caregiver forums</strong> — variable quality, no clinical framing, no boundary language</li>
+            <li><strong>ASD-focused resources</strong> — families with undiagnosed FASD may follow ASD pathway; often mismatched</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== UNMET NEEDS ===== -->
+    <div class="card border-l-4 border-l-amber-500 mb-4">
+      <h2 class="text-sm font-bold text-amber-800 mb-2">5. Unmet Needs</h2>
+      <ol class="list-decimal pl-4 text-[11px] text-gray-700 space-y-1">
+        <li><strong>No pre-evaluation readiness tool exists</strong> that systematically walks families through what an FASD evaluation requires, what records to gather, and what questions to ask.</li>
+        <li><strong>No language-safe framing for biological parents</strong> — existing FASD materials either assume confirmed exposure (which may trigger defensiveness) or avoid the topic entirely.</li>
+        <li><strong>No PCP-facing referral prep guide</strong> — PCPs lack a simple framework for initiating the conversation with families and preparing referrals.</li>
+        <li><strong>No CHW/FASD navigator conversation guide</strong> — CHWs working with complex-Neurodevelopmental families have no structured FASD-specific conversation tool.</li>
+        <li><strong>No "unknown exposure" pathway</strong> — adoptive parents, guardians, and foster families with no prenatal history are underserved by existing FASD materials.</li>
+        <li><strong>Fragmented ecosystem</strong> — families must piece together info from CDC, state orgs, provider visits, and online forums. No integrated readiness pathway exists.</li>
+      </ol>
+    </div>
+
+    <!-- ===== SAFE VS UNSAFE ENTRY POINTS ===== -->
+    <div class="card mb-4">
+      <h2 class="text-sm font-bold text-gray-800 mb-2">6. Safe vs Unsafe Entry Points</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px]">
+        <div class="p-2 rounded bg-green-50 border border-green-200">
+          <p class="font-medium text-green-700 mb-1">✅ Safe entry points (low boundary risk)</p>
+          <ul class="list-disc pl-4 text-green-600 space-y-0.5">
+            <li>Pediatric PCP offices (family education materials in waiting room/patient portal)</li>
+            <li>FQHC care coordination teams (navigator distributes guide during complex-care planning)</li>
+            <li>Foster parent training programs (pre-service education module)</li>
+            <li>CHW training curricula (FASD awareness module for navigators)</li>
+            <li>Proof Alliance-type nonprofits (resource distribution, not partnership)</li>
+            <li>School nurse offices (family-facing info about evaluation process)</li>
+          </ul>
+        </div>
+        <div class="p-2 rounded bg-red-50 border border-red-200">
+          <p class="font-medium text-red-700 mb-1">❌ Unsafe entry points (require Clara review)</p>
+          <ul class="list-disc pl-4 text-red-600 space-y-0.5">
+            <li>DSS-mandated parenting education</li>
+            <li>Court-ordered evaluation preparation</li>
+            <li>Adoption agency "required reading"</li>
+            <li>Payer/insurance prior-authorization materials</li>
+            <li>Contentnea-published resource (implies endorsement)</li>
+            <li>Any context where material implies referral pathway</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TOP 3 PRODUCT HYPOTHESES ===== -->
+    <div class="card border-l-4 border-l-violet-500 mb-4">
+      <h2 class="text-sm font-bold text-violet-800 mb-2">7. Top 3 Product Hypotheses</h2>
+      <div class="space-y-1.5 text-[11px]">
+        <div class="p-2 rounded bg-violet-50 border border-violet-200">
+          <p class="font-medium text-violet-700">Hypothesis 1: FQHC Readiness</p>
+          <p class="text-violet-600">FQHCs with complex-pediatric populations need a caregiver-facing diagnostic readiness guide. If Contentnea leadership finds this useful for their patient population, NeighborBridge has a real-use test site and co-development partner. Risk: over-reliance on one site; implying Contentnea endorsement.</p>
+        </div>
+        <div class="p-2 rounded bg-violet-50 border border-violet-200">
+          <p class="font-medium text-violet-700">Hypothesis 2: Foster Caregiver Training Channel</p>
+          <p class="text-violet-600">Foster parent training organizations lack FASD-specific pre-evaluation materials. If integrated into training curricula, this could reach many caregivers without requiring clinical-system entry. Risk: conflation with DSS/court system if not carefully framed.</p>
+        </div>
+        <div class="p-2 rounded bg-violet-50 border border-violet-200">
+          <p class="font-medium text-violet-700">Hypothesis 3: CHW Navigation Tool</p>
+          <p class="text-violet-600">CHWs and family navigators serving complex-Neurodevelopmental families have no standard FASD education tool. A conversation-guide version could be distributed through CHW training programs and care management entities. Risk: unclear buyer; CHW programs are fragmented.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== NEXT SMALLEST R&D MOVE ===== -->
+    <div class="card border-l-4 border-l-indigo-500 mb-4 bg-indigo-50">
+      <h2 class="text-sm font-bold text-indigo-800 mb-1">8. Next Smallest Internal R&amp;D Move</h2>
+      <p class="text-[11px] text-indigo-700"><strong>Build the PCP Referral Preparation Guide</strong> — an internal-only Stage 2 component.</p>
+      <p class="text-[11px] text-indigo-600 mt-1">Separate page covering: what to discuss with your child's doctor, what questions to ask, what records to bring, how to frame the conversation about suspected prenatal exposure or complex neurodevelopmental concerns, what evaluation can and cannot answer, and what follow-up planning may involve.</p>
+      <p class="text-[11px] text-gray-500 mt-1">Next after that: printable-optimized family education handout. Both remain Stage 2 (Internal Prototype) until Contentnea leadership alignment enables Stage 3 (External-Safe Draft).</p>
+      <p class="text-[11px] text-gray-500">Do not: turn into PDF, share externally, create website page, contact Contentnea, contact Proof Alliance, merge with adoption planning, or create pricing.</p>
+    </div>
+
+    <!-- Do Not Do -->
+    <div class="card border-l-4 border-l-red-500 mb-4 bg-red-50">
+      <h2 class="text-sm font-bold text-red-800 mb-1">⚠️ Do Not Do (All Contexts)</h2>
+      <ul class="text-[11px] text-red-700 space-y-0.5">
+        <li>• Do not initiate outreach to any organization listed in this document.</li>
+        <li>• Do not modify neighborbridgehealth.com.</li>
+        <li>• Do not imply Contentnea, Proof Alliance, or any organization has endorsed this product.</li>
+        <li>• Do not price, pitch, or create public-facing language.</li>
+        <li>• Do not treat DSS/adoption/court systems as primary customer without separate boundary review.</li>
+        <li>• Do not turn mother's caregiving situation into product case study.</li>
+        <li>• Do not use Hannah/church network as public product example.</li>
+        <li>• Do not claim clinical validity that has not been independently reviewed.</li>
+      </ul>
+    </div>
+
+  </div> <!-- end wrapper -->
+
+  <!-- Footer -->
+  <div class="text-center text-[11px] text-gray-400 pt-2 pb-3 border-t border-gray-200 mt-4">
+    <p>FASD Diagnostic Readiness — Internal Market Discovery Map | Nora Product R&amp;D + Market Discovery Mode</p>
+    <p class="mt-0.5">NeighborBridge Dashboard — 2026-05-22 — Non-PHI — Internal only</p>
+    <p class="mt-0.5 no-print text-gray-300">
+      <a href="fasd-readiness-handout.html" class="underline hover:text-gray-500">FASD Readiness Handout</a> —
+      <a href="agent-ops.html" class="underline hover:text-gray-500">Agent Ops</a> —
+      <a href="dashboard-directory.html" class="underline hover:text-gray-500">全部面板</a>
+    </p>
+  </div>
+
+</body>
+</html>
