@@ -97,6 +97,7 @@
         <div class="p-1.5 rounded bg-gray-50 border border-gray-200">
           <p class="font-medium text-gray-700">📡 Output Channel 1 — Reminder Channel</p>
           <p class="text-gray-600">Approved reminders only: manuscript rhythm, stakeholder cooling, Clara scan, market reminders, <strong>🔔 Morning Operations Brief</strong> (06:00 ET, reminder channel). Start with 🔔 Reminder. Keep concise. No long reports. No debug/errors.</p>
+          <p class="text-gray-600 mt-1"><strong>Reminder channel routing rule:</strong> Only final user-facing messages. No watcher runtime reports, no debug logs, no success confirmations, no "no action needed" messages. Debug/status → internal logs or main Agent chat only. All watcher scripts handle their own Telegram delivery; cron mode is <code>none</code> to suppress system-generated traffic.</p>
         </div>
         <div class="p-1.5 rounded bg-gray-50 border border-gray-200">
           <p class="font-medium text-gray-700">💬 Output Channel 2 — Main Agent Chat</p>
@@ -224,7 +225,7 @@
         <!-- Approved 6 -->
         <div class="p-1.5 rounded bg-white border border-cyan-200">
           <p class="font-medium text-cyan-700">✅ 6. Structural MA Proximity Watcher</p>
-          <p class="text-gray-600">Monitors 11 TradingView structural-watchlist symbols: Corn, Wheat, Soybeans, Platinum, Gold, Silver, Copper, Cotton, Sugar, Lumber, XLE. Alerts when price within ±3% of 20WMA or ±5% of 50WMA. Distinguishes observation zone from confirmation zone. Mon-Fri 16:00 ET. Routes to reminder channel.</p>
+          <p class="text-gray-600">Monitors 11 TradingView structural-watchlist symbols: Corn, Wheat, Soybeans, Platinum, Gold, Silver, Copper, Cotton, Sugar, Lumber, XLE. Alerts when price within ±3% of 20WMA or ±5% of 50WMA. Distinguishes observation zone from confirmation zone. Mon-Fri 15:55 ET. Routes to reminder channel. No debug/status messages in reminder channel — script handles final user-facing alert only.</p>
         </div>
       </div>
 
