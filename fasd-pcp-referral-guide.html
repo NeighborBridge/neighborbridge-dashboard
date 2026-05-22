@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PCP Referral Preparation Guide — Internal Draft</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { brand: "#0ea5e9", urgent: "#ef4444", warning: "#f59e0b", neutral: "#6b7280", completed: "#10b981" }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .card { @apply bg-white rounded-xl p-4 border shadow-sm mb-3; }
+    .stat-pill { @apply inline-block px-2 py-0.5 rounded-full text-[9px] font-medium; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Nav -->
+  <header class="bg-white shadow-sm border-b no-print">
+    <div class="max-w-3xl mx-auto px-3 py-2 flex justify-between items-center">
+      <h1 class="text-sm font-bold">NeighborBridge</h1>
+      <div class="flex flex-wrap gap-x-3 gap-y-0.5 text-[10px]">
+        <a href="/" class="text-gray-500 hover:text-brand">主面板</a>
+        <a href="/fasd-readiness-handout" class="text-gray-500 hover:text-brand">FASD Readiness</a>
+        <a href="/agent-ops" class="text-gray-500 hover:text-brand">Agent Ops</a>
+        <a href="/dashboard-directory" class="text-gray-500 hover:text-brand">全部面板</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-3xl mx-auto p-4">
+
+    <!-- Status Banner -->
+    <div class="no-print bg-amber-100 border-2 border-amber-400 rounded-lg p-2 mb-4 text-center">
+      <span class="font-bold text-amber-800 text-sm">INTERNAL DRAFT ONLY — Stage 2 (Internal Prototype)</span>
+      <p class="text-amber-700 text-xs mt-0.5">PCP Referral Preparation Guide. Not public-facing. Not a referral pathway. Not shared externally without Richard's explicit approval.</p>
+    </div>
+
+    <!-- Title -->
+    <div class="card border-l-4 border-l-blue-500 mb-4">
+      <h1 class="text-xl font-bold text-gray-800">PCP Referral Preparation Guide</h1>
+      <p class="text-sm text-gray-500 mt-0.5">Talking with Your Child&rsquo;s Doctor About a Possible FASD Evaluation</p>
+      <div class="flex flex-wrap gap-1.5 mt-2">
+        <span class="stat-pill bg-amber-50 text-amber-700 border border-amber-200">Internal draft</span>
+        <span class="stat-pill bg-blue-50 text-blue-700 border border-blue-200">PCP-facing</span>
+        <span class="stat-pill bg-purple-50 text-purple-700 border border-purple-200">Referral preparation</span>
+        <span class="stat-pill bg-gray-50 text-gray-600 border border-gray-200">Non-PHI</span>
+      </div>
+      <p class="text-[9px] text-gray-400 mt-1.5">This guide complements the FASD Diagnostic Readiness Family Education Module. It is meant to help caregivers prepare for a conversation with their child&rsquo;s pediatrician or primary care provider. It does not diagnose FASD, guarantee access to evaluation, or replace clinical judgment.</p>
+    </div>
+
+    <!-- Section 1: When to Have This Conversation -->
+    <div class="card border-l-4 border-l-blue-500 mb-3">
+      <h2 class="text-sm font-bold text-blue-800 mb-1">1. When to Have This Conversation</h2>
+      <p class="text-sm text-gray-700 mb-1.5">Consider raising the possibility of an FASD evaluation with your child&rsquo;s doctor if your child:</p>
+      <ul class="space-y-1 text-sm text-gray-700">
+        <li class="flex items-start gap-2">
+          <span class="text-blue-400 mt-0.5">•</span>
+          <span>Has ongoing learning or attention difficulties that are not fully explained by a known diagnosis</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-blue-400 mt-0.5">•</span>
+          <span>Shows behavioral patterns that are difficult to manage despite supports at home or school</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-blue-400 mt-0.5">•</span>
+          <span>Has delays in adaptive skills (daily living, social judgment, safety awareness) that seem inconsistent with their overall abilities</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-blue-400 mt-0.5">•</span>
+          <span>Has a history of prenatal alcohol exposure that has not yet been fully evaluated</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-blue-400 mt-0.5">•</span>
+          <span>Has no confirmed prenatal history but shows a pattern of neurodevelopmental concerns that have not responded to standard interventions</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Section 2: What to Ask Your Doctor -->
+    <div class="card mb-3">
+      <h2 class="text-sm font-bold text-gray-800 mb-1.5">2. Questions to Ask Your Child&rsquo;s Doctor</h2>
+      <div class="space-y-1.5 text-sm text-gray-700">
+        <p class="font-medium text-gray-600 text-xs">You can start the conversation by saying something like:</p>
+        <div class="bg-gray-50 border border-gray-200 rounded p-2 text-sm italic text-gray-600">
+          &ldquo;I&rsquo;ve been wondering whether some of my child&rsquo;s challenges might be related to prenatal alcohol exposure, even if we don&rsquo;t know for sure. Can you help me understand what would be involved in finding out?&rdquo;
+        </div>
+        <ul class="space-y-1 mt-1.5">
+          <li class="flex items-start gap-2">
+            <span class="text-gray-400 mt-0.5">1.</span>
+            <span>What would an FASD evaluation involve for my child?</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-gray-400 mt-0.5">2.</span>
+            <span>Is there a specialist or clinic in our area that does FASD evaluations?</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-gray-400 mt-0.5">3.</span>
+            <span>What records or testing would be helpful to gather beforehand?</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-gray-400 mt-0.5">4.</span>
+            <span>Would a referral to a developmental pediatrician or neuropsychologist be appropriate?</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-gray-400 mt-0.5">5.</span>
+            <span>How long does the evaluation process typically take?</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-gray-400 mt-0.5">6.</span>
+            <span>What can an FASD evaluation tell us, and what can it not tell us?</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-gray-400 mt-0.5">7.</span>
+            <span>How can we use the results to support my child at home and at school?</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Section 3: What Records to Bring -->
+    <div class="card border-l-4 border-l-amber-500 mb-3">
+      <h2 class="text-sm font-bold text-amber-800 mb-1">3. What Records to Bring to the Appointment</h2>
+      <p class="text-xs text-gray-500 mb-1.5">Having these available can help your doctor make a more informed referral:</p>
+      <ul class="space-y-1 text-sm text-gray-700">
+        <li class="flex items-start gap-2">
+          <span class="text-amber-400 mt-0.5">□</span>
+          <span>School evaluations, IEP, or 504 plan (if applicable)</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-amber-400 mt-0.5">□</span>
+          <span>Prior psychological or neuropsychological testing</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-amber-400 mt-0.5">□</span>
+          <span>Therapy records (behavioral, speech, occupational, physical)</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-amber-400 mt-0.5">□</span>
+          <span>Medical and developmental history (growth, milestones, hospitalizations)</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-amber-400 mt-0.5">□</span>
+          <span>Caregiver observations: learning, behavior, attention, adaptive skills, daily functioning</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-amber-400 mt-0.5">□</span>
+          <span>Any available information about prenatal alcohol exposure, if known</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Section 4: How to Frame the Conversation -->
+    <div class="card border-l-4 border-l-green-500 mb-3">
+      <h2 class="text-sm font-bold text-green-800 mb-1">4. Framing the Conversation</h2>
+      <p class="text-sm text-gray-700 mb-1.5">How you frame the conversation can shape how your child&rsquo;s doctor responds. Some approaches that may help:</p>
+      <ul class="space-y-1 text-sm text-gray-700">
+        <li class="flex items-start gap-2">
+          <span class="text-green-500 mt-0.5">✓</span>
+          <span><strong>Focus on specific concerns:</strong> &ldquo;My child is struggling with X, Y, and Z, and I&rsquo;m trying to understand why.&rdquo;</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-green-500 mt-0.5">✓</span>
+          <span><strong>Be open about what you don&rsquo;t know:</strong> &ldquo;We don&rsquo;t have confirmed information about prenatal exposure, but we&rsquo;re trying to understand what might be going on.&rdquo;</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-green-500 mt-0.5">✓</span>
+          <span><strong>Ask about next steps, not a diagnosis:</strong> &ldquo;What would help us find out whether an evaluation would be useful?&rdquo;</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-green-500 mt-0.5">✓</span>
+          <span><strong>Bring your observations:</strong> &ldquo;Here&rsquo;s what we&rsquo;re seeing at home and at school.&rdquo; Written notes can be very helpful.</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Section 5: What the Evaluation Can and Cannot Answer -->
+    <div class="card border-l-4 border-l-gray-500 mb-3 bg-gray-50">
+      <h2 class="text-sm font-bold text-gray-700 mb-1">5. What an FASD Evaluation Can and Cannot Answer</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+        <div class="p-2 rounded bg-green-50 border border-green-200">
+          <p class="font-medium text-green-700 text-xs mb-0.5">Can provide:</p>
+          <ul class="space-y-0.5 text-green-600">
+            <li>• Neurodevelopmental profile (strengths and challenges)</li>
+            <li>• Diagnostic clarification when criteria are met</li>
+            <li>• Recommendations for support at home, school, and in the community</li>
+            <li>• A framework for understanding your child&rsquo;s behavior</li>
+          </ul>
+        </div>
+        <div class="p-2 rounded bg-red-50 border border-red-200">
+          <p class="font-medium text-red-700 text-xs mb-0.5">Cannot provide:</p>
+          <ul class="space-y-0.5 text-red-600">
+            <li>• A guarantee of diagnosis</li>
+            <li>• Immediate access to services or funding</li>
+            <li>• A court-ready or DSS-ready report</li>
+            <li>• A quick fix or simple explanation for complex behaviors</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 6: After the Referral -->
+    <div class="card border-l-4 border-l-indigo-500 mb-3">
+      <h2 class="text-sm font-bold text-indigo-800 mb-1">6. After the Referral — What to Expect</h2>
+      <ul class="space-y-1.5 text-sm text-gray-700">
+        <li class="flex items-start gap-2">
+          <span class="text-indigo-400 mt-0.5">1.</span>
+          <span><strong>Wait time varies.</strong> FASD specialty clinics may have waiting lists of several months.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-indigo-400 mt-0.5">2.</span>
+          <span><strong>Multiple visits may be needed.</strong> Evaluation often requires gathering information from multiple sources before a diagnostic conclusion can be reached.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-indigo-400 mt-0.5">3.</span>
+          <span><strong>Keep gathering records.</strong> The more information available when the evaluation happens, the more complete it can be.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-indigo-400 mt-0.5">4.</span>
+          <span><strong>Ask about support in the meantime.</strong> Your doctor may be able to recommend interim strategies, school supports, or community resources while you wait.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-indigo-400 mt-0.5">5.</span>
+          <span><strong>Not an emergency service.</strong> FASD evaluation is a diagnostic process, not a crisis intervention. If your child is in crisis, seek immediate support through your doctor or local crisis services.</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Section 7: Important Boundaries -->
+    <div class="card border-l-4 border-l-red-500 mb-3 bg-white">
+      <h2 class="text-sm font-bold text-red-800 mb-1">7. Important Boundaries</h2>
+      <ul class="space-y-1 text-sm text-red-700">
+        <li class="flex items-start gap-2">
+          <span class="text-red-400 mt-0.5">⛔</span>
+          <span>This guide is educational. It does not diagnose FASD, guarantee access to evaluation, or promise a specific outcome.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-red-400 mt-0.5">⛔</span>
+          <span>FASD evaluation should occur through appropriate clinical intake. This is not an emergency service or open referral channel.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-red-400 mt-0.5">⛔</span>
+          <span>Any clinical evaluation should be conducted by qualified professionals. This guide does not replace clinical judgment.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-red-400 mt-0.5">⛔</span>
+          <span>This material is not court-ready, DSS-ready, or adoption-agency-ready. It is designed for family education and PCP referral preparation only.</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Product status -->
+    <div class="card border border-dashed border-violet-300 mb-3 bg-violet-50">
+      <h2 class="text-xs font-bold text-violet-700 mb-1">Product Status (Internal — Nora Active)</h2>
+      <p class="text-xs text-violet-600">Stage 2 — Internal Prototype. Part of FASD Diagnostic Readiness / Family Education Module MVP.</p>
+      <p class="text-xs text-violet-500 mt-0.5">Complements: <a href="fasd-readiness-handout.html" class="underline hover:text-violet-700">FASD Diagnostic Readiness Family Education Handout</a></p>
+      <p class="text-xs text-violet-500 mt-0.5">Next: printable-optimized handout · then Contentnea leadership alignment for Stage 3 consideration</p>
+      <p class="text-xs text-violet-400 mt-0.5">No external sharing without Richard approval. No pricing. No public website.</p>
+    </div>
+
+  </div> <!-- end wrapper -->
+
+  <!-- Footer -->
+  <div class="text-center text-[11px] text-gray-400 pt-2 pb-3 border-t border-gray-200 mt-4">
+    <p>PCP Referral Preparation Guide — FASD Diagnostic Readiness Family Education Module</p>
+    <p class="mt-0.5">NeighborBridge Dashboard — 2026-05-22 — Non-PHI — Internal only</p>
+    <p class="mt-0.5 no-print text-gray-300">
+      <a href="fasd-readiness-handout.html" class="underline hover:text-gray-500">FASD Readiness Handout</a> —
+      <a href="fasd-market-discovery-map.html" class="underline hover:text-gray-500">Market Discovery Map</a> —
+      <a href="agent-ops.html" class="underline hover:text-gray-500">Agent Ops</a>
+    </p>
+  </div>
+
+</body>
+</html>
