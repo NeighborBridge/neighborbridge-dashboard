@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>P2 — A1 Observation Log — Printable Worksheet</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    @page { margin: 15mm; size: A4 portrait; }
+    body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: white; font-size: 11px; color: #1e293b; }
+    .print-only { display: block; }
+    .ws { max-width: 180mm; margin: 0 auto; padding: 0; }
+    h1 { font-size: 18px; font-weight: 700; color: #0ea5e9; margin: 0 0 2px; }
+    .sub { font-size: 11px; color: #64748b; margin-bottom: 10px; }
+    .field { margin-bottom: 6px; page-break-inside: avoid; }
+    .field label { display: block; font-size: 11px; font-weight: 600; color: #1e293b; margin-bottom: 1px; }
+    .field label .hint { font-weight: 400; color: #94a3b8; font-size: 10px; margin-left: 3px; }
+    .field-line { border: none; border-bottom: 1px solid #d1d5db; width: 100%; height: 20px; }
+    .field-box { border: 1px solid #d1d5db; border-radius: 6px; padding: 4px 8px; min-height: 36px; background: #fafafa; }
+    .flex-row { display: flex; gap: 10px; }
+    .flex-row > * { flex: 1; }
+    .section-title { font-size: 12px; font-weight: 700; color: #0f766e; margin: 10px 0 4px; padding-bottom: 2px; border-bottom: 1.5px solid #0f766e; }
+    .boundary-box { background: #fef2f2; border: 1px solid #fca5a5; border-radius: 6px; padding: 6px 10px; margin: 8px 0; font-size: 9.5px; color: #991b1b; line-height: 1.4; }
+    .ph-note { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 6px; padding: 5px 10px; font-size: 9px; color: #0369a1; margin: 6px 0; }
+    .footer { border-top: 1px solid #e2e8f0; margin-top: 8px; padding-top: 4px; font-size: 8.5px; color: #94a3b8; text-align: center; line-height: 1.4; }
+    @media print {
+      body { background: white; }
+      .field-line, .field-box { background: white; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ws">
+    <h1>📝 Caregiver Observation Log</h1>
+    <div class="sub">照护者观察记录 · P2 A1 · Non-PHI · 可打印工作表</div>
+
+    <div class="boundary-box">
+      <strong>⚠</strong> 教育工具 · 非诊断 · 非治疗方案 · 非危机预案 · 非用药建议 · 非转诊路径 · 不可替代专业评估<br>
+      <strong>PCP / 医疗之家仍是临床把关者</strong>
+    </div>
+    <div class="ph-note"><strong>📌</strong> 请勿填写姓名、生日、保险号、地址、学校名、医生名或其他身份信息</div>
+
+    <div class="flex-row">
+      <div class="field"><label>📅 日期 <span class="hint">Date</span></label><div class="field-line">&nbsp;</div></div>
+      <div class="field"><label>🕐 时间 <span class="hint">Time</span></label><div class="field-line">&nbsp;</div></div>
+    </div>
+
+    <div class="field"><label>📍 场景 <span class="hint">Setting — 当时在哪里？在做什么？</span></label><div class="field-box">&nbsp;</div></div>
+    <div class="field"><label>⏮ 之前发生了什么？ <span class="hint">What happened 30–60 min before?</span></label><div class="field-box">&nbsp;</div></div>
+    <div class="field"><label>👶 孩子做了什么？ <span class="hint">Describe behavior neutrally</span></label><div class="field-box">&nbsp;</div></div>
+    <div class="field"><label>⚡ 可能的触发因素 <span class="hint">Sensory, fatigue, transition, overstimulation?</span></label><div class="field-box">&nbsp;</div></div>
+
+    <div class="section-title">💭 照护者反思 Caregiver Reflection</div>
+
+    <div class="flex-row">
+      <div class="field"><label>✅ 有帮助的 <span class="hint">What helped?</span></label><div class="field-box">&nbsp;</div></div>
+      <div class="field"><label>❌ 没帮助的 <span class="hint">What didn't?</span></label><div class="field-box">&nbsp;</div></div>
+    </div>
+
+    <div class="field"><label>🔍 我注意到什么？ <span class="hint">What did I notice about my child or myself?</span></label><div class="field-box">&nbsp;</div></div>
+    <div class="field"><label>🔁 这是模式吗？ <span class="hint">How often? A pattern?</span></label><div class="field-box">&nbsp;</div></div>
+    <div class="field"><label>🗣 照护者可能想和孩子现有的 PCP、治疗师或学校团队讨论的问题 <span class="hint">Questions the caregiver may want to raise, if appropriate</span></label><div class="field-box">&nbsp;</div></div>
+
+    <div class="footer">
+      P2 A1 · Caregiver Observation Log v1 · Internal Prototype · Stage 1 Concept · Non-PHI<br>
+      内部原型 · 不外传 · © 2026 NeighborBridge · PCP / medical home remains clinical gatekeeper
+    </div>
+  </div>
+</body>
+</html>

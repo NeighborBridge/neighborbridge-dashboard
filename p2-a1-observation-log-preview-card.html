@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>P2 — A1 Caregiver Observation Log — Preview Card</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: #f1f5f9; }
+    .card { max-width: 480px; margin: 20px auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); overflow: hidden; }
+    .card-header { background: #0ea5e9; color: white; padding: 18px 20px 14px; text-align: center; }
+    .card-header h1 { font-size: 18px; font-weight: 700; margin: 0; }
+    .card-header .meta { font-size: 11px; opacity: 0.85; margin-top: 3px; }
+    .card-body { padding: 14px 18px; }
+    .field { margin-bottom: 12px; }
+    .field label { display: block; font-size: 12px; font-weight: 600; color: #1e293b; margin-bottom: 3px; }
+    .field label .en-hint { font-weight: 400; color: #94a3b8; font-size: 10px; margin-left: 4px; }
+    .field-box { border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 10px; font-size: 12px; color: #64748b; background: #f8fafc; min-height: 36px; line-height: 1.4; }
+    .section-title { font-size: 12px; font-weight: 700; color: #0f766e; margin: 14px 0 6px; padding-bottom: 3px; border-bottom: 2px solid #0f766e; }
+    .boundary-box { background: #fef2f2; border: 1px solid #fca5a5; border-radius: 8px; padding: 10px 14px; margin: 12px 0; font-size: 11px; color: #991b1b; line-height: 1.5; }
+    .boundary-box strong { color: #dc2626; }
+    .ph-note { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 8px 12px; font-size: 10px; color: #0369a1; margin: 10px 0; }
+    .ph-note strong { color: #0284c7; }
+    .card-footer { background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 10px 18px; text-align: center; font-size: 10px; color: #94a3b8; }
+    .no-print { background: #f1f5f9; color: #64748b; text-align: center; padding: 5px; font-size: 9px; font-weight: 600; letter-spacing: 0.5px; border-bottom: 1px solid #e2e8f0; }
+    hr.dashed { border: none; border-top: 1px dashed #e2e8f0; margin: 14px 0; }
+  </style>
+</head>
+<body>
+
+  <!-- Internal Banner — calm blue/gray -->
+  <div class="no-print">📋 INTERNAL PROTOTYPE · NON-PHI · P2 A1 · STAGE 1 CONCEPT</div>
+
+  <!-- ===== PREVIEW CARD ===== -->
+  <div class="card">
+    <div class="card-header">
+      <h1>📝 Caregiver Observation Log</h1>
+      <div class="meta">照护者观察记录 · Non-PHI · 内部原型</div>
+    </div>
+
+    <div class="card-body">
+      <!-- Boundary box — red only here -->
+      <div class="boundary-box">
+        <strong>⚠ Internal Use Only</strong><br>
+        教育工具 · 非诊断 · 非治疗方案 · 非危机预案 · 非用药建议 · 非转诊路径 · 不可替代专业评估<br>
+        <strong>PCP / 医疗之家仍是临床把关者</strong>
+      </div>
+      <div class="ph-note">
+        <strong>📌 请勿包含</strong> 姓名、生日、保险号、地址、学校名、医生名或其他身份信息
+      </div>
+
+      <!-- Row 1 -->
+      <div class="flex space-x-3">
+        <div class="field flex-1">
+          <label>📅 日期 <span class="en-hint">Date</span></label>
+          <div class="field-box">______ 年 ______ 月 ______ 日</div>
+        </div>
+        <div class="field flex-1">
+          <label>🕐 时间 <span class="en-hint">Time</span></label>
+          <div class="field-box">______ : ______</div>
+        </div>
+      </div>
+
+      <!-- Setting -->
+      <div class="field">
+        <label>📍 场景 <span class="en-hint">Setting — where were you? What was happening?</span></label>
+        <div class="field-box" style="min-height:44px;">&nbsp;</div>
+      </div>
+
+      <!-- Before -->
+      <div class="field">
+        <label>⏮ 之前发生了什么？ <span class="en-hint">30–60 minutes before</span></label>
+        <div class="field-box" style="min-height:44px;">&nbsp;</div>
+      </div>
+
+      <!-- Child behavior -->
+      <div class="field">
+        <label>👶 孩子做了什么？ <span class="en-hint">Describe the behavior neutrally</span></label>
+        <div class="field-box" style="min-height:44px;">&nbsp;</div>
+      </div>
+
+      <!-- Triggers -->
+      <div class="field">
+        <label>⚡ 可能的触发因素 <span class="en-hint">Sensory, fatigue, transition, overstimulation?</span></label>
+        <div class="field-box" style="min-height:44px;">&nbsp;</div>
+      </div>
+
+      <hr class="dashed">
+
+      <div class="section-title">💭 照护者反思 Caregiver Reflection</div>
+
+      <!-- What helped -->
+      <div class="flex space-x-3">
+        <div class="field flex-1">
+          <label>✅ 有帮助的 <span class="en-hint">What helped?</span></label>
+          <div class="field-box" style="min-height:44px;">&nbsp;</div>
+        </div>
+        <div class="field flex-1">
+          <label>❌ 没帮助的 <span class="en-hint">What didn't?</span></label>
+          <div class="field-box" style="min-height:44px;">&nbsp;</div>
+        </div>
+      </div>
+
+      <!-- Caregiver observation -->
+      <div class="field">
+        <label>🔍 我注意到什么？ <span class="en-hint">What did I notice about my child or myself?</span></label>
+        <div class="field-box" style="min-height:44px;">&nbsp;</div>
+      </div>
+
+      <!-- Pattern -->
+      <div class="field">
+        <label>🔁 这是模式吗？ <span class="en-hint">How often? Is there a pattern?</span></label>
+        <div class="field-box" style="min-height:44px;">&nbsp;</div>
+      </div>
+
+      <!-- PCP questions — safer wording -->
+      <div class="field">
+        <label>🗣 照护者可能想和孩子现有的 PCP、治疗师或学校团队讨论的问题 <span class="en-hint">Questions the caregiver may want to raise with the child's existing PCP, therapist, or school team, if appropriate</span></label>
+        <div class="field-box" style="min-height:52px;">&nbsp;</div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      P2 A1 · 内部原型 · Stage 1 Concept · Non-PHI · 不外传 · PCP / medical home remains clinical gatekeeper
+    </div>
+  </div>
+
+</body>
+</html>
