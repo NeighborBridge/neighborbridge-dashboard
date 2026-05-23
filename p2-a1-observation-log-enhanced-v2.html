@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A1 Caregiver Observation Log — Enhanced Printable v2</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    @page { size: letter; margin: 0.65in 0.7in; }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: #f1f5f9; font-size: 10.5px; color: #1e293b; margin: 0; }
+    .sheet { max-width: 7.7in; margin: 20px auto; background: white; padding: 0.55in 0.6in; box-shadow: 0 2px 16px rgba(0,0,0,0.08); min-height: 10.2in; position: relative; }
+    @media print {
+      body { background: white; }
+      .sheet { box-shadow: none; padding: 0; max-width: 100%; margin: 0; min-height: auto; }
+    }
+
+    /* Header */
+    .header-bar { background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; padding: 16px 20px; border-radius: 10px 10px 0 0; margin: -0.55in -0.6in 0; }
+    .header-bar h1 { font-size: 22px; font-weight: 700; margin: 0; letter-spacing: -0.3px; }
+    .header-bar .sub { font-size: 10px; opacity: 0.85; margin-top: 2px; }
+    .header-bar .tags { margin-top: 6px; display: flex; gap: 5px; flex-wrap: wrap; }
+    .tag { display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 1px 8px; border-radius: 3px; font-size: 8.5px; font-weight: 600; letter-spacing: 0.3px; border: 1px solid rgba(255,255,255,0.25); }
+
+    /* Boundary */
+    .boundary-row { display: flex; gap: 8px; margin: 12px 0; }
+    .boundary-box { flex: 1; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 7px 10px; font-size: 8.5px; color: #64748b; line-height: 1.5; }
+    .boundary-box strong { color: #dc2626; }
+    .ph-box { flex: 0 0 170px; background: #f0f9ff; border: 1px solid #d1d5db; border-radius: 6px; padding: 7px 10px; font-size: 8.5px; color: #475569; line-height: 1.5; }
+    .ph-box strong { color: #0284c7; }
+
+    /* Fields */
+    .field { margin-bottom: 7px; page-break-inside: avoid; }
+    .field-label { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
+    .field-icon { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; }
+    .field-icon.blue { background: #e0f2fe; color: #0284c7; }
+    .field-icon.green { background: #d1fae5; color: #059669; }
+    .field-icon.purple { background: #ede9fe; color: #7c3aed; }
+    .field-icon.amber { background: #fef3c7; color: #d97706; }
+    .field-icon.rose { background: #ffe4e6; color: #e11d48; }
+    .field-icon.teal { background: #ccfbf1; color: #0d9488; }
+    .field-number { font-weight: 700; font-size: 10px; color: #0ea5e9; min-width: 14px; }
+    .field-text { font-weight: 600; font-size: 11px; color: #1e293b; }
+    .field-hint { font-weight: 400; color: #94a3b8; font-size: 9px; margin-left: 3px; }
+
+    .field-box { border: 1.5px solid #e2e8f0; border-radius: 6px; padding: 5px 8px; min-height: 34px; background: #fafafa; }
+    .field-box-tall { border: 1.5px solid #e2e8f0; border-radius: 6px; padding: 5px 8px; min-height: 50px; background: #fafafa; }
+
+    /* Section divider */
+    .section-break { border: none; border-top: 2px solid #0ea5e9; margin: 14px 0 8px; opacity: 0.3; }
+    .section-title { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: #0f766e; margin: 0 0 6px; }
+
+    .flex-row { display: flex; gap: 12px; }
+    .flex-row > * { flex: 1; }
+
+    .footer { border-top: 1px solid #e2e8f0; margin-top: 14px; padding-top: 6px; font-size: 7.5px; color: #94a3b8; text-align: center; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+
+    <!-- Header with blue gradient bar -->
+    <div class="header-bar">
+      <h1>📋 Caregiver Observation Log</h1>
+      <div class="sub">Record what you see — notice patterns — prepare questions — one moment at a time</div>
+      <div class="tags">
+        <span class="tag">Internal Prototype</span>
+        <span class="tag">Non-PHI</span>
+        <span class="tag">P2 A1</span>
+        <span class="tag">Stage 1 Concept</span>
+      </div>
+    </div>
+
+    <!-- Boundary row: safety + PHI note -->
+    <div class="boundary-row">
+      <div class="boundary-box">
+        <strong>⚠ Internal Use Only</strong><br>
+        Educational tool only. Not diagnostic. Not treatment plan. Not crisis plan. Not medication advice. Not referral pathway. Not a substitute for professional evaluation. <strong>PCP / medical home remains the clinical gatekeeper.</strong>
+      </div>
+      <div class="ph-box">
+        <strong>📌 No PHI</strong><br>
+        Do not include names, DOB, insurance IDs, addresses, school names, provider names, or other identifying information.
+      </div>
+    </div>
+
+    <!-- Row 1-2: Date + Time -->
+    <div class="flex-row">
+      <div class="field">
+        <div class="field-label">
+          <div class="field-icon blue">📅</div>
+          <span class="field-number">01</span>
+          <span class="field-text">Date</span>
+        </div>
+        <div class="field-box">&nbsp;</div>
+      </div>
+      <div class="field">
+        <div class="field-label">
+          <div class="field-icon blue">🕐</div>
+          <span class="field-number">02</span>
+          <span class="field-text">Time</span>
+        </div>
+        <div class="field-box">&nbsp;</div>
+      </div>
+    </div>
+
+    <!-- Field 3 -->
+    <div class="field">
+      <div class="field-label">
+        <div class="field-icon blue">📍</div>
+        <span class="field-number">03</span>
+        <span class="field-text">Setting</span>
+        <span class="field-hint">Where were you? What was happening?</span>
+      </div>
+      <div class="field-box">&nbsp;</div>
+    </div>
+
+    <!-- Field 4 — tall -->
+    <div class="field">
+      <div class="field-label">
+        <div class="field-icon purple">⏮</div>
+        <span class="field-number">04</span>
+        <span class="field-text">What happened before?</span>
+        <span class="field-hint">30–60 minutes before the behavior</span>
+      </div>
+      <div class="field-box-tall">&nbsp;</div>
+    </div>
+
+    <!-- Field 5 — tall -->
+    <div class="field">
+      <div class="field-label">
+        <div class="field-icon purple">👶</div>
+        <span class="field-number">05</span>
+        <span class="field-text">What did your child do?</span>
+        <span class="field-hint">Describe the behavior neutrally</span>
+      </div>
+      <div class="field-box-tall">&nbsp;</div>
+    </div>
+
+    <!-- Field 6 — tall -->
+    <div class="field">
+      <div class="field-label">
+        <div class="field-icon amber">⚡</div>
+        <span class="field-number">06</span>
+        <span class="field-text">Possible stressors or triggers</span>
+        <span class="field-hint">Sensory, fatigue, transition, hunger, overstimulation?</span>
+      </div>
+      <div class="field-box-tall">&nbsp;</div>
+    </div>
+
+    <!-- Section: Caregiver Reflection -->
+    <hr class="section-break">
+    <div class="section-title">
+      <span style="font-size:14px;">💭</span>
+      Caregiver Reflection
+    </div>
+
+    <!-- Row 7-8 -->
+    <div class="flex-row">
+      <div class="field">
+        <div class="field-label">
+          <div class="field-icon green">✅</div>
+          <span class="field-number">07</span>
+          <span class="field-text">What helped?</span>
+          <span class="field-hint">Even a little</span>
+        </div>
+        <div class="field-box">&nbsp;</div>
+      </div>
+      <div class="field">
+        <div class="field-label">
+          <div class="field-icon rose">❌</div>
+          <span class="field-number">08</span>
+          <span class="field-text">What didn't help?</span>
+          <span class="field-hint">Or made things worse</span>
+        </div>
+        <div class="field-box">&nbsp;</div>
+      </div>
+    </div>
+
+    <!-- Field 9 -->
+    <div class="field">
+      <div class="field-label">
+        <div class="field-icon teal">🔍</div>
+        <span class="field-number">09</span>
+        <span class="field-text">What did you notice?</span>
+        <span class="field-hint">About your child or yourself in this moment</span>
+      </div>
+      <div class="field-box">&nbsp;</div>
+    </div>
+
+    <!-- Field 10 -->
+    <div class="field">
+      <div class="field-label">
+        <div class="field-icon teal">🔁</div>
+        <span class="field-number">10</span>
+        <span class="field-text">Is there a pattern?</span>
+        <span class="field-hint">How often does this happen? Similar situations?</span>
+      </div>
+      <div class="field-box">&nbsp;</div>
+    </div>
+
+    <!-- Field 11 — tall -->
+    <div class="field">
+      <div class="field-label">
+        <div class="field-icon blue">🗣</div>
+        <span class="field-number">11</span>
+        <span class="field-text">Questions to discuss with existing care team</span>
+        <span class="field-hint">PCP, therapist, or school team, if appropriate</span>
+      </div>
+      <div class="field-box-tall">&nbsp;</div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      A1 Caregiver Observation Log · Enhanced Printable v2 · Internal Prototype · Non-PHI · P2 A1 · Stage 1 Concept<br>
+      © 2026 NeighborBridge · Not for external distribution · PCP / medical home remains clinical gatekeeper
+    </div>
+  </div>
+</body>
+</html>
