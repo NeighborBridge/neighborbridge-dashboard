@@ -112,15 +112,16 @@
   <rect x="670" y="310" width="300" height="28" rx="8" fill="#ec4899"/>
   <rect x="670" y="328" width="300" height="10" fill="#ec4899"/>
   <text x="820" y="329" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">6. CHW / Family Navigator</text>
-  <text x="685" y="355" font-size="10" font-weight="600" fill="#be185d">Pending approval</text>
+  <text x="685" y="355" font-size="10" font-weight="700" fill="#be185d">(Pending approval)</text>
   <text x="685" y="375" font-size="10" font-weight="600" fill="#be185d">Who:</text>
   <text x="685" y="390" font-size="10" fill="#475569">Family navigator / community health</text>
   <text x="685" y="404" font-size="10" fill="#475569">worker (if approved later)</text>
   <text x="685" y="422" font-size="10" font-weight="600" fill="#be185d">Role:</text>
   <text x="685" y="437" font-size="10" fill="#475569">Help family understand steps, organize</text>
   <text x="685" y="451" font-size="10" fill="#475569">records, prepare questions, follow up</text>
-  <text x="685" y="469" font-size="10" font-weight="600" fill="#be185d">Boundary:</text>
-  <text x="685" y="484" font-size="10" fill="#475569">No diagnosis · No independent referral</text>
+  <rect x="685" y="462" width="270" height="1" fill="#f9a8d4"/>
+  <text x="685" y="475" font-size="11" font-weight="700" fill="#be185d">Boundary:</text>
+  <text x="685" y="490" font-size="10" fill="#be185d">No diagnosis · No independent referral</text>
 
   <!-- ============================== -->
   <!-- Central connector arrow: all 6 converge to PCP -->
