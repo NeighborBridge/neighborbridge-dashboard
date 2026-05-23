@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>P2 — A1 Caregiver Observation Log — Internal Prototype</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: #f1f5f9; }
+    .worksheet { max-width: 480px; margin: 20px auto; background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); overflow: hidden; }
+    .ws-header { background: #0ea5e9; color: white; padding: 20px; text-align: center; }
+    .ws-header h1 { font-size: 20px; font-weight: 700; margin: 0; }
+    .ws-header p { font-size: 12px; opacity: 0.9; margin-top: 4px; }
+    .ws-body { padding: 16px 20px; }
+    .field { margin-bottom: 16px; }
+    .field label { display: block; font-size: 12px; font-weight: 600; color: #1e293b; margin-bottom: 4px; }
+    .field label .hint { font-weight: 400; color: #64748b; font-size: 11px; }
+    .field input, .field textarea { width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px 12px; font-size: 13px; background: #f8fafc; }
+    .field textarea { min-height: 52px; resize: vertical; }
+    .field input:focus, .field textarea:focus { outline: none; border-color: #0ea5e9; box-shadow: 0 0 0 2px rgba(14,165,233,0.15); }
+    .divider { border: none; border-top: 1px dashed #e2e8f0; margin: 16px 0; }
+    .section-title { font-size: 13px; font-weight: 700; color: #0f766e; margin: 16px 0 8px; padding-bottom: 4px; border-bottom: 2px solid #0f766e; }
+    .boundary-bar { background: #fef2f2; border-left: 3px solid #dc2626; padding: 10px 14px; margin: 16px 0; font-size: 11px; color: #991b1b; line-height: 1.5; }
+    .info-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 10px 14px; font-size: 11px; color: #1e40af; margin: 12px 0; }
+    .footer { background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 12px 20px; text-align: center; font-size: 10px; color: #94a3b8; }
+    .no-print { background: #dc2626; color: white; text-align: center; padding: 6px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; }
+    .print-area textarea { background: white; border: 1px dashed #94a3b8; }
+  </style>
+</head>
+<body>
+
+  <!-- Internal Banner -->
+  <div class="no-print">⚠ INTERNAL ONLY — NON-PHI — STAGE 1 CONCEPT — NORA P2 PROTOTYPE</div>
+
+  <div class="worksheet">
+
+    <!-- Header -->
+    <div class="ws-header">
+      <h1>📝 Caregiver Observation Log</h1>
+      <p>内部原型 · 照护者观察记录 · Non-PHI · P2 A1</p>
+    </div>
+
+    <!-- Boundary Warning -->
+    <div class="px-5 pt-4">
+      <div class="boundary-bar">
+        <strong>⚠ Internal Use Only</strong><br>
+        Educational tool only · Not diagnostic · Not treatment plan · Not crisis plan · Not medication advice · Not referral pathway · Not a substitute for professional evaluation · <strong>PCP / medical home remains clinical gatekeeper</strong>.
+      </div>
+      <div class="info-box">
+        <strong>📌 Do not include</strong> names, DOB, insurance IDs, addresses, school names, provider names, or other identifying information in this prototype.
+      </div>
+    </div>
+
+    <!-- Worksheet Fields -->
+    <div class="ws-body">
+
+      <!-- Row 1: Date + Time -->
+      <div class="flex space-x-3">
+        <div class="field flex-1">
+          <label>📅 日期 <span class="hint">Date</span></label>
+          <input type="text" placeholder="e.g. 2026-05-23" readonly>
+        </div>
+        <div class="field flex-1">
+          <label>🕐 时间 <span class="hint">Time</span></label>
+          <input type="text" placeholder="e.g. 4:30 PM" readonly>
+        </div>
+      </div>
+
+      <!-- Setting -->
+      <div class="field">
+        <label>📍 场景 <span class="hint">Setting — 当时在哪里？在做什么？</span></label>
+        <textarea placeholder="e.g. At home, transitioning from play to homework" readonly></textarea>
+      </div>
+
+      <!-- What happened before -->
+      <div class="field">
+        <label>⏮ 之前发生了什么？ <span class="hint">What happened right before? (30–60 min window)</span></label>
+        <textarea placeholder="e.g. Had been playing video games for 45 min, was told to stop" readonly></textarea>
+      </div>
+
+      <!-- What the child did -->
+      <div class="field">
+        <label>👶 孩子做了什么？ <span class="hint">Describe the behavior neutrally — what did you see and hear?</span></label>
+        <textarea placeholder="e.g. Yelled, threw controller, flopped on floor, refused to move" readonly></textarea>
+      </div>
+
+      <!-- Possible triggers -->
+      <div class="field">
+        <label>⚡ 可能的触发因素 <span class="hint">Possible stressors or triggers — sensory, fatigue, hunger, transition, overstimulation</span></label>
+        <textarea placeholder="e.g. Sudden transition, tired after school, loud environment" readonly></textarea>
+      </div>
+
+      <!-- What helped -->
+      <div class="field">
+        <label>✅ 什么有帮助？ <span class="hint">What helped — even a little?</span></label>
+        <textarea placeholder="e.g. Sat nearby quietly, offered a choice, gave space" readonly></textarea>
+      </div>
+
+      <!-- What did not help -->
+      <div class="field">
+        <label>❌ 什么没有帮助？ <span class="hint">What did not help — or made it worse?</span></label>
+        <textarea placeholder="e.g. Raising voice, demanding explanation, pushing to finish task" readonly></textarea>
+      </div>
+
+      <hr class="divider">
+
+      <!-- Caregiver observation -->
+      <div class="section-title">照护者观察 Caregiver Reflection</div>
+
+      <div class="field">
+        <label>💭 我注意到了什么？ <span class="hint">What did I notice about my child or myself in this moment?</span></label>
+        <textarea placeholder="e.g. My child seemed overwhelmed before the outburst. I was also stressed from work." readonly></textarea>
+      </div>
+
+      <div class="field">
+        <label>🔁 这是否是一个模式？ <span class="hint">Is this part of a pattern? How often does this happen?</span></label>
+        <textarea placeholder="e.g. Happens almost every day around this time. Seems related to transitions." readonly></textarea>
+      </div>
+
+      <!-- PCP/therapist questions -->
+      <div class="field">
+        <label>🗣 和医生/学校团队讨论的问题 <span class="hint">Questions to discuss with PCP / therapist / school team, if appropriate</span></label>
+        <textarea placeholder="e.g. Is this level of transition difficulty typical for FASD? What strategies should we try next?" readonly></textarea>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      P2 — A1 Caregiver Observation Log · Internal Prototype · Stage 1 Concept / Internal Discovery · Nora R&D · Non-PHI<br>
+      © 2026 NeighborBridge · Not for external distribution · PCP / medical home remains clinical gatekeeper
+    </div>
+  </div>
+
+  <!-- Print-specific version -->
+  <div class="worksheet" style="border: 2px dashed #94a3b8;">
+    <div style="background: #f1f5f9; color: #475569; padding: 16px 20px; text-align: center;">
+      <strong style="font-size: 13px;">🖨 Printable Version</strong>
+      <p style="font-size: 11px; margin-top: 2px;">This layout is designed to print on one page. Fields expand as needed.</p>
+    </div>
+    <div class="ws-body print-area">
+      <div class="flex space-x-3">
+        <div class="field flex-1"><label>📅 日期</label><input type="text" readonly></div>
+        <div class="field flex-1"><label>🕐 时间</label><input type="text" readonly></div>
+      </div>
+      <div class="field"><label>📍 场景</label><textarea readonly></textarea></div>
+      <div class="field"><label>⏮ 之前</label><textarea readonly></textarea></div>
+      <div class="field"><label>👶 孩子做了什么</label><textarea readonly></textarea></div>
+      <div class="field"><label>⚡ 可能的触发</label><textarea readonly></textarea></div>
+      <div class="field"><label>✅ 有帮助的</label><textarea readonly></textarea></div>
+      <div class="field"><label>❌ 无帮助的</label><textarea readonly></textarea></div>
+      <div class="field"><label>💭 我注意到</label><textarea readonly></textarea></div>
+      <div class="field"><label>🔁 模式？</label><textarea readonly></textarea></div>
+      <div class="field"><label>🗣 医生/学校问题</label><textarea readonly></textarea></div>
+    </div>
+    <div class="footer">P2 A1 Caregiver Observation Log · Internal Prototype</div>
+  </div>
+
+</body>
+</html>
