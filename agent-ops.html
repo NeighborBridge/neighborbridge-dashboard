@@ -2029,6 +2029,22 @@ Recommendation: ...
       </div>
     </div>
 
+    <!-- H. Nora Rendering Lock -->
+    <div class="mx-4 mb-1 p-2 rounded bg-gray-50 border border-gray-200">
+      <div class="flex justify-between items-center mb-0.5">
+        <p class="font-medium text-gray-700">H. P2 Golden-Master Rendering Lock</p>
+        <span class="text-xs text-gray-400">2026-05-23</span>
+      </div>
+      <div class="text-xs text-gray-700 pl-2 space-y-0.5">
+        <p><strong>Golden Master:</strong> <code>p2-booklet-template.html</code> (based on <code>p2-booklet-prototype.html</code>). PDF: <code>p2-behavior-toolkit-booklet-prototype.pdf</code>.</p>
+        <p><strong>Render spec:</strong> <code>docs/p2-render-spec.md</code>. Lock record: <code>memory/p2-golden-master-rendering-lock.md</code>.</p>
+        <p><strong>Nora rule 1:</strong> Content insertion only. No redesign unless Richard explicitly authorizes.</p>
+        <p><strong>Nora rule 2:</strong> If newly rendered version is visibly worse than golden master → failed render. Revert template. Fix pipeline. Do not promote degraded version.</p>
+        <p><strong>QA check required:</strong> 12-point checklist before any new render is accepted (typography, whitespace, cover, headers, sharpness, field alignment, appendix match, spacing, PDF clean, PNG legible, internal label, P2 stage label).</p>
+        <p><strong>Scope:</strong> P2 booklet only. Does not apply to P1, workflow cards, one-off designs, or public website.</p>
+      </div>
+    </div>
+
     <!-- ===== Footer ===== -->
     <div class="text-center text-[9px] text-gray-400 pt-2 pb-3">
       Agent Ops · Agent 工作流与权限治理 · Cloudflare Workers (内部) · 最后更新: <span id="update-time"></span>

@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--
+╔══════════════════════════════════════════════════════════╗
+║  P2 BOOKLET — GOLDEN MASTER TEMPLATE                    ║
+║                                                          ║
+║  DO NOT REDESIGN THIS TEMPLATE.                          ║
+║  Content insertion only.                                 ║
+║  See: memory/p2-golden-master-rendering-lock.md           ║
+║                                                          ║
+║  Golden Master Source: p2-booklet-prototype.html          ║
+║  Golden Master PDF: p2-behavior-toolkit-booklet-prototype.pdf ║
+║  Locked: 2026-05-23                                       ║
+╚══════════════════════════════════════════════════════════╝
+-->
+<style>
+/* ── Professional Booklet Layout ──
+   P2 Behavior Toolkit — 10-page internal prototype
+   Consistent with accepted nora_brochure_p2_m1_professional baseline */
+
+@page {
+  size: Letter;
+  margin: 0;
+  @bottom-left { content: ""; }
+  @bottom-right { content: ""; }
+  @top-left { content: ""; }
+  @top-right { content: ""; }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Noto Sans SC", "Noto Sans", system-ui, sans-serif;
+  color: #1F2937;
+  line-height: 1.35;
+  -webkit-print-color-adjust: exact;
+}
+
+.page { page-break-after: always; min-height: 11in; position: relative; }
+
+/* ── Cover Page ── */
+.cover-panel {
+  background: linear-gradient(135deg, #0F766E 0%, #115E59 100%);
+  color: white;
+  padding: 48px 48px 36px 48px;
+  min-height: 4.5in;
+  position: relative;
+}
+
+.cover-panel .stage-badge {
+  display: inline-block;
+  border: 1px solid rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.85);
+  font-size: 7.5pt;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 3px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.cover-panel .internal-stamp {
+  float: right;
+  background: #DC2626;
+  color: white;
+  font-size: 7pt;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  transform: rotate(3deg);
+}
+
+.cover-panel h1 {
+  font-size: 30pt;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-top: 16px;
+  letter-spacing: -0.5px;
+}
+
+.cover-panel .subtitle {
+  font-size: 14pt;
+  font-weight: 400;
+  color: rgba(255,255,255,0.8);
+  margin-top: 6px;
+}
+
+.cover-panel .hero-text {
+  margin-top: 14px;
+  font-size: 10.5pt;
+  font-weight: 500;
+  color: rgba(255,255,255,0.92);
+  padding-left: 14px;
+  border-left: 3px solid rgba(255,255,255,0.35);
+}
+
+.cover-panel .hero-text p { margin-bottom: 4px; }
+
+.cover-panel .page-list {
+  margin-top: 20px;
+  font-size: 8.5pt;
+  color: rgba(255,255,255,0.7);
+}
+
+.cover-panel .page-list ol { margin-left: 18px; margin-top: 4px; }
+.cover-panel .page-list li { margin-bottom: 2px; }
+
+.cover-footer {
+  padding: 14px 28px;
+  font-size: 7.5pt;
+  color: #9CA3AF;
+}
+
+/* ── Content Page ── */
+.content-header {
+  background: #0F766E;
+  color: white;
+  padding: 18px 28px;
+}
+
+.content-header .page-num {
+  float: right;
+  font-size: 10pt;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+}
+
+.content-header h2 {
+  font-size: 16pt;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+}
+
+.content-header .internal-tag {
+  display: inline-block;
+  background: #DC2626;
+  color: white;
+  font-size: 6.5pt;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-top: 4px;
+}
+
+.content-grid {
+  padding: 22px 28px 10px 28px;
+}
+
+.content-grid .purpose {
+  font-size: 9.5pt;
+  color: #374151;
+  line-height: 1.45;
+  margin-bottom: 14px;
+  padding-left: 12px;
+  border-left: 2px solid #0F766E;
+}
+
+.content-grid h3 {
+  font-size: 9pt;
+  font-weight: 700;
+  color: #0F766E;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 14px;
+  margin-bottom: 6px;
+}
+
+.content-grid ul {
+  list-style: none;
+  padding: 0;
+}
+
+.content-grid li {
+  position: relative;
+  padding-left: 12px;
+  margin-bottom: 3px;
+  font-size: 9pt;
+  line-height: 1.4;
+  color: #374151;
+}
+
+.content-grid li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: #0F766E;
+  font-weight: 600;
+}
+
+/* Boundary block */
+.boundary-box {
+  margin: 16px 28px 10px 28px;
+  padding: 10px 14px;
+  background: #FEF2F2;
+  border-left: 3px solid #DC2626;
+}
+
+.boundary-box strong {
+  font-size: 8pt;
+  color: #B91C1C;
+}
+
+.boundary-box p {
+  font-size: 7.5pt;
+  color: #B91C1C;
+  line-height: 1.35;
+  margin-top: 2px;
+}
+
+/* Source notes */
+.source-section {
+  margin: 8px 28px 6px 28px;
+  padding: 8px 12px;
+  background: #F9FAFB;
+  border-top: 1px solid #E5E7EB;
+}
+
+.source-section h4 {
+  font-size: 7pt;
+  font-weight: 700;
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 3px;
+}
+
+.source-section p {
+  font-size: 6.5pt;
+  color: #9CA3AF;
+  line-height: 1.35;
+  margin-bottom: 2px;
+}
+
+.source-section a {
+  color: #6B7280;
+  text-decoration: none;
+}
+
+/* Emergency strip */
+.emergency-strip {
+  margin: 0 28px;
+  padding: 10px 14px;
+  background: #EFF6FF;
+  border: 1px solid #DBEAFE;
+  border-radius: 4px;
+}
+
+.emergency-strip .emergency-label {
+  font-size: 8pt;
+  font-weight: 700;
+  color: #1D4ED8;
+}
+
+.emergency-strip p {
+  font-size: 7.5pt;
+  color: #1E40AF;
+  line-height: 1.35;
+}
+
+/* Footer */
+.page-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 28px;
+  font-size: 6.5pt;
+  color: #9CA3AF;
+  border-top: 1px solid #E5E7EB;
+}
+
+/* Appendix page */
+.appendix-header {
+  background: #4B5563;
+  color: white;
+  padding: 18px 28px;
+}
+
+.appendix-header h2 {
+  font-size: 16pt;
+  font-weight: 700;
+}
+
+.appendix-body {
+  padding: 22px 28px;
+}
+
+.appendix-body h3 {
+  font-size: 9pt;
+  font-weight: 700;
+  color: #374151;
+  margin-top: 14px;
+  margin-bottom: 4px;
+}
+
+.appendix-body p {
+  font-size: 8pt;
+  color: #6B7280;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.appendix-body .source-item {
+  margin-bottom: 10px;
+  padding: 6px 10px;
+  background: #F9FAFB;
+  border-left: 2px solid #D1D5DB;
+}
+
+.appendix-body .source-item .page-ref {
+  font-weight: 600;
+  color: #374151;
+  font-size: 7.5pt;
+}
+
+.appendix-body .source-item .source-text {
+  font-size: 7pt;
+  color: #6B7280;
+  line-height: 1.35;
+}
+
+.appendix-body .source-item .source-url {
+  font-size: 6.5pt;
+  color: #9CA3AF;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ── Page 1: Cover ── -->
+<div class="page">
+<div class="cover-panel">
+  <span class="stage-badge">Stage 1 Concept · Internal R&amp;D</span>
+  <span class="internal-stamp">Internal Draft</span>
+  <h1>Behavior Interpretation<br>&amp; Family Support<br>Toolkit</h1>
+  <div class="subtitle">Internal Booklet Prototype</div>
+  <div class="hero-text">
+    <p>A caregiver resource for understanding difficult behavior</p>
+    <p>across FASD, neurodevelopmental differences, and family support needs.</p>
+  </div>
+  <div class="page-list">
+    <strong>Contents</strong>
+    <ol>
+      <li>Cover / Orientation</li>
+      <li>Behavior as Communication</li>
+      <li>Brain-Based Expectations</li>
+      <li>Sensory Overload and Shutdown</li>
+      <li>Emotional Regulation and Co-Regulation</li>
+      <li>Trauma, Grief, Attachment, and Trust</li>
+      <li>School vs. Home Behavior</li>
+      <li>De-escalation and Daily Structure</li>
+      <li>When to Seek Professional Help</li>
+      <li>What Support Planning Looks Like</li>
+    </ol>
+  </div>
+</div>
+<div class="cover-footer">
+  <p>NeighborBridge — Nora Product R&amp;D — Non-PHI — 2026-05-22</p>
+  <p>P2 · Stage 1 Concept / Internal Discovery · Not for external distribution</p>
+</div>
+</div>
+
+<!-- ── Page 2: Behavior as Communication ── -->
+<div class="page">
+<div class="content-header">
+  <span class="page-num">Page 2 of 10</span>
+  <h2>Behavior as Communication</h2>
+  <span class="internal-tag">Internal Draft</span>
+</div>
+<div class="content-grid">
+  <div class="purpose">
+    When a child cannot use words to express discomfort, overwhelm, confusion, fear, or need, behavior becomes the message. This page helps caregivers practice decoding that message.
+  </div>
+
+  <h3>Practical Caregiver Skills</h3>
+  <ul>
+    <li>Pause and ask: "What is my child communicating through this behavior?"</li>
+    <li>Look for patterns rather than reacting to individual incidents in isolation.</li>
+    <li>Consider what happened in the 30–60 minutes before the behavior began.</li>
+    <li>Separate the behavior from the child — behavior is information, not identity.</li>
+    <li>Practice describing the behavior neutrally before assigning meaning or blame.</li>
+  </ul>
+</div>
+
+<div class="boundary-box">
+  <strong>⚠ Boundary</strong>
+  <p>Must not imply behavior always has a clear "reason." Avoid framing that makes caregivers feel responsible for "figuring it out." This is a reframing tool, not a diagnostic guide.</p>
+</div>
+
+<div class="emergency-strip">
+  <span class="emergency-label">⚠ If immediate danger or mental health crisis, call 988 (Suicide &amp; Crisis Lifeline) or 911.</span>
+</div>
+
+<div class="source-section">
+  <h4>Source Notes (Internal)</h4>
+  <p>① CDC — FASD Resources: <a href="https://www.cdc.gov/fasd/resources/index.html">cdc.gov/fasd/resources</a> — Family-facing FASD communication tools. Accessed 2026-05-22.</p>
+  <p>② AAP — Fetal Alcohol Spectrum Disorders: <a href="https://www.aap.org/en/patient-care/fetal-alcohol-spectrum-disorders/">aap.org/fasd</a> — FASD diagnosis provides a framework for understanding behavior. Accessed 2026-05-22.</p>
+  <p>③ CanFASD — Information for Families: <a href="https://canfasd.ca/caregivers/information-for-caregivers/">canfasd.ca</a> — Caregiver resources and survey data. Accessed 2026-05-22.</p>
+</div>
+
+<div class="page-footer">
+  <span>NeighborBridge — Nora Product R&amp;D</span>
+  <span>Non-PHI · Not for external distribution</span>
+  <span>P2 · Booklet Prototype</span>
+</div>
+</div>
+
+<!-- ── Page 3: Brain-Based Expectations ── -->
+<div class="page">
+<div class="content-header">
+  <span class="page-num">Page 3 of 10</span>
+  <h2>Brain-Based Expectations</h2>
+  <span class="internal-tag">Internal Draft</span>
+</div>
+<div class="content-grid">
+  <div class="purpose">
+    FASD and neurodevelopmental differences affect executive function, memory, impulse control, and emotional regulation. Help caregivers shift expectations to match developmental capacity — not chronological age.
+  </div>
+
+  <h3>Practical Caregiver Skills</h3>
+  <ul>
+    <li>Match your expectations to your child's developmental level, not their age or grade.</li>
+    <li>Assume the child is doing the best they can with the brain resources they have right now.</li>
+    <li>Reduce verbal overload — use fewer words, visual supports, and concrete steps.</li>
+    <li>Teach skills explicitly rather than expecting the child to "learn from consequences."</li>
+    <li>Celebrate lagging skills as growth opportunities, not failures.</li>
+  </ul>
+</div>
+
+<div class="boundary-box">
+  <strong>⚠ Boundary</strong>
+  <p>Must not imply FASD or neurodevelopmental differences are deterministic. Avoid language suggesting children "cannot learn." Brain-based expectations are about adjusting support, not lowering hope.</p>
+</div>
+
+<div class="source-section">
+  <h4>Source Notes (Internal)</h4>
+  <p>① AAP — Dev/Behav Effects of FASD (1-pager): <a href="https://downloads.aap.org/AAP/PDF/FASD/Dev_and_Behav_Effects_FASD_1-Page_Resource_FINAL_no_bleed.pdf">AAP PDF</a> — FASD affects neurocognition, self-regulation, adaptive functioning. Accessed 2026-05-22.</p>
+  <p>② AAP — Behavioral Interventions in FASD: <a href="https://www.aap.org/en/patient-care/fetal-alcohol-spectrum-disorders/behavioral-interventions-in-fetal-alcohol-spectrum-disorders/">aap.org/fasd/interventions</a> — Evidence-based interventions adapted for FASD strengths/weaknesses. Accessed 2026-05-22.</p>
+  <p>③ FASD United — Family Navigator: <a href="https://fasdunited.org/family-navigator/">fasdunited.org</a> — Helping families set realistic expectations. Accessed 2026-05-22.</p>
+</div>
+
+<div class="page-footer">
+  <span>NeighborBridge — Nora Product R&amp;D</span>
+  <span>Non-PHI · Not for external distribution</span>
+  <span>P2 · Booklet Prototype</span>
+</div>
+</div>
+
+<!-- ── Page 4: Sensory Overload and Shutdown ── -->
+<div class="page">
+<div class="content-header">
+  <span class="page-num">Page 4 of 10</span>
+  <h2>Sensory Overload and Shutdown</h2>
+  <span class="internal-tag">Internal Draft</span>
+</div>
+<div class="content-grid">
+  <div class="purpose">
+    Noise, transitions, crowds, clothing, touch, light, fatigue, hunger, or pain can trigger sensory overload. In these moments, behavior is nervous-system driven, not chosen.
+  </div>
+
+  <h3>Practical Caregiver Skills</h3>
+  <ul>
+    <li>Notice sensory triggers by tracking what happened before difficult moments.</li>
+    <li>Build calmer routines around known triggers — reduce errands during overwhelmed times.</li>
+    <li>Offer sensory breaks: quiet space, weighted items, movement, headphones, fidget tools.</li>
+    <li>During a meltdown, focus on safety and co-regulation, not teaching or discipline.</li>
+    <li>Help the child identify their own sensory needs over time.</li>
+  </ul>
+</div>
+
+<div class="boundary-box">
+  <strong>⚠ Boundary</strong>
+  <p>Must not suggest sensory strategies replace professional evaluation. Avoid implying sensory issues affect all children the same way.</p>
+</div>
+
+<div class="source-section">
+  <h4>Source Notes (Internal)</h4>
+  <p>① AAP — Behavioral Interventions (self-regulation &amp; neurocognition): Recommends routine, structure, and parent reframing for FASD-related sensory challenges. Accessed 2026-05-22.</p>
+  <p>② PACT (Parents and Children Together) — Emory University / AAP-referenced — "How is your engine running?" arousal state identification. Supports caregiver co-regulation and sensory awareness. Accessed 2026-05-22 via AAP.</p>
+</div>
+
+<div class="page-footer">
+  <span>NeighborBridge — Nora Product R&amp;D</span>
+  <span>Non-PHI · Not for external distribution</span>
+  <span>P2 · Booklet Prototype</span>
+</div>
+</div>
+
+<!-- ── Page 5: Emotional Regulation and Co-Regulation ── -->
+<div class="page">
+<div class="content-header">
+  <span class="page-num">Page 5 of 10</span>
+  <h2>Emotional Regulation and Co-Regulation</h2>
+  <span class="internal-tag">Internal Draft</span>
+</div>
+<div class="content-grid">
+  <div class="purpose">
+    Some children need adult nervous-system support before they can think, talk, or problem-solve. Co-regulation means staying calm together first; reasoning comes later.
+  </div>
+
+  <h3>Practical Caregiver Skills</h3>
+  <ul>
+    <li>Regulate first, reason later. A dysregulated child cannot process instructions or logic.</li>
+    <li>Model calm breathing and quiet presence before expecting the child to calm down.</li>
+    <li>Use simple, warm language: "I'm here. You are safe. We can figure this out."</li>
+    <li>Create a "calm-down space" that is a choice, not a punishment or time-out.</li>
+    <li>Practice co-regulation routines during calm moments so they are familiar in hard moments.</li>
+  </ul>
+</div>
+
+<div class="boundary-box">
+  <strong>⚠ Boundary</strong>
+  <p>Must not imply co-regulation always works on the first try. Avoid framing that makes caregivers feel they are "failing" if the child does not calm.</p>
+</div>
+
+<div class="source-section">
+  <h4>Source Notes (Internal)</h4>
+  <p>① AAP — Behavioral Interventions (parent reframing &amp; skill building): Caregiver education and behavior reframing are key components of effective FASD intervention. Accessed 2026-05-22.</p>
+  <p>② CanFASD — Lifespan Intervention (Mental Health &amp; Regulation): <a href="https://canfasd.ca/topics/intervention/">canfasd.ca/topics/intervention</a> — Regulation is a core FASD support domain. Accessed 2026-05-22.</p>
+</div>
+
+<div class="page-footer">
+  <span>NeighborBridge — Nora Product R&amp;D</span>
+  <span>Non-PHI · Not for external distribution</span>
+  <span>P2 · Booklet Prototype</span>
+</div>
+</div>
+
+<!-- ── Page 6: Trauma, Grief, Attachment, and Trust ── -->
+<div class="page">
+<div class="content-header">
+  <span class="page-num">Page 6 of 10</span>
+  <h2>Trauma, Grief, Attachment, and Trust</h2>
+  <span class="internal-tag">Internal Draft</span>
+</div>
+<div class="content-grid">
+  <div class="purpose">
+    Children in foster, kinship, adoptive, or disrupted care settings may have experienced trauma, loss, or inconsistent care. Behavior may reflect survival responses, fear, or mistrust — not defiance.
+  </div>
+
+  <h3>Practical Caregiver Skills</h3>
+  <ul>
+    <li>Lead with safety, predictability, and relationship before expecting behavior change.</li>
+    <li>Build trust through consistent routines, gentle words, and follow-through.</li>
+    <li>Recognize that grief and loss (of birth family, stability, identity) can show up as anger, withdrawal, or testing.</li>
+    <li>Do not take behavior personally — it may be about past experience, not the current relationship.</li>
+    <li>Some families find it helpful to seek trauma-informed therapy support when behavior reflects survival responses.</li>
+  </ul>
+</div>
+
+<div class="boundary-box">
+  <strong>⚠ Boundary</strong>
+  <p>Must not generalize trauma responses across all children. Must not imply attachment issues always require professional treatment. No DSS/court framing. No clinical directive — use "some families find it helpful" framing.</p>
+</div>
+
+<div class="source-section">
+  <h4>Source Notes (Internal)</h4>
+  <p>① FASD United — Family Navigator: <a href="https://fasdunited.org/family-navigator/">fasdunited.org</a> — Supports families navigating FASD including trauma, foster care, and adoption contexts. Accessed 2026-05-22.</p>
+  <p>② CanFASD / RCY BC — "Hands, not Hurdles": <a href="https://canfasd.ca/wp-content/uploads/publications/RCY-Hands-Not-Hurdles-2022.pdf">CanFASD PDF</a> — Misunderstanding FASD leads to blaming; trauma-informed approaches are essential. Accessed 2026-05-22.</p>
+</div>
+
+<div class="page-footer">
+  <span>NeighborBridge — Nora Product R&amp;D</span>
+  <span>Non-PHI · Not for external distribution</span>
+  <span>P2 · Booklet Prototype</span>
+</div>
+</div>
+
+<!-- ── Page 7: School vs. Home Behavior ── -->
+<div class="page">
+<div class="content-header">
+  <span class="page-num">Page 7 of 10</span>
+  <h2>School vs. Home Behavior</h2>
+  <span class="internal-tag">Internal Draft</span>
+</div>
+<div class="content-grid">
+  <div class="purpose">
+    A child may hold it together at school and fall apart at home, or behave differently across settings. This is not manipulation — it reflects differing demands, supports, and emotional safety.
+  </div>
+
+  <h3>Practical Caregiver Skills</h3>
+  <ul>
+    <li>Compare behavior patterns across environments without assuming the child is "choosing" where to melt down.</li>
+    <li>Understand that home is often the safest place to release built-up stress from a demanding school day.</li>
+    <li>Share what works at home with school; ask what works at school to try at home.</li>
+    <li>Watch for signs of school-related stress: morning resistance, physical complaints before school, exhaustion after school.</li>
+    <li>Advocate for school supports if behavior suggests unmet educational needs.</li>
+  </ul>
+</div>
+
+<div class="boundary-box">
+  <strong>⚠ Boundary</strong>
+  <p>Must not suggest school is always the source of all behavior. Avoid language that pits home against school.</p>
+</div>
+
+<div class="source-section">
+  <h4>Source Notes (Internal)</h4>
+  <p>① CDC — FASD Resources (parent-teacher tools): <a href="https://www.cdc.gov/fasd/resources/index.html">cdc.gov/fasd/resources</a> — Communication tools between parents and teachers. Accessed 2026-05-22.</p>
+  <p>② Families Moving Forward (FMF) — AAP-referenced — Evidence-based parent coaching across home and school settings for children with FASD. Accessed 2026-05-22 via AAP.</p>
+</div>
+
+<div class="page-footer">
+  <span>NeighborBridge — Nora Product R&amp;D</span>
+  <span>Non-PHI · Not for external distribution</span>
+  <span>P2 · Booklet Prototype</span>
+</div>
+</div>
+
+<!-- ── Page 8: De-escalation and Daily Structure ── -->
+<div class="page">
+<div class="content-header">
+  <span class="page-num">Page 8 of 10</span>
+  <h2>De-escalation and Daily Structure</h2>
+  <span class="internal-tag">Internal Draft</span>
+</div>
+<div class="content-grid">
+  <div class="purpose">
+    Fewer words, calm tone, predictable transitions, visual cues, breaks, and consistent routines. Good structure reduces cognitive load and prevents many difficult moments before they start.
+  </div>
+
+  <h3>Practical Caregiver Skills</h3>
+  <ul>
+    <li>Make the environment do some of the work — visual schedules, clear expectations, organized spaces.</li>
+    <li>Use fewer words during transitions: short, concrete, calm directives.</li>
+    <li>Build in breaks and transition warnings (visual or verbal countdown).</li>
+    <li>During escalation: lower your voice, slow your movements, reduce demands.</li>
+    <li>After a difficult moment, reconnect before reviewing what happened.</li>
+  </ul>
+</div>
+
+<div class="boundary-box">
+  <strong>⚠ Boundary</strong>
+  <p>Must not imply structure "fixes" behavior. Avoid framing de-escalation as a caregiver skill that always succeeds.</p>
+</div>
+
+<div class="source-section">
+  <h4>Source Notes (Internal)</h4>
+  <p>① AAP — Behavioral Interventions (structured environments): Recommends structured environments with reasonable rules, routines, and supervision for FASD. Accessed 2026-05-22.</p>
+  <p>② GoFAR Intervention — Emory University / AAP-referenced — Affective and cognitive control training for FASD. Supports principle that structure reduces cognitive load. Accessed 2026-05-22 via AAP.</p>
+</div>
+
+<div class="page-footer">
+  <span>NeighborBridge — Nora Product R&amp;D</span>
+  <span>Non-PHI · Not for external distribution</span>
+  <span>P2 · Booklet Prototype</span>
+</div>
+</div>
+
+<!-- ── Page 9: When to Seek Professional Help ── -->
+<div class="page">
+<div class="content-header">
+  <span class="page-num">Page 9 of 10</span>
+  <h2>When to Seek Professional Help</h2>
+  <span class="internal-tag">Internal Draft</span>
+</div>
+<div class="content-grid">
+  <div class="purpose">
+    Even with strong family support, some situations need professional evaluation or intervention. Recognizing these moments is a strength, not a failure.
+  </div>
+
+  <div class="emergency-strip" style="margin:0 0 14px 0;">
+    <span class="emergency-label">⚠ CRISIS — If immediate danger or mental health crisis, call 988 (Suicide &amp; Crisis Lifeline) or 911.</span>
+  </div>
+
+  <h3>Practical Caregiver Skills</h3>
+  <ul>
+    <li>Seek help for: safety concerns, self-harm talk, aggression that endangers family, major functional change, school exclusion.</li>
+    <li>Seek evaluation for: suspected developmental delay, trauma history, possible FASD, or other neurodevelopmental needs.</li>
+    <li>Reach out when caregiver feels overwhelmed, isolated, or unsure how to proceed.</li>
+    <li>Consider support for the caregiver too — family well-being is part of the care picture.</li>
+    <li>Know that seeking help is a sign of strength and good care, not failure.</li>
+  </ul>
+</div>
+
+<div class="boundary-box">
+  <strong>⚠ Boundary</strong>
+  <p>Must not provide clinical thresholds for when to seek help. Must not imply all behavior problems need professional intervention. Clear crisis language is included above. This page is educational guidance, not clinical assessment.</p>
+</div>
+
+<div class="source-section">
+  <h4>Source Notes (Internal)</h4>
+  <p>① CDC — "Learn the Signs. Act Early.": <a href="https://www.cdc.gov/ncbddd/actearly/parents/states.html">cdc.gov/actearly</a> — Developmental milestone tracking and guidance on when to seek evaluation. Accessed 2026-05-22.</p>
+  <p>② AAP — FASD 1-Page Resource: Evidence-based treatment options exist; early diagnosis reduces risk of additional disabilities. Accessed 2026-05-22.</p>
+</div>
+
+<div class="page-footer">
+  <span>NeighborBridge — Nora Product R&amp;D</span>
+  <span>Non-PHI · Not for external distribution</span>
+  <span>P2 · Booklet Prototype</span>
+</div>
+</div>
+
+<!-- ── Page 10: What Support Planning Looks Like ── -->
+<div class="page">
+<div class="content-header">
+  <span class="page-num">Page 10 of 10</span>
+  <h2>What Support Planning Looks Like</h2>
+  <span class="internal-tag">Internal Draft</span>
+</div>
+<div class="content-grid">
+  <div class="purpose">
+    Evaluation is not the end point. Support may include school accommodations, therapy, caregiver education, daily routines, care coordination, and long-term planning. Families need a support map, not just a diagnosis.
+  </div>
+
+  <h3>Practical Caregiver Skills</h3>
+  <ul>
+    <li>Build a support map: identify medical, educational, therapeutic, and community resources.</li>
+    <li>Ask questions at every appointment: "What does this mean for daily life? What do we do next?"</li>
+    <li>Connect with other families through parent support groups and peer networks.</li>
+    <li>Plan for transitions: school changes, puberty, adulthood — each transition may need new supports.</li>
+    <li>Take it one step at a time. Support planning is a marathon, not a sprint.</li>
+  </ul>
+</div>
+
+<div class="boundary-box">
+  <strong>⚠ Boundary</strong>
+  <p>Must not imply families must have a comprehensive plan to be "doing it right." Avoid over-promising what support systems can deliver. No referral to specific services.</p>
+</div>
+
+<div class="source-section">
+  <h4>Source Notes (Internal)</h4>
+  <p>① CanFASD — Integrated Service Delivery (Flannigan et al., 2024): <a href="https://canfasd.ca/topics/intervention/">canfasd.ca/topics/intervention</a> — Person-centred coordination of health, social, and community services for individuals with FASD. Accessed 2026-05-22.</p>
+  <p>② CanFASD — C.A.R.E. Study: <a href="https://canfasd.ca/care-study/">canfasd.ca/care-study</a> — Caregiver perspectives on raising children with FASD; support planning is an ongoing process. Accessed 2026-05-22.</p>
+</div>
+
+<div class="page-footer">
+  <span>NeighborBridge — Nora Product R&amp;D</span>
+  <span>Non-PHI · Not for external distribution</span>
+  <span>P2 · Booklet Prototype</span>
+</div>
+</div>
+
+<!-- ── Appendix Page: Source Reference Summary ── -->
+<div class="page">
+<div class="appendix-header">
+  <h2>Source Reference Summary</h2>
+  <span class="internal-tag" style="display:inline-block; background:#DC2626; color:white; font-size:6.5pt; font-weight:700; padding:1px 7px; border-radius:2px; text-transform:uppercase; letter-spacing:0.6px; margin-top:4px;">Internal Notes</span>
+</div>
+<div class="appendix-body">
+
+  <p style="font-size:8pt; color:#6B7280; margin-bottom:12px;">Sources used across all pages. Accessed 2026-05-22. No copied text or images.</p>
+
+  <div class="source-item">
+    <p class="page-ref">CDC — FASD Resources for Families</p>
+    <p class="source-text">Family-facing FASD information including communication tools for parents and teachers, problem-solving strategies. Used on Pages 2, 7.</p>
+    <p class="source-url"><a href="https://www.cdc.gov/fasd/resources/index.html">cdc.gov/fasd/resources</a></p>
+  </div>
+
+  <div class="source-item">
+    <p class="page-ref">CDC — "Learn the Signs. Act Early."</p>
+    <p class="source-text">Developmental milestone tracking and guidance on when to seek evaluation. Used on Page 9.</p>
+    <p class="source-url"><a href="https://www.cdc.gov/ncbddd/actearly/parents/states.html">cdc.gov/actearly</a></p>
+  </div>
+
+  <div class="source-item">
+    <p class="page-ref">AAP — Fetal Alcohol Spectrum Disorders (Clinical Page)</p>
+    <p class="source-text">FASD diagnosis provides framework for understanding behavior; therapeutic interventions improve outcomes. Used on Pages 2, 3.</p>
+    <p class="source-url"><a href="https://www.aap.org/en/patient-care/fetal-alcohol-spectrum-disorders/">aap.org/fasd</a></p>
+  </div>
+
+  <div class="source-item">
+    <p class="page-ref">AAP — Developmental &amp; Behavioral Effects of FASD (1-Pager)</p>
+    <p class="source-text">FASD affects neurocognition, self-regulation, adaptive functioning; evidence-based treatment exists. Used on Pages 3, 9.</p>
+    <p class="source-url"><a href="https://downloads.aap.org/AAP/PDF/FASD/Dev_and_Behav_Effects_FASD_1-Page_Resource_FINAL_no_bleed.pdf">AAP PDF</a></p>
+  </div>
+
+  <div class="source-item">
+    <p class="page-ref">AAP
