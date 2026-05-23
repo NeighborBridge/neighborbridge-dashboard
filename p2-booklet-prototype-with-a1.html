@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P2 Behavior Toolkit — Booklet Prototype</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<style>
+  @page { size: letter; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: #f1f5f9; }
+  .page { width: 8.5in; min-height: 11in; position: relative; margin: 20px auto; background: white; box-shadow: 0 2px 16px rgba(0,0,0,0.08); overflow: hidden; }
+  @media print { body { background: white; } .page { margin: 0; box-shadow: none; } }
+  .page-inner { padding: 0.65in 0.7in; height: 100%; min-height: 11in; }
+  
+  /* Cover */
+  .cover { background: linear-gradient(135deg, #0ea5e9, #0284c7, #0369a1); color: white; }
+  .cover h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 8px; }
+  .cover .subtitle { font-size: 16px; opacity: 0.9; margin-bottom: 24px; }
+  .cover .meta { font-size: 11px; opacity: 0.75; }
+  .cover .toc { margin-top: 36px; }
+  .cover .toc li { list-style: none; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.15); font-size: 13px; opacity: 0.9; }
+  .cover .toc li strong { font-weight: 600; }
+  .cover .badge { display: inline-block; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); padding: 2px 10px; border-radius: 4px; font-size: 10px; font-weight: 600; margin-right: 4px; }
+
+  /* Content pages */
+  .page-header { background: #f0f9ff; padding: 12px 20px; border-bottom: 1px solid #bae6fd; display: flex; justify-content: space-between; align-items: center; }
+  .page-header .title { font-size: 16px; font-weight: 700; color: #0369a1; }
+  .page-header .page-num { font-size: 12px; color: #64748b; }
+  .page-body { padding: 0.4in 0.65in; }
+  .page-body h2 { font-size: 14px; font-weight: 700; color: #1e293b; margin-bottom: 6px; }
+  .page-body p { font-size: 11px; color: #475569; margin-bottom: 8px; line-height: 1.6; }
+  .page-body ul { font-size: 11px; color: #475569; margin: 6px 0 8px 18px; line-height: 1.6; }
+  .page-body ul li { margin-bottom: 4px; }
+  .page-body .highlight { background: #f0fdf4; border-left: 3px solid #22c55e; padding: 8px 12px; font-size: 11px; color: #166534; margin: 8px 0; }
+
+  /* Appendix page */
+  .appendix-page .page-header { background: #eff6ff; border-bottom-color: #93c5fd; }
+
+  /* Footer */
+  .page-footer { position: absolute; bottom: 0.3in; left: 0.7in; right: 0.7in; border-top: 1px solid #e2e8f0; padding-top: 4px; font-size: 7.5px; color: #94a3b8; text-align: center; }
+
+  .tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 9px; font-weight: 600; margin-right: 3px; }
+  .tag-blue { background: #dbeafe; color: #1e40af; }
+  .tag-green { background: #dcfce7; color: #166534; }
+  .tag-amber { background: #fef3c7; color: #92400e; }
+</style>
+</head>
+<body>
+
+<!-- ==================== PAGE 0: COVER ==================== -->
+<div class="page cover">
+  <div class="page-inner" style="display:flex; flex-direction:column; justify-content:center;">
+    <h1>Behavior Interpretation<br>& Family Support Toolkit</h1>
+    <div class="subtitle">Internal Booklet Prototype · A caregiver resource for understanding difficult behavior across FASD, neurodevelopmental differences, and family support needs.</div>
+    <div class="meta">
+      <span class="badge">Stage 1 Concept</span>
+      <span class="badge">Internal Discovery</span>
+      <span class="badge">Non-PHI</span>
+      <span class="badge">P2</span>
+    </div>
+
+    <div class="toc">
+      <h3 style="font-size:13px; font-weight:600; opacity:0.8; margin-bottom:8px;">CONTENTS</h3>
+      <ol>
+        <li><strong>Cover / Orientation</strong></li>
+        <li><strong>Behavior as Communication</strong></li>
+        <li style="border-bottom-color: rgba(255,255,255,0.3);"><strong>Brain-Based Expectations</strong> <span style="opacity:0.6; font-size:11px;">← Tool A1 appears here as appendix</span></li>
+        <li><strong>Sensory Overload and Shutdown</strong></li>
+        <li><strong>Emotional Regulation and Co-Regulation</strong></li>
+        <li><strong>Trauma, Grief, Attachment, and Trust</strong></li>
+        <li><strong>School vs. Home Behavior</strong></li>
+        <li><strong>De-escalation and Daily Structure</strong></li>
+        <li><strong>When to Seek Professional Help</strong></li>
+        <li><strong>What Support Planning Looks Like</strong></li>
+        <li style="border-bottom: none; margin-top: 8px; font-size: 13px; opacity:1;"><strong>Appendix — Tool A1: Caregiver Observation Log</strong> <span style="opacity:0.7;">(Draft Appendix Tool)</span></li>
+      </ol>
+    </div>
+
+    <div style="margin-top:auto; padding-top:24px; font-size:10px; opacity:0.7; border-top:1px solid rgba(255,255,255,0.2);">
+      NeighborBridge — Nora Product R&D · P2 · 2026-05-23 · Updated with A1 Appendix
+    </div>
+  </div>
+</div>
+
+<!-- Page content abbreviated for brevity — combined onto fewer pages -->
+
+<!-- ==================== PAGE 1: Behavior as Communication ==================== -->
+<div class="page">
+  <div class="page-header"><span class="title">Behavior as Communication</span><span class="page-num">2 of 10</span></div>
+  <div class="page-body">
+    <p>Behavior is information. It tells us what a child's brain needs, even when the child cannot say it in words.</p>
+    <p>Before asking "How do I stop this behavior?", ask: <strong>"What is this behavior trying to tell me?"</strong></p>
+    <div class="highlight">"All behavior is a form of communication. The question is not how to stop it — but what it is saying."</div>
+    <h2>Caregiver Skill: Pause and Look</h2>
+    <ul>
+      <li>Separate the behavior from the child</li>
+      <li>Look for patterns — time, place, before-and-after</li>
+      <li>Ask: Is this fatigue, sensory overload, transition stress?</li>
+      <li>Practice: Use Tool A1 to track one moment</li>
+    </ul>
+    <p style="font-size:10px; color:#94a3b8; margin-top:16px;"><strong>→ Appendix / Tool A1: Caregiver Observation Log</strong> helps practice tracking after this page.</p>
+  </div>
+  <div class="page-footer">P2 · Internal Prototype · Non-PHI · Stage 1 Concept</div>
+</div>
+
+<!-- ==================== PAGES 2–3: compressed ==================== -->
+<div class="page">
+  <div class="page-header"><span class="title">Brain-Based Expectations</span><span class="page-num">3 of 10</span></div>
+  <div class="page-body">
+    <p>Children with FASD or NDD may have developmental capacity well below their chronological age — especially in executive function, emotional regulation, and cause-effect reasoning.</p>
+    <p>Adjusting expectations is not lowering standards; it's meeting the child where they actually are.</p>
+    <h2>Key Principle</h2>
+    <ul>
+      <li>Assume 50–70% of chronological age for executive function</li>
+      <li>Avoid "he should know better by now" thinking</li>
+      <li>Match demand to capacity, not to age</li>
+    </ul>
+  </div>
+  <div class="page-footer">P2 · Internal Prototype · Non-PHI · Stage 1 Concept</div>
+</div>
+
+<div class="page">
+  <div class="page-header"><span class="title">Sensory Overload and Shutdown</span><span class="page-num">4 of 10</span></div>
+  <div class="page-body">
+    <p>Sensory processing differences are common in FASD/NDD. A child's brain may not filter or integrate sensory input the way typical brains do. What looks like a meltdown may be a sensory overload response.</p>
+    <h2>Common Sensory Triggers</h2>
+    <ul>
+      <li>Noise — loud spaces, multiple conversations, sudden sounds</li>
+      <li>Touch — unexpected physical contact, clothing textures</li>
+      <li>Visual — bright lights, clutter, fast-moving images</li>
+      <li>Proprioceptive — difficulty knowing body position</li>
+    </ul>
+  </div>
+  <div class="page-footer">P2 · Internal Prototype · Non-PHI · Stage 1 Concept</div>
+</div>
+
+<div class="page">
+  <div class="page-header"><span class="title">Emotional Regulation and Co-Regulation</span><span class="page-num">5 of 10</span></div>
+  <div class="page-body">
+    <p>Children with FASD/NDD often struggle to regulate their own emotions. They depend on a caregiver's calm presence to help them return to balance — this is co-regulation.</p>
+    <div class="highlight">"Your calm is their anchor. Before trying to reason, help the nervous system settle."</div>
+    <h2>Co-Regulation Skills</h2>
+    <ul>
+      <li>Lower your voice, slow your breathing</li>
+      <li>Offer proximity without demand</li>
+      <li>Use fewer words, not more</li>
+      <li>Model calm even when you don't feel it</li>
+    </ul>
+  </div>
+  <div class="page-footer">P2 · Internal Prototype · Non-PHI · Stage 1 Concept</div>
+</div>
+
+<div class="page">
+  <div class="page-header"><span class="title">Trauma, Grief, Attachment, and Trust</span><span class="page-num">6 of 10</span></div>
+  <div class="page-body">
+    <p>Many families caring for children with FASD/NDD are foster, kinship, or adoptive families. Prenatal exposure, early adversity, and attachment disruptions may be layered onto neurodevelopmental differences.</p>
+    <ul>
+      <li>Survival responses (fight/flight/freeze/fawn) may be deeply wired</li>
+      <li>Trust-building takes time and consistency</li>
+      <li>Grief is real — for the child and the caregiver</li>
+      <li>Separate trauma response from behavioral choice</li>
+    </ul>
+  </div>
+  <div class="page-footer">P2 · Internal Prototype · Non-PHI · Stage 1 Concept</div>
+</div>
+
+<div class="page">
+  <div class="page-header"><span class="title">School vs. Home Behavior</span><span class="page-num">7 of 10</span></div>
+  <div class="page-body">
+    <p>Many children with FASD/NDD behave very differently at school than at home. This is not manipulation — it reflects different environments, demands, and supports.</p>
+    <ul>
+      <li>School: structured, predictable, lower sensory load</li>
+      <li>Home: unstructured, emotionally complex, recovery space</li>
+      <li>The child who "holds it together" at school may release everything at home</li>
+      <li>This is information, not contradiction</li>
+    </ul>
+  </div>
+  <div class="page-footer">P2 · Internal Prototype · Non-PHI · Stage 1 Concept</div>
+</div>
+
+<div class="page">
+  <div class="page-header"><span class="title">De-escalation and Daily Structure</span><span class="page-num">8 of 10</span></div>
+  <div class="page-body">
+    <p>Predictable structure reduces cognitive load. For a child with executive function challenges, knowing what comes next is not a luxury — it is a necessity.</p>
+    <h2>Practical Tools</h2>
+    <ul>
+      <li>Visual schedules — show, don't just tell</li>
+      <li>Transition warnings — 5 minutes, 2 minutes, now</li>
+      <li>Fewer words during escalation — the thinking brain is offline</li>
+      <li>After escalation: reconnect before re-teaching</li>
+    </ul>
+  </div>
+  <div class="page-footer">P2 · Internal Prototype · Non-PHI · Stage 1 Concept</div>
+</div>
+
+<div class="page">
+  <div class="page-header"><span class="title">When to Seek Professional Help</span><span class="page-num">9 of 10</span></div>
+  <div class="page-body">
+    <p>This toolkit supports caregiver education and connector support. It does not replace clinical evaluation or treatment. PCP / medical home remains the clinical gatekeeper.</p>
+    <ul>
+      <li>Safety concerns (self-harm, aggression, elopement) → immediate professional</li>
+      <li>Persistent sleep, eating, or mood concerns → discuss with PCP</li>
+      <li>School refusal or rapid regression → consult school team + PCP</li>
+      <li>Caregiver burnout affecting daily function → seek support for yourself</li>
+    </ul>
+  </div>
+  <div class="page-footer">P2 · Internal Prototype · Non-PHI · Stage 1 Concept</div>
+</div>
+
+<div class="page">
+  <div class="page-header"><span class="title">What Support Planning Looks Like</span><span class="page-num">10 of 10</span></div>
+  <div class="page-body">
+    <p>Support planning is not a one-time event. It evolves with the child and family. The goal is not a perfect plan — it is a sustainable one.</p>
+    <ul>
+      <li>Identify what is working — protect it</li>
+      <li>Identify one change to try — start small</li>
+      <li>Identify who is on the team — and who is missing</li>
+      <li>Revisit every 3–6 months</li>
+    </ul>
+  </div>
+  <div class="page-footer">P2 · Internal Prototype · Non-PHI · Stage 1 Concept</div>
+</div>
+
+<!-- ==================== APPENDIX: TOOL A1 ==================== -->
+<div class="page appendix-page">
+  <div class="page-header">
+    <span class="title" style="color:#0ea5e9;">📋 Appendix — Tool A1: Caregiver Observation Log</span>
+    <span class="page-num" style="font-weight:600;">Draft Appendix Tool</span>
+  </div>
+  <div class="page-body">
+    <p>
+      <span class="tag tag-blue">Internal Draft</span>
+      <span class="tag tag-green">Low Risk</span>
+      <span class="tag tag-amber">Pending Richard Review</span>
+    </p>
+    <p style="font-size:11px; color:#475569; margin-top:6px;">
+      <strong>Purpose:</strong> Help caregivers notice patterns in behavior, setting, stressors, and what helped or did not help.
+      Bridges Page 2 (Behavior as Communication) — observe patterns before jumping to interpretation.
+    </p>
+
+    <div style="background:#fef2f2; border:1px solid #fca5a5; border-radius:6px; padding:8px 12px; margin:10px 0; font-size:9.5px; color:#991b1b; line-height:1.5;">
+      <strong>⚠ Internal Use Only</strong><br>
+      Educational tool only. Not diagnostic. Not treatment plan. Not crisis plan. Not medication advice. Not referral pathway. Not a substitute for professional evaluation. <strong>PCP / medical home remains the clinical gatekeeper.</strong>
+    </div>
+
+    <h2 style="margin-top:8px;">11 Observation Fields</h2>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:4px 16px; font-size:10px; color:#475569;">
+      <div><strong>01</strong> Date</div>
+      <div><strong>02</strong> Time</div>
+      <div><strong>03</strong> Setting</div>
+      <div><strong>04</strong> What happened before?</div>
+      <div><strong>05</strong> What did your child do?</div>
+      <div><strong>06</strong> Stressors or triggers</div>
+      <div><strong>07</strong> What helped?</div>
+      <div><strong>08</strong> What didn't help?</div>
+      <div><strong>09</strong> What did you notice?</div>
+      <div><strong>10</strong> Is there a pattern?</div>
+      <div><strong>11</strong> Questions for care team</div>
+    </div>
+
+    <h2 style="margin-top:10px;">Design Status</h2>
+    <ul style="font-size:10px;">
+      <li><strong>Printable v1 accepted</strong> — US Letter, English-only, professional patient-education style</li>
+      <li><strong>Enhanced v2 visual style approved</strong> — blue gradient header, numbered fields with icons, stronger hierarchy</li>
+      <li>Source: controlled HTML/CSS/PDF (not generated image)</li>
+    </ul>
+
+    <div style="background:#f0f9ff; border:1px solid #bae6fd; border-radius:6px; padding:7px 10px; margin:8px 0; font-size:9.5px; color:#0369a1;">
+      <strong>📌 Summary:</strong> Tool A1 helps caregivers notice patterns in behavior, setting, stressors, and what helped or did not help. It is an educational reflection tool only. Do not include names, DOB, insurance IDs, addresses, school names, provider names, or other identifying information.
+    </div>
+  </div>
+  <div class="page-footer">Appendix / Tool A1 · Internal Draft · Low Risk · Pending Richard Review · P2 · Stage 1 Concept</div>
+</div>
+
+</body>
+</html>
