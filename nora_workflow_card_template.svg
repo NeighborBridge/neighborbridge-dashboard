@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1000 880" width="1000" height="880" xmlns="http://www.w3.org/2000/svg" style="font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f4f7fb;">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#94a3b8"/>
+    </marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#ef4444"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="40" y="35" font-size="19" font-weight="700" fill="#0f172a">FASD/NDD Diagnostic Readiness — Community Entry-Point Workflow</text>
+  <text x="40" y="55" font-size="12" fill="#64748b">Internal concept for Holly / FQHC alignment discussion — not sent / not approved</text>
+
+  <!-- Status badges -->
+  <rect x="40" y="65" width="74" height="20" rx="4" fill="#fef3c7" stroke="#f59e0b" stroke-width="0.5"/>
+  <text x="77" y="79" font-size="10" font-weight="700" fill="#92400e" text-anchor="middle">Internal Draft</text>
+  <rect x="120" y="65" width="60" height="20" rx="4" fill="#e0e7ff" stroke="#6366f1" stroke-width="0.5"/>
+  <text x="150" y="79" font-size="10" font-weight="700" fill="#4338ca" text-anchor="middle">Non-PHI</text>
+  <rect x="186" y="65" width="130" height="20" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.5"/>
+  <text x="251" y="79" font-size="10" font-weight="700" fill="#475569" text-anchor="middle">Not for external distribution</text>
+  <rect x="322" y="65" width="120" height="20" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="0.5"/>
+  <text x="382" y="79" font-size="10" font-weight="700" fill="#475569" text-anchor="middle">No referral pathway implied</text>
+
+  <!-- Swimlane labels (left side) -->
+  <text x="14" y="125" font-size="12" font-weight="700" fill="#475569" text-anchor="end">Community Entry Points</text>
+  <text x="14" y="260" font-size="12" font-weight="700" fill="#475569" text-anchor="end">Family Readiness Preparation</text>
+  <text x="14" y="395" font-size="12" font-weight="700" fill="#475569" text-anchor="end">PCP / Medical Home</text>
+  <text x="14" y="530" font-size="12" font-weight="700" fill="#475569" text-anchor="end">Clinical Eval &amp; Support</text>
+  <text x="14" y="660" font-size="12" font-weight="700" fill="#475569" text-anchor="end">Safety Escalation</text>
+
+  <!-- Swimlane borders -->
+  <rect x="28" y="95" width="944" height="115" rx="5" fill="none" stroke="#cbd5e1" stroke-width="1.2"/>
+  <rect x="28" y="220" width="944" height="125" rx="5" fill="none" stroke="#cbd5e1" stroke-width="1.2"/>
+  <rect x="28" y="355" width="944" height="125" rx="5" fill="none" stroke="#cbd5e1" stroke-width="1.2"/>
+  <rect x="28" y="490" width="944" height="125" rx="5" fill="none" stroke="#cbd5e1" stroke-width="1.2"/>
+  <rect x="28" y="625" width="944" height="70" rx="5" fill="none" stroke="#cbd5e1" stroke-width="1.2"/>
+
+  <!-- Lane 1: Community Entry Points -->
+  <!-- WIC -->
+  <rect x="45" y="110" width="145" height="55" rx="6" fill="#dbeafe" stroke="#60a5fa" stroke-width="1.2"/>
+  <text x="117" y="133" font-size="12.5" font-weight="650" fill="#1e293b" text-anchor="middle">🆔 WIC</text>
+  <text x="117" y="150" font-size="11" fill="#475569" text-anchor="middle">Entry point</text>
+
+  <!-- Public Health -->
+  <rect x="210" y="110" width="150" height="55" rx="6" fill="#dbeafe" stroke="#60a5fa" stroke-width="1.2"/>
+  <text x="285" y="133" font-size="12.5" font-weight="650" fill="#1e293b" text-anchor="middle">🏥 Public Health</text>
+  <text x="285" y="150" font-size="11" fill="#475569" text-anchor="middle">Care managers</text>
+
+  <!-- School Nurse -->
+  <rect x="380" y="110" width="145" height="55" rx="6" fill="#dbeafe" stroke="#60a5fa" stroke-width="1.2"/>
+  <text x="452" y="133" font-size="12.5" font-weight="650" fill="#1e293b" text-anchor="middle">🏫 School Nurses</text>
+  <text x="452" y="150" font-size="11" fill="#475569" text-anchor="middle">Entry point</text>
+
+  <!-- Pediatric PCP -->
+  <rect x="545" y="110" width="145" height="55" rx="6" fill="#dbeafe" stroke="#60a5fa" stroke-width="1.2"/>
+  <text x="617" y="133" font-size="12.5" font-weight="650" fill="#1e293b" text-anchor="middle">👶 Pediatric PCP</text>
+  <text x="617" y="150" font-size="11" fill="#475569" text-anchor="middle">Child health clinic</text>
+
+  <!-- CHW (dashed pending) -->
+  <rect x="710" y="110" width="155" height="55" rx="6" fill="#e0e7ff" stroke="#a5b4fc" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="787" y="133" font-size="12.5" font-weight="650" fill="#1e293b" text-anchor="middle">🧑‍🤝‍🧑 CHW / Navigator</text>
+  <text x="787" y="150" font-size="11" fill="#475569" text-anchor="middle">Pending approval</text>
+
+  <!-- Arrows Lane 1 → Lane 2 -->
+  <path d="M117 165L117 235" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <path d="M285 165L285 235" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <path d="M452 165L452 235" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <path d="M617 165L617 235" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <path d="M787 165L787 235" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- Lane 2: Family Readiness -->
+  <rect x="45" y="235" width="210" height="55" rx="6" fill="#c7d2fe" stroke="#818cf8" stroke-width="1.2"/>
+  <text x="150" y="257" font-size="12.5" font-weight="650" fill="#1e293b" text-anchor="middle">📖 Diagnostic-Readiness</text>
+  <text x="150" y="274" font-size="12.5" font-weight="650" fill="#1e293b" text-anchor="middle">Education</text>
+
+  <path d="M255 262L315 262" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <rect x="315" y="235" width="210" height="55" rx="6" fill="#c7d2fe" stroke="#818cf8" stroke-width="1.2"/>
+  <text x="420" y="257" font-size="12.5" font-weight="650" fill="#1e293b" text-anchor="middle">📋 Record Gathering</text>
+  <text x="420" y="274" font-size="11" fill="#475569" text-anchor="middle">Prepares records &amp; questions</text>
+
+  <path d="M525 262L585 262" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- Gate 2: PCP/Medical Home? -->
+  <polygon points="630,290 690,325 630,360 570,325" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="630" y="322" font-size="10" font-weight="700" fill="#b45309" text-anchor="middle">PCP / Medical</text>
+  <text x="630" y="335" font-size="10" font-weight="700" fill="#b45309" text-anchor="middle">Home?</text>
+
+  <!-- Gate 2 arrow down -->
+  <path d="M630 262L630 286" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- Gate 2: No → Connect Medical Home -->
+  <path d="M630 360L630 395" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <text x="640" y="383" font-size="10" font-weight="700" fill="#dc2626">No →</text>
+  <rect x="545" y="395" width="170" height="35" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="630" y="417" font-size="11.5" font-weight="650" fill="#1e293b" text-anchor="middle">Connect to Medical Home</text>
+  <path d="M715 412L745 412L745 340L690 340" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- Gate 2: Yes arrow to PCP lane -->
+  <path d="M690 325L740 325L740 385L705 385" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- Lane 3: PCP / Medical Home -->
+  <!-- Gate 1: Emergency -->
+  <polygon points="55,380 115,415 55,450 -5,415" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="55" y="412" font-size="10" font-weight="700" fill="#b45309" text-anchor="middle">Emergency /</text>
+  <text x="55" y="425" font-size="10" font-weight="700" fill="#b45309" text-anchor="middle">Immediate Danger?</text>
+
+  <!-- Gate 1 No → PCP Review -->
+  <path d="M115 415L175 415" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <text x="130" y="428" font-size="10" font-weight="700" fill="#16a34a">No →</text>
+
+  <!-- Gate 1 Yes ↓ Safety -->
+  <path d="M55 450L55 635" stroke="#ef4444" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+
+  <!-- PCP Review -->
+  <rect x="175" y="385" width="190" height="55" rx="6" fill="#a7f3d0" stroke="#34d399" stroke-width="1.2"/>
+  <text x="270" y="407" font-size="12.5" font-weight="650" fill="#1e293b" text-anchor="middle">🩺 PCP / Medical Home</text>
+  <text x="270" y="424" font-size="11" fill="#475569" text-anchor="middle">Reviews concern</text>
+
+  <path d="M365 412L410 412" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- Gate 3: Records Available? -->
+  <polygon points="450,377 510,412 450,447 390,412" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="450" y="409" font-size="10" font-weight="700" fill="#b45309" text-anchor="middle">Records</text>
+  <text x="450" y="422" font-size="10" font-weight="700" fill="#b45309" text-anchor="middle">Available?</text>
+
+  <!-- Gate 3: No → back to family education -->
+  <path d="M390 412L145 412L145 262" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <text x="155" y="408" font-size="10" font-weight="700" fill="#dc2626">No → family education + record support</text>
+
+  <!-- Gate 3: Yes → Gate 4 -->
+  <path d="M510 412L565 412" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <!-- Gate 4: Appropriate / Within Capacity? -->
+  <polygon points="605,377 665,412 605,447 545,412" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="605" y="409" font-size="10" font-weight="700" fill="#b45309" text-anchor="middle">Appropriate</text>
+  <text x="605" y="422" font-size="10" font-weight="700" fill="#b45309" text-anchor="middle">Within capacity?</text>
+
+  <!-- Gate 4: Yes → Clinical Eval -->
+  <path d="M665 412L740 412L740 500" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <text x="748" y="428" font-size="10" font-weight="700" fill="#16a34a">Schedule evaluation →</text>
+
+  <!-- Gate 4: No → Support Planning -->
+  <path d="M605 447L605 500" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <text x="615" y="470" font-size="10" font-weight="700" fill="#dc2626">No → support planning</text>
+
+  <!-- Lane 4: Clinical & Support -->
+  <rect x="45" y="500" width="230" height="55" rx="6" fill="#fce7f3" stroke="#f472b6" stroke-width="1.2"/>
+  <text x="160" y="522" font-size="12.5" font-weight="650" fill="#1e293b" text-anchor="middle">📝 Support Planning</text>
+  <text x="160" y="539" font-size="11" fill="#475569" text-anchor="middle">Alternate resource guidance</text>
+
+  <rect x="340" y="500" width="210" height="55" rx="6" fill="#bbf7d0" stroke="#22c55e" stroke-width="1.2"/>
+  <text x="445" y="522" font-size="12.5" font-weight="650" fill="#1e293b" text-anchor="middle">✔ Clinical Evaluation</text>
+  <text x="445" y="539" font-size="11" fill="#475569" text-anchor="middle">Within approved workflow</text>
+
+  <path d="M550 527L615 527" stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+
+  <rect x="615" y="500" width="220" height="55" rx="6" fill="#bbf7d0" stroke="#22c55e" stroke-width="1.2"/>
+  <text x="725" y="522" font-size="12.5" font-weight="650" fill="#1e293b" text-anchor="middle">🔄 Longitudinal Support</text>
+  <text x="725" y="539" font-size="11" fill="#475569" text-anchor="middle">Family support planning</text>
+
+  <!-- Lane 5: Safety Escalation -->
+  <rect x="45" y="635" width="230" height="45" rx="6" fill="#fecaca" stroke="#ef4444" stroke-width="1.2"/>
+  <text x="160" y="655" font-size="12.5" font-weight="700" fill="#991b1b" text-anchor="middle">🚨 Emergency Pathway</text>
+  <text x="160" y="670" font-size="11" font-weight="600" fill="#b91c1c" text-anchor="middle">Call 988 / 911</text>
+
+  <!-- Key Concept box -->
+  <rect x="320" y="635" width="555" height="45" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.2"/>
+  <text x="335" y="655" font-size="11" fill="#1e40af">This workflow supports early recognition, family education, and referral preparation.</text>
+  <text x="335" y="671" font-size="11" fill="#1e40af">It does not create an open referral channel. No diagnosis by entry-point staff.</text>
+
+  <!-- Boundary Box -->
+  <rect x="30" y="720" width="940" height="135" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.2"/>
+  <text x="50" y="742" font-size="14" font-weight="700" fill="#991b1b">⚠ Boundary Box</text>
+  <text x="50" y="762" font-size="11" fill="#991b1b">• No PHI • No open referral channel</text>
+  <text x="50" y="779" font-size="11" fill="#991b1b">• No diagnosis by WIC / school / public health staff • No diagnosis by CHWs / navigators</text>
+  <text x="50" y="796" font-size="11" fill="#991b1b">• No Holly endorsement implied • No Contentnea approval implied • No Proof Alliance endorsement implied</text>
+  <text x="50" y="813" font-size="11" fill="#991b1b">• No DSS / court pathway • Richard approval required before sharing</text>
+  <text x="50" y="835" font-size="12" font-weight="700" fill="#991b1b">Internal draft only · Not for external distribution · Non-PHI</text>
+
+</svg>
