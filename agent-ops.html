@@ -204,7 +204,10 @@
           <strong>Boundary rule:</strong> Anchor gives market signals. Felix reviews financial exposure. Do not break existing watchers (logic, schedules, routing, API sources). No emoji back. Keep reminder channel routing intact.<br>
           <strong>Allowable Anchor statements:</strong> WTI is testing support. XLE is confirming/not confirming oil. Gold remains above 20D but extended from 10D. No entry yet; wait for 4H reclaim of 20MA. Long upper shadow suggests partial profit-taking.<br>
           <strong>Market watcher data-quality standard (Oil/XLE case, 2026-05-25):</strong> Holiday/weekend = silent logging, no Telegram. Stale data (bar >10min during market hours) suppresses signals. OHLC not labeled as current range during holidays. Primary source: history() bar data with timestamp, not ticker.info. Forward standard: all watchers must implement timestamp validation, holiday detection, stale-data suppression, clean Chinese Telgram only, no duplicate alerts.<br>
-          <strong>Oil/XLE watcher schedule:</strong> 10:00 ET (open check) · 13:00 ET (midday) · 15:15 ET (pre-close risk check).</p>
+          <strong>Oil/XLE watcher schedule:</strong> 10:00 ET (open check) · 13:00 ET (midday) · 15:15 ET (pre-close risk check).<br>
+          <strong>Futures instrument note:</strong> Do not mix spot/ETF/futures/proxy without clear labeling. WTI uses CL1/CL=F NYMEX front-month. Precious metals: distinguish XAUUSD, GC front-month, GLD, XAGUSD, SI front-month, SLV. Commodities: document futures vs ETF vs spot vs proxy.<br>
+          <strong>Do Not Do:</strong> stale settlement for signals · blind ticker.info reliance · debug logs to Telegram · holiday OHLC as current range · modify thresholds when data quality is the problem · duplicate cron jobs.<br>
+          <strong>Operational standard:</strong> All alerts based on fresh timestamp-validated data. Uncertain quality = suppress signal. Missing alert preferable to false alert.</p>
           <p class="text-gray-600 pl-2">Early morning snapshot · Morning brief · Intraday major-change alerts · Structural watch · Respect Richard&rsquo;s trading rules.</p>
 
           <p class="font-medium text-cyan-700">G. Compliance / Clara / Felix Operations</p>
