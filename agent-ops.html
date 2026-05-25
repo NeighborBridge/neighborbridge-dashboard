@@ -205,10 +205,99 @@
           <strong>Allowable Anchor statements:</strong> WTI is testing support. XLE is confirming/not confirming oil. Gold remains above 20D but extended from 10D. No entry yet; wait for 4H reclaim of 20MA. Long upper shadow suggests partial profit-taking.<br>
           <strong>Market watcher data-quality standard (Oil/XLE case, 2026-05-25):</strong> Holiday/weekend = silent logging, no Telegram. Stale data (bar >10min during market hours) suppresses signals. OHLC not labeled as current range during holidays. Primary source: history() bar data with timestamp, not ticker.info. Forward standard: all watchers must implement timestamp validation, holiday detection, stale-data suppression, clean Chinese Telgram only, no duplicate alerts.<br>
           <strong>Oil/XLE watcher schedule:</strong> 10:00 ET (open check) · 13:00 ET (midday) · 15:15 ET (pre-close risk check).<br>
-          <strong>Futures instrument note:</strong> Do not mix spot/ETF/futures/proxy without clear labeling. WTI uses CL1/CL=F NYMEX front-month. Precious metals: distinguish XAUUSD, GC front-month, GLD, XAGUSD, SI front-month, SLV. Commodities: document futures vs ETF vs spot vs proxy.<br>
+          <strong>Futures instrument note:</strong> Do not mix spot/ETF/futures/proxy without clear labeling. WTI uses CL1/CL=F NYMEX front-month. Precious metals: distinguish XAUUSD (spot gold), GC=F (CME futures), GLD (ETF); XAGUSD (spot silver), SI=F (CME futures), SLV (ETF). Agricultural futures: ZC=corn, ZW=wheat, ZS=soybeans, ZM=soybean meal, ZL=soybean oil, KE=KC wheat. Soft commodities: CT=cotton, SB=sugar, LB=lumber, KC=coffee, CC=cocoa, JO=coffee/softs ETF. Structural MA: QQQ, SPY, IWM, DIA, TLT, GLD, SLV, XLE, XLF, XLU, SMH, IBB, ARKK — equity ETFs only, no futures mapping needed.<br>
           <strong>Do Not Do:</strong> stale settlement for signals · blind ticker.info reliance · debug logs to Telegram · holiday OHLC as current range · modify thresholds when data quality is the problem · duplicate cron jobs.<br>
-          <strong>Operational standard:</strong> All alerts based on fresh timestamp-validated data. Uncertain quality = suppress signal. Missing alert preferable to false alert.</p>
+          <strong>Operational standard:</strong> All alerts based on fresh timestamp-validated data. Uncertain quality = suppress signal. Missing alert preferable to false alert.<br>
+          <strong>Watcher data-quality compliance checklist:</strong> Each active watcher is audited against 12 data-quality criteria. See F1 below.<br>
+          <strong>New watcher rule:</strong> Must pass data-quality checklist before sending Telegram trading alerts.</p>
           <p class="text-gray-600 pl-2">Early morning snapshot · Morning brief · Intraday major-change alerts · Structural watch · Respect Richard&rsquo;s trading rules.</p>
+
+          <p class="font-medium text-cyan-700">F1. Watcher Data-Quality Compliance Checklist</p>
+          <p class="text-gray-600 pl-2">Standard defined in memory/anchor-market-trading-watcher-agent.md#Market-Watcher-Data-Quality-Standard. Audit date: 2026-05-25.</p>
+          <p class="text-gray-600 pl-2"><strong>12-point criteria:</strong><br>
+          1. Primary data source identification<br>
+          2. Instrument mapping verification (correct ticker for front-month / continuous contract)<br>
+          3. Timestamp validation (within 10 min during market hours)<br>
+          4. Holiday/weekend/market-closed detection<br>
+          5. Stale-data suppression (no trading signal from unverified data)<br>
+          6. Secondary-source sanity check or prev-close diff check<br>
+          7. Hard gate: no signal from unverified data<br>
+          8. Clean Chinese Telegram only (no debug, no raw data, no English status)<br>
+          9. Internal logs separated from user alerts<br>
+          10. One-signal-per-day deduplication or appropriate rate limit<br>
+          11. Clear instrument labeling: spot / futures / ETF / CFD / headline distinction<br>
+          12. Explicit fallback behavior if API data fails</p>
+          <p class="text-gray-600 pl-2"><strong>Status table:</strong></p>
+          <table class="w-full text-sm border-collapse bg-white">
+            <thead><tr class="bg-gray-100">
+              <th class="border p-1 text-left">Watcher</th>
+              <th class="border p-1 text-left">Primary Source</th>
+              <th class="border p-1 text-left">Instrument Type</th>
+              <th class="border p-1 text-left">Timestamp Validation</th>
+              <th class="border p-1 text-left">Holiday Handling</th>
+              <th class="border p-1 text-left">Telegram Clean</th>
+              <th class="border p-1 text-left">Status</th>
+              <th class="border p-1 text-left">Priority</th>
+              <th class="border p-1 text-left">Next Action</th>
+            </tr></thead>
+            <tbody>
+              <tr>
+                <td class="border p-1">Oil/XLE</td>
+                <td class="border p-1">yfinance CL=F history()</td>
+                <td class="border p-1">Front-month futures + ETF</td>
+                <td class="border p-1">Yes (10min age gate)</td>
+                <td class="border p-1">Silent log only</td>
+                <td class="border p-1">Yes (Chinese only)</td>
+                <td class="border p-1 text-green-600 font-medium">Compliant</td>
+                <td class="border p-1">P2 (reference model)</td>
+                <td class="border p-1">None; maintain</td>
+              </tr>
+              <tr class="bg-yellow-50">
+                <td class="border p-1">Gold/Silver</td>
+                <td class="border p-1">yfinance GC=F, SI=F history() + ^TNX/DX-Y.NYB info</td>
+                <td class="border p-1">Futures + macro (mixed: some ticker.info)</td>
+                <td class="border p-1">No (daily bar only, no freshness check)</td>
+                <td class="border p-1">No holiday detection</td>
+                <td class="border p-1">Partial (some English debug in Telegram)</td>
+                <td class="border p-1 text-orange-500 font-medium">Needs fix</td>
+                <td class="border p-1">P1</td>
+                <td class="border p-1">Replace ticker.info macro data with history(); add holiday detection; clean Telegram output; add instrument labels</td>
+              </tr>
+              <tr class="bg-yellow-50">
+                <td class="border p-1">Agricultural Futures</td>
+                <td class="border p-1">yfinance ZC=F, ZW=F, ZS=F, ZM=F, ZL=F, KE=F history() + macro info</td>
+                <td class="border p-1">Futures + macro (mixed: some ticker.info)</td>
+                <td class="border p-1">No (daily bar only, no freshness check)</td>
+                <td class="border p-1">No holiday detection</td>
+                <td class="border p-1">Partial (some English debug)</td>
+                <td class="border p-1 text-orange-500 font-medium">Needs fix</td>
+                <td class="border p-1">P3</td>
+                <td class="border p-1">Replace ticker.info macro; add holiday/stale-data; clean Telegram</td>
+              </tr>
+              <tr class="bg-yellow-50">
+                <td class="border p-1">Soft Commodities</td>
+                <td class="border p-1">yfinance CT=F, SB=F, LB=F, KC=F, CC=F, JO history() + macro info</td>
+                <td class="border p-1">Futures + macro (mixed: some ticker.info)</td>
+                <td class="border p-1">No (daily bar only, no freshness check)</td>
+                <td class="border p-1">No holiday detection</td>
+                <td class="border p-1">Partial (some English debug)</td>
+                <td class="border p-1 text-orange-500 font-medium">Needs fix</td>
+                <td class="border p-1">P4</td>
+                <td class="border p-1">Replace ticker.info macro; add holiday/stale-data; clean Telegram</td>
+              </tr>
+              <tr>
+                <td class="border p-1">Structural MA</td>
+                <td class="border p-1">yfinance ticker.info (multi-symbol)</td>
+                <td class="border p-1">Equity ETFs only (QQQ, SPY, IWM, etc.)</td>
+                <td class="border p-1">Partial (uses timestamp but no stale-data gate)</td>
+                <td class="border p-1">No holiday detection</td>
+                <td class="border p-1">Yes (Chinese, structured)</td>
+                <td class="border p-1 text-orange-500 font-medium">Partial</td>
+                <td class="border p-1">P5</td>
+                <td class="border p-1">Replace ticker.info with history(); add holiday gate</td>
+              </tr>
+            </tbody>
+          </table>
 
           <p class="font-medium text-cyan-700">G. Compliance / Clara / Felix Operations</p>
           <p class="text-gray-600 pl-2">Clara: Scan external-facing drafts · Flag endorsement/referral/pilot/partnership/PHI issues · Require review before external use. Felix: Flag finance/reimbursement/tax/pricing/cash-flow questions · Mark reimbursement items as pending CPA/billing/compliance/MCO confirmation.</p>
