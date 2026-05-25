@@ -252,16 +252,16 @@
                 <td class="border p-1">P2 (reference model)</td>
                 <td class="border p-1">None; maintain</td>
               </tr>
-              <tr class="bg-yellow-50">
+              <tr>
                 <td class="border p-1">Gold/Silver</td>
-                <td class="border p-1">yfinance GC=F, SI=F history() + ^TNX/DX-Y.NYB info</td>
-                <td class="border p-1">Futures + macro (mixed: some ticker.info)</td>
-                <td class="border p-1">No (daily bar only, no freshness check)</td>
-                <td class="border p-1">No holiday detection</td>
-                <td class="border p-1">Partial (some English debug in Telegram)</td>
-                <td class="border p-1 text-orange-500 font-medium">Needs fix</td>
-                <td class="border p-1">P1</td>
-                <td class="border p-1">Replace ticker.info macro data with history(); add holiday detection; clean Telegram output; add instrument labels</td>
+                <td class="border p-1">yfinance GC=F, SI=F, GLD, SLV history() + macro history()</td>
+                <td class="border p-1">Futures + macro (all history() bar-based)</td>
+                <td class="border p-1">Yes (10min age gate added)</td>
+                <td class="border p-1">Silent log only (added)</td>
+                <td class="border p-1">Yes (Chinese only, emoji removed, instrument labels added)</td>
+                <td class="border p-1 text-green-600 font-medium">Compliant</td>
+                <td class="border p-1">P1 (fixed 2026-05-25)</td>
+                <td class="border p-1">None; maintain</td>
               </tr>
               <tr class="bg-yellow-50">
                 <td class="border p-1">Agricultural Futures</td>
