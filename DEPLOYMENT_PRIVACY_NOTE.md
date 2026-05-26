@@ -35,3 +35,4 @@
 | 2026-05-01 | Career / Field Contribution dashboard mistakenly deployed to public neighborbridgehealth.com via nginx. Caught and reverted within minutes. Privacy governance rule established. |
 | 2026-05-01 | Duplicate repo `/home/ubuntu/neighborbridge-dashboard/` removed. Only workspace repo remains. |
 | 2026-05-01 | Confirmed: Cloudflare Worker was never broken — real root cause was wrong test URL (`cf.workers.dev` instead of `richard272.workers.dev`) + SSO login wall. |
+| 2026-05-26 | Training Wheel Sandbox (`training-wheel/` dir) created. Isolated from main dashboard. Needs separate Cloudflare Pages project or Workers route (`training-wheel.richard272.workers.dev`). Not connected to main dashboard routing. |
