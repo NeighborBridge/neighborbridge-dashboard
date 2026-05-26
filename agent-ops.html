@@ -422,6 +422,14 @@
           <p class="font-medium text-cyan-700">✅ 3. Clara red-flag scan</p>
           <p class="text-gray-600">External-facing text containing concepts like endorsement, referral channel, pilot, partnership, DSS, court, Contentnea approval, Yale/Duke support, Trillium, payer-facing language, or institutional commitment triggers Clara review. Safety check only. Does not block internal writing.</p>
         </div>
+        <!-- Approved 4: Morning Brief Cron Stabilization (2026-05-26) -->
+        <div class="p-1.5 rounded bg-white border border-cyan-200">
+          <p class="font-medium text-cyan-700">🟢 4. Morning Brief cron — stabilized (system crontab)</p>
+          <p class="text-gray-600"><strong>Problem:</strong> OpenClaw agentTurn cron timed out (121s) on DeepSeek cold-start latency in isolated sessions.<br>
+          <strong>Fix:</strong> Replaced with system crontab + Python script (morning_brief_writer.py). Telegram Bot API delivers static brief directly. No model call. No timeout risk.<br>
+          <strong>Schedule:</strong> 06:00 ET daily (system crontab: 0 10 * * * UTC). Script updates date dynamically.<br>
+          <strong>To update content:</strong> Edit morning_brief_writer.py generate_brief() function.</p>
+        </div>
         <!-- Approved 4 -->
         <div class="p-1.5 rounded bg-white border border-cyan-200">
           <p class="font-medium text-cyan-700">✅ 4. Oil/XLE Trading Watcher</p>
