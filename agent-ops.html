@@ -363,7 +363,10 @@
           — Role creep, AI-as-supervisor language, clinical-training framing<br>
           — Community forum expansion, Discord-first drift, patient interaction drift<br>
           — Institutional representation confusion</p>
-          <p class="text-gray-600 pl-2"><strong>Sandbox page:</strong> <code>training-wheel/index.html</code> committed to repo. Static HTML, isolated directory, no shared navigation. Needs separate Cloudflare Pages project or Workers route (<code>training-wheel.richard272.workers.dev</code>) to be deployed independently. Not connected to main dashboard routing. No chatbot, no login, no API, no analytics.</p>
+          <p class="text-gray-600 pl-2"><strong>Sandbox page:</strong> <code>training-wheel/index.html</code> committed to repo. Static HTML, isolated directory, no shared navigation. <strong>⚠ Access constraint:</strong> Current <code>/training-wheel/</code> path inherits main dashboard Cloudflare Zero Trust (Richard's private email). Cannot be used for external youth/community access. Requires separate Cloudflare Pages project for true access isolation.<br>
+          <strong>Deployment plan:</strong> <code>training-wheel/DEPLOYMENT-PLAN.md</code> — documents Cloudflare Dashboard steps to create separate Pages project pointing to <code>training-wheel/</code> directory.<br>
+          <strong>Offline review:</strong> <code>training-wheel/training-wheel-sandbox.pdf</code> — exported for offline review without any deployment.<br>
+          <strong>Until separate deployment:</strong> offline review only. Do not share main dashboard URL. Do not add external users to main Zero Trust policy.</p>
 
           <p class="font-medium text-cyan-700">F. Market Monitoring Operations</p>
           <p class="font-medium text-orange-700">F0. Anchor — Market / Trading Watcher Agent</p>
