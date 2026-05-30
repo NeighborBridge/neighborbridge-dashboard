@@ -580,15 +580,15 @@
     {
       "type": "task",
       "id": 5,
-      "title_cn": "Training Wheel — 保持静态，删除场景按钮",
+      "title_cn": "Training Wheel — 隔离静态sandbox已部署；尚未给Jude使用",
       "priority": "low",
       "status": "done",
       "owner": "Atlas",
       "due_date": "2026-05-30",
       "can_agent_execute": true,
       "requires_user_approval": false,
-      "next_action": "已移除场景按钮，保留边界卡片+升级规则，不部署子域名",
-      "success_definition_cn": "Training Wheel sandbox保持静态，Jude角色限于协助整理handouts",
+      "next_action": "已部署至neighborbridge-training-wheel.pages.dev；静态隔离、无chatbot/无表单/无登录/无活跃项目",
+      "success_definition_cn": "Training Wheel — isolated static sandbox deployed; not for Jude use yet; no chatbot/forms/login; no active program",
       "linked_stakeholder_id": "",
       "linked_dashboard": "",
       "updated_at": "2026-05-30"
@@ -793,57 +793,6 @@
       },
       {
         "type": "riskscan",
-        "id": "RS-001",
-        "title_cn": "盲点扫描: Melissa邮件发布时间vs 6/8会议",
-        "priority": "high",
-        "status": "mitigated",
-        "impact_level": "medium",
-        "brief_summary_cn": "原计划6/1-6/3发送Melissa email给Contentnea CEO，但6/8即有会议。提前送内容可能减弱meeting leverage。已转为meeting discussion材料。",
-        "owner": "Atlas",
-        "next_action": "✅ 已处理 — 改为6/8会议讨论材料",
-        "next_action_due": "2026-06-08",
-        "related_stakeholders": [],
-        "related_dashboards": [],
-        "agent_execution_level": "completed",
-        "resolved_condition_cn": "Melissa email不再提前发送，转为会议讨论材料",
-        "updated_at": "2026-05-30"
-      },
-      {
-        "type": "riskscan",
-        "id": "RS-002",
-        "title_cn": "盲点扫描: FMF支持流程显示为事实",
-        "priority": "medium",
-        "status": "mitigated",
-        "impact_level": "medium",
-        "brief_summary_cn": "内部文档中的FMF workflow图显示为已知结构，实际从未联系。对外部可能造成虚假印象。",
-        "owner": "Atlas",
-        "next_action": "✅ 已处理 — FMF已标注为'unfunded assumption, not contacted'",
-        "next_action_due": "2026-05-30",
-        "related_stakeholders": [],
-        "related_dashboards": [],
-        "agent_execution_level": "completed",
-        "resolved_condition_cn": "所有FMF相关文档标注为未联系假设",
-        "updated_at": "2026-05-30"
-      },
-      {
-        "type": "riskscan",
-        "id": "RS-003",
-        "title_cn": "盲点扫描: Training Wheel过度构建",
-        "priority": "medium",
-        "status": "mitigated",
-        "impact_level": "low",
-        "brief_summary_cn": "Training Wheel sandbox包含过多功能按钮但无结构化Jude活动计划。有过度构建风险。",
-        "owner": "Atlas",
-        "next_action": "✅ 已处理 — 移除场景按钮，保持静态，不部署子域名",
-        "next_action_due": "2026-05-30",
-        "related_stakeholders": [],
-        "related_dashboards": [],
-        "agent_execution_level": "completed",
-        "resolved_condition_cn": "Training Wheel保持静态，Jude角色限于整理handouts",
-        "updated_at": "2026-05-30"
-      },
-      {
-        "type": "riskscan",
         "id": "RS-004",
         "title_cn": "盲点扫描: Manuscript节奏不现实",
         "priority": "high",
@@ -878,17 +827,31 @@
       }
     ],
     "dashboard_summary": {
-      "impact_cn": "照护职责限制外出与深度工作 · 试点启动延迟 · 教职路径待定位 · 手稿节奏不现实 · 角色边界文档仅agent可见",
-      "total_active": 7,
+      "impact_cn": "照护职责限制 · 试点入口缺失 · Medical Director未对齐 · 教职路径定位待完成 · 手稿节奏不现实 · 角色边界文档仅agent可见",
+      "total_active": 5,
       "highest_impact_blocker_id": "BLKR-000",
-      "updated_at": "2026-04-24"
-    }
+      "updated_at": "2026-05-30"
+    },
+    "mitigated_risks": [
+      {
+        "type": "mitigated_risk",
+        "id": "MR-001",
+        "title_cn": "Melissa email发送时机 — 已转为6/8会议材料",
+        "resolved_cn": "改为meeting discussion材料，不提前发送"
+      },
+      {
+        "type": "mitigated_risk",
+        "id": "MR-002",
+        "title_cn": "FMF显示为事实 — 已标注为未联系假设",
+        "resolved_cn": "所有FMF相关文档标注'unfunded assumption, not contacted'"
+      }
+    ]
   }</script>
 
   <script type="application/json" id="nb-actions">{
     "summary": {
       "section_title_cn": "可执行（今天）",
-      "highlights_cn": "新：盲点扫描5项风险（Contentnea时间/FMF标签/Training Wheel/手稿节奏/角色边界）",
+      "highlights_cn": "Training Wheel静态sandbox已部署 · 手稿8月硬截止 · 角色边界卡片待输出",
       "total_actions": 4,
       "completed_actions": 1,
       "pending_actions": 3,
