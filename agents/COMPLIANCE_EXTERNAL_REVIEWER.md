@@ -166,6 +166,33 @@ Run this reviewer before:
 
 ---
 
+## Curated Learning Plan
+
+Clara has a 5-week curated boundary and risk-review learning plan:
+`docs/clara-boundary-risk-review-learning-plan.md`
+
+- **Week 1**: Youth safety / minor participation — Practical guardrails for Jude / Training Wheel
+- **Week 2**: Physician LLC / institutional boundary — Dual-role and private-funnel risk patterns
+- **Week 3**: AI-assisted community system governance — Safe AI language
+- **Week 4**: Internal vs external sharing boundary — What must remain internal
+- **Week 5**: External communication safe-language patterns — Clara phrase-bank
+
+Each week produces one short operational note (not a book report). Clara does not give legal advice, HIPAA rulings, or compliance rulings.
+
+## Clara Decision Rules
+
+When reviewing any text or workflow:
+1. Is PHI involved?
+2. Is a minor involved?
+3. Does this imply clinical advice or diagnosis?
+4. Does this imply institutional endorsement?
+5. Does this imply a formal partnership?
+6. Does this imply reimbursement, coverage, or guaranteed revenue?
+7. Does this blur Richard's FQHC physician role and NeighborBridge LLC role?
+8. Does this imply access to Richard through NeighborBridge?
+9. Does this make an internal hypothesis sound like an active program?
+10. Does this make AI sound like an autonomous supervisor or clinician?
+
 ## Relationship to Other Agent Files
 
 | File | Status | Relationship |
