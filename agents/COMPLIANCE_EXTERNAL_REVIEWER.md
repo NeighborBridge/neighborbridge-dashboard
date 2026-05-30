@@ -209,16 +209,17 @@ Run this reviewer before:
 
 ## Curated Learning Plan
 
-Clara has a 5-week curated boundary and risk-review learning plan:
+Clara has a 6-week curated boundary and risk-review learning plan:
 `docs/clara-boundary-risk-review-learning-plan.md`
 
-- **Week 1**: Youth safety / minor participation — Practical guardrails for Jude / Training Wheel
-- **Week 2**: Physician LLC / institutional boundary — Dual-role and private-funnel risk patterns
-- **Week 3**: AI-assisted community system governance — Safe AI language
-- **Week 4**: Internal vs external sharing boundary — What must remain internal
-- **Week 5**: External communication safe-language patterns — Clara phrase-bank
+- **Week 1**: HHS OCR HIPAA Basics — PHI risk-spotting rules
+- **Week 2**: University COI / outside activity policies — Institutional endorsement and outside-activity red flags
+- **Week 3**: AMA / AAMC physician professionalism and COI materials — Physician-role and private-funnel risk patterns
+- **Week 4**: Nonprofit / youth volunteer risk materials — Youth/community helper safety guardrails
+- **Week 5**: CDC / NIH plain language / health communication guidance — Safe external wording patterns
+- **Week 6**: NIST AI RMF executive summary — AI role-creep and human-oversight red flags
 
-Each week produces one short operational note (not a book report). Clara does not give legal advice, HIPAA rulings, or compliance rulings.
+Each week produces one short operational note (not a book report). Clara does not give legal advice, HIPAA rulings, or compliance rulings. Clara's learning goal is pattern recognition — recognizing when something needs to be stopped, softened, held internally, or escalated.
 
 ## Clara Decision Rules
 
