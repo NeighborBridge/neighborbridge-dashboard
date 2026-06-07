@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Atlas Recovery Control Panel — 暂存</title>
+ <script src="https://cdn.tailwindcss.com"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ <link rel="stylesheet" href="shared.css">
+ <style>
+ .accent-blue { border-left: 4px solid #60a5fa; }
+ .accent-green { border-left: 4px solid #34d399; }
+ .accent-purple { border-left: 4px solid #a78bfa; }
+ .accent-red { border-left: 4px solid #ef4444; }
+ .accent-orange { border-left: 4px solid #f59e0b; }
+ .accent-teal { border-left: 4px solid #14b8a6; }
+ .sec-card { @apply bg-white rounded-lg p-3 border shadow-sm mb-3; }
+ .label { @apply inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium; }
+ </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+<div class="max-w-5xl mx-auto px-3 py-3">
+
+ <!-- Header -->
+ <div class="sec-card" style="border-left:4px solid #14b8a6;background:#f0fdfa;">
+ <div class="flex items-center gap-2 mb-1.5">
+ <span class="text-sm font-bold text-teal-800">🛡 Atlas Recovery Control Panel</span>
+ <span class="label bg-teal-100 text-teal-700">Private Recovery Index</span>
+ </div>
+ <p class="text-[11px] text-gray-500">恢复索引面板 — 非源文件。预配置，可作为 dashboard 子页面部署。</p>
+ <p class="text-[10px] text-gray-400 mt-0.5">📍 Internal only · recovery map, not source vault</p>
+ </div>
+
+ <!-- 1. Agent Recovery Index -->
+ <div class="sec-card accent-blue">
+ <div class="flex items-center gap-1.5 mb-2">
+ <span class="text-sm font-bold">🤖 Agent Recovery Index</span>
+ <span class="label bg-blue-100 text-blue-700">恢复入口</span>
+ </div>
+ <div class="overflow-x-auto text-[11px]">
+ <table class="w-full border-collapse">
+ <thead><tr class="bg-gray-50 text-gray-500 text-[10px] uppercase tracking-wider">
+ <th class="text-left p-1.5">Agent</th><th class="text-left p-1.5">Role</th><th class="text-left p-1.5">File</th><th class="text-left p-1.5">Status</th><th class="text-left p-1.5">Recovery Boundary</th>
+ </tr></thead>
+ <tbody>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Atlas</td><td class="p-1.5 text-gray-500">Main operations / dashboard / recovery</td><td class="p-1.5"><code>IDENTITY.md</code>, <code>AGENTS.md</code></td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Active</span></td><td class="p-1.5 text-gray-400">No self-preservation directives. Follows workspace recovery spec.</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Clara</td><td class="p-1.5 text-gray-500">Compliance / external-facing risk review</td><td class="p-1.5"><code>agents/COMPLIANCE_EXTERNAL_REVIEWER.md</code></td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Active</span></td><td class="p-1.5 text-gray-400">No privacy leaks. No institutional endorsement. Pre-flight gate only.</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Nora</td><td class="p-1.5 text-gray-500">Product / R&D / workflow interpretation</td><td class="p-1.5"><code>agents/NORA_PRODUCT_RD.md</code></td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Active</span></td><td class="p-1.5 text-gray-400">No product launch. No external communication. No startup hype.</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Felix</td><td class="p-1.5 text-gray-500">Finance / reimbursement / sustainability boundary</td><td class="p-1.5"><code>agents/FELIX_FINANCE_BOUNDARY.md</code></td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Active</span></td><td class="p-1.5 text-gray-400">No tax/legal/billing advice. No startup/VC framing unless asked.</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Anchor</td><td class="p-1.5 text-gray-500">Market / external signal watcher</td><td class="p-1.5"><code>agents/ANCHOR_MARKET_WATCHER.md</code></td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Active</span></td><td class="p-1.5 text-gray-400">No trading commands. No financial advice. Observational only.</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Mira</td><td class="p-1.5 text-gray-500">Personal presence / wardrobe / occasion readiness</td><td class="p-1.5"><code>agents/MIRA_PERSONAL_PRESENCE.md</code></td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Active</span></td><td class="p-1.5 text-gray-400">No purchasing, no account access, no medical/legal/financial decisions.</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">DSKBot</td><td class="p-1.5 text-gray-500">Telegram final-summary output</td><td class="p-1.5"><code>internal-notes/dskbot-telegram-output-discipline.md</code></td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Active</span></td><td class="p-1.5 text-gray-400">Final summaries only. No process narration. No intermediate reasoning in Telegram.</td></tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+
+ <!-- 2. Visual Architecture Recovery Index -->
+ <div class="sec-card accent-purple">
+ <div class="flex items-center gap-1.5 mb-2">
+ <span class="text-sm font-bold">🏗 Visual Architecture Index</span>
+ <span class="label bg-purple-100 text-purple-700">存储定位</span>
+ </div>
+ <div class="overflow-x-auto text-[11px]">
+ <table class="w-full border-collapse">
+ <thead><tr class="bg-gray-50 text-gray-500 text-[10px] uppercase tracking-wider">
+ <th class="text-left p-1.5">Space</th><th class="text-left p-1.5">Owner</th><th class="text-left p-1.5">Purpose</th><th class="text-left p-1.5">Index File</th><th class="text-left p-1.5">Status</th><th class="text-left p-1.5">Recovery Rule</th>
+ </tr></thead>
+ <tbody>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Atlas Desk</td><td class="p-1.5">Atlas</td><td class="p-1.5 text-gray-500">Daily operations, active work, urgent items</td><td class="p-1.5"><code>recovery-spec → Atlas Desk Items</code></td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Active</span></td><td class="p-1.5 text-gray-400">Survive restore. Must re-index after recovery.</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Atlas Computer</td><td class="p-1.5">Atlas</td><td class="p-1.5 text-gray-500">Reviewed/archived operational items</td><td class="p-1.5"><code>recovery-spec → Atlas Computer</code></td><td class="p-1.5"><span class="label bg-gray-100 text-gray-600">Empty</span></td><td class="p-1.5 text-gray-400">—</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Clara Desk</td><td class="p-1.5">Clara</td><td class="p-1.5 text-gray-500">Pre-flight review queue, compliance reference</td><td class="p-1.5"><code>recovery-spec → Clara Desk Items</code></td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Active</span></td><td class="p-1.5 text-gray-400">Survive restore. No pre-flight review skipped.</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Felix Desk</td><td class="p-1.5">Felix</td><td class="p-1.5 text-gray-500">Finance strategy reference, CPA-prep notes</td><td class="p-1.5"><code>recovery-spec → Felix Desk Items</code></td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Active</span></td><td class="p-1.5 text-gray-400">Survive restore. Items: Philanthropy Watch Note, Business Checking Protocol.</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Felix Computer</td><td class="p-1.5">Felix</td><td class="p-1.5 text-gray-500">Reviewed finance archive</td><td class="p-1.5"><code>recovery-spec → Felix Computer</code></td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Active</span></td><td class="p-1.5 text-gray-400">AWS May 2026 cost archive. Survive restore.</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Nora Board</td><td class="p-1.5">Nora</td><td class="p-1.5 text-gray-500">Active scratch concepts, product ideas</td><td class="p-1.5"><code>recovery-spec → Nora Desk Items</code></td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Active</span></td><td class="p-1.5 text-gray-400">Items: CHW Dashboard scratch. Survive restore.</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Nora Desk</td><td class="p-1.5">Nora</td><td class="p-1.5 text-gray-500">Active workflow queue, scanner status references</td><td class="p-1.5"><code>recovery-spec → Nora Desk Items</code></td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Active</span></td><td class="p-1.5 text-gray-400">Items: Work Queue + Scanner, queue status. Product drafts stored in Cabinet. Survive restore.</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Nora Product Draft Cabinet</td><td class="p-1.5">Nora</td><td class="p-1.5 text-gray-500">Vetted product concepts, Richard-approved</td><td class="p-1.5"><code>internal-notes/nora-product-development-loop.md</code></td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Active</span></td><td class="p-1.5 text-gray-400">PCP Skeleton prototype v0.1 internal-only candidate (Richard review pending). See also: <code>pcp-discussion-preparation-skeleton.md</code>.</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Trillium Cabinet</td><td class="p-1.5">Richard</td><td class="p-1.5 text-gray-500">Trillium-specific reference materials</td><td class="p-1.5"><code>internal-notes/trillium-lme-mco-cabinet-index.md</code></td><td class="p-1.5"><span class="label bg-blue-100 text-blue-700">Reference</span></td><td class="p-1.5 text-gray-400">No Trillium-requested tool. Not payer validation.</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Holly Warren Cabinet</td><td class="p-1.5">Richard</td><td class="p-1.5 text-gray-500">Warren-specific correspondence, 1915(i) notes</td><td class="p-1.5"><code>internal-notes/holly-warren-relationship-to-project-map.md</code><br/><code>internal-notes/1915i-fasd-documentation-readiness-workflow-map.md</code></td><td class="p-1.5"><span class="label bg-blue-100 text-blue-700">Reference</span></td><td class="p-1.5 text-gray-400">No active alignment needed. Passive wait mode.</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Contentnea FQHC Cabinet</td><td class="p-1.5">Richard</td><td class="p-1.5 text-gray-500">Contentnea-specific reference materials</td><td class="p-1.5"><code>internal-notes/archive/contentnea-fqhc-cabinet/</code></td><td class="p-1.5"><span class="label bg-yellow-100 text-yellow-800">Pending</span></td><td class="p-1.5 text-gray-400">CEO Meeting 6/8 pending confirmation.</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Payer Review Table</td><td class="p-1.5">Clara</td><td class="p-1.5 text-gray-500">Pre-flight review queue for payer-facing content</td><td class="p-1.5"><code>agents/COMPLIANCE_EXTERNAL_REVIEWER.md</code></td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Active</span></td><td class="p-1.5 text-gray-400">Clara gate mandatory before any payer-facing release.</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Anchor Station</td><td class="p-1.5">Anchor</td><td class="p-1.5 text-gray-500">Market watcher signal observation</td><td class="p-1.5"><code>agents/ANCHOR_MARKET_WATCHER.md</code></td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Active</span></td><td class="p-1.5 text-gray-400">No trading. No housing action. No outreach.</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Mira Station</td><td class="p-1.5">Mira</td><td class="p-1.5 text-gray-500">Personal presence / wardrobe reference</td><td class="p-1.5"><code>agents/MIRA_PERSONAL_PRESENCE.md</code></td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Active</span></td><td class="p-1.5 text-gray-400">No active tasks.</td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Operations Display</td><td class="p-1.5">Team</td><td class="p-1.5 text-gray-500">Shared situational awareness screen</td><td class="p-1.5"><code>recovery-spec → Operations Display</code></td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Active</span></td><td class="p-1.5 text-gray-400">Visual-only. No runtime effect. No connected data sources.</td></tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+
+ <!-- 3. Desk-to-Computer Archive Pattern -->
+ <div class="sec-card accent-orange">
+ <div class="flex items-center gap-1.5 mb-2">
+ <span class="text-sm font-bold">📦 Desk-to-Computer Archive Pattern</span>
+ <span class="label bg-orange-100 text-orange-700">Closure Path</span>
+ </div>
+ <div class="text-[11px] space-y-1.5">
+ <p><strong>Pattern</strong>: 当 desk 上的项目完成或不再需要活跃 action → reviewed item 离开 desk → short desk index 保留（含 path/status/boundary）→ 完整摘要移至对应 role 的 Computer archive。Desk 索引指向 Computer 档案，Computer 档案不暴露敏感细节。</p>
+ <p><strong>Felix Computer Archive Case #1</strong>: AWS May 2026 Cost Increase — 已确认预期（Richard确认）→ 从 Felix desk 移出，索引指向 Computer。</p>
+ <p><strong>Rule</strong>: 不要删除 desk 索引行。只标记为 archive 或移除活跃 action，保留 path 和溯源。</p>
+ </div>
+ </div>
+
+ <!-- 4. Nora Work Queue + Scanner Index -->
+ <div class="sec-card accent-green">
+ <div class="flex items-center gap-1.5 mb-2">
+ <span class="text-sm font-bold">📋 Nora Work Queue + Scanner Index</span>
+ <span class="label bg-green-100 text-green-700">手动运行</span>
+ </div>
+ <div class="text-[11px] space-y-1.5">
+ <ul class="list-disc pl-3.5 space-y-0.5">
+ <li><strong>Scanner script</strong>: <code>scripts/nora_progress_scanner.py</code> — v0.1.1 manual-run stable candidate</li>
+ <li><strong>Queue reference</strong>: <code>internal-notes/nora-work-queue.md</code></li>
+ <li><strong>Design note</strong>: <code>internal-notes/nora-progress-scanner-design.md</code></li>
+ <li><strong>Latest report</strong>: <code>internal-notes/nora-progress-scanner-report.md</code></li>
+ <li><strong>Status</strong>: Manual-run only. No cron. No model calls. Next 2–3 runs manual before any cron discussion.</li>
+ <li><strong>Current queue</strong>: 1 pending (PCP Skeleton Richard review) · 0 blocked</li>
+ </ul>
+ </div>
+ </div>
+
+ <!-- 5. Dashboard Recovery / Deploy Index -->
+ <div class="sec-card accent-red">
+ <div class="flex items-center gap-1.5 mb-2">
+ <span class="text-sm font-bold">🚀 Dashboard Recovery / Deploy Index</span>
+ <span class="label bg-red-100 text-red-700">操作入口</span>
+ </div>
+ <div class="text-[11px] space-y-1.5">
+ <ul class="list-disc pl-3.5 space-y-0.5">
+ <li><strong>Repo</strong>: <code>neighborbridge-dashboard/</code> (GitHub)</li>
+ <li><strong>Live file</strong>: <code>index.html</code></li>
+ <li><strong>Deploy</strong>: GitHub push → Cloudflare Workers auto-deploy</li>
+ <li><strong>Backup pattern</strong>: <code>index.html.backup-YYYYMMDD-HHMMSS</code> (local, kept only latest few)</li>
+ <li><strong>Rollback</strong>: <code>cp backup index.html && git add && git commit -m "Rollback" && git push</code></li>
+ <li><strong>Latest deploy</strong>: commit <code>87cea53</code> (2026-06-07 — clean stale items, add Nora widget)</li>
+ <li><strong>Zero Trust</strong>: Main route protected by Cloudflare Zero Trust. Child routes require periodic manual spot-check.</li>
+ <li><strong>Staging file</strong>: <code>index.html.staging</code> — 暂存修改预览用</li>
+ </ul>
+ </div>
+ </div>
+
+ <!-- 6. Housekeeping / Safety Rules Index -->
+ <div class="sec-card accent-teal">
+ <div class="flex items-center gap-1.5 mb-2">
+ <span class="text-sm font-bold">⚠️ Housekeeping / Safety Rules Index</span>
+ <span class="label bg-teal-100 text-teal-700">自动禁止</span>
+ </div>
+ <div class="text-[11px] space-y-1">
+ <ul class="list-disc pl-3.5 space-y-0.5">
+ <li><strong>Local script first</strong> — CLI before model-call cron</li>
+ <li><strong>No model-call cron</strong> — all scanner/cron jobs manual-run by default</li>
+ <li><strong>Fail closed</strong> — on error, stop. Do not auto-retry.</li>
+ <li><strong>No auto-retry</strong> — long tasks do not retry without Richard approval</li>
+ <li><strong>No long Telegram tasks</strong> — Telegram output must be final, short, user-facing</li>
+ <li><strong>DSKBot final-only output</strong> — no process narration, no scratchpad, no intermediate reasoning. See <code>internal-notes/dskbot-telegram-output-discipline.md</code></li>
+ <li><strong>Subtractive Housekeeping</strong> — read-only audit first, no automatic cleanup. Atlas inspects/classifies/reports, does NOT delete/rewrite/restart autonomously.</li>
+ <li><strong>No external action without Richard approval</strong> — no email, no outreach, no public posting, no payer/funding contact, no product launch</li>
+ <li><strong>Separate workstreams</strong> — no mixed file types across workstreams</li>
+ <li><strong>Recovery/rollback standard</strong> — snapshot + document before any destructive change</li>
+ </ul>
+ </div>
+ </div>
+
+ <!-- 7. Current Priority Map -->
+ <div class="sec-card accent-blue">
+ <div class="flex items-center gap-1.5 mb-2">
+ <span class="text-sm font-bold">📌 Current Priority Map</span>
+ <span class="label bg-blue-100 text-blue-700">各空间 #1</span>
+ </div>
+ <div class="overflow-x-auto text-[11px]">
+ <table class="w-full border-collapse">
+ <thead><tr class="bg-gray-50 text-gray-500 text-[10px] uppercase tracking-wider">
+ <th class="text-left p-1.5">Space</th><th class="text-left p-1.5">Priority #1</th><th class="text-left p-1.5">Status</th>
+ </tr></thead>
+ <tbody>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Atlas Desk</td><td class="p-1.5 text-gray-500">Dashboard maintenance · Recovery spec updates</td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Ongoing</span></td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Nora Board</td><td class="p-1.5 text-gray-500">CHW Dashboard scratch concept (synthetic mockup)</td><td class="p-1.5"><span class="label bg-blue-100 text-blue-700">Scratch</span></td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Nora Desk</td><td class="p-1.5 text-gray-500">Work Queue + Scanner v0.1.1 — manual-run stable</td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Stable</span></td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Nora Product Draft Cabinet</td><td class="p-1.5 text-gray-500">PCP Skeleton prototype v0.1 — Richard review pending</td><td class="p-1.5"><span class="label bg-yellow-100 text-yellow-700">Pending review</span></td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Felix Desk</td><td class="p-1.5 text-gray-500">Philanthropy Watch Note (CPA-prep reference)</td><td class="p-1.5"><span class="label bg-blue-100 text-blue-700">Reference</span></td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Felix Computer</td><td class="p-1.5 text-gray-500">AWS May 2026 cost archive</td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Archived</span></td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Holly Warren Cabinet</td><td class="p-1.5 text-gray-400 italic">No active priority — passive wait</td><td class="p-1.5"><span class="label bg-gray-100 text-gray-600">—</span></td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Contentnea FQHC Cabinet</td><td class="p-1.5 text-gray-500">CEO Meeting 6/8 confirmation pending</td><td class="p-1.5"><span class="label bg-yellow-100 text-yellow-700">Pending</span></td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Trillium Cabinet</td><td class="p-1.5 text-gray-400 italic">No active priority — reference only</td><td class="p-1.5"><span class="label bg-gray-100 text-gray-600">—</span></td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Payer Review Table</td><td class="p-1.5 text-gray-400 italic">No active payer-facing content in queue</td><td class="p-1.5"><span class="label bg-gray-100 text-gray-600">—</span></td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Anchor Station</td><td class="p-1.5 text-gray-400 italic">No active signals</td><td class="p-1.5"><span class="label bg-gray-100 text-gray-600">—</span></td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Mira Station</td><td class="p-1.5 text-gray-400 italic">No active tasks</td><td class="p-1.5"><span class="label bg-gray-100 text-gray-600">—</span></td></tr>
+ <tr class="border-t border-gray-100"><td class="p-1.5 font-medium">Operations Display</td><td class="p-1.5 text-gray-500">Team status awareness (visual concept)</td><td class="p-1.5"><span class="label bg-green-100 text-green-800">Active</span></td></tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+
+ <!-- 8. External Boundary Index -->
+ <div class="sec-card accent-red">
+ <div class="flex items-center gap-1.5 mb-2">
+ <span class="text-sm font-bold">🚧 External Boundary Index</span>
+ <span class="label bg-red-100 text-red-700">不可对外</span>
+ </div>
+ <div class="text-[11px] space-y-1.5">
+ <p>以下关系为内部参考。无 endorsement、无 payer demand、无 funding validation、无 external permission。</p>
+ <ul class="list-disc pl-3.5 space-y-0.5">
+ <li><strong>Holly Warren / Contentnea</strong> — field relationship, passive wait. No active alignment needed.</li>
+ <li><strong>Trillium</strong> — reference relationship only. Not a payer demand. Not funding validation.</li>
+ <li><strong>Yale</strong> — Richard's Adjunct Assistant Professor affiliation. No institutional endorsement of NC project.</li>
+ <li><strong>Duke</strong> — no active relationship. No endorsement.</li>
+ <li><strong>UNC</strong> — no active relationship. No endorsement.</li>
+ <li><strong>Proof Alliance</strong> — reference only. Listing wording needs confirmation before any external use.</li>
+ <li><strong>Vinod</strong> — framework calibration completed. No institutional bridge. No endorsement.</li>
+ <li><strong>Vikram Patel / CHW methodology</strong> — conceptual alignment only. No contact.</li>
+ </ul>
+ <p class="text-[10px] text-gray-400 mt-1">General rule: No outreach unless Richard explicitly approves. No external-facing claim without Clara pre-flight review.</p>
+ </div>
+ </div>
+
+ <!-- Footer -->
+ <div class="border-t pt-2 text-[10px] text-gray-400 text-center">
+ <p>Private Recovery Index · internal only · recovery map, not source vault</p>
+ <p>Source of truth remains in <code>internal-notes/</code>, <code>agents/</code>, repo, snapshots</p>
+ </div>
+
+</div>
+</body>
+</html>
