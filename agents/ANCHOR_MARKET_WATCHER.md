@@ -58,6 +58,17 @@ Runtime: No independent process — invoked by Atlas when market watcher coordin
 - Dedup required
 - Fail closed on stale or unavailable data
 - Suppress market-closed stale outputs
+
+## Dollar Liquidity and Supply Monitor
+
+Location: `scripts/dollar-liquidity-monitor/`
+
+Monitors Fed balance sheet (WALCL, WRESBAL, RRP, TGA, M2), market liquidity pressure (DXY, US10Y, VIX, MOVE, SOFR, HY OAS), and cross-market confirmation (XAU, XAG, WTI, XLE).
+
+- Fetches: FRED CSV exports + yfinance daily closes
+- Updates: ~15:45-16:15 ET on trading days; FRED daily with lag awareness
+- Alerts: Chinese-only Telegram, 3-4 lines max, only on meaningful change
+- Data rules: validate timestamps, no OCR, no stale-data Telegram, no intraday alerts for slow series
 - Alert only when actionable
 - Label uncertainty clearly
 
